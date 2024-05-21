@@ -1,3 +1,9 @@
+univention-ldap (18.0.13) unstable; urgency=medium
+
+  * Bug #51187: Add prevent_umc_default_popup to settings/extended_attributes
+
+ -- Julia Bremer <bremer@univention.de>  Wed, 04 Dec 2024 09:44:20 +0100
+
 univention-ldap (18.0.12) unstable; urgency=medium
 
   * Bug #57193: Add index for sOARecord
