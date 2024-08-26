@@ -1,3 +1,9 @@
+univention-samba4 (11.0.8) unstable; urgency=medium
+
+  * Bug #57529: use rsync --filter with "-x" rules to only sync security.NTACL
+
+ -- Arvid <requate@univention.de>  Thu, 30 Sep 2024 16:26:00 +0200
+
 univention-samba4 (11.0.7) unstable; urgency=medium
 
   * Bug #57310: Let stop_conflicting_services stop winbindd first
