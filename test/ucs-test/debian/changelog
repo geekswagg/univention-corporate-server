@@ -1,3 +1,9 @@
+ucs-test (12.0.216) unstable; urgency=medium
+
+  * Bug #57672: Adjusts s4connector test to work with re-encoded jpeg image
+
+ -- Marius Meschter <marius.meschter@univention.de>  Tue, 22 Oct 2024 11:18:08 +0200
+
 ucs-test (12.0.215) unstable; urgency=medium
 
   * Bug #56313: Reduce test flakiness: Reduce test flakiness
