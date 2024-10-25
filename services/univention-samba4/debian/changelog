@@ -1,3 +1,9 @@
+univention-samba4 (11.0.6) unstable; urgency=medium
+
+  * Bug #57690: Adjust UCR default "allow_sasl_over_tls" to yes
+
+ -- Arvid <requate@univention.de>  Fri, 25 Oct 2024 13:05:15 +0200
+
 univention-samba4 (11.0.5) unstable; urgency=medium
 
   * Bug #57145: mdb is now default

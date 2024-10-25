@@ -508,8 +508,8 @@ Type=str
 Categories=service-samba
 
 [samba/ldap/server/require/strong/auth]
-Description[de]=Über diese Variable lässt sich die Samba Option "ldap server require strong auth" anpassen (siehe man smb.conf). UCS default ist "allow_sasl_over_tls".
-Description[en]=This variable can be used to adjust the Samba option "ldap server require strong auth" (see man smb.conf). UCS default is "allow_sasl_over_tls".
+Description[de]=Über diese Variable lässt sich die Samba Option "ldap server require strong auth" anpassen (siehe man smb.conf). UCS default ist "yes".
+Description[en]=This variable can be used to adjust the Samba option "ldap server require strong auth" (see man smb.conf). UCS default is "yes".
 Type=str
 Categories=service-samba
 

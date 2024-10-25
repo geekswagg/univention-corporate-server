@@ -65,7 +65,7 @@ for key, smbstring in [
 
 for key, smbstring, ucsdefault in [
         ('samba/tls/verify/peer', 'tls verify peer', 'ca_and_name'),
-        ('samba/ldap/server/require/strong/auth', 'ldap server require strong auth', 'allow_sasl_over_tls'),
+        ('samba/ldap/server/require/strong/auth', 'ldap server require strong auth', 'yes'),
 ]:
     ucrvalue = configRegistry.get(key)
     if ucrvalue:
