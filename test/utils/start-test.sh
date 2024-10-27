@@ -12,6 +12,7 @@ export KVM_UCSVERSION="${KVM_UCSVERSION:=5.2-0+2024}"  #
 export OPENSTACK_IMAGE_VERSION="${OPENSTACK_IMAGE_VERSION:=5.2-0}"  # version for the openstack image
 export OPENSTACK_IMAGE_NAME="${OPENSTACK_IMAGE_NAME:=UCS $OPENSTACK_IMAGE_VERSION}"  # name of the default openstack image
 export UCS_MINORRELEASE="${release%%-*}"
+export RANDOM_UCS_ROOT_PASSWORD="${RANDOM_UCS_ROOT_PASSWORD:=$(shuf -zern32 {A..Z} {a..z} {0..9})}"  # used in some scenarios to hide the password. access by certificate (or pass it yourself or look at the environment)
 export TARGET_VERSION="${TARGET_VERSION:=$release}"
 export UCS_VERSION="${UCS_VERSION:=$release}"
 export OLD_VERSION="${OLD_VERSION:=$old_release}"
@@ -41,9 +42,8 @@ export OS_CLOUD="${OS_CLOUD:=univention-development}"
 image="${DIMAGE:-gitregistry.knut.univention.de/univention/dist/ucs-ec2-tools}"
 : "${DEBUG:=false}"
 : "${DOCKER:=true}"
-: "${DOCKER_ENV_TMP_DIR:=/tmp}"
 
-docker_env_file="$(mktemp -p ${DOCKER_ENV_TMP_DIR})"
+docker_env_file="$(mktemp)"
 
 have () {
 	command -v "$1" >/dev/null 2>&1
