@@ -200,6 +200,10 @@ Univention App Center
 * Adapted code to API changes in the new Python :program:`apt` library
   (:uv:bug:`56598`).
 
+* The Docker daemon is configured to log to :program:`journald` by default now,
+  not in per-container JSON log files. :program:`journald` can be queried to
+  get the logs for one app (:uv:bug:`56058`, :uv:bug:`56131`).
+
 * The App Center now avoids assigning a subnet to an app that conflicts with
   other networks already created in docker (:uv:bug:`57210`).
 
