@@ -49,7 +49,6 @@ from shlex import quote
 import dns.resolver
 import ldap
 import ldap.sasl
-import ldb
 from ldap.filter import filter_format
 from samba.dcerpc import nbt, security
 from samba.dcerpc.security import DOMAIN_RID_ADMINISTRATOR, DOMAIN_RID_ADMINS
@@ -759,12 +758,10 @@ def cldap_finddc(ip):
 
 def get_defaultNamingContext(ad_server_ip):
     # type: (str, bool) -> str
-    try:
-        remote_ldb = ldb.Ldb()
-        remote_ldb.connect(url="ldap://%s" % ad_server_ip)
-        return str(remote_ldb.get_default_basedn())
-    except ldb.LdbError as exc:
-        raise RuntimeError(exc)
+    lo = ldap.initialize(f'ldap://{ad_server_ip}')
+    res = lo.search_s('', ldap.SCOPE_BASE, None, ['defaultNamingContext'])
+    default_naming_context = res[0][1]['defaultNamingContext'][0].decode('UTF-8')
+    return default_naming_context
 
 
 def lookup_adds_dc(ad_server="", ucr=None, check_dns=True):
