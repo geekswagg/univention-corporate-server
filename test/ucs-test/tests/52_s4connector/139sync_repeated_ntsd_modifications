@@ -55,8 +55,8 @@ ldif=$(ldbsearch -H /var/lib/samba/private/sam.ldb "(&(objectClass=groupPolicyCo
 
 dn=$(dn <<<"$ldif")
 ntsd_orig=$(VAL nTSecurityDescriptor <<<"$ldif")
-ntsd_mod1=$(sed -n 's/)S:AI(/)(A;CI;RPLCLORC;;;DU)S:AI(/p' <<<"$ntsd_orig")
-ntsd_mod2=$(sed -n 's/)S:AI(/)(A;CI;RPLCLORC;;;PA)S:AI(/p' <<<"$ntsd_mod1")
+ntsd_mod1=$(sed -n 's/)S:AI(/)(A;CI;LCRPLORC;;;DU)S:AI(/p' <<<"$ntsd_orig")
+ntsd_mod2=$(sed -n 's/)S:AI(/)(A;CI;LCRPLORC;;;PA)S:AI(/p' <<<"$ntsd_mod1")
 
 
 tail -f /var/log/univention/connector-s4.log &
