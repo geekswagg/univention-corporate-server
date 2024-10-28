@@ -1,3 +1,9 @@
+ucs-test (12.0.196) unstable; urgency=medium
+
+  * Bug #57672: fix 120sync_create_and_modify_ucs_user s4 test
+
+ -- Felix Botner <botner@univention.de>  Mon, 28 Oct 2024 15:23:50 +0100
+
 ucs-test (12.0.195) unstable; urgency=medium
 
   * Bug #57690: Adjust test to modified samba SDDL output

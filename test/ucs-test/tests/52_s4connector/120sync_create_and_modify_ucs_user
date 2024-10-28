@@ -100,7 +100,8 @@ UDM_users_user_pager2="$(random_chars 7 "$_ciphers")"
 UDM_users_user_pager3="$(random_chars 4 "$_ciphers")"
 
 if $ext_mapping; then
-	UDM_users_user_jpegPhoto="/9j/4AAQSkZJRgABAQEBLAEsAAD/4Se4"
+	UDM_users_user_jpegPhoto="/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/wAALCAABAAEBAREA/8QAFAABAAAAAAAAAAAAAAAAAAAACf/EABQQAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQEAAD8AKp//2Q=="
+	UDM_users_user_jpegPhoto_encoded=$(encode_jpegPhoto "$UDM_users_user_jpegPhoto")
 	UDM_users_user_employeeNumber="$(random_chars)"
 	UDM_users_user_employeeType="$(random_chars)"
 	UDM_users_user_loginShell="$(random_chars)"
