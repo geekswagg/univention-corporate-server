@@ -1,3 +1,9 @@
+ucs-test (12.0.197) unstable; urgency=medium
+
+  * Issue univention/ucs#2338: Fix shadow tests for openstack
+
+ -- Julia Bremer <bremer@univention.de>  Tue, 29 Oct 2024 13:45:34 +0100
+
 ucs-test (12.0.196) unstable; urgency=medium
 
   * Bug #57672: fix 120sync_create_and_modify_ucs_user s4 test
