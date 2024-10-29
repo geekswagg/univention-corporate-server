@@ -400,5 +400,6 @@ Services for Windows
 Samba
 =====
 
+* :program:`samba` has been updated to version 4.21.1 (:uv:bug:`57690`).
 * The default for the Samba database is now ``mdb`` (:uv:bug:`57145`).
 

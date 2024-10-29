@@ -26,6 +26,8 @@ the most important changes:
 * Update from Python 3.7 to Python 3.11.
   No more support for Python 2.
 
+* Update to Samba version 4.21.1
+
 * FIXME
 
 
