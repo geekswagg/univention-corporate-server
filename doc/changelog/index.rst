@@ -389,6 +389,12 @@ NFS
 * The :program:`systemd` service unit for :program:`nfs-kernel-server` has been
   adjusted to make restarts possible again (:uv:bug:`56545`).
 
+NTP
+===
+
+* The :program:`ntpsec` service has been updated to version 1.2.3 to support
+  MS-SNTP (:uv:bug:`57147`).
+
 .. _changelog-win:
 
 ********************
