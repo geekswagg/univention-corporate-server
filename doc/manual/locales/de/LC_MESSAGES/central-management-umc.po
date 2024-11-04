@@ -2455,7 +2455,6 @@ msgid "Optional parameters for the database connection pool:"
 msgstr "Optionale Einstellungen für den Datenbankverbindungspool:"
 
 #: ../../central-management-umc/login.rst:435
-#, fuzzy
 msgid ""
 "``Pool Size``: The number of connections to the database. The default "
 "value is ``5``."
