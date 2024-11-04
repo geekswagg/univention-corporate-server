@@ -1,3 +1,10 @@
+univention-system-setup (15.0.7) unstable; urgency=medium
+
+  * Issue univention/ucs#2488: Remove automated keycloak installation during
+    system-setup
+
+ -- Dirk Wiesenthal <wiesenthal@univention.de>  Mon, 04 Nov 2024 17:02:35 +0100
+
 univention-system-setup (15.0.6) unstable; urgency=medium
 
   * Bug #56806: Install Keycloak in system-setup from appcenter
