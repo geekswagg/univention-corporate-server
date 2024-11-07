@@ -1,3 +1,9 @@
+ucs-test (12.0.215) unstable; urgency=medium
+
+  * Bug #56313: Reduce test flakiness: Reduce test flakiness
+
+ -- Julia Bremer <bremer@univention.de>  Thu, 07 Nov 2024 22:18:17 +0100
+
 ucs-test (12.0.214) unstable; urgency=medium
 
   * Issue univention/ucs#2533: add -p repeat to bin/playwright
