@@ -1061,6 +1061,12 @@ monkeypatch () {
 }
 
 import_license () {
+	if [ -e "/root/$(ucr get domainname).license" ]; then
+		univention-license-import "/root/$(ucr get domainname).license"
+		if univention-license-check; then
+			return 0
+		fi
+	fi
 	local users="${1:-50}"
 	local lb
 	lb="$(ucr get ldap/base)"
