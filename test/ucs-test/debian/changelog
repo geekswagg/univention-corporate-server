@@ -1,3 +1,9 @@
+ucs-test (12.0.204) unstable; urgency=medium
+
+  * Issue univention/ucs#2338: Remove unused get_keycloak_version fixture
+
+ -- Dirk Wiesenthal <wiesenthal@univention.de>  Thu, 14 Nov 2024 12:13:11 +0100
+
 ucs-test (12.0.203) unstable; urgency=medium
 
   * Bug #57533: use portal fqdn in oidc access token test as base_url and

@@ -31,7 +31,7 @@ def test_create_oidc_client(keycloak_administrator_connection):
 
 
 @pytest.mark.skipif(not os.path.isfile('/etc/keycloak.secret'), reason='fails on hosts without keycloak.secret')
-def test_upgrade_config_status(keycloak_app_version):
+def test_upgrade_config_status():
     """no upgrade needed after installation"""
     upgrades = run_command(['univention-keycloak', 'upgrade-config', '--json', '--get-upgrade-steps'])
     upgrades = json.loads(upgrades)

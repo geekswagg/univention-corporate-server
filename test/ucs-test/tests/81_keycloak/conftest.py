@@ -122,13 +122,6 @@ def keycloak_settings() -> dict:
 
 
 @pytest.fixture()
-def keycloak_app_version() -> str:
-    apps_cache = Apps()
-    version = [app.version for app in apps_cache.get_all_locally_installed_apps() if app.id == 'keycloak']
-    return version[0]
-
-
-@pytest.fixture()
 def upgrade_status_obj(ucr_proper) -> SettingsDataObject:
     udm = UDM.admin().version(2)
     mod = udm.get('settings/data')
