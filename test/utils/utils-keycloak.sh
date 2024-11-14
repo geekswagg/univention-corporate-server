@@ -80,8 +80,7 @@ install_upgrade_keycloak () {
 }
 
 keycloak_saml_idp_setup () {
-    domainname="$(ucr get domainname)"
-    local idp="${1:-ucs-sso-ng.${domainname,,}}"
+    local idp="${1:-ucs-sso-ng.$(ucr get domainname)}"
     if [ "$(ucr get server/role)" = "domaincontroller_master" ]; then
         udm portals/entry modify --dn "cn=login-saml,cn=entry,cn=portals,cn=univention,$(ucr get ldap/base)" --set activated=TRUE
     fi
@@ -246,7 +245,7 @@ external_portal_config_oidc () {
 	local fqdn="${1:?missing fqdn}"; shift
 
 	# oidc
-	ucr set umc/oidc/rp/server="${fqdn,,}"
+	ucr set umc/oidc/rp/server="$fqdn"
 
 	# we have to set a password, so that the password is the same for every client
 	# in case we have multiple UCS servers act as one portal (load balancing setup)
