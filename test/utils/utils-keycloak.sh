@@ -39,7 +39,7 @@ install_upgrade_keycloak () {
 	local project=600
 	local repo_id=68
 	local gitlab="git.knut.univention.de"
-	# TODO add versio parameter to ./update-appcenter-test.sh and appcenter-change-compose-image.py
+	# TODO add version parameter to ./update-appcenter-test.sh and appcenter-change-compose-image.py
 	#      (currently only "latest" is supported)
 	if [ -n "$KEYCLOAK_BRANCH" ]; then
 		univention-app update
