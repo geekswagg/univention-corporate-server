@@ -3,7 +3,7 @@ ucs-test (12.0.203) unstable; urgency=medium
   * Bug #57533: use portal fqdn in oidc access token test as base_url and
     in create access token lifespan
 
- -- Marius Meschter <marius.meschter@univention.de>  Mon, 21 Oct 2024 16:30:37 +0200
+ -- Marius Meschter <marius.meschter@univention.de>  Thu, 14 Nov 2024 11:23:40 +0200
 
 ucs-test (12.0.202) unstable; urgency=medium
 
