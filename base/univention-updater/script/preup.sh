@@ -178,8 +178,9 @@ __PREF__
 [ -f /etc/apt/apt.conf.d/99ucs520 ] || echo 'APT::Get::Allow-Downgrades "true";' >/etc/apt/apt.conf.d/99ucs520
 
 
-# univention/ucs#1945 - disable php7.4
+# univention/ucs#1945 - disable php7.4 and php7.0
 a2dismod php7.4 || true
+a2dismod php7.0 || true
 
 deactivate_old_package_sources () {
 	# disable UCS 5.1 package sources to avoid mixing package versions during update
