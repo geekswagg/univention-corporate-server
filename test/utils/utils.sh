@@ -1331,6 +1331,7 @@ configure_umc_postgres () {
 	su postgres -c "createdb umc"
 	su postgres -c "/usr/bin/createuser umc"
 	su postgres -c "psql umc -c \"ALTER ROLE umc WITH ENCRYPTED PASSWORD 'univention'\""
+	su postgres -c "psql umc -c \"GRANT ALL ON SCHEMA public TO umc\""
 	ucr set postgres15/pg_hba/config/host="umc umc 0.0.0.0/0 md5"
 	service postgresql restart
 	fqdn="$(ucr get hostname).$(ucr get domainname)"
