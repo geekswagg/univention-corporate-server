@@ -24,10 +24,6 @@ ip="$(dig +short "@$ldap_master" "$ldap_master" | head -1)"
 export HOST1="${ldap_master}"
 export IP1="$ip"
 
-ip2="$(dig +short "@$ldap_master" "$ucs_sso_fqdn" | head -1)"
-export HOST2="$ucs_sso_fqdn"
-export IP2="$ip2"
-
 ip3="$(dig +short "@$ldap_master" "$kc_server_sso_fqdn" | head -1)"
 export HOST3="$kc_server_sso_fqdn"
 export IP3="$ip3"

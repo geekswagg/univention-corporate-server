@@ -31,7 +31,6 @@ services:
       - LOCUST_STOP_TIMEOUT=5s
     extra_hosts:
       - "${HOST1}:${IP1}"
-      - "${HOST2}:${IP2}"
       - "${HOST3}:${IP3}"
   worker:
     build:
@@ -55,5 +54,4 @@ services:
       - LOCUST_STOP_TIMEOUT=5s
     extra_hosts:
       - "${HOST1}:${IP1}"
-      - "${HOST2}:${IP2}"
       - "${HOST3}:${IP3}"
