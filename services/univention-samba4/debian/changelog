@@ -1,3 +1,9 @@
+univention-samba4 (11.0.7) unstable; urgency=medium
+
+  * Bug #57310: Let stop_conflicting_services stop winbindd first
+
+ -- Arvid <requate@univention.de>  Tue, 19 Nov 2024 17:05:02 +0100
+
 univention-samba4 (11.0.6) unstable; urgency=medium
 
   * Bug #57690: Adjust UCR default "allow_sasl_over_tls" to yes
