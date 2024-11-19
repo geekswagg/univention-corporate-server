@@ -111,6 +111,10 @@ _disable_apt () {
 basic_setup () {
 	basic_setup_allow_uss
 	stop_uss_and_restore_profile
+
+	# ssh setting to migitiate ssh connection failures during test runs
+	ucr set sshd/ClientAliveCountMax=10
+	service sshd restart
 }
 
 stop_uss_and_restore_profile () {
