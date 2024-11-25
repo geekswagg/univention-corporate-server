@@ -1,3 +1,9 @@
+univention-web (6.0.6) unstable; urgency=medium
+
+  * Issue univention/ucs#2495: Adjust license information
+
+ -- Dirk Wiesenthal <wiesenthal@univention.de>  Mon, 25 Nov 2024 22:39:11 +0100
+
 univention-web (6.0.5) unstable; urgency=medium
 
   * Bug #57378 switch product logos
