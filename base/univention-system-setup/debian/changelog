@@ -1,3 +1,9 @@
+univention-system-setup (15.0.8) unstable; urgency=medium
+
+  * Issue univention/ucs#2495: Update copyright
+
+ -- Dirk Wiesenthal <wiesenthal@univention.de>  Wed, 27 Nov 2024 17:17:37 +0100
+
 univention-system-setup (15.0.7) unstable; urgency=medium
 
   * Issue univention/ucs#2488: Remove automated keycloak installation during

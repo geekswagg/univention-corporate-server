@@ -27,3 +27,7 @@ License: AGPL-3.0-only
  License with the Debian GNU/Linux or Univention distribution in file
  /usr/share/common-licenses/AGPL-3; if not, see
  <https://www.gnu.org/licenses/>.
+
+Files: sprites/dark/bootsplash-logo.svg sprites/dark/logo-step3.svg sprites/dark/powered-by-univention.svg sprites/light/bootsplash-logo.svg sprites/light/logo-step3.svg sprites/light/powered-by-univention.svg
+Copyright: 2024 Univention GmbH
+License: LicenseRef-Univention-Proprietary

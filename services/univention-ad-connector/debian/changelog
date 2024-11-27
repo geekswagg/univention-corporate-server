@@ -1,3 +1,9 @@
+univention-ad-connector (16.0.12) unstable; urgency=medium
+
+  * Issue univention/ucs#2495: Update copyright
+
+ -- Dirk Wiesenthal <wiesenthal@univention.de>  Wed, 27 Nov 2024 17:17:55 +0100
+
 univention-ad-connector (16.0.11) unstable; urgency=medium
 
   * Bug #57737: Remove rejects in case AD object is not "readable"

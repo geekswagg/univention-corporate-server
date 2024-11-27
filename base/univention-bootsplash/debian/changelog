@@ -1,3 +1,9 @@
+univention-bootsplash (13.0.3) unstable; urgency=medium
+
+  * Issue univention/ucs#2495: Update copyright
+
+ -- Dirk Wiesenthal <wiesenthal@univention.de>  Wed, 27 Nov 2024 17:17:07 +0100
+
 univention-bootsplash (13.0.2) unstable; urgency=medium
 
   * Bug #56604: drop Python 2 compatibility
