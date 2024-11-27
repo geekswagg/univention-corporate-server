@@ -162,7 +162,10 @@ class SamlTest:
             'GET': self.session.get,
             'POST': self.session.post}
         try:
-            self.page = _requests[method](url, data=data, verify='/etc/univention/ssl/ucsCA/CAcert.pem', headers=headers)
+            res = _requests[method](url, data=data, verify='/etc/univention/ssl/ucsCA/CAcert.pem', headers=headers)
+            if res.status_code == 401 and status_code != 401:
+                res = self._follow_kerberos_redirect(res.content)
+            self.page = res
         except requests.exceptions.SSLError:
             # Bug: https://github.com/shazow/urllib3/issues/556
             # raise SamlError("Problem while %s\nSSL error: %s" % (self.position, exc))
