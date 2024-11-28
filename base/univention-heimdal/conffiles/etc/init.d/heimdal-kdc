@@ -105,6 +105,8 @@ case "$1" in
 			--exec /usr/sbin/ipropd-slave -- $SLAVE_PARAMS
 		echo "/usr/sbin/ipropd-slave."
 	fi
+	# see univention/ucs#2312
+	sleep 1
 	;;
   #reload)
 	#

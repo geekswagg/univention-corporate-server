@@ -1,3 +1,9 @@
+univention-heimdal (15.0.5) unstable; urgency=medium
+
+  * Issue univention/ucs#2312: fix "restart"
+
+ -- Felix Botner <botner@univention.de>  Thu, 28 Nov 2024 18:17:47 +0100
+
 univention-heimdal (15.0.4) unstable; urgency=medium
 
   * Issue univention/ucs#2312: depend on network.target for kdc service
