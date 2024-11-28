@@ -109,7 +109,6 @@ ALL_TARGETS := $(DESTDIR)/usr/lib/univention-portal/udm/fr.mo \
 	$(DESTDIR)/usr/share/univention-system-activation/i18n/fr/main.json \
 	$(DESTDIR)/usr/share/univention-system-setup-boot/www/i18n/fr/main.json \
 	$(DESTDIR)/usr/share/univention-system-setup/www/i18n/fr/main.json \
-	$(DESTDIR)/usr/share/univention-web/js/umc/hooks/i18n/fr/appliance.json \
 	$(DESTDIR)/usr/share/univention-web/js/umc/hooks/i18n/fr/passwordchange.json \
 	$(DESTDIR)/usr/share/univention-web/js/umc/hooks/i18n/fr/passwordreset.json \
 	$(DESTDIR)/usr/share/univention-web/js/umc/hooks/i18n/fr/univention_demo.json \
@@ -224,7 +223,6 @@ $(DESTDIR)/usr/share/univention-server-overview/i18n/fr/main.json: fr/management
 $(DESTDIR)/usr/share/univention-system-activation/i18n/fr/main.json: fr/base/univention-system-activation/www/fr.po
 $(DESTDIR)/usr/share/univention-system-setup-boot/www/i18n/fr/main.json: fr/base/univention-system-setup/usr/share/univention-system-setup-boot/www/fr.po
 $(DESTDIR)/usr/share/univention-system-setup/www/i18n/fr/main.json: fr/base/univention-system-setup/usr/share/univention-system-setup/www/fr.po
-$(DESTDIR)/usr/share/univention-web/js/umc/hooks/i18n/fr/appliance.json: fr/base/univention-app-appliance/usr/share/univention-web/js/umc/hooks/fr.po
 $(DESTDIR)/usr/share/univention-web/js/umc/hooks/i18n/fr/passwordchange.json: fr/management/univention-management-console-module-passwordchange/js/fr.po
 $(DESTDIR)/usr/share/univention-web/js/umc/hooks/i18n/fr/passwordreset.json: fr/management/univention-self-service/hook/fr.po
 $(DESTDIR)/usr/share/univention-web/js/umc/hooks/i18n/fr/univention_demo.json: fr/test/univention-demo-configuration/usr/share/univention-web/js/umc/hooks/fr.po
