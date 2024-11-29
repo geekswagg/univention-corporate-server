@@ -161,7 +161,7 @@ openbox --config-file /etc/xdg/openbox/rc_no_shortcuts.xml &
 windowManager=$!
 
 # start browser
-firefox -profile "$profilePath" "$URL" &
+firefox -kiosk -profile "$profilePath" "$URL" &
 
 # send pid of browser to root instance of this script
 echo "$!" >&3
