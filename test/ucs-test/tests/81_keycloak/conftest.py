@@ -272,29 +272,25 @@ def __portal_login_func(
     no_login: bool = False,
     protocol: str | None = 'saml',
 ):
-    try:
-        url = url or portal_config.url
-        page.goto(url)
-        expect(page).to_have_title(portal_config.title)
-        sso_login_tile = portal_config.sso_oidc_login_tile if protocol == 'oidc' else portal_config.sso_login_tile
-        get_portal_tile(page, sso_login_tile, portal_config).click()
-        # login
-        keycloak_login(page, keycloak_config, username, password, fails_with=fails_with if not new_password else None, no_login=no_login)
-        # check password change
-        if new_password:
-            new_password_confirm = new_password_confirm if new_password_confirm else new_password
-            keycloak_password_change(page, keycloak_config, username, password, new_password, new_password_confirm, fails_with=fails_with)
-        if protocol == 'oidc':
-            grant_oidc_privileges(page)
-        if fails_with or no_login:
-            return page
-        # check that we are logged in
-        if verify_login:
-            header_menu = page.locator(f'#{portal_config.header_menu_id}')
-            expect(header_menu, 'header menu not visible').to_be_visible()
-    except Exception:
-        print(page.content())
-        raise
+    url = url or portal_config.url
+    page.goto(url)
+    expect(page).to_have_title(portal_config.title)
+    sso_login_tile = portal_config.sso_oidc_login_tile if protocol == 'oidc' else portal_config.sso_login_tile
+    get_portal_tile(page, sso_login_tile, portal_config).click()
+    # login
+    keycloak_login(page, keycloak_config, username, password, fails_with=fails_with if not new_password else None, no_login=no_login)
+    # check password change
+    if new_password:
+        new_password_confirm = new_password_confirm if new_password_confirm else new_password
+        keycloak_password_change(page, keycloak_config, username, password, new_password, new_password_confirm, fails_with=fails_with)
+    if protocol == 'oidc':
+        grant_oidc_privileges(page)
+    if fails_with or no_login:
+        return page
+    # check that we are logged in
+    if verify_login:
+        header_menu = page.locator(f'#{portal_config.header_menu_id}')
+        expect(header_menu, 'header menu not visible').to_be_visible()
     return page
 
 
@@ -319,19 +315,14 @@ def keycloak_adm_login(tracing_page: Page, keycloak_config: SimpleNamespace):
         url: str | None = keycloak_config.url,
         no_login: bool = False,
     ):
-        try:
-            page.goto(url)
-            page.wait_for_load_state('networkidle', timeout=5 * 1000)
-            print(page.content())
-            expect(page).to_have_title('Univention Corporate Server Single-Sign On', timeout=30 * 1000)
-            keycloak_login(page, keycloak_config, username, password, fails_with=fails_with, no_login=no_login)
-            # check that we are logged in
-            if fails_with or no_login:
-                return page
-            expect(page).to_have_title('Keycloak Administration Console')
-        except Exception:
-            print(page.content())
-            raise
+        page.goto(url)
+        page.wait_for_load_state('networkidle', timeout=5 * 1000)
+        expect(page).to_have_title('Univention Corporate Server Single-Sign On', timeout=30 * 1000)
+        keycloak_login(page, keycloak_config, username, password, fails_with=fails_with, no_login=no_login)
+        # check that we are logged in
+        if fails_with or no_login:
+            return page
+        expect(page).to_have_title('Keycloak Administration Console')
         return page
 
     return _func
