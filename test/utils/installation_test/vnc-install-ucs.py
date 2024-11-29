@@ -804,7 +804,11 @@ class UCSInstallation(VNCInstallation):
         """
         self.wait_for_text('confirm_config')
         self.type('\n')
-        sleep(self.setup_finish_sleep, "FINISH")
+        wait_for_finish = self.setup_finish_sleep
+        if self.args.school_dep:
+            # school installation takes longer
+            wait_for_finish += 900
+        sleep(wait_for_finish, "FINISH")
 
         """
         # UCS-Einrichtung erfolgreich
