@@ -1,3 +1,9 @@
+ucs-test (12.0.208) unstable; urgency=medium
+
+  * Issue univention/ucs#2338: Fix samltest.py
+
+ -- Felix Botner <botner@univention.de>  Fri, 29 Nov 2024 12:45:12 +0100
+
 ucs-test (12.0.207) unstable; urgency=medium
 
   * Issue univention/ucs#2338: add tracing to keycloak playwright tests
