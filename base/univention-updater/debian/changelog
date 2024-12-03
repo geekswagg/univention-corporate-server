@@ -1,3 +1,9 @@
+univention-updater (17.0.10) unstable; urgency=medium
+
+  * Bug #56528: update_check_user_country_mapping only on primary
+
+ -- Felix Botner <botner@univention.de>  Tue, 03 Dec 2024 15:49:21 +0100
+
 univention-updater (17.0.9) unstable; urgency=medium
 
   * Issue univention/ucs#1945: Disable php7.0 for Apache
