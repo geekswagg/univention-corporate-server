@@ -1,7 +1,8 @@
 .umcBubble {
 	background-color: var(--bgc-content-container);
 	border-radius: var(--border-radius-container);
-	margin-bottom: 2em;
+	margin-bottom: 1em;
+	margin-top: 1em;
 }
 .umcBubble__header {
 	border-bottom: 2px solid var(--bgc-content-body);
@@ -18,6 +19,9 @@
 .umcBubble__img {
 	grid-area: img;
 	height: 9rem;
+}
+.umcBubble__img.keycloak {
+	padding: 10px;
 }
 .umcBubble__description {
 	grid-area: text;

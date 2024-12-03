@@ -36,6 +36,7 @@ define([
 	"umc/tools",
 	"umc/widgets/Module",
 	"umc/widgets/Page",
+	"dojo/topic",
 	"management/widgets/ActivationDialog",
 	"umc/modules/udm/LicenseDialog",
 	"umc/modules/udm/LicenseImportDialog",
@@ -43,7 +44,7 @@ define([
 	"./welcome/BubbleButton",
 	"umc/i18n!umc/modules/welcome",
 	"xstyle/css!umc/modules/welcome.css"
-], function(declare, tools, Module, Page, ActivationDialog, LicenseDialog, LicenseImportDialog, Bubble, BubbleButton, _) {
+], function(declare, tools, Module, Page, topic, ActivationDialog, LicenseDialog, LicenseImportDialog, Bubble, BubbleButton, _) {
 	return declare("umc.modules.welcome", [ Module ], {
 
 		buildRendering: function() {
@@ -51,7 +52,7 @@ define([
 
 			tools.ucr(['uuid/license']).then((ucr) => {
 				this._page = new Page({
-					helpText: _('Great to see you! This page lets you upload a UCS license so you can start using the Univention App Center.'),
+					helpText: _("Great to see you! Now that your system is ready, these simple steps will guide you through the next phase. Let’s ensure everything is set up perfectly for a smooth experience!"),
 					fullWidth: true
 				});
 				this.addChild(this._page);
@@ -60,6 +61,7 @@ define([
 					header: _('UCS License'),
 					icon: 'modules/udm/license.svg',
 					description: _('Manage your license for your Univention Corporate Server domain'),
+					subClass: 'license',
 				});
 				if (!ucr['uuid/license']) {
 					license.addChild(new BubbleButton({
@@ -82,6 +84,28 @@ define([
 					}
 				}));
 				this._page.addChild(license);
+
+				var keycloak = new Bubble({
+					header: _('Single Sign-on'),
+					icon: '/univention/js/dijit/themes/umc/images/login_logo.svg',
+					description: _('The Keycloak app enables single sign-on (SSO) for your UCS system, providing a unified and secure login experience.'),
+					subClass: 'keycloak',
+				});
+				keycloak.addChild(new BubbleButton({
+					header: _('Keycloak app'),
+					description: _('Open in Univention App Center'),
+					onClick: () => {
+						topic.publish('/umc/modules/open', 'appcenter', 'appcenter', {props: {app: 'keycloak'}});
+					}
+				}));
+				keycloak.addChild(new BubbleButton({
+					header: _('Documentation'),
+					description: _('Explore everything you need to know about the Keycloak app here'),
+					onClick: () => {
+						window.open('https://docs.software-univention.de/keycloak-app/latest/index.html');
+					}
+				}));
+				this._page.addChild(keycloak);
 			});
 		}
 	});

@@ -112,9 +112,10 @@ define([
 			this.standbyDuring(when(this.getAppCenterSeen()).then(
 				lang.hitch(this, 'displayAppCenterInformationIfNecessaryAndUpdateApps'),
 				lang.hitch(this, function() {return this.updateApplications();})
-			)).then(lang.hitch(this ,function() {
+			)).then(lang.hitch(this, function(applications) {
 				if (this.openApp) {
-					this.onShowApp({id: this.openApp});
+					var app = applications.find((_app) => this.openApp === _app.id);
+					topic.publish('/appcenter/open', app);
 				}
 			}));
 		},
@@ -493,9 +494,6 @@ define([
 				(selectedBadges.length == 0 || badgesMatch) &&
 				(selectedLicenses.length == 0 || licenseMatches) &&
 				voteForAppsMatches;
-		},
-
-		onShowApp: function(/*app*/) {
 		}
 	});
 });

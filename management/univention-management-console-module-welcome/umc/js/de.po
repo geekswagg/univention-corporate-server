@@ -11,13 +11,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: umc/js/welcome.js:51
-msgid ""
-"Great to see you! This page lets you upload a UCS license so you can start "
-"using the Univention App Center."
-msgstr ""
-"Schön Sie zu sehen! Auf dieser Seite können Sie eine UCS-Lizenz hochladen, "
-"mit der dann das Univention App Center benutzt werden kann."
+
+#: umc/js/welcome.js:54
+msgid "Great to see you! Now that your system is ready, these simple steps will guide you through the next phase. Let’s ensure everything is set up perfectly for a smooth experience!"
+msgstr "Schön Sie zu sehen! Jetzt, wo Ihr System bereit ist, führen Sie die unten aufgelisteten Schritte durch die nächste Phase. Lassen Sie uns sicherstellen, dass alles richtig eingerichtet ist, um einen reibungslosen Betrieb zu gewährleisten!"
 
 #: umc/js/welcome.js:74
 msgid "Import a license"
@@ -50,3 +47,23 @@ msgstr "Neue Lizenz hochladen, die wir zuvor verschickt haben"
 #: umc/js/welcome.js:64
 msgid "We send you a license with a Key ID to your email address"
 msgstr "Wir schicken eine Lizenz mit Key ID an Ihre E-Mail-Adresse"
+
+#: umc/js/welcome.js:90
+msgid "The Keycloak app enables single sign-on (SSO) for your UCS system, providing a unified and secure login experience."
+msgstr "Die Keycloak-App ermöglicht Single Sign-on (SSO) für Ihr UCS-System und sorgt so für ein einheitliches sowie sicheres Login-Erlebnis."
+
+#: umc/js/welcome.js:96
+msgid "Keycloak app"
+msgstr "Keycloak-App"
+
+#: umc/js/welcome.js:97
+msgid "Open in Univention App Center"
+msgstr "Im Univention App Center öffnen"
+
+#: umc/js/welcome.js:104
+msgid "Documentation"
+msgstr "Dokumentation"
+
+#: umc/js/welcome.js:105
+msgid "Explore everything you need to know about the Keycloak app here"
+msgstr "Hier finden Sie alle wichtigen Informationen zur Keycloak-App"

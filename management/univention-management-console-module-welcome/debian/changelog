@@ -1,3 +1,9 @@
+univention-management-console-module-welcome (3.0.3) unstable; urgency=medium
+
+  * univention/ucs#2522: add keycloak installation hint to the welcome dialog
+
+ -- Christian Castens <castens@univention.de>  Wed, 04 Dec 2024 08:33:35 +0100
+
 univention-management-console-module-welcome (3.0.2) unstable; urgency=medium
 
   * Bug #56604: drop Python 2 compatibility
