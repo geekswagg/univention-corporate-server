@@ -30,6 +30,7 @@ def errors():
         'Changing password failed. The password was already used.': SamlPasswordChangeFailed,
         'Changing password failed. The password is too simple.': SamlPasswordChangeFailed,
         'The password has been changed successfully.': SamlPasswordChangeSuccess,
+        'Das Passwort wurde erfolgreich geändert.': SamlPasswordChangeSuccess,
     }
 
 
@@ -149,7 +150,7 @@ class SamlTest:
         if self.page.status_code != status_code:
             raise SamlError("Problem while %s\nWrong status code: %s, expected: %s\nServer response was: %s" % (self.position, self.page.status_code, status_code, self.page.content.decode('UTF-8', 'replace')))
 
-    def _request(self, method, url, status_code, data=None, expected_format='html'):
+    def _request(self, method, url, status_code, data=None, expected_format='html', kerberos_redirect=False):
         """
         does POST or GET requests and raises SamlError which encodes the login step
         through position parameter.
@@ -162,7 +163,11 @@ class SamlTest:
             'GET': self.session.get,
             'POST': self.session.post}
         try:
-            self.page = _requests[method](url, data=data, verify='/etc/univention/ssl/ucsCA/CAcert.pem', headers=headers)
+            res = _requests[method](url, data=data, verify='/etc/univention/ssl/ucsCA/CAcert.pem', headers=headers)
+            if res.status_code == 401 and status_code != 401 and kerberos_redirect:
+                res = self._follow_kerberos_redirect(res.content)
+            self.page = res
+
         except requests.exceptions.SSLError:
             # Bug: https://github.com/shazow/urllib3/issues/556
             # raise SamlError("Problem while %s\nSSL error: %s" % (self.position, exc))
@@ -386,7 +391,7 @@ class SamlTest:
 
         data = {'username': self.username, 'password': self.password, 'password-new': new_password, 'password-confirm': new_password}
         url = self._extract_sp_url()
-        self._request('POST', url, 200, data=data)
+        self._request('POST', url, 200, data=data, kerberos_redirect=True)
 
         self.password = new_password
         url = self._extract_sp_url()
