@@ -1,3 +1,9 @@
+ucs-test (12.0.214) unstable; urgency=medium
+
+  * Issue univention/ucs#2533: add -p repeat to bin/playwright
+
+ -- Marius Meschter <marius.meschter@univention.de>  Thu, 05 Dec 2024 10:51:42 +0100
+
 ucs-test (12.0.213) unstable; urgency=medium
 
   * Issue univention/ucs#2533: fixed 33_change_expired_password.py

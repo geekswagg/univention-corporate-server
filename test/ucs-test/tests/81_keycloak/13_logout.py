@@ -1,4 +1,4 @@
-#!/usr/share/ucs-test/runner /usr/share/ucs-test/playwright -p repeat
+#!/usr/share/ucs-test/runner /usr/share/ucs-test/playwright
 ## desc: Test logout refresh
 ## tags: [keycloak]
 ## roles: [domaincontroller_master, domaincontroller_backup]
