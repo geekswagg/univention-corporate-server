@@ -1,3 +1,9 @@
+univention-management-console-module-diagnostic (8.0.17) unstable; urgency=medium
+
+  * Bug #57746: Do not traceback in 04_saml_certificate_check if UMC is not
+
+ -- Marius Meschter <marius.meschter@univention.de>  Thu, 05 Dec 2024 13:59:47 +0100
+
 univention-management-console-module-diagnostic (8.0.16) unstable; urgency=medium
 
   * Issue univention/ucs#2488: Do not traceback in 04_saml_certificate_check

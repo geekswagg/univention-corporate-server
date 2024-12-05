@@ -58,7 +58,7 @@ run_descr = ['Checks SAML certificates']
 
 
 def run(_umc_instance: Instance, rerun: bool = False) -> None:
-    umc_saml_idp = ucr.get('umc/saml/idp-server')
+    umc_saml_idp = ucr.get('umc/saml/idp-server', '')
     if not umc_saml_idp:
         # SSO not configured
         return
