@@ -1,8 +1,14 @@
+univention-samba4 (11.0.9) unstable; urgency=medium
+
+  * Issue univention/ucs#2528: fix changelog timestamps
+
+ -- Marius Meschter <marius.meschter@univention.de>  Thu, 05 Dec 2024 15:20:03 +0100
+
 univention-samba4 (11.0.8) unstable; urgency=medium
 
   * Bug #57529: use rsync --filter with "-x" rules to only sync security.NTACL
 
- -- Arvid <requate@univention.de>  Thu, 30 Sep 2024 16:26:00 +0200
+ -- Arvid <requate@univention.de>  Thu, 05 Dec 2024 15:12:00 +0200
 
 univention-samba4 (11.0.7) unstable; urgency=medium
 
