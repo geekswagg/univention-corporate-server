@@ -6,14 +6,14 @@ msgstr ""
 "Project-Id-Version: Univention Corporate Server - Manual for users and "
 "administrators\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-10 10:30+0000\n"
+"POT-Creation-Date: 2024-12-05 14:45+0000\n"
 "PO-Revision-Date: 2022-06-14 16:16+0200\n"
 "Last-Translator: Univention GmbH <packages@univention.de>\n"
 "Language-Team: Univention GmbH <packages@univention.de>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.14.0\n"
+"Generated-By: Babel 2.16.0\n"
 
 #: ../../idm-cloud/google.rst:8
 msgid "Google Apps for Work Connector"
@@ -205,7 +205,7 @@ msgstr ""
 "Änderungen an |UCSUCRVs| werden erst nach dem Neustart des |UCSUDL| "
 "umgesetzt."
 
-#: ../../idm-cloud/google.rst:97 ../../idm-cloud/office-365.rst:194
+#: ../../idm-cloud/google.rst:97 ../../idm-cloud/office-365.rst:244
 msgid "Troubleshooting/Debugging"
 msgstr "Fehlersuche"
 
@@ -518,10 +518,116 @@ msgstr ""
 "umgesetzt."
 
 #: ../../idm-cloud/office-365.rst:121
+msgid "Groups"
+msgstr "Gruppen"
+
+#: ../../idm-cloud/office-365.rst:123
+msgid ""
+"The :program:`Microsoft 365 Connector` can synchronize groups to "
+"Microsoft Azure Active Directory. The connector synchronizes a group, if "
+"it contains at least one user that's enabled for *Microsoft 365*. By "
+"default, the connector creates the group as a ``Security Group`` in "
+"*Microsoft 365*."
+msgstr ""
+"Der :program:`Microsoft 365 Connector` kann Gruppen mit Microsoft Azure "
+"Active Directory synchronisieren. Der Connector synchronisiert eine "
+"Gruppe, wenn sie mindestens einen Benutzer enthält, der für *Microsoft "
+"365* aktiviert ist. Standardmäßig erstellt der Connector die Gruppe als "
+"``Sicherheitsgruppe`` in *Microsoft 365*."
+
+#: ../../idm-cloud/office-365.rst:128
+msgid ""
+"You can enable the synchronization by setting the |UCSUCRV| "
+":envvar:`office365/groups/sync` to ``yes``."
+msgstr ""
+"Sie können die Synchronisation aktivieren, indem Sie die |UCSUCRV| "
+":envvar:`office365/groups/sync` auf ``yes`` setzen."
+
+#: ../../idm-cloud/office-365.rst:133
+msgid ""
+"With :uv:erratum:`5.0x1060`, you can change the group type to ``Microsoft"
+" 365 Group`` in the UMC on the *Microsoft 365* tab."
+msgstr ""
+"Mit :uv:erratum:`5.0x1060` können Sie den Gruppentyp auf ``Microsoft365 "
+"Group`` in der UMC auf der Registerkarte *Microsoft 365* ändern."
+
+#: ../../idm-cloud/office-365.rst:136
+msgid ""
+"If the UCS system with the connector installed doesn't have at least this"
+" version level, you can't change the group type."
+msgstr ""
+"Wenn das UCS-System, auf dem der Connector installiert ist, nicht "
+"mindestens diese Versionsstand hat, können Sie den Gruppentyp nicht "
+"ändern."
+
+#: ../../idm-cloud/office-365.rst:139
+msgid ""
+"When you change the group type, the connector deletes the existing group "
+"in *Microsoft 365*, and it creates a group with the group type you "
+"defined. *Microsoft 365* doesn't allow to change the group type property "
+"of an existing group. The connector adds the group members to the group, "
+"and if the group is a *Microsoft 365 Team*, the connector also creates "
+"the team."
+msgstr ""
+"Wenn Sie den Gruppentyp ändern, löscht der Connector die bestehende "
+"Gruppe in *Microsoft 365*, und erstellt eine Gruppe mit dem von Ihnen "
+"definierten Gruppentyp. *Microsoft 365* erlaubt es nicht, die Gruppentyp-"
+"Eigenschaft einer bestehenden Gruppe zu ändern. Der Connector fügt die "
+"Gruppenmitglieder zur Gruppe hinzu, und, wenn die Gruppe ein *Microsoft "
+"365 Team* ist, erstellt der Connector auch das Team."
+
+#: ../../idm-cloud/office-365.rst:149
+msgid ""
+"Changing the group type can effect the group's permissions and settings "
+"in *Microsoft 365*. Change group types with caution."
+msgstr ""
+"Das Ändern des Gruppentyps kann sich auf die Berechtigungen und "
+"Einstellungen der Gruppe in *Microsoft 365* auswirken. Ändern Sie "
+"Gruppentypen mit Vorsicht."
+
+#: ../../idm-cloud/office-365.rst:152
+msgid ""
+"You can change the default group type of a Microsoft 365 group. The "
+"following group types are available:"
+msgstr ""
+"Sie können den Standard-Gruppentyp einer Microsoft 365-Gruppe ändern. Die"
+" folgenden Gruppentypen sind verfügbar:"
+
+#: ../../idm-cloud/office-365.rst:155
+msgid "``Security``"
+msgstr "``Security``"
+
+#: ../../idm-cloud/office-365.rst:156
+msgid "``Microsoft 365 Group``"
+msgstr "``Microsoft 365 Group``"
+
+#: ../../idm-cloud/office-365.rst:158
+msgid ""
+"To change the group type, you need to modify the default value of the "
+"extended attribute ``UniventionMicrosoft365GroupType`` to one of the "
+"available group types:"
+msgstr ""
+"Um den Gruppentyp zu ändern, müssen Sie den Standardwert des erweiterten "
+"Attributs ``UniventionMicrosoft365GroupType`` auf einen der verfügbaren "
+"Gruppentypen ändern:"
+
+#: ../../idm-cloud/office-365.rst:162
+msgid ""
+"$ udm settings/extended_attribute modify \\\n"
+"     --dn \"cn=UniventionMicrosoft365GroupType,cn=custom "
+"attributes,cn=univention,$(ucr get ldap/base)\" \\\n"
+"     --set default=\"Microsoft 365 Group\""
+msgstr ""
+"$ udm settings/extended_attribute modify \\\n"
+"     --dn \"cn=UniventionMicrosoft365GroupType,cn=custom "
+"attributes,cn=univention,$(ucr get ldap/base)\" \\\n"
+"     --set default=\"Microsoft 365 Group\""
+
+#: ../../idm-cloud/office-365.rst:171
 msgid "Teams"
 msgstr "Teams"
 
-#: ../../idm-cloud/office-365.rst:123
+#: ../../idm-cloud/office-365.rst:173
 msgid ""
 "To use Teams, synchronization of groups must be enabled in the |UCSUCRV| "
 ":envvar:`office365/groups/sync` with the value ``yes``, and then the "
@@ -547,7 +653,7 @@ msgstr ""
 " Das Einrichten eines neuen Teams in Microsoft 365 kann einige Minuten in"
 " Anspruch nehmen."
 
-#: ../../idm-cloud/office-365.rst:133
+#: ../../idm-cloud/office-365.rst:183
 msgid ""
 "Ensure that users of a team in Azure are provided with a license that "
 "includes the use of Teams."
@@ -555,11 +661,11 @@ msgstr ""
 "Es muss sichergestellt sein, dass die Benutzer eines Teams in Azure eine "
 "Lizenz erhalten, in der die Nutzung von Teams enthalten ist."
 
-#: ../../idm-cloud/office-365.rst:139
+#: ../../idm-cloud/office-365.rst:189
 msgid "Synchronization of Users in multiple Azure Active Directories"
 msgstr "Synchronisation von Benutzern in mehrere Azure Active Directories"
 
-#: ../../idm-cloud/office-365.rst:141
+#: ../../idm-cloud/office-365.rst:191
 msgid ""
 "The Microsoft 365 Connector is able to synchronize users to multiple "
 "Azure Active Directories. For each user account, multiple Azure AD "
@@ -574,7 +680,7 @@ msgstr ""
 "in jedem der seinem UCS Konto zugewiesenen Azure AD ein separates Konto "
 "mit eindeutigem Benutzernamen (*Userprincipalname*, UPN)."
 
-#: ../../idm-cloud/office-365.rst:146
+#: ../../idm-cloud/office-365.rst:196
 msgid ""
 "An alias is assigned to each additional Azure AD connection by the "
 "administrator. To manage these aliases the program :command:`/usr/share"
@@ -596,7 +702,7 @@ msgstr ""
 "Der Wert dieser |UCSUCRV| bestimmt, welche Azure Verbindung durch den "
 "Microsoft 365 Einrichtungswizard konfiguriert wird."
 
-#: ../../idm-cloud/office-365.rst:156
+#: ../../idm-cloud/office-365.rst:206
 msgid ""
 "After creating the alias, the new connection must be configured through "
 "the Microsoft 365 Configuration Wizard, as well."
@@ -605,7 +711,7 @@ msgstr ""
 "Einrichtungswizard eingerichtet werden, damit Benutzer synchronisiert "
 "werden können."
 
-#: ../../idm-cloud/office-365.rst:159
+#: ../../idm-cloud/office-365.rst:209
 msgid ""
 "To use single sign-on with multiple Azure AD connections, a new logical "
 "SAML Identity Provider is needed for each connection. This is done "
@@ -615,7 +721,7 @@ msgstr ""
 " für jede weitere Verbindung ein neuer logischer SAML Identity Provider "
 "erstellt werden. Der Wizard übernimmt diese Aufgabe automatisch."
 
-#: ../../idm-cloud/office-365.rst:163
+#: ../../idm-cloud/office-365.rst:213
 msgid ""
 "The Identity Provider should get the same name as the alias. If another "
 "name was chosen, the PowerShell script to configure single sign-on needs "
@@ -630,39 +736,39 @@ msgstr ""
 " Domaincontrollern muss also beispielsweise die |UCSUCRV| in der Form "
 ":samp:`saml/idp/entityID/supplement/{Aliasname}=true` gesetzt werden."
 
-#: ../../idm-cloud/office-365.rst:169
+#: ../../idm-cloud/office-365.rst:219
 msgid ""
-"IdP initiated logins can be done via the Univention Portal tile that the App creates"
-" during the configuration of the first connection. All subsequent "
-"connections would need their dedicated portal tiles. The App does not "
-"create those. Instead, there is a script :command:`/usr/share/univention-"
-"office365/scripts/generate-portal-tile-for-ad-connection` that can be "
-"used to create them. It takes as its first argument the name of the Azure"
-" AD connection. Subsequent arguments are used to limit the visibility of "
-"the tile: If many connections (and therefore many portal tiles) are used,"
-" the portal may get cramped. Portal tiles can be shown only to certain "
-"groups. So the scripts accepts any number of groups of which at least one"
-" needs to include a user in order for that user to really see the tile. "
-"Note that this means that the user needs to be logged in before seeing "
-"these tiles."
+"IdP initiated logins can be done via the Univention Portal tile that the "
+"App creates during the configuration of the first connection. All "
+"subsequent connections would need their dedicated portal tiles. The App "
+"does not create those. Instead, there is a script :command:`/usr/share"
+"/univention-office365/scripts/generate-portal-tile-for-ad-connection` "
+"that can be used to create them. It takes as its first argument the name "
+"of the Azure AD connection. Subsequent arguments are used to limit the "
+"visibility of the tile: If many connections (and therefore many portal "
+"tiles) are used, the portal may get cramped. Portal tiles can be shown "
+"only to certain groups. So the scripts accepts any number of groups of "
+"which at least one needs to include a user in order for that user to "
+"really see the tile. Note that this means that the user needs to be "
+"logged in before seeing these tiles."
 msgstr ""
-"IdP initiierte Logins können über die Kacheln im Univention Portal angestoßen werden, die "
-"die App während der Konfiguration der ersten Verbindung erstellt. Alle "
-"folgenden Verbindungen brauchen dann aber eigene Kacheln; die App "
-"erzeugt keine weiteren. Stattdessen existiert das Skript "
-":command:`/usr/share/univention-office365/scripts/generate-portal-tile-for-ad-connection`, "
-"das entsprechende Kacheln erstellen kann. Das Skript braucht als erstes "
-"Argument den Namen der Azure AD Verbindung, weitere Argumente können "
-"genutzt werden, um die Sichtbarkeit der Kachel einzuschränken: Bei sehr "
-"vielen Verbindungen (und damit auch sehr vielen Kacheln) kann das "
-"Portal leicht überladen wirken. Im Portal können Kacheln auf bestimmte Gruppen "
-"beschränkt werden; diese Gruppen kann man dem Skript übergeben. Die Kachel "
-"wird einem Benutzer in diesem Fall nur dann angezeigt, wenn er Mitglied "
-"mindestens einer der Gruppen ist. Bitte beachten Sie, dass das bedeutet, "
-"dass die Kachel dann nur gesehen werden kann, wenn sich der Benutzer "
-"bereits eingeloggt hat."
+"IdP initiierte Logins können über die Kacheln im Univention Portal "
+"angestoßen werden, die die App während der Konfiguration der ersten "
+"Verbindung erstellt. Alle folgenden Verbindungen brauchen dann aber "
+"eigene Kacheln; die App erzeugt keine weiteren. Stattdessen existiert das"
+" Skript :command:`/usr/share/univention-office365/scripts/generate-"
+"portal-tile-for-ad-connection`, das entsprechende Kacheln erstellen kann."
+" Das Skript braucht als erstes Argument den Namen der Azure AD "
+"Verbindung, weitere Argumente können genutzt werden, um die Sichtbarkeit "
+"der Kachel einzuschränken: Bei sehr vielen Verbindungen (und damit auch "
+"sehr vielen Kacheln) kann das Portal leicht überladen wirken. Im Portal "
+"können Kacheln auf bestimmte Gruppen beschränkt werden; diese Gruppen "
+"kann man dem Skript übergeben. Die Kachel wird einem Benutzer in diesem "
+"Fall nur dann angezeigt, wenn er Mitglied mindestens einer der Gruppen "
+"ist. Bitte beachten Sie, dass das bedeutet, dass die Kachel dann nur "
+"gesehen werden kann, wenn sich der Benutzer bereits eingeloggt hat."
 
-#: ../../idm-cloud/office-365.rst:182
+#: ../../idm-cloud/office-365.rst:232
 msgid ""
 "A UCS user can only use one Microsoft 365 account in one browser session "
 "at a time. To change the connection, a logout from Microsoft 365 is "
@@ -672,7 +778,7 @@ msgstr ""
 "gleichzeitig verbunden sein. Um die Verbindung zu wechseln, ist ein "
 "Abmelden an Microsoft 365 notwendig."
 
-#: ../../idm-cloud/office-365.rst:186
+#: ../../idm-cloud/office-365.rst:236
 msgid ""
 "A default alias for Microsoft 365 enabled users and groups can be set in "
 "the |UCSUCRV| :envvar:`office365/defaultalias`. To synchronize them into "
@@ -687,7 +793,7 @@ msgstr ""
 "Microsoft 365 das entsprechende Azure AD Verbindungsalias als Ziel "
 "ausgewählt werden."
 
-#: ../../idm-cloud/office-365.rst:196
+#: ../../idm-cloud/office-365.rst:246
 msgid ""
 "Messages during the setup are logged in :file:`/var/log/univention"
 "/management-console-module-office365.log`."
@@ -696,7 +802,7 @@ msgstr ""
 ":file:`/var/log/univention/management-console-module-office365.log` "
 "protokolliert."
 
-#: ../../idm-cloud/office-365.rst:199
+#: ../../idm-cloud/office-365.rst:249
 msgid ""
 "In case of synchronization problems, the log file of the |UCSUDL| should "
 "be examined: :file:`/var/log/univention/listener.log`."
@@ -704,7 +810,7 @@ msgstr ""
 "Bei Synchronisationsproblemen sollte die Logdatei des |UCSUDL| geprüft "
 "werden: :file:`/var/log/univention/listener.log`."
 
-#: ../../idm-cloud/office-365.rst:202
+#: ../../idm-cloud/office-365.rst:252
 msgid ""
 "Some actions of the Connector use long-running Azure Cloud operations, "
 "especially when using Teams. These operations are logged in the log file "
