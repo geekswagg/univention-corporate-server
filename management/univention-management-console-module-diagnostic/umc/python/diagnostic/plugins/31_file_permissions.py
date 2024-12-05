@@ -43,6 +43,7 @@ from univention.config_registry import ucr_live as configRegistry
 from univention.lib.i18n import Translation
 from univention.management.console.log import MODULE
 from univention.management.console.modules.diagnostic import Instance, Warning
+from univention.udm import UDM
 
 
 _ = Translation('univention-management-console-module-diagnostic').translate
@@ -123,6 +124,7 @@ def file_and_permission_checks() -> Iterator[CheckError]:
     (host, domain) = (configRegistry.get('hostname'), configRegistry.get('domainname'))
     sso_uri = configRegistry.get('ucs/server/sso/uri', f'https://ucs-sso-ng.{domain.lower()}')
     sso_domain = urlparse(sso_uri).netloc
+    sso_cert_path = configRegistry.get('keycloak/apache2/ssl/key') or f'/etc/univention/ssl/{sso_domain.lower()}'
 
     cf_type = namedtuple('cf_type', ('path', 'owner', 'group', 'mode', 'must_exist'))
 
@@ -140,7 +142,6 @@ def file_and_permission_checks() -> Iterator[CheckError]:
         cf_type('/etc/univention/ssl/openssl.cnf', 'root', 'DC Backup Hosts', 0o660, must_exist=is_primary),
         cf_type('/etc/univention/ssl/password', 'root', 'DC Backup Hosts', 0o660, must_exist=is_primary),
         cf_type('/etc/univention/ssl/ucsCA', 'root', 'DC Backup Hosts' if is_dc else 'root', 0o775 if is_dc else 0o755, must_exist=True),
-        cf_type(f'/etc/univention/ssl/{sso_domain.lower()}', 'root', 'DC Backup Hosts', 0o750, must_exist=is_primary),
         cf_type(f'/etc/univention/ssl/{host}.{domain}', f'{host}$' if is_primary else 'root', 'DC Backup Hosts' if is_dc else 'root', 0o750, must_exist=True),
         cf_type('/var/lib/univention-self-service-passwordreset-umc/memcached.socket', 'self-service-umc', 'nogroup', 0o600, False),
         cf_type('/var/cache/univention-ad-connector', 'root', 'root', 0o755, False),
@@ -164,6 +165,13 @@ def file_and_permission_checks() -> Iterator[CheckError]:
         cf_type('/etc/umc-oidc.secret', 'root', 'root', 0o600, False),
         cf_type('/var/lib/samba/ntp_signd', 'root', 'ntpsec', 0o750, False),
     ]
+
+    udm_module = UDM.machine().version(2).get('computers/domaincontroller_backup')
+    backup_fqdns = [obj.props.fqdn for obj in udm_module.search()]
+    if sso_domain != configRegistry.get('ldap/master') and sso_domain not in backup_fqdns:
+        check_file_args.append(
+            cf_type(sso_cert_path, 'root', 'DC Backup Hosts', 0o750, must_exist=is_primary),
+        )
 
     iglob_paths = [
         ('/var/run/univention-management-console/*.socket', ('root', 'root', 0o600, False)),
