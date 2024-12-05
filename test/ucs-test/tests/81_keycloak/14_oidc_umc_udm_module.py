@@ -33,7 +33,7 @@ class ExtractFormAction(HTMLParser):
 
 
 @pytest.fixture()
-def disable_saml_oauthbearer_grace(ucr_proper):
+def disable_sasl_oauthbearer_grace(ucr_proper):
     ucrv = 'ldap/server/sasl/oauthbearer/grace-time'
     original = ucr_proper.get(ucrv, None)
 
@@ -47,6 +47,10 @@ def disable_saml_oauthbearer_grace(ucr_proper):
     ucr_update(ucr_proper, {ucrv: original})
     run_command(['systemctl', 'restart', 'slapd'])
     run_command(['systemctl', 'restart', 'univention-management-console-server'])
+
+    # Restarting the UMC in multiprcessing takes some time. Wait here until it's running again
+    # Otherwise the next test might fail because UMC is not ready yet.
+    time.sleep(30)
 
 
 @pytest.fixture()
@@ -63,7 +67,7 @@ def set_access_token_expiry_time(client: dict[Any, Any]):
     client['attributes']['access.token.lifespan'] = str(ACCESS_TOKEN_LIFESPAN)
 
 
-@pytest.mark.usefixtures('modify_keycloak_clients', 'disable_saml_oauthbearer_grace')
+@pytest.mark.usefixtures('modify_keycloak_clients', 'disable_sasl_oauthbearer_grace')
 @pytest.mark.parametrize('modify_keycloak_clients', [set_access_token_expiry_time], indirect=True)
 def test_udm_module_with_new_access_token(umc_base_url: str, client: requests.Session):
     resp = client.get(f'{umc_base_url}/oidc/')
