@@ -1,3 +1,9 @@
+univention-system-setup (15.0.10) unstable; urgency=medium
+
+  * Issue univention/components/keycloak-app#206: Change settings from keycloak/server/sso/fqdn to ucs/server/sso/uri
+
+ -- Julia Bremer <bremer@univention.de>  Mon, 09 Dec 2024 09:58:18 +0100
+
 univention-system-setup (15.0.9) unstable; urgency=medium
 
   * Issue univention/ucs#2524: start firefox in kiosk mode during system setup

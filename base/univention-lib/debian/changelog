@@ -1,3 +1,9 @@
+univention-lib (11.0.10) unstable; urgency=medium
+
+  * Issue univention/components/keycloak-app#206: Change settings from keycloak/server/sso/fqdn to ucs/server/sso/uri
+
+ -- Julia Bremer <bremer@univention.de>  Sun, 08 Dec 2024 17:38:26 +0100
+
 univention-lib (11.0.9) unstable; urgency=medium
 
   * Bug #57690: use ldap instead of ldb to get default naming

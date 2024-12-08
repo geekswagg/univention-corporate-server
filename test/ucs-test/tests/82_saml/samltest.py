@@ -7,6 +7,7 @@ import socket
 import subprocess
 import time
 from html import unescape
+from urllib.parse import urlparse
 
 import requests
 from bs4 import BeautifulSoup
@@ -85,7 +86,7 @@ class GuaranteedIdP:
         self.ip = ip
         ucr = configRegistry.ConfigRegistry()
         ucr.load()
-        self.sso_fqdn = ucr['ucs/server/sso/fqdn']
+        self.sso_fqdn = urlparse(ucr['ucs/server/sso/uri']).netloc
 
     def __enter__(self):
         subprocess.call(['ucr', 'set', 'hosts/static/%s=%s' % (self.ip, self.sso_fqdn)])

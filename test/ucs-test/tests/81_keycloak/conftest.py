@@ -37,6 +37,7 @@ import os
 import socket
 from types import SimpleNamespace
 from typing import TYPE_CHECKING, Any
+from urllib.parse import urlparse
 
 import pytest
 from keycloak import KeycloakAdmin, KeycloakOpenID
@@ -201,10 +202,10 @@ def portal_config(ucr_proper: ConfigRegistry) -> SimpleNamespace:
 
 @pytest.fixture()
 def keycloak_config(ucr_proper: ConfigRegistry) -> SimpleNamespace:
-    server = ucr_proper.get('keycloak/server/sso/fqdn', f"ucs-sso-ng.{ucr_proper['domainname']}")
-    path = ucr_proper['keycloak/server/sso/path'] if ucr_proper['keycloak/server/sso/path'] else ''
+    url = ucr_proper.get('ucs/server/sso/uri', f"https://ucs-sso-ng.{ucr_proper['domainname']}")
+    server = urlparse(url).netloc
+    path = urlparse(url).path
     password = ucr_proper['tests/domainadmin/pwd']
-    url = f'https://{server}{path}'
     config = {
         'server': server,
         'path': path,

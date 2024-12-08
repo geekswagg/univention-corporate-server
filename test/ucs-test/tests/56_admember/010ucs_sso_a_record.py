@@ -7,6 +7,7 @@
 ## bugs: [39574]
 
 import sys
+from urllib.parse import urlparse
 
 import dns.resolver
 
@@ -23,7 +24,8 @@ ad_domain_info = univention.lib.admember.lookup_adds_dc()
 ad_ip = ad_domain_info['DC IP']
 my_ip = Interfaces().get_default_ip_address().ip
 domainname = ucr.get('domainname')
-fqdn = ucr.get('ucs/server/sso/fqdn', 'ucs-sso.' + domainname)
+sso_uri = ucr.get('ucs/server/sso/uri', 'https://ucs-sso-ng.' + domainname)
+fqdn = urlparse(sso_uri).netloc
 
 resolver = dns.resolver.Resolver()
 resolver.nameservers = [ad_ip]

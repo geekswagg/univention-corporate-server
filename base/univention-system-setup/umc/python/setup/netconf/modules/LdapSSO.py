@@ -5,6 +5,8 @@
 # SPDX-FileCopyrightText: 2024 Univention GmbH
 # SPDX-License-Identifier: AGPL-3.0-only
 
+from urllib.parse import urlparse
+
 from ldap import LDAPError
 from ldap.filter import filter_format
 
@@ -39,7 +41,8 @@ class PhaseLdapSSO(AddressMap, LdapChange):
         host_module = modules.get("dns/host_record")
         modules.init(self.ldap, self.position, host_module)
 
-        sso_fqdn = self.changeset.ucr.get('ucs/server/sso/fqdn')
+        sso_uri = self.changeset.ucr.get('ucs/server/sso/uri')
+        sso_fqdn = urlparse(sso_uri).netloc
         forward_zones = forward_module.lookup(None, self.ldap, None)
         for forward_zone in forward_zones:
             zone = forward_zone.get('zone')

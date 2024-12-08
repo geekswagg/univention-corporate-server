@@ -63,23 +63,20 @@ def run(_umc_instance: Instance, rerun: bool = False) -> None:
         # SSO not configured
         return
 
-    keycloak_fqdn = '%s%s' % (
-        ucr.get('keycloak/server/sso/fqdn', 'ucs-sso-ng.%s' % ucr['domainname']),
-        ucr.get('keycloak/server/sso/path', ''),
-    )
+    keycloak_uri = ucr.get('ucs/server/sso/uri', 'https://ucs-sso-ng.%s' % ucr['domainname'])
     # keycloak
-    if keycloak_fqdn and 'realms/ucs/protocol/saml/descriptor' in umc_saml_idp:
-        run_keycloak(_umc_instance, keycloak_fqdn, rerun)
+    if keycloak_uri and 'realms/ucs/protocol/saml/descriptor' in umc_saml_idp:
+        run_keycloak(_umc_instance, keycloak_uri, rerun)
 
 
-def run_keycloak(_umc_instance: Instance, sso_fqdn: str, rerun: bool = False) -> None:
+def run_keycloak(_umc_instance: Instance, sso_uri: str, rerun: bool = False) -> None:
     problems: list[str] = []
     buttons: list[dict[str, str]] = []
     links: list[dict[str, str]] = []
     umc_modules: list[dict[str, str]] = []
 
     idp = False
-    for problem in test_identity_provider_certificate_keycloak(sso_fqdn):
+    for problem in test_identity_provider_certificate_keycloak(sso_uri):
         idp = True
         kwargs = problem.kwargs
         problems.append(kwargs["description"])
@@ -111,20 +108,20 @@ def run_keycloak(_umc_instance: Instance, sso_fqdn: str, rerun: bool = False) ->
         )
 
 
-def test_identity_provider_certificate_keycloak(sso_fqdn: str) -> Iterator[Problem]:
+def test_identity_provider_certificate_keycloak(sso_uri: str) -> Iterator[Problem]:
     """
     Check that all IDP certificates from :file:`/usr/share/univention-management-console/saml/idp/*.xml`
     are included in Keycloak.
 
     Fix: ``univention-run-join-scripts --force --run-scripts 92univention-management-console-web-server``
     """
-    MODULE.process("Checks sso certificate by comparing 'ucr get keycloak/server/sso/fqdn' with the Location field in %s" % (XML,))
+    MODULE.process("Checks sso certificate by comparing 'ucr get ucs/server/sso/uri' FQDN with the Location field in %s" % (XML,))
 
     backend = default_backend()
     certificate = None
     data = None
 
-    url = "https://%s/realms/ucs/protocol/saml/descriptor" % (sso_fqdn,)
+    url = "%s/realms/ucs/protocol/saml/descriptor" % (sso_uri,)
     links = {
         "name": 'idp',
         "href": url,

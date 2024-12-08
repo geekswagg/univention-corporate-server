@@ -37,6 +37,7 @@ import pwd
 import stat
 from collections import namedtuple
 from collections.abc import Iterator
+from urllib.parse import urlparse
 
 from univention.config_registry import ucr_live as configRegistry
 from univention.lib.i18n import Translation
@@ -120,7 +121,8 @@ def file_and_permission_checks() -> Iterator[CheckError]:
     is_primary = configRegistry.get('server/role') in ('domaincontroller_master', 'domaincontroller_backup')
     is_dc = configRegistry.get('server/role').startswith('domaincontroller_')
     (host, domain) = (configRegistry.get('hostname'), configRegistry.get('domainname'))
-    sso_domain = configRegistry.get('keycloak/server/sso/fqdn', f'ucs-sso-ng.{domain.lower()}')
+    sso_uri = configRegistry.get('ucs/server/sso/uri', f'https://ucs-sso-ng.{domain.lower()}')
+    sso_domain = urlparse(sso_uri).netloc
 
     cf_type = namedtuple('cf_type', ('path', 'owner', 'group', 'mode', 'must_exist'))
 

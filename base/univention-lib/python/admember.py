@@ -45,6 +45,7 @@ from collections import namedtuple
 from collections.abc import Callable, Iterable  # noqa: F401
 from datetime import datetime, timedelta
 from shlex import quote
+from urllib.parse import urlparse
 
 import dns.resolver
 import ldap
@@ -1344,8 +1345,8 @@ def add_host_record_in_ad(uid=None, binddn=None, bindpw=None, bindpwdfile=None, 
         ip = Interfaces().get_default_ip_address().ip
 
     if sso and not fqdn:
-        fqdn = ucr.get('keycloak/server/sso/fqdn', 'ucs-sso-ng.' + domainname)
-
+        uri = ucr.get('ucs/server/sso/uri', 'https://ucs-sso-ng.' + domainname)
+        fqdn = urlparse(uri).netloc
     if not uid or not pwdfile or not fqdn or not ip:
         print('Missing binddn/bindpw/bindpwdfile/fqdn or ip, do nothing!')
         return False

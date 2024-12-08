@@ -8,6 +8,7 @@
 
 import subprocess
 import time
+from urllib.parse import urlparse
 
 import univention.config_registry
 from univention.testing import utils
@@ -20,7 +21,7 @@ ucr.load()
 
 
 def renew_sso_cert():
-    sso_fqdn = ucr['keycloak/server/sso/fqdn']
+    sso_fqdn = urlparse(ucr['keycloak/server/sso/fqdn']).netloc
     subprocess.check_call(['univention-certificate', 'new', '-name', sso_fqdn, '-days', '100'])
     subprocess.check_call([
         "cp",

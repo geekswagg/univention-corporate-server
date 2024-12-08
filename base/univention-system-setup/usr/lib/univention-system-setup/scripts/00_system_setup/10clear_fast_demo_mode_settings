@@ -45,7 +45,7 @@ then
 		saml/idp/certificate/privatekey \
 		saml/idp/entityID \
 		ucs/server/saml-idp-server/primary.ucs.example \
-		ucs/server/sso/fqdn \
+		ucs/server/sso/uri \
 		umc/saml/idp-server \
 		umc/saml/trusted/sp/primary.ucs.example \
 		ucs/web/overview/entries/admin/ucs-local-to-domain/link

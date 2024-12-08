@@ -12,6 +12,7 @@
 from dataclasses import dataclass, field
 from os import stat
 from pathlib import Path
+from urllib.parse import urlparse
 
 import pytest
 
@@ -48,7 +49,7 @@ class OwnershipTest:
 
 
 def load_test_cases():
-    sso_fqdn = ucr["keycloak/server/sso/fqdn"]
+    sso_fqdn = urlparse(ucr["ucs/server/sso/uri"]).netloc
     # TODO: where to get the sso_fqdn from, ucs/server/sso/fqdn or keycloak/server/sso/fqdn
 
     return [
