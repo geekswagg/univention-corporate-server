@@ -1,3 +1,11 @@
+ucs-test (12.0.220) unstable; urgency=medium
+
+  * Issue univention/ucs#2533: fix 20_mail_delivery_via_submission_port.py
+
+    Deactivate spam scanner for this test.
+
+ -- Felix Botner <botner@univention.de>  Mon, 09 Dec 2024 16:11:11 +0100
+
 ucs-test (12.0.219) unstable; urgency=medium
 
   * Issue univention/ucs#2533: fix 52_s4connector/dnstests.py::match
