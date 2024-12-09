@@ -126,6 +126,9 @@ def match(re_test_object, dns_name, typ, param=None, should_exist=True):
             elif not should_exist and not re.match(re_test_object, line):
                 print("\nOK: DNS record removed after after %s seconds\n" % attempt)
                 return
+        if not dig_answer and not should_exist:
+            print("\nOK: DNS record removed after after %s seconds (no output from dig)\n" % attempt)
+            return
 
         print("\n  DNS not synced yet, making another dig attempt in 1 sec.")
         time.sleep(1)
