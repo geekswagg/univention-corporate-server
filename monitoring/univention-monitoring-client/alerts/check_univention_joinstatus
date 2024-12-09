@@ -90,11 +90,11 @@ class JoinStatusCheck(Alert):
             raise JoinStatusError('/etc/machine.secret not found - system not joined yet?')
 
     def check_ldapsearch(self):
+        uri = f"ldap://{ucr['ldap/server/name']}:{ucr['ldap/server/port']}"
         cmd = [
             'ldapsearch',
             '-x',
-            '-h', ucr['ldap/server/name'],
-            '-p', ucr['ldap/server/port'],
+            '-H', uri,
             '-D', ucr['ldap/hostdn'],
             '-y', '/etc/machine.secret',
             '-b', ucr['ldap/base'],
@@ -106,12 +106,12 @@ class JoinStatusCheck(Alert):
             raise JoinStatusError('auth failed: %s' % ' '.join(shlex.quote(x) for x in cmd))
 
     def check_ldapsearch_tls(self):
+        uri = f"ldap://{ucr['ldap/server/name']}:{ucr['ldap/server/port']}"
         cmd = [
             'ldapsearch',
             '-x',
             '-ZZ',
-            '-h', ucr['ldap/server/name'],
-            '-p', ucr['ldap/server/port'],
+            '-H', uri,
             '-D', ucr['ldap/hostdn'],
             '-y', '/etc/machine.secret',
             '-b', ucr['ldap/base'],

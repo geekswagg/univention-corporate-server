@@ -33,6 +33,9 @@
 # /usr/share/common-licenses/AGPL-3; if not, see
 # <https://www.gnu.org/licenses/>.
 
+
+import os
+
 from univention.config_registry import ucr
 from univention.monitoring import Alert
 
@@ -42,14 +45,17 @@ class LDAP(Alert):
     def write_metrics(self):
         if ucr['server/role'] == 'memberserver':
             return
+        password = ""
+        with open('/etc/machine.secret') as fh:
+            password = fh.readline()
         slapd_port = ucr.get('slapd/port', '7389').split(',')[0]
+        os.environ['LDAP_PASSWORD'] = password
         rc, output = self.exec_command([
             '/usr/lib/nagios/plugins/check_ldap',
             '-H', '%(hostname)s.%(domainname)s' % ucr,
             '-p', slapd_port,
             '-b', ucr['ldap/base'],
             '-D', ucr['ldap/hostdn'],
-            '-y', '/etc/machine.secret',
         ])
         self.write_metric('univention_ldap_reachable', 1 if rc == 0 else 0)
         self.log.debug(output)

@@ -1,3 +1,9 @@
+univention-monitoring-client (3.0.6) unstable; urgency=medium
+
+  * Issue univention/ucs#1952: fix some checks for 5.2
+
+ -- Felix Botner <botner@univention.de>  Mon, 09 Dec 2024 14:52:57 +0100
+
 univention-monitoring-client (3.0.5) unstable; urgency=medium
 
   * Bug #56858: replace transitional packages
