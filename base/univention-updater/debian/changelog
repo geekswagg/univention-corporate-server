@@ -1,3 +1,9 @@
+univention-updater (17.0.11) unstable; urgency=medium
+
+  * Issue univention/ucs#2551: check for blocking apps
+
+ -- Felix Botner <botner@univention.de>  Tue, 10 Dec 2024 17:18:46 +0100
+
 univention-updater (17.0.10) unstable; urgency=medium
 
   * Bug #56528: update_check_user_country_mapping only on primary
