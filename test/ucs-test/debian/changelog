@@ -1,3 +1,9 @@
+ucs-test (12.0.221) unstable; urgency=medium
+
+  * Issue univention/ucs#2533: fix some more tests
+
+ -- Felix Botner <botner@univention.de>  Tue, 10 Dec 2024 17:46:03 +0100
+
 ucs-test (12.0.220) unstable; urgency=medium
 
   * Issue univention/ucs#2533: fix 20_mail_delivery_via_submission_port.py

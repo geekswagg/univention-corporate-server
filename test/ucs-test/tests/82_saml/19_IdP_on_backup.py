@@ -6,9 +6,12 @@
 ## roles: [domaincontroller_backup]
 ## join: true
 ## exposure: dangerous
+## apps: [keycloak]
 
 import socket
 import time
+
+import pytest
 
 import univention.admin.modules as udm_modules
 from univention.testing import utils
@@ -19,6 +22,16 @@ import samltest
 udm_modules.update()
 
 
+def keycloak_installed_on_primary():
+    lo = utils.get_ldap_connection(admin_uldap=True)
+    master = udm_modules.lookup('computers/domaincontroller_master', None, lo, scope='sub')
+    master_name = master[0]['name']
+    if not lo.search(f'(&(univentionServerRole=master)(cn={master_name})(univentionService=keycloak))'):
+        return False
+    return True
+
+
+@pytest.mark.skipif(not keycloak_installed_on_primary(), reason='test makes no sense without keycloak on the primary')
 def test_idp_on_backup(saml_session):
     lo = utils.get_ldap_connection(admin_uldap=True)
     master = udm_modules.lookup('computers/domaincontroller_master', None, lo, scope='sub')

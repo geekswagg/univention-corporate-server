@@ -55,7 +55,7 @@ class TestPwdChangeNextLogin:
 
         if samba4_installed:
             utils.wait_for_connector_replication()
-            wait_for_drs_replication(filter_format('sAMAccountName=%s', [username]))
+            wait_for_drs_replication(filter_format('(&(sAMAccountName=%s)(pwdLastSet=0))', [username]))
             utils.wait_for_s4connector_replication()
         client = Client(language='en-US')
         with pytest.raises(Unauthorized) as msg:
