@@ -1,3 +1,10 @@
+univention-updater (17.0.13) unstable; urgency=medium
+
+  * Bug #57802: Do not provide a list of UCS releases to update to if some
+    docker apps are not yet released for these releases
+
+ -- Dirk Wiesenthal <wiesenthal@univention.de>  Wed, 11 Dec 2024 22:57:06 +0100
+
 univention-updater (17.0.12) unstable; urgency=medium
 
   * Issue univention/ucs#2551: check min version of system
