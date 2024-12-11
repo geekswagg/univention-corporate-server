@@ -1,3 +1,11 @@
+univention-appcenter (11.0.13) unstable; urgency=medium
+
+  * Bug #57802: univention-app update-check did not report all missing apps
+    during an UCS upgrade. Some docker apps may be missed due to working on a
+    wrong cache
+
+ -- Dirk Wiesenthal <wiesenthal@univention.de>  Wed, 11 Dec 2024 15:10:58 +0100
+
 univention-appcenter (11.0.12) unstable; urgency=medium
 
   * Issue univention/ucs#2518: Removed some third party logos from the source
