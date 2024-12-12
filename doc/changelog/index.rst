@@ -204,6 +204,10 @@ Univention App Center
   not in per-container JSON log files. :program:`journald` can be queried to
   get the logs for one app (:uv:bug:`56058`, :uv:bug:`56131`).
 
+* The obsolete |UCSUCRV| :envvar:`docker/daemon/default/map/.*` has been
+  removed from the Docker configuration templates and is no longer evaluated
+  (:uv:bug:`56058`).
+
 * The App Center now avoids assigning a subnet to an app that conflicts with
   other networks already created in docker (:uv:bug:`57210`).
 
