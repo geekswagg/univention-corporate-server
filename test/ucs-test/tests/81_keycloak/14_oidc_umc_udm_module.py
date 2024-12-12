@@ -40,7 +40,7 @@ def disable_sasl_oauthbearer_grace(ucr_proper):
     ucr_update(ucr_proper, {ucrv: str(OAUTH_BEARER_GRACE)})
     run_command(['systemctl', 'restart', 'slapd'])
     run_command(['systemctl', 'restart', 'univention-management-console-server'])
-    time.sleep(15)
+    time.sleep(60)
 
     yield
 
