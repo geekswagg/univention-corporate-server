@@ -12,7 +12,7 @@
 import json
 import pprint
 
-from playwright.sync_api import Page
+from playwright.sync_api import Page, expect
 
 from univention.lib.i18n import Translation
 from univention.testing.browser import logger
@@ -23,10 +23,12 @@ _ = Translation('ucs-test-browser').translate
 
 
 def test_umc_memory_leaks(umc_browser_test: UMCBrowserTest):
-    page = umc_browser_test.page
+    page: Page = umc_browser_test.page
     pp = pprint.PrettyPrinter(indent=4)
 
     umc_browser_test.login()
+
+    expect(page.get_by_label('Favorites')).to_be_visible()
 
     dijit_map = gather_dijit_registry_map(page)
     dijit_map_json = json.loads(dijit_map)
