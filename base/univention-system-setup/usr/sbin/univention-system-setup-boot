@@ -60,6 +60,7 @@ action_start () {
 }
 
 action_stop () {
+	univention-config-registry set system/setup/boot/start=false
 	univention-config-registry unset --schedule \
 		apache2/startsite \
 		system/setup/boot/start \

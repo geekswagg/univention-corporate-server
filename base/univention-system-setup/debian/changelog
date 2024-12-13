@@ -1,3 +1,9 @@
+univention-system-setup (15.0.12) unstable; urgency=medium
+
+  * Issue univention/ucs#2560: set system/setup/boot/start to false after setup
+
+ -- Felix Botner <botner@univention.de>  Fri, 13 Dec 2024 14:24:18 +0100
+
 univention-system-setup (15.0.11) unstable; urgency=medium
 
   * Issue univention/ucs#2560: don't stop during upgrade
