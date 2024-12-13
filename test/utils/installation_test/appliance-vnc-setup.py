@@ -94,7 +94,7 @@ class UCSSetup(VNCInstallation):
             self.type(self.args.dns)
             time.sleep(0.5)
 
-        self.type('\n')
+        self.go_next(tabs=4)
 
         # FIXME: all scenarios use `kvm_dhcp: true`, so the following currently does not happen
         # they only delay 120s per `t_i_v()`, e.g. 60+120+120+120+120=9m
