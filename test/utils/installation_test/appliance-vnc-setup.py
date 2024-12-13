@@ -252,12 +252,16 @@ class UCSSetup(VNCInstallation):
         """
         self.wait_for_text('confirm configuration')
         self.screenshot('start-setup.png')
-        for _ in range(3):
-            self.client.keyPress('down')
-        try:
-            self.click_on('configuresystem')
-        except VNCDoException:
-            self.click_on('configure system')
+
+        # just a test
+        self.type("\t" * 4)
+        self.type("\n")
+        # for _ in range(3):
+        #     self.client.keyPress('down')
+        # try:
+        #     self.click_on('configuresystem')
+        # except VNCDoException:
+        #     self.click_on('configure system')
 
     @verbose("FINISH")
     def finish(self) -> None:
