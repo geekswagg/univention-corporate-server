@@ -89,7 +89,8 @@ class UCSSetup(VNCInstallation):
             raise VNCDoException()
 
         self.screenshot('network-setup.png')
-        self.click_on('Preferred')
+        # self.click_on('Preferred')
+        self.type("\t" * 2)
         if self.args.role in {'admember', 'slave'}:
             self.type(self.args.dns)
             time.sleep(0.5)
