@@ -21,7 +21,7 @@ ucr.load()
 
 
 def renew_sso_cert():
-    sso_fqdn = urlparse(ucr['keycloak/server/sso/fqdn']).netloc
+    sso_fqdn = urlparse(ucr['ucs/server/sso/uri']).netloc
     subprocess.check_call(['univention-certificate', 'new', '-name', sso_fqdn, '-days', '100'])
     subprocess.check_call([
         "cp",

@@ -1,4 +1,4 @@
-ucs-test (12.0.224) unstable; urgency=medium
+ucs-test (12.0.225) unstable; urgency=medium
 
   * Issue univention/components/keycloak-app#206: Change settings from keycloak/server/sso/fqdn to ucs/server/sso/uri
 
