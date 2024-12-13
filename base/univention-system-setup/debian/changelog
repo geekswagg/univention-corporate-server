@@ -1,3 +1,12 @@
+univention-system-setup (15.0.11) unstable; urgency=medium
+
+  * Issue univention/ucs#2560: don't stop during upgrade
+
+    to not stop a running setup process, and replace
+    ifconfig down with ifdown
+
+ -- Felix Botner <botner@univention.de>  Fri, 13 Dec 2024 11:55:04 +0100
+
 univention-system-setup (15.0.10) unstable; urgency=medium
 
   * Issue univention/components/keycloak-app#206: Change settings from keycloak/server/sso/fqdn to ucs/server/sso/uri
