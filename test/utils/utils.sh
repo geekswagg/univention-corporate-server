@@ -302,7 +302,7 @@ keycloak_migration() {
 		switch_to_test_app_center
 		# shellcheck source=/dev/null
 		. utils-keycloak.sh && install_upgrade_keycloak --set ucs/self/registration/check_email_verification="True"
-		univention-keycloak-migration-status -f -d --fix-settings
+		univention-keycloak-migration-status -f -d -c
 	fi
 }
 
