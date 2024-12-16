@@ -182,7 +182,7 @@ create_dummy_certficate () {
 	local fqdn="${1:?missing fqdn}"; shift
 	univention-certificate new -name "$fqdn"
 	mv /etc/univention/ssl/"$fqdn" /opt/
-	chmod -R 750 "opt/$fqdn"
+	chmod -R 750 "/opt/$fqdn"
 }
 
 copy_dummy_certficate () {
