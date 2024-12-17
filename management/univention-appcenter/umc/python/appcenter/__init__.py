@@ -33,7 +33,6 @@
 # /usr/share/common-licenses/AGPL-3; if not, see
 # <https://www.gnu.org/licenses/>.
 
-import json
 import locale
 import logging
 import os
@@ -377,27 +376,16 @@ class Instance(umcm.Base, ProgressMixin):
 
     @simple_response
     def query(self, quick=False):
-        query_cache_file = '/var/cache/univention-appcenter/umc-query.json'
+        cache = get_action('umc-generate-app-cache')
         if quick:
-            try:
-                with open(query_cache_file) as fd:
-                    return json.load(fd)
-            except (OSError, ValueError) as exc:
-                MODULE.error('Error returning cached query: %s' % exc)
-                return []
+            return cache.load()
         self.update_applications()
         self.ucr.load()
         reload_package_manager()
-        list_apps = get_action('list')
-        domain = get_action('domain')
-        apps = list_apps.get_apps()
         if self.ucr.is_true('appcenter/docker', True):
             if not self._test_for_docker_service():
                 raise umcm.UMC_Error(_('The docker service is not running! The App Center will not work properly.') + ' ' + _('Make sure docker.io is installed, try starting the service with "service docker start".'))
-        info = domain.to_dict(apps)
-        with open(query_cache_file, 'w') as fd:
-            json.dump(info, fd)
-        return info
+        return cache.generate()
 
     def update_applications(self):
         if self.ucr.is_true('appcenter/umc/update/always', True):

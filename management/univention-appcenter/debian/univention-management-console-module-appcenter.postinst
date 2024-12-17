@@ -43,4 +43,6 @@ if [ -z "$2" ]; then
 	python3 -c "from univention.appcenter.actions import get_action; get_action('update')()._update_local_files()"
 fi
 
+univention-app umc-generate-app-cache
+
 exit 0

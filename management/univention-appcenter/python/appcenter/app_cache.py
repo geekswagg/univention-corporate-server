@@ -451,6 +451,11 @@ class AppCenterCache(_AppCache):
             ucs_version = self._get_current_ucs_version()
             cache_file = self.get_cache_file('.ucs.ini')
             self._ucs_versions = _get_ucs_versions_for(ucs_version, cache_file) or [ucs_version]
+        # TODO always appending "5.0" is a workaround for now. We need a way to fetch data from .ucs.ini even
+        # in situations where the system cannot connect to the internet. A pre-installed version of .ucs.ini
+        # that we can fall back to in "offline mode" is needed.. (same way we do it with the all.tar.gz file)
+        if "5.0" not in self._ucs_versions:
+            self._ucs_versions.append("5.0")
         return self._ucs_versions
 
     def get_locale(self):

@@ -94,6 +94,13 @@ define([
 				'class': tools.getIconClass(this.icon, 'scalable'),
 				baseClass: 'umcModuleLogo'
 			});
+			if (this.icon && this.icon.startsWith('apps-')) {
+				domStyle.set(logoWrapper.domNode, "background-color", "var(--bgc-apptile-default)");
+				domStyle.set(logo.domNode, {
+					"background-position": "center",
+					"background-size": "80%",
+				});
+			}
 			this._title = new Text({
 				content: this.get('title'),
 				baseClass: 'umcModuleTitle'
