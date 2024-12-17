@@ -302,7 +302,12 @@ keycloak_migration() {
 		switch_to_test_app_center
 		# shellcheck source=/dev/null
 		. utils-keycloak.sh && install_upgrade_keycloak --set ucs/self/registration/check_email_verification="True"
+		configure_umc_keycloak
+		# migration
 		univention-keycloak-migration-status -f -d -c
+	else
+		configure_umc_keycloak
+		# TODO do we need to run univention-keycloak-migration-status on other roles?
 	fi
 }
 
