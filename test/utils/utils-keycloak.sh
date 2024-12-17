@@ -91,9 +91,7 @@ keycloak_saml_idp_setup () {
 
 keycloak_umc_oidc_idp_setup() {
 	local idp="${1:-ucs-sso-ng.$(ucr get domainname)}"
-	idp=${idp,,}
 	local fqdn="$(ucr get hostname).$(ucr get domainname)"
-	fqdn=${fqdn,,}
 
 	# FIXME
 	local join_user join_pwdfile
