@@ -104,9 +104,11 @@ class UCSSetup(VNCInstallation):
         #     self.type('\n')
         #     sleep(60, "net.gateway")
 
-        # if self.text_is_visible('continue without access'):
-        #     self.type('\n')
-        #     sleep(60, "net.unconnected")
+        # FIXME in ad member mode dns sometimes fails (TODO why?)
+        # ignore this for now and just continue
+        if self.text_is_visible('continue without access'):
+            self.type('\n')
+            sleep(60, "net.unconnected")
 
         # sleep(120, "net.finish")
 
