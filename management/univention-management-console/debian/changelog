@@ -1,3 +1,10 @@
+univention-management-console (14.0.45) unstable; urgency=medium
+
+  * Issue univention/components/keycloak-app#206: always lower-case the output
+    of get-keycloak-base-url when setting umc/oidc/issuer in UMC join script
+
+ -- Marius Meschter <marius.meschter@univention.de>  Tue, 17 Dec 2024 15:16:23 +0100
+
 univention-management-console (14.0.44) unstable; urgency=medium
 
   * Issue univention/components/keycloak-app#206: Change settings from keycloak/server/sso/fqdn to ucs/server/sso/uri

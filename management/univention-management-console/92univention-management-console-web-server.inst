@@ -105,7 +105,8 @@ _setup_oidc () {
 		ucr unset umc/oidc/issuer; exit 3
 	}
 	rm /usr/share/univention-management-console/oidc/*.jwks
-	ucr --debug set umc/oidc/issuer="$(univention-keycloak get-keycloak-base-url)/realms/ucs" || _cleanup_oidc_die
+	oidc_issuer="$(univention-keycloak get-keycloak-base-url)/realms/ucs" || _cleanup_oidc_die
+	ucr --debug set umc/oidc/issuer="${oidc_issuer,,}" || _cleanup_oidc_die
 	[ "$(ls -A /usr/share/univention-management-console/oidc/*.jwks)" ] || _cleanup_oidc_die
 
 	ucr set \
