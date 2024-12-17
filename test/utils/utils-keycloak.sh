@@ -104,7 +104,7 @@ keycloak_umc_oidc_idp_setup() {
 
 	ucr set umc/oidc/rp/server="$fqdn"
 	ucr set --force ldap/server/sasl/oauthbearer/trusted-authorized-party/"$fqdn"="https://$fqdn/univention/oidc/"
-	ucr set ucs/server/sso/uri="https://${idp}/"
+	ucr set ucs/server/sso/uri="https://${idp,,}/"
 	univention-run-join-scripts -dcaccount "$join_user" -dcpwd "$join_pwdfile" --force --run-scripts 92univention-management-console-web-server
 
 	if [ "$(ucr get server/role)" = "domaincontroller_master" ]; then
