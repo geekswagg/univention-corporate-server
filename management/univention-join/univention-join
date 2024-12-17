@@ -471,7 +471,7 @@ if [ $? -ne 0 ]; then
 	fi
 fi
 
-ssh_out="$(univention-ssh -timeout 3 "$DCPWD" "${DCACCOUNT}@${DCNAME}" ls 2>&1)"
+ssh_out="$(univention-ssh -timeout 10 "$DCPWD" "${DCACCOUNT}@${DCNAME}" ls 2>&1)"
 if [ $? -ne 0 ]; then
 	ssh_out=$(echo "$ssh_out" | tr '\n' ' ' | tr  '\r' ' ')
 	failed_message "The ssh-login to ${DCACCOUNT}@${DCNAME} failed with \"${ssh_out}\". Please make sure the account ${DCACCOUNT} exists and is a member of the Domain Admins group!"
