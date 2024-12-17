@@ -1,3 +1,9 @@
+univention-bind (16.0.7) unstable; urgency=medium
+
+  * Issue univention/ucs#2309: Make DNSSEC-Validation configurable
+
+ -- Felix Botner <botner@univention.de>  Tue, 17 Dec 2024 17:04:50 +0100
+
 univention-bind (16.0.6) unstable; urgency=medium
 
   * Issue univention/ucs#2309: Change default value of DNSSEC-Validation to False
