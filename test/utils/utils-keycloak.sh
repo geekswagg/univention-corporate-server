@@ -84,7 +84,7 @@ keycloak_saml_idp_setup () {
     if [ "$(ucr get server/role)" = "domaincontroller_master" ]; then
         udm portals/entry modify --dn "cn=login-saml,cn=entry,cn=portals,cn=univention,$(ucr get ldap/base)" --set activated=TRUE
     fi
-    ucr set umc/saml/idp-server="https://$idp/realms/ucs/protocol/saml/descriptor"
+    ucr set umc/saml/idp-server="$idp/realms/ucs/protocol/saml/descriptor"
     systemctl restart slapd || true
 }
 
