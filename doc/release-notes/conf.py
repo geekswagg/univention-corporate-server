@@ -97,6 +97,7 @@ intersphinx_mapping = {
     "uv-manual": ref("manual"),
     "uv-ext-windows": ref("ext-windows"),
     "uv-keycloak-mig": ("https://docs.software-univention.de/keycloak-migration/", None),
+    "uv-keycloak-app": ("https://docs.software-univention.de/keycloak-app/latest/", None),
     f"uv-changelog-{release}": ref("changelog", ver=release),
 }
 
@@ -152,7 +153,7 @@ if "spelling" in sys.argv:
     spelling_lang = "en_US"
     spelling_show_suggestions = True
     spelling_warning = True
-    spelling_word_list_filename = []
+    spelling_word_list_filename = ["spelling_wordlist"]
     # Don't load extension to speed up the job
     extensions.remove("sphinx_last_updated_by_git")
     extensions.remove("sphinx_sitemap")

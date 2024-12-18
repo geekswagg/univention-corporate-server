@@ -6,7 +6,7 @@
 Release notes for the installation and update of Univention Corporate Server (UCS) |release|
 ############################################################################################
 
-Publication date of UCS |release|: 2024-12-31
+Publication date of UCS |release|: 2025-02-05
 
 .. _relnotes-highlights:
 
@@ -14,27 +14,50 @@ Publication date of UCS |release|: 2024-12-31
 Release highlights
 ******************
 
-With |UCSUCS| 5.2-0, the second minor release for |UCSUCS| (UCS) is
-available. It provides several feature improvements and extensions, new
-properties as well as various improvements and bug fixes. Here is an overview of
-the most important changes:
+With |UCSUCS| 5.2-0, the second minor release for |UCSUCS| (UCS) is available.
+It provides several feature improvements and extensions, new properties, as well as bug fixes.
+Here is an overview of the most important changes:
 
-* Keycloak replaces SimpleSAMLPHP.
+* |UCSUCS| 5.2 bases on Debian 12 ``Bookworm`` and therefore it updates a lot of packages.
+  As |UCSUCS| 5.0 based on Debian 10 ``Buster``, the intermediate |UCSUCS| 5.1 based on Debian 11 ``Bullseye`` exists.
+  |UCSUCS| 5.1 is only required for updating, and you must never use it in production.
+  However, the update automatically continues up to 5.2 without the need for manual interaction.
+  |UCSUCS| 5.2 provides up-to-date versions for,
+  but not limited to,
+  the Linux Kernel (6.1.0-28), :program:`Samba` (4.21.1), :program:`OpenLDAP` (2.5.13), PostgreSQL (15), Python (3.11), and Docker (4.18.0).
 
-* No support for mixed UCS 4.x / UCS 5.x environments.
+* :program:`Keycloak` replaces :program:`SimpleSAMLphp` and :program:`Kopano Konnect`.
+  In |UCSUCS| 5.2, :program:`Keycloak` is the only Identity Provider (IDP).
+  This means that :program:`Keycloak` is the sole component used for authentication and (single-) sign on.
+  :program:`Keycloak` is already available as an app for |UCSUCS| 5.0.
+  The
+  :external+uv-keycloak-mig:doc:`Migration Guide <index>`
+  provides information and preparation steps for the update.
+  :program:`Keycloak` offers a vast range of features
+  and configurability concerning sign-in and usage scenarios,
+  such as federation, single-sign on with SAML, OIDC and Kerberos,
+  or custom conditional authentication flows.
+  For an overview of tested use cases,
+  see the
+  :external+uv-keycloak-app:doc:`Univention Keycloak app Manual <index>`.
 
-* Update from Python 3.7 to Python 3.11.
-  No more support for Python 2.
+* |UCSUCS| 5.0 supported mixed environments with leading systems updated to 5.0
+  while other |UCSUCS| nodes still ran |UCSUCS| 4.
+  |UCSUCS| 5.2 drops support for |UCSUCS| 4 environments.
+  However, it's still possible to mix |UCSUCS| 5.2 and 5.0 in one domain.
 
-* Update to Samba version 4.21.1
+* |UCSUCS| 5.2 updates Python from 3.7 to 3.11.
+  While |UCSUCS| 5.0 still supported Python 2.7,
+  |UCSUCS| 5.2 no longer supports Python 2.7 and removes its support completely.
 
-* FIXME
+* |UCSUCS| 5.2 modernizes the web interface
+  and improves the overall look and feel.
+  In particular, it improves the integration of various staggered elements
+  to make navigation easier and highlight significant areas more prominently.
 
+* The *Univention Configuration Registry (UCR)* now evaluates and validates given values
+  according to the configured type to prevent accidental misuse of unsupported values.
 
-UCS 5.2 is based on Debian 12 ``Bookworm``.
-As UCS 5.0 was based on Debian 10 ``Buster``, there exists the intermediate UCS 5.1 based on Debian 11 ``Bullseye``.
-This is only required for updating and should never be used in production.
-**No support!**
 
 .. _relnotes-update:
 
@@ -112,6 +135,14 @@ must be migrated before the update to UCS 5.2. Please see
 :uv:kb:`22322` for how to perform this migration.
 
 .. _relnotes-python-311-compatibility:
+
+Mixed environments consisting of both 5.2 and 5.0 nodes
+=======================================================
+
+FIXME: This should state the detailed requirements and constraints in terms of mixed
+environments.
+
+.. _relnotes-mixed-environments:
 
 Python 3.11 compatibility
 =========================
