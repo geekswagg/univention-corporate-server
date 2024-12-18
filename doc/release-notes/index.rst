@@ -65,7 +65,9 @@ Here is an overview of the most important changes:
 Notes about the update
 **********************
 
-Prerequisite for updating is at least UCS 5.0-7.
+Prerequisite for updating to UCS 5.2 is that all UCS systems in domain are at
+least on version 5.0-7 and that the system that is to be updated is at least
+on version 5.0-9-1195.
 
 Run the update in a maintenance window, because some services in the domain may
 not be available temporarily. It's recommended that you test the update in a separate
