@@ -81,6 +81,14 @@ install_upgrade_keycloak () {
 
 keycloak_saml_idp_setup () {
     local idp="${1:-$(ucr get ucs/server/sso/uri)}"
+
+	# we only need this for tests that install the current keycloak
+	# app, without the new setting
+	# can be removed after the release of keycloak 25.0.6-ucs4
+	if [ -z "$idp" ]; then
+		idp="ucs-sso-ng.$(ucr get domainname)"
+		idp="${idp,,}"
+	fi
     if [ "$(ucr get server/role)" = "domaincontroller_master" ]; then
         udm portals/entry modify --dn "cn=login-saml,cn=entry,cn=portals,cn=univention,$(ucr get ldap/base)" --set activated=TRUE
     fi
