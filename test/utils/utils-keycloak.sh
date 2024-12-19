@@ -86,7 +86,7 @@ keycloak_saml_idp_setup () {
 	# app, without the new setting
 	# can be removed after the release of keycloak 25.0.6-ucs4
 	if [ -z "$idp" ]; then
-		idp="ucs-sso-ng.$(ucr get domainname)"
+		idp="https://ucs-sso-ng.$(ucr get domainname)"
 		idp="${idp,,}"
 	fi
     if [ "$(ucr get server/role)" = "domaincontroller_master" ]; then
