@@ -119,7 +119,7 @@ class UpdateCheck(UniventionAppAction):
         # get apps in next version
         with TemporaryDirectory() as tempdir:
             update.call(ucs_version=next_minor, cache_dir=tempdir, just_get_cache=True)
-            next_cache = AppCenterCache.build(ucs_versions=next_minor, server=default_server(), locale='en', cache_dir=tempdir)
+            next_cache = AppCenterCache.build(ucs_versions=[next_minor], server=default_server(), locale='en', cache_dir=tempdir)
             next_apps = next_cache.get_every_single_app()
 
         # check apps
