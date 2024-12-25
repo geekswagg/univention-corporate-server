@@ -183,7 +183,7 @@ create_dummy_certficate () {
 	univention-certificate new -name "$fqdn"
 	mv /etc/univention/ssl/"$fqdn" /opt/
 	chmod -R 750 "/opt/$fqdn"
-	chown "root:DC Backup Hosts" "/opt/$fqdn/*"
+	chown -R "root:DC Backup Hosts" "/opt/$fqdn"
 }
 
 copy_dummy_certficate () {
