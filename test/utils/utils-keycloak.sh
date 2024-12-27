@@ -191,7 +191,8 @@ copy_dummy_certficate () {
 	local root_password="${1:?missing root_password}"; shift
 	local fqdn="${1:?missing fqdn}"; shift
 	univention-install -y sshpass
-	sshpass -p "$root_password" scp -r  -o StrictHostKeyChecking=no -o UpdateHostKeys=no root@"$ip":/opt/"$fqdn" /opt
+	sshpass -p "$root_password" scp -r -o StrictHostKeyChecking=no -o UpdateHostKeys=no root@"$ip":/opt/"$fqdn" /opt
+	chown -R "root:DC Backup Hosts" "/opt/$fqdn"
 }
 
 set_dns_forwarder () {
