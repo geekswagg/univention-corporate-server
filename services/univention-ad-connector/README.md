@@ -18,7 +18,7 @@
   `/etc/univention/connector/`.
 * During each replication cycle the AD-Connector polls the Active Directory via LDAP for changes (`usnChanged`/
   usnCreated` higher than the last value of `highestCommittedUSN` the AD-Connector has seen during the previous
-  replication cycle.
+  replication cycle (following [MS recommendations](https://github.com/MicrosoftDocs/win32/blob/docs/desktop-src/AD/overview-of-change-tracking-techniques.md)).
   The last seen value of `highestCommittedUSN` is stored in `internal.sqlite`. The AD-Connector attempts to write
   the change to OpenLDAP. If possible it uses the Python UDM API to write changes to OpenLDAP. If object modification
   fails, e.g. with a Python traceback, its DN is stored into a table `UCS rejected` in `internal.sqlite`.
