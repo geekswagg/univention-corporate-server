@@ -1,3 +1,9 @@
+univention-updater (17.0.18) unstable; urgency=medium
+
+  * Issue univention/ucs#1709: set ucrv ros with correct type
+
+ -- Felix Botner <botner@univention.de>  Tue, 07 Jan 2025 15:05:59 +0100
+
 univention-updater (17.0.17) unstable; urgency=medium
 
   * Issue univention/ucs#2573: Block update for postgresql-9.6
