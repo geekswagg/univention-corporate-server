@@ -168,6 +168,15 @@ Keycloak
 * Several changes to ``univention-keycloak`` for better integration with
   Univention Nubus (:uv:bug:`57492`).
 
+* Starting with UCS 5.2-0, the Identity Provider (IDP) endpoint for SAML and
+  OIDC services for all UCS systems is defined by the |UCSUCR|
+  ``sso_uri_domainwide_setting`` policy. This policy sets the |UCSUCRV|
+  :envvar:`ucs/server/sso/uri` on all UCS systems. During installation of the
+  :program:`Keycloak` app or when changing the FQDN of the IDP, this policy is
+  automatically updated. Services can use the value of
+  :envvar:`ucs/server/sso/uri` to configure |SSO| with :program:`Keycloak`
+  (:uv:bug:`57826`).
+
 .. _changelog-umc:
 
 *****************************
