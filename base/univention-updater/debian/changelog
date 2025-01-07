@@ -1,3 +1,9 @@
+univention-updater (17.0.19) unstable; urgency=medium
+
+  * Issue univention/ucs#1709: set ucrv ros with correct type
+
+ -- Felix Botner <botner@univention.de>  Tue, 07 Jan 2025 15:22:19 +0100
+
 univention-updater (17.0.18) unstable; urgency=medium
 
   * Issue univention/ucs#1709: set ucrv ros with correct type

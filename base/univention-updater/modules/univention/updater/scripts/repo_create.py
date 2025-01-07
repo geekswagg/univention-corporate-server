@@ -131,7 +131,7 @@ def main() -> None:
 
         # set repository server to local system
         ucr_set = [
-            'repository/online/server=%(hostname)s.%(domainname)s' % configRegistry,
+            'repository/online/server=http://%(hostname)s.%(domainname)s' % configRegistry,
             'repository/mirror/version/start?%s' % current_ucs_version,
         ]
         # set last version contained in repository
