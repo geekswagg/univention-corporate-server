@@ -72,7 +72,7 @@ then
 fi
 
 univention-config-registry set \
-	repository/online/server="$FQDN" \
+	repository/online/server="http://$FQDN" \
 	repository/online/prefix="univention-repository"
 
 joinscript_save_current_version
