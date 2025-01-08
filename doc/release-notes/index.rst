@@ -284,13 +284,13 @@ Recommended browsers for the access to |UCSUMC|
 interface. Your web browser needs to permit cookies. |UCSUMC| requires one of
 the following browsers:
 
-* Chrome as of version FIXME
+* Chrome as of version 131
 
-* Firefox as of version FIXME
+* Firefox as of version 128
 
-* Safari and Safari Mobile as of version FIXME
+* Safari and Safari Mobile as of version 18
 
-* Microsoft Edge as of version FIXME
+* Microsoft Edge as of version 128
 
 Users running older browsers may experience display or performance issues.
 

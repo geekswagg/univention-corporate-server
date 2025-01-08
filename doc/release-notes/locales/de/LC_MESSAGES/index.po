@@ -566,20 +566,20 @@ msgstr ""
 "|UCSUMC| benötigt dafür einen der folgenden Browser:"
 
 #: ../../index.rst:287
-msgid "Chrome as of version FIXME"
-msgstr "Chrome ab Version FIXME"
+msgid "Chrome as of version 131"
+msgstr "Chrome ab Version 131"
 
 #: ../../index.rst:289
-msgid "Firefox as of version FIXME"
-msgstr "Firefox ab Version FIXME"
+msgid "Firefox as of version 128"
+msgstr "Firefox ab Version 128"
 
 #: ../../index.rst:291
-msgid "Safari and Safari Mobile as of version FIXME"
-msgstr "Safari und Safari Mobile ab Version FIXME"
+msgid "Safari and Safari Mobile as of version 18"
+msgstr "Safari und Safari Mobile ab Version 18"
 
 #: ../../index.rst:293
-msgid "Microsoft Edge as of version FIXME"
-msgstr "Microsoft Edge ab Version FIXME"
+msgid "Microsoft Edge as of version 128"
+msgstr "Microsoft Edge ab Version 128"
 
 #: ../../index.rst:295
 msgid "Users running older browsers may experience display or performance issues."

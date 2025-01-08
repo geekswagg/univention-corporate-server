@@ -1301,22 +1301,22 @@ msgstr ""
 "die folgenden Browser:"
 
 #: ../../central-management-umc/introduction.rst:32
-msgid ":program:`Google Chrome` as of version 120"
-msgstr ":program:`Google Chrome` ab Version 120"
+msgid ":program:`Google Chrome` as of version 131"
+msgstr ":program:`Google Chrome` ab Version 131"
 
 #: ../../central-management-umc/introduction.rst:34
-msgid ":program:`Mozilla Firefox` as of version 115"
-msgstr ":program:`Mozilla Firefox` ab Version 115"
+msgid ":program:`Mozilla Firefox` as of version 128"
+msgstr ":program:`Mozilla Firefox` ab Version 128"
 
 #: ../../central-management-umc/introduction.rst:36
-msgid ":program:`Microsoft Edge` as of version 120"
-msgstr ":program:`Microsoft Edge` ab Version 120"
+msgid ":program:`Microsoft Edge` as of version 128"
+msgstr ":program:`Microsoft Edge` ab Version 128"
 
 #: ../../central-management-umc/introduction.rst:38
 msgid ""
 ":program:`Apple Safari` and :program:`Apple Safari Mobile` as of version "
-"15"
-msgstr ":program:`Apple Safari` und :program:`Apple Safari Mobile` ab Version 15"
+"18"
+msgstr ":program:`Apple Safari` und :program:`Apple Safari Mobile` ab Version 18"
 
 #: ../../central-management-umc/introduction.rst:40
 msgid ""

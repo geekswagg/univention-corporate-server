@@ -29,13 +29,13 @@ The |UCSWEB| uses numerous JavaScript and CSS functions.
 Your browser must allow the use of cookies.
 |UCSWEB| supports the following browsers:
 
-* :program:`Google Chrome` as of version 120
+* :program:`Google Chrome` as of version 131
 
-* :program:`Mozilla Firefox` as of version 115
+* :program:`Mozilla Firefox` as of version 128
 
-* :program:`Microsoft Edge` as of version 120
+* :program:`Microsoft Edge` as of version 128
 
-* :program:`Apple Safari` and :program:`Apple Safari Mobile` as of version 15
+* :program:`Apple Safari` and :program:`Apple Safari Mobile` as of version 18
 
 Users with older browsers may experience display problems
 or |UCSWEB| doesn't work at all.
