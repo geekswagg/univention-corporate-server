@@ -1,3 +1,10 @@
+ucs-test (12.0.226) unstable; urgency=medium
+
+  * Issue univention/components/keycloak-app#206: get keycloak url from
+    `univention-keycloak` instead of from UCRV in keycloak_config fixture
+
+ -- Marius Meschter <marius.meschter@univention.de>  Wed, 08 Jan 2025 10:16:24 +0100
+
 ucs-test (12.0.225) unstable; urgency=medium
 
   * Issue univention/components/keycloak-app#206: Change settings from keycloak/server/sso/fqdn to ucs/server/sso/uri

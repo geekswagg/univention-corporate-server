@@ -202,7 +202,7 @@ def portal_config(ucr_proper: ConfigRegistry) -> SimpleNamespace:
 
 @pytest.fixture()
 def keycloak_config(ucr_proper: ConfigRegistry) -> SimpleNamespace:
-    url = ucr_proper.get('ucs/server/sso/uri', f"https://ucs-sso-ng.{ucr_proper['domainname']}")
+    url = run_command(['univention-keycloak', 'get-keycloak-base-url'])
     server = urlparse(url).netloc
     path = urlparse(url).path
     password = ucr_proper['tests/domainadmin/pwd']
