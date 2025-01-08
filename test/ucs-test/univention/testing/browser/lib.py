@@ -105,9 +105,9 @@ class Interactions:
         row = self.page.locator(f"tr:has-text('{name}')")
         if nth is not None:
             row = row.nth(nth)
-        expect(row).to_be_visible(timeout=10 * 1000)
+        expect(row).to_be_visible(timeout=30 * 1000)
         checkbox = row.get_by_role('checkbox')
-        expect(checkbox).to_be_visible(timeout=10 * 1000)
+        expect(checkbox).to_be_visible(timeout=30 * 1000)
         checkbox.click()
 
     def open_modules(self, modules: list[str], limit: int | None = None, start_at: int | None = None):

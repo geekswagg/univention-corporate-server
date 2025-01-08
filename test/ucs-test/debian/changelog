@@ -1,3 +1,10 @@
+ucs-test (12.0.227) unstable; urgency=medium
+
+  * univention/ucs#2533: increase timeout for checking checkbox in table
+    function for browser tests
+
+ -- Marius Meschter <marius.meschter@univention.de>  Wed, 08 Jan 2025 10:48:24 +0100
+
 ucs-test (12.0.226) unstable; urgency=medium
 
   * Issue univention/components/keycloak-app#206: get keycloak url from
