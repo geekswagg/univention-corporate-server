@@ -62,7 +62,7 @@ type2_listener_fake () {
 	grep "faking listener initialization" /var/log/univention/join.log
 	grep "faking handler 'replication'" /var/log/univention/join.log
 	grep "faking handler 'nss'" /var/log/univention/join.log
-	grep "slapadd -f /etc/ldap/slapd.conf /opt/type2/ldif.gz" /var/log/univention/join.log
+	grep "slapadd /opt/type2/ldif.gz" /var/log/univention/join.log
 	# shellcheck disable=SC2154
 	grep "resync from Primary: cn=$backup_NAME," /var/log/univention/join.log
 }
