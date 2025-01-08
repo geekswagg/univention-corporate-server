@@ -1,3 +1,9 @@
+univention-server-overview (5.0.2-1) unstable; urgency=medium
+
+  * Issue univention/components/keycloak-app#206: Change settings from keycloak/server/sso/fqdn to ucs/server/sso/uri
+
+ -- Felix Botner <botner@univention.de>  Wed, 08 Jan 2025 12:11:34 +0100
+
 univention-server-overview (5.0.2) unstable; urgency=medium
 
   * Bug #56604: drop Python 2 compatibility
