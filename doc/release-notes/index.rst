@@ -148,7 +148,7 @@ environments.
   system and want to use this local repository for updating other UCS systems
   from 5.0-x to 5.2-x, please read the
   `knowledgebase article #23755 <https://help.univention.com/t/23755/>`_
-  for further instructions.
+  for further notes.
 
 .. _relnotes-mixed-environments:
 
