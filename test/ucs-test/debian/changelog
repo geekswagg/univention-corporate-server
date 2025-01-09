@@ -1,3 +1,10 @@
+ucs-test (12.0.228) unstable; urgency=medium
+
+  * Issue univention/components/keycloak-app#206: rstrip output from
+    get-keycloak-base-url
+
+ -- Marius Meschter <marius.meschter@univention.de>  Thu, 09 Jan 2025 08:43:17 +0100
+
 ucs-test (12.0.227) unstable; urgency=medium
 
   * univention/ucs#2533: increase timeout for checking checkbox in table
