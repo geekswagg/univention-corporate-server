@@ -1,3 +1,9 @@
+univention-updater (17.0.20) unstable; urgency=medium
+
+  * Issue univention/ucs#2550: remove sources.list backups after update
+
+ -- Felix Botner <botner@univention.de>  Thu, 09 Jan 2025 16:31:16 +0100
+
 univention-updater (17.0.19) unstable; urgency=medium
 
   * Issue univention/ucs#1709: set ucrv ros with correct type
