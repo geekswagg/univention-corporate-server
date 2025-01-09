@@ -1,6 +1,6 @@
 #!/usr/share/ucs-test/runner /usr/share/ucs-test/playwright
 ## desc: Test accessing UMC UDM LDAP module with new access token
-## tags: [keycloak]
+## tags: [keycloak, skip_admember]
 ## roles: [domaincontroller_master]
 ## exposure: dangerous
 

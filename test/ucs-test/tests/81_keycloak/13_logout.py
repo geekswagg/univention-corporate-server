@@ -1,6 +1,6 @@
 #!/usr/share/ucs-test/runner /usr/share/ucs-test/playwright
 ## desc: Test logout refresh
-## tags: [keycloak]
+## tags: [keycloak, skip_admember]
 ## roles: [domaincontroller_master, domaincontroller_backup]
 ## exposure: dangerous
 
