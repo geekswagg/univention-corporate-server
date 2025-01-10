@@ -1,3 +1,9 @@
+univention-management-console-module-adtakeover (9.0.3) unstable; urgency=medium
+
+  * Bug #56003: ntp service was renamed to ntpsec
+
+ -- Felix Botner <botner@univention.de>  Fri, 10 Jan 2025 13:26:50 +0100
+
 univention-management-console-module-adtakeover (9.0.2) unstable; urgency=medium
 
   * Bug #56003: bind9 service was renamed to named

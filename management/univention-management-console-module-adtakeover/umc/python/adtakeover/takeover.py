@@ -1904,7 +1904,7 @@ class AD_Takeover_Finalize:
 
         # Enable NTP Signing for Windows SNTP clients
         run_and_output_to_log(["univention-config-registry", "set", "ntp/signed=yes"], log.debug)
-        returncode = run_and_output_to_log(["/etc/init.d/ntp", "restart"], log.debug)
+        returncode = run_and_output_to_log(["/etc/init.d/ntpsec", "restart"], log.debug)
         if returncode != 0:
             log.error("Start of NTP daemon failed. See %s for details." % (LOGFILE_NAME,))
 
