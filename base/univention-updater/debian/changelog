@@ -1,4 +1,4 @@
-univention-updater (17.0.23) unstable; urgency=medium
+univention-updater (17.0.24) unstable; urgency=medium
 
   * Bug #57114: use official repo server
 
