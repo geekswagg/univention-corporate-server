@@ -1,3 +1,9 @@
+univention-lib (11.0.11) unstable; urgency=medium
+
+  * Bug #56661: migrate from NTP to NTPSEC
+
+ -- Arvid <requate@univention.de>  Fri, 10 Jan 2025 15:32:47 +0100
+
 univention-lib (11.0.10) unstable; urgency=medium
 
   * Issue univention/components/keycloak-app#206: Change settings from keycloak/server/sso/fqdn to ucs/server/sso/uri

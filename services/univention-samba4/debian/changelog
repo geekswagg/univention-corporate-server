@@ -1,3 +1,9 @@
+univention-samba4 (11.0.10) unstable; urgency=medium
+
+  * Bug #56661: migrate from NTP to NTPSEC
+
+ -- Arvid <requate@univention.de>  Fri, 10 Jan 2025 15:31:57 +0100
+
 univention-samba4 (11.0.9) unstable; urgency=medium
 
   * Issue univention/ucs#2528: fix changelog timestamps

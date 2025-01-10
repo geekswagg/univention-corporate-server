@@ -294,10 +294,10 @@ secret: $machine_secret
 	fi
 
 	if [ "$ntp_needs_restart" = 'true' ]; then
-		if test -x /etc/init.d/ntp; then
+		if test -x /etc/init.d/ntpsec; then
 			## simulate a crestart
-			if /etc/init.d/ntp status >/dev/null 2>&1; then
-				/etc/init.d/ntp restart
+			if /etc/init.d/ntpsec status >/dev/null 2>&1; then
+				/etc/init.d/ntpsec restart
 			fi
 		fi
 	fi
