@@ -19,7 +19,7 @@ auth     [success=<succ> new_authtok_reqd=ok \\
 
 def pam_section(template, last):
     succ = 'done'
-    unavail = 'die'
+    unavail = 'die' if last else 'ignore'
     fail = 'die'
     unknown = 'die' if last else 'ignore'
 
