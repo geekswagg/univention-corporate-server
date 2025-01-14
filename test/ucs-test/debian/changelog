@@ -1,3 +1,10 @@
+ucs-test (12.0.230) unstable; urgency=medium
+
+  * Issue univention/components/keycloak-app#206: make sure keycloak
+    base url has a trailing /
+
+ -- Felix Botner <botner@univention.de>  Tue, 14 Jan 2025 19:17:38 +0100
+
 ucs-test (12.0.229) unstable; urgency=medium
 
   * Issue univention/ucs#2533: skip keycloak tests for ad member

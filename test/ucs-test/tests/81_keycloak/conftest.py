@@ -209,7 +209,7 @@ def keycloak_config(ucr_proper: ConfigRegistry) -> SimpleNamespace:
     config = {
         'server': server,
         'path': path,
-        'url': url,
+        'url': os.path.join(url, ''),  # we need a trailing / here, see keycloak apache proxy config
         'admin_url': f'{url}/admin',
         'token_url': f'{url}/realms/ucs/protocol/openid-connect/token',
         'logout_url': f'{url}/realms/ucs/protocol/openid-connect/logout',
