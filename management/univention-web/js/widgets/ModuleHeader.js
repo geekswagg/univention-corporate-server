@@ -89,11 +89,12 @@ define([
 			var logoWrapper = new ContainerWidget({
 				baseClass: 'umcModuleLogoWrapper'
 			});
-			domStyle.set(logoWrapper.domNode, "background-color", this.iconBackgroundColor)
+			domStyle.set(logoWrapper.domNode, "background-color", this.iconBackgroundColor);
 			var logo = new ContainerWidget({
 				'class': tools.getIconClass(this.icon, 'scalable'),
 				baseClass: 'umcModuleLogo'
 			});
+			domStyle.set(logo.domNode, "background-size", "contain");
 			if (this.icon && this.icon.startsWith('apps-')) {
 				domStyle.set(logoWrapper.domNode, "background-color", "var(--bgc-apptile-default)");
 				domStyle.set(logo.domNode, {
