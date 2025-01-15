@@ -1,3 +1,9 @@
+ucs-test (12.0.231) unstable; urgency=medium
+
+  * Issue univention/ucs#1701: partial revert ucs-test-import-performance
+
+ -- Ivan Barbecho Delgado <ivan.delgado@univention.de>  Wed, 15 Jan 2025 17:38:48 +0200
+
 ucs-test (12.0.230) unstable; urgency=medium
 
   * Issue univention/components/keycloak-app#206: make sure keycloak

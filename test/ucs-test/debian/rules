@@ -47,7 +47,6 @@ override_dh_install:
 	tar -xvzf debian/ucs-test-umc-performance/usr/share/ucs-test/91_umc-performance/hars.tar.gz -C debian/ucs-test-umc-performance/usr/share/ucs-test/91_umc-performance/
 
 override_dh_auto_test:
-	./lint
 	python3 -m univention.testing.data -v
 	python3 -m univention.testing.errors -v
 	python3 -m univention.testing.format.html -v
