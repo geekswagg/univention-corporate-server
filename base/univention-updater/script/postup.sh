@@ -164,10 +164,10 @@ rm -f /etc/simplesamlphp.keytab /etc/simplesamlphp/ucs-sso-kerberos.secret
 rm -f /etc/apt/preferences.d/99ucs520.pref /etc/apt/apt.conf.d/99ucs520
 
 # remove backup packages sources
-rm -f /etc/apt/sources.list.d/15_ucs-online-version.list.upgrade510-backup
-rm -f /etc/apt/sources.list.d/20_ucs-online-component.list.upgrade510-backup
-rm -f /etc/apt/sources.list.d/15_ucs-online-version.list.upgrade520-backup
-rm -f /etc/apt/sources.list.d/20_ucs-online-component.list.upgrade520-backup
+rm -f /etc/apt/sources.list.d/15_ucs-online-version.list.upgrade510.bak
+rm -f /etc/apt/sources.list.d/20_ucs-online-component.list.upgrade510.bak
+rm -f /etc/apt/sources.list.d/15_ucs-online-version.list.upgrade520.bak
+rm -f /etc/apt/sources.list.d/20_ucs-online-component.list.upgrade520.bak
 
 echo "
 
