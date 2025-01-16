@@ -1,3 +1,9 @@
+ucs-test (12.0.232) unstable; urgency=medium
+
+  * fixup! Issue univention/ucs#1701: partial revert ucs-test-import-performance
+
+ -- Ivan Barbecho Delgado <ivan.delgado@univention.de>  Thu, 16 Jan 2025 08:12:51 +0100
+
 ucs-test (12.0.231) unstable; urgency=medium
 
   * Issue univention/ucs#1701: partial revert ucs-test-import-performance

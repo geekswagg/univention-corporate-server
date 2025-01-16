@@ -161,6 +161,7 @@ def get_user_dn_list_new(CSV_IMPORT_FILE: str, count: int = 40) -> list[str]:
     # must import ucsschool.importer.utils.shell *after* creating ~/.import_shell_config
     with open('/usr/share/ucs-school-import/configs/ucs-school-testuser-import.json') as fp:
         config = json.load(fp)
+    config.setdefault('input', {})
     config['input']['filename'] = CSV_IMPORT_FILE
     with open(os.path.expanduser('~/.import_shell_config'), 'w') as fp:
         json.dump(config, fp)
