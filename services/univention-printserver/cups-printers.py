@@ -261,17 +261,24 @@ def handler(dn: str, new: dict[str, list[bytes]], old: dict[str, list[bytes]]) -
 
         # Add/Modify Printergroup
         if printer_is_group:
-            # add = []
-            # if old:  # Diff old <==> new
-            #    rem = old['univentionPrinterGroupMember']
-            #    for el in new['univentionPrinterGroupMember']:
-            #        if el not in old['univentionPrinterGroupMember']:
-            #            add.append(el)
-            #        else:
-            #            rem.remove(el)
+            add = []
+            if old:  # Diff old <==> new
+                rem = old['univentionPrinterGroupMember']
+                for el in new['univentionPrinterGroupMember']:
+                    if el not in old['univentionPrinterGroupMember']:
+                        add.append(el)
+                    else:
+                        rem.remove(el)
 
-            # else:  # Create new group
-            #    add = new['univentionPrinterGroupMember']
+            else:  # Create new group
+                add = new['univentionPrinterGroupMember']
+
+            for add_member in add:  # Add Members
+                args += ['-p', add_member.decode('UTF-8'), '-c', new['cn'][0].decode('UTF-8')]
+
+            if old:  # Remove Members
+                for rem_member in rem:
+                    args += ['-p', rem_member.decode('UTF-8'), '-r', new['cn'][0].decode('UTF-8')]
 
             lpadmin(args)
         # Add/Modify Printer
