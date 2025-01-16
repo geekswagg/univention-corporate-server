@@ -21,7 +21,7 @@ test.update()
 
 class Data:
     CSV_IMPORT_FILE = '/tmp/import65000.csv'
-    ous = 128
+    ous = 99
     teachers = 512
     staff = 150
     staffteachers = 60
