@@ -6309,7 +6309,7 @@ class PrinterNames(UDM_Objects):
 
     @classmethod
     def udm_filter(self, options):
-        return '(|(spoolHost=%s))' % ')(spoolHost='.join(map(escape_filter_chars, options[Printers.depends]))
+        return '(|(spoolHost=%s))' % ')(spoolHost='.join(map(escape_filter_chars, options.get('dependencies', {})[Printers.depends]))
 
 
 class PrintQuotaGroup(complex):

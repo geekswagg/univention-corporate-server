@@ -1,3 +1,9 @@
+univention-directory-manager-modules (17.0.26) unstable; urgency=medium
+
+  * Bug #57733: fix udm_filter for dynamic syntax
+
+ -- Felix Botner <botner@univention.de>  Thu, 16 Jan 2025 16:00:11 +0100
+
 univention-directory-manager-modules (17.0.25) unstable; urgency=medium
 
   * Bug #51187: Add prevent_umc_default_popup to settings/extended_attributes
