@@ -58,7 +58,7 @@ def create_ous(names_of_ous: list[str]) -> int:
 
 def remove_ous(names_of_ous: list[str]) -> int:
     for school_name in names_of_ous:
-        subprocess.check_call(['udm', 'container/ou', 'remove', f'--dn="ou={school_name},{ucr["ldap/base"]}"'])
+        subprocess.check_call(['udm', 'container/ou', 'remove', f'--dn=ou={school_name},{ucr["ldap/base"]}'])
     return 0
 
 
