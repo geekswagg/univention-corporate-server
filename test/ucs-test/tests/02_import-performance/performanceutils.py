@@ -21,6 +21,7 @@ except ImportError:
 
 from typing import TYPE_CHECKING
 
+import univention.testing.strings as uts
 import univention.testing.udm as udm_test
 import univention.uldap
 from ucsschool.importer.mass_import import user_import
@@ -57,7 +58,7 @@ def create_ous(names_of_ous: list[str]) -> int:
 
 def remove_ous(names_of_ous: list[str]) -> int:
     for school_name in names_of_ous:
-        subprocess.check_call(['udm', 'container/ou', 'remove', f'--dn={school_name}'])
+        subprocess.check_call(['udm', 'container/ou', 'remove', f'--dn="ou={school_name},{ucr["ldap/base"]}"'])
     return 0
 
 
@@ -244,3 +245,45 @@ def count_users(needed: int) -> bool:
         return False
 
     return True
+
+
+def run_performance(data):
+
+    school_names = [f'Shol{num:0>2}{uts.random_name(5)}' for num in range(data.ous)]
+    cmd_args = ['-v', '--teachers', str(data.teachers), '--staff', str(data.staff), '--staffteachers', str(data.staffteachers), '--students', str(data.students), '--classes', str(data.classes), '--csvfile', data.CSV_IMPORT_FILE, *school_names]
+
+    returnCode = 100
+
+    if not execute_timing('create OUs', data.MAX_SECONDS_OU_CREATION, create_ous, school_names):
+        returnCode = 1
+
+    if not execute_timing('new user import', data.MAX_SECONDS_IMPORT, import_users_new, cmd_args):
+        returnCode = 1
+
+    if not execute_timing('new user import sync to s4', data.MAX_SECONDS_SAMBA_IMPORT, wait_for_s4connector):
+        returnCode = 1
+
+    if not execute_timing('UMC authentication', data.MAX_SECONDS_ADMIN_AUTH, test_umc_admin_auth):
+        returnCode = 1
+
+    if not execute_timing('UMC authentication UDM load', data.MAX_SECONDS_ADMIN_AUTH_UDM_LOAD, test_umc_admin_auth_udm_load):
+        returnCode = 1
+
+    if not execute_timing('create test user', data.MAX_SECONDS_USER_CREATION, create_test_user):
+        returnCode = 1
+
+    if not execute_timing('samba4 auth', data.MAX_SECONDS_USER_AUTH, s4_user_auth, 'Administrator', 'univention'):
+        returnCode = 1
+
+    user_dns = get_user_dn_list_new(data.CSV_IMPORT_FILE)
+
+    if not execute_timing('user password reset', data.MAX_SECONDS_PASSWORD_RESET, reset_passwords, user_dns):
+        returnCode = 1
+
+    if not count_users(needed=data.teachers + data.staff + data.staffteachers + data.students):
+        returnCode = 1
+
+    if not execute_timing('remove OUs', data.MAX_SECONDS_OU_CREATION, remove_ous, school_names):
+        returnCode = 1
+
+    return returnCode
