@@ -1,3 +1,9 @@
+ucs-test (12.0.237) unstable; urgency=medium
+
+  * Issue univention/ucs#1701: cleanup ucs-test-import-performance
+
+ -- Ivan Barbecho Delgado <ivan.delgado@univention.de>  Fri, 17 Jan 2025 07:50:51 +0100
+
 ucs-test (12.0.236) unstable; urgency=medium
 
   * Issue univention/ucs#1701: Reduce number of classes on 65000 users scenario
