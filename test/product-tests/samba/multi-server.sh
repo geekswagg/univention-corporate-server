@@ -45,6 +45,18 @@ test_printers () {
 	#run_on_ucs_hosts $MEMBER 'stat /var/spool/cups-pdf/newuser02/job_3-document.pdf'
 }
 
+retry () {
+	local i failed
+	for i in $(seq 1 10); do
+		failed=""
+		$1 && break
+		sleep 30
+		failed="$1"
+	done
+	test -n "$failed" && echo "$failed failed" && return 1
+	return 0
+}
+
 test_master () {
 	# Es sollte eine größere UCS Domäne aufgesetzt werden, also DC Master, DC Backup, DC Slave und Memberserver
 	# zusätzlich sollte ein RODC installiert werden, siehe Produkttests UCS 3.2 Samba 4#Read-Only-DC. Auf allen Systemen
@@ -111,8 +123,8 @@ test_master () {
 		diff=$((wintime_epoch - ucstime_epoch))
 		test ${diff#-} -lt 300
 		sleep 20
-		ucs-winrm domain-user-validate-password --client "$client" --domainuser "Administrator" --domainpassword "$ADMIN_PASSWORD"
-		ucs-winrm domain-user-validate-password --client "$client" --domainuser "newuser01" --domainpassword "Univention.99"
+		retry "ucs-winrm domain-user-validate-password --client $client --domainuser Administrator --domainpassword $ADMIN_PASSWORD"
+		retry "ucs-winrm domain-user-validate-password --client $client --domainuser newuser01 --domainpassword Univention.99"
 	done
 	for ucs in ucs-master ucs-backup ucs-slave ucs-member; do
 		ucs-winrm run-ps --client "$WIN2012" --cmd "nbtstat -a $ucs" # does not work with $WIN2016
@@ -149,8 +161,10 @@ test_master () {
 	sleep 360 # wait for sysvol sync
 	# reboot system to apply gpo's
 	ucs-winrm reboot --client "$WIN2016"
-	sleep 120
+	ucs-winrm reboot --client "$WIN2012"
+	sleep 360
 	ucs-winrm run-ps --cmd 'gpupdate /force' --client "$WIN2016"  --credssp
+	ucs-winrm run-ps --cmd 'gpupdate /force' --client "$WIN2012"  --credssp
 	ucs-winrm check-applied-gpos --username 'Administrator' --userpwd "$ADMIN_PASSWORD" --client "$WIN2012" \
 		--usergpo 'GPO5' --usergpo 'GPO3' --usergpo 'Default Domain Policy' \
 		--computergpo 'GPO4' --computergpo 'Default Domain Policy'
