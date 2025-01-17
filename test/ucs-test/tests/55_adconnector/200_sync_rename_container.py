@@ -5,6 +5,8 @@
 ## - univention-ad-connector
 ## bugs:
 ##  - 52230
+## tags:
+## - skip_admember
 
 
 import subprocess
