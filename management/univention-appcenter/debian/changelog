@@ -1,3 +1,9 @@
+univention-appcenter (11.0.18) unstable; urgency=medium
+
+  * Bug #57114: use official appcenter server
+
+ -- Felix Botner <botner@univention.de>  Wed, 22 Jan 2025 10:10:38 +0100
+
 univention-appcenter (11.0.17) unstable; urgency=medium
 
   * Bug #57802: Fix passing str as a value that should be list of str
