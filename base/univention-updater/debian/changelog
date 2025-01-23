@@ -1,3 +1,9 @@
+univention-updater (17.0.26) unstable; urgency=medium
+
+  * Issue univention/ucs#2549: remove python2
+
+ -- Felix Botner <botner@univention.de>  Thu, 23 Jan 2025 12:31:10 +0100
+
 univention-updater (17.0.25) unstable; urgency=medium
 
   * Issue univention/ucs#2551: update min version of system to 1204
