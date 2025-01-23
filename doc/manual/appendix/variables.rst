@@ -895,18 +895,6 @@ This appendix lists the |UCSUCRVs| mentioned in the document.
    Defines the detail level for log messages of the NSCD. For more information,
    see :ref:`computers-nscd`.
 
-.. envvar:: nscd/group/maxdbsize
-
-   Configures the hash table size of the NSCD for groups. For more information,
-   see :ref:`computers-nscd`.
-
-
-.. envvar:: nscd/group/positive_time_to_live
-
-   Configures the time that a resolved group is kept in the cache of
-   NSCD. The default is one hour in seconds (``3600``). For more information,
-   see :ref:`computers-nscd`.
-
 
 .. envvar:: nscd/hosts/maxdbsize
 
@@ -918,18 +906,6 @@ This appendix lists the |UCSUCRVs| mentioned in the document.
 
    Configures the time that a resolved hostname is kept in the cache of
    NSCD. The default is one hour in seconds (``3600``). For more information,
-   see :ref:`computers-nscd`.
-
-
-.. envvar:: nscd/passwd/maxdbsize
-
-   Configures the hash table size of the NSCD for usernames. The default value
-   is ``6007``. For more information, see :ref:`computers-nscd`.
-
-.. envvar:: nscd/passwd/positive_time_to_live
-
-   Configures the time that a resolved username is kept in the cache of
-   NSCD. The default is ten minutes in seconds (``600``). For more information,
    see :ref:`computers-nscd`.
 
 

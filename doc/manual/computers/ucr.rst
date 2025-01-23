@@ -208,12 +208,12 @@ Searching for variables and set values
 .. option:: search
 
    The parameter :option:`search` can be used to search for a variable. This
-   command searches for variable names which contain ``nscd`` and displays these
+   command searches for variable names which contain ``ldap`` and displays these
    with their current assignments:
 
    .. code-block:: console
 
-      $ univention-config-registry search nscd
+      $ univention-config-registry search ldap
 
 
    Alternatively, searches can also be performed for set variable values. This

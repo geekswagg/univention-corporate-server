@@ -381,6 +381,10 @@ Since UCS 3.1, the groups are no longer cached via the NSCD for performance and
 stability reasons; instead they are now cached by a local group cache, see
 :ref:`groups-cache`.
 
+Since UCS 5.2-0, the user information (``passwd``) is no longer cached via
+NSCD. Instead the *System Security Services Daemon* (SSSD) is used to get and
+cache user information, see `SSSD documentation <sssd-docs_>`_.
+
 The central configuration file of the (:file:`/etc/nscd.conf`) is managed by
 |UCSUCR|.
 
@@ -400,24 +404,18 @@ the variables:
    * - :envvar:`nscd/hosts/size`
      -  ``6007``
 
-   * - :envvar:`nscd/passwd/size`
-     - ``6007``
-
 With very big caches it may be necessary to increase the size of the cache
 database in the system memory. This can be configured through the |UCSUCR|
-variables :envvar:`nscd/hosts/maxdbsize`, :envvar:`nscd/group/maxdbsize` and
-:envvar:`nscd/passwd/maxdbsize`.
+variables :envvar:`nscd/hosts/maxdbsize`.
 
 As standard, five threads are started by NSCD. In environments with many
 accesses it may prove necessary to increase the number via the |UCSUCRV|
 :envvar:`nscd/threads`.
 
-In the basic setting, a resolved group or hostname is kept in cache for one
-hour, a username for ten minutes. With the |UCSUCR| variables
-:envvar:`nscd/group/positive_time_to_live`,
-:envvar:`nscd/hosts/positive_time_to_live` and
-:envvar:`nscd/passwd/positive_time_to_live` these periods can be extended or
-diminished (in seconds).
+In the basic setting, a resolved hostname is kept in cache for one
+hour.
+With the |UCSUCR| variable :envvar:`nscd/hosts/positive_time_to_live` this
+period can be extended or diminished (in seconds).
 
 From time to time it might be necessary to manually invalidate the cache of the
 NSCD. This can be done individually for each cache table with the following
@@ -426,7 +424,6 @@ commands:
 .. code-block:: console
 
    $ sss_cache -U
-   $ nscd -i group
    $ nscd -i hosts
 
 
