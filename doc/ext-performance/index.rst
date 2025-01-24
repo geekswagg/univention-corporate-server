@@ -184,37 +184,6 @@ deactivated by setting the |UCSUCR| variables :envvar:`listener/memberuid/skip`
 and :envvar:`listener/uniquemember/skip` to ``no``. Starting with UCS 3.1 the
 variables are not set and the checks are not activated any longer by default.
 
-.. _nscd:
-
-********************************
-Name Service Cache Daemon (NSCD)
-********************************
-
-Name resolutions can be cached by the *Name Service Cache Daemon* (NSCD) in
-order to speed up frequently recurring requests for unchanged data. Thus, if a
-repeated request occurs, instead of querying the LDAP server, the data are
-simply drawn directly from the cache.
-
-The size of the cache held by the NSCD is preconfigured for an environment with
-5,000 users. If more users or hosts are created, the cache should be enlarged as
-otherwise it will not be possible to cache enough entries.
-
-The following |UCSUCR| variables can be set:
-
-* :envvar:`nscd/hosts/size` should be at least the same as the
-  number of all the computers entered in the DNS.
-
-* :envvar:`nscd/passwd/size` should be at least the same as the
-  number of users.
-
-To allow an efficient cache allocation, the value selected should always be a
-prime number, in case of doubt the next highest prime number should be selected.
-
-A script can be downloaded from
-`<https://updates.software-univention.de/download/scripts/nscdCachesize.sh>`_
-which suggests corresponding values based on the objects currently included in
-the system.
-
 .. _initial-user-provisioning:
 
 ***********************************************************
@@ -477,32 +446,16 @@ Detailed information about useful values for the UCR variables can be found at
 SAML
 ====
 
-By default, SAML assertions are valid for ``300`` seconds and must be renewed by
-clients no later than then to continue using them. In scenarios where refreshing
-SAML assertions at such short intervals is too expensive (for clients or
-servers), the lifetime of SAML assertions can be increased via the UCR variable
-:envvar:`umc/saml/assertion-lifetime`. This can be achieved on each UCS system
-with the role |UCSPRIMARYDN| or |UCSBACKUPDN| by executing the following commands:
+By default, SAML assertions are valid for ``300`` seconds, after which clients
+must renew them to continue using them. In scenarios where refreshing SAML
+assertions at such short intervals is too expensive for clients or servers, you
+can increase the lifetime of SAML assertions. For instructions about how to
+configure the SAML assertion lifetime, refer to
+:external+ucs-keycloak-doc:ref:`app-saml-assertion-lifetime` in
+:cite:t:`ucs-keycloak-doc`.
 
-.. code-block:: console
-
-   $ ucr set umc/saml/assertion-lifetime=3600
-   $ univention-keycloak \
-       --binddn "$USERDN" \
-       --bindpwdfile "$FILENAME" \
-       saml/sp update "$CLIENT_ID" \
-       '{"attributes": {"saml.assertion.lifespan": "3600"}}'
-
-``$USERDN`` has to be replaced with a valid DN of a user, that is member of the
-group ``Domain Admins`` and the file specified by ``$FILENAME`` has to contain
-the corresponding password of that user. ``$CLIENT_ID`` is the ID of the SAML
-client that needs to be updated, in most cases
-``https://$(hostname -f)/univention/saml/metadata`` or
-``https://$(ucr get umc/saml/sp/server)/univention/saml/metadata`` if the UCR
-variable :envvar:`umc/saml/sp/server` is set.
-
-It should be noted that increasing the lifetime has security implications that
-should be carefully considered.
+Carefully consider the increase of the SAML assertion lifetime, because it has
+implications on the security.
 
 Squid
 =====

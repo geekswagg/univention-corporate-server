@@ -176,8 +176,9 @@ linkcheck_ignore = [
 univention_use_doc_base = True
 
 intersphinx_mapping = {
-    "uv-manual": ref("manual"),
-    "uv-dev-ref": ref("developer-reference"),
+    'uv-manual': ref('manual'),
+    'uv-dev-ref': ref('developer-reference'),
+    'ucs-keycloak-doc': ('https://docs.software-univention.de/keycloak-app/latest/', None),
 }
 
 # See Univention Sphinx Extension for its options.
