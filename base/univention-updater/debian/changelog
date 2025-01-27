@@ -1,3 +1,9 @@
+univention-updater (17.0.29) unstable; urgency=medium
+
+  * Issue univention/ucs#2636: fix samba deleted objects in postup
+
+ -- Felix Botner <botner@univention.de>  Mon, 27 Jan 2025 16:52:49 +0100
+
 univention-updater (17.0.28) unstable; urgency=medium
 
   * Issue univention/ucs#2636: fix samba deleted objects in postup

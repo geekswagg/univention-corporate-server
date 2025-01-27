@@ -179,10 +179,10 @@ if is_joined; then
 	if is_installed univention-samba4 2>&3; then
 		if [ -x "$(which samba-tool)" ]; then
 			# shellcheck disable=SC2154
-			samba-tool dbcheck --yes --fix "CN=Deleted Objects,CN=Configuration,$connector_s4_ldap_base" >&3 2>&3
-			samba-tool dbcheck --yes --fix "CN=Deleted Objects,DC=DomainDnsZones,$connector_s4_ldap_base" >&3 2>&3
-			samba-tool dbcheck --yes --fix "CN=Deleted Objects,DC=ForestDnsZones,$connector_s4_ldap_base" >&3 2>&3
-			samba-tool dbcheck --yes --fix "CN=Deleted Objects,$connector_s4_ldap_base" >&3 2>&3
+			samba-tool dbcheck --yes --fix "CN=Deleted Objects,CN=Configuration,$samba4_ldap_base" >&3 2>&3
+			samba-tool dbcheck --yes --fix "CN=Deleted Objects,DC=DomainDnsZones,$samba4_ldap_base" >&3 2>&3
+			samba-tool dbcheck --yes --fix "CN=Deleted Objects,DC=ForestDnsZones,$samba4_ldap_base" >&3 2>&3
+			samba-tool dbcheck --yes --fix "CN=Deleted Objects,$samba4_ldap_base" >&3 2>&3
 		fi
 	fi
 fi
