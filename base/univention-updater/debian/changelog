@@ -1,3 +1,9 @@
+univention-updater (17.0.31) unstable; urgency=medium
+
+  * Bug #57902: version bump for timestamp
+
+ -- Arvid Requate <requate@univention.de>  Mon, 27 Jan 2025 18:19:20 +0100
+
 univention-updater (17.0.30) unstable; urgency=medium
 
   * Bug #57902: Add preup check for selinuxfs
