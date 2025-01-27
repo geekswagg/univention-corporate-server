@@ -299,6 +299,7 @@ keycloak_migration() {
 	domainname="$(ucr get domainname)"
 	if [ "$(ucr get server/role)" = "domaincontroller_master" ]; then
 		# Install keycloak
+		univention-app update
 		# shellcheck source=/dev/null
 		. utils-keycloak.sh && install_upgrade_keycloak --set ucs/self/registration/check_email_verification="True"
 		configure_umc_keycloak
