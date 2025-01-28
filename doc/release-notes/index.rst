@@ -1,4 +1,4 @@
-.. SPDX-FileCopyrightText: 2021-2024 Univention GmbH
+.. SPDX-FileCopyrightText: 2021-2025 Univention GmbH
 ..
 .. SPDX-License-Identifier: AGPL-3.0-only
 
@@ -15,12 +15,14 @@ Release highlights
 ******************
 
 With |UCSUCS| 5.2-0, the second minor release for |UCSUCS| (UCS) is available.
-It provides several feature improvements and extensions, new properties, as well as bug fixes.
+It provides several feature improvements and extensions, properties, as well as, bug fixes.
 Here is an overview of the most important changes:
 
 * |UCSUCS| 5.2 bases on Debian 12 ``Bookworm`` and therefore it updates a lot of packages.
   As |UCSUCS| 5.0 based on Debian 10 ``Buster``, the intermediate |UCSUCS| 5.1 based on Debian 11 ``Bullseye`` exists.
-  |UCSUCS| 5.1 is only required for updating, and you must never use it in production.
+
+  |UCSUCS| 5.1 is only required for updating, and **you must never use UCS 5.1 in production**.
+
   However, the update automatically continues up to 5.2 without the need for manual interaction.
   |UCSUCS| 5.2 provides up-to-date versions for,
   but not limited to,
@@ -30,9 +32,11 @@ Here is an overview of the most important changes:
   In |UCSUCS| 5.2, :program:`Keycloak` is the only Identity Provider (IDP).
   This means that :program:`Keycloak` is the sole component used for authentication and (single-) sign on.
   :program:`Keycloak` is already available as an app for |UCSUCS| 5.0.
+
   The
-  :external+uv-keycloak-mig:doc:`Migration Guide <index>`
+  :external+uv-keycloak-mig:doc:`Migration Guide to Keycloak <index>`
   provides information and preparation steps for the update.
+
   :program:`Keycloak` offers a vast range of features
   and configurability concerning sign-in and usage scenarios,
   such as federation, single-sign on with SAML, OIDC and Kerberos,
@@ -66,8 +70,19 @@ Notes about the update
 **********************
 
 Prerequisite for updating to UCS 5.2 is that all UCS systems in domain are at
-least on version 5.0-7 and that the system that is to be updated is at least
-on version 5.0-9-1195.
+least on version 5.0-9 and that the system intended for update is at least
+on version 5.0-9 erratum 1204.
+
+.. important::
+
+   When installing a |UCSBACKUPDN| from the 5.0-9 appliance images or the
+   5.0-9 DVD, the final domain join fails,
+   if the UCS |UCSPRIMARYDN| has version 5.2-0.
+
+   Start the setup without the domain join
+   and upgrade the system to at least 5.0-9 erratum 1204.
+   Then start the domain join.
+   The upcoming UCS 5.0-10 appliance images and DVD fixes the issue.
 
 Run the update in a maintenance window, because some services in the domain may
 not be available temporarily. It's recommended that you test the update in a separate
@@ -75,7 +90,7 @@ test environment before the actual update. The test environment must be
 identical to the production environment.
 
 Depending on the system performance, network connection, and installed software,
-the update can take anywhere from FIXME minutes to several hours. For large
+the update can take anywhere from 30 minutes to several hours. For large
 environments, consult :cite:t:`ucs-performance-guide`.
 
 .. _relnotes-sequence:
@@ -90,7 +105,7 @@ The authoritative version of the LDAP directory service operates on the
 |UCSPRIMARYDN|, formerly referred to as master domain controller, and replicates
 to all the remaining LDAP servers of the UCS domain. As changes to the LDAP
 schema can occur during release updates, the |UCSPRIMARYDN| must always be the
-first system to be updated during a release update.
+first system in the update order during a release update.
 
 .. _relnotes-bootloader:
 
@@ -122,33 +137,36 @@ Migration of default IDP service before updating to UCS 5.2
 
 Starting with |UCSUCS| 5.2 the :program:`Keycloak` app replaces
 :program:`SimpleSAMLphp` and the :program:`Kopano Konnect` app as the default
-identity providers in |UCSUCS|. Before the update to UCS 5.2 an manual migration
-of the default identity providers is necessary. A detailed description of how
-to migrate can be found in :external+uv-keycloak-mig:doc:`index`.
+identity providers in |UCSUCS|. Before the update to UCS 5.2 a manual migration
+of the default identity providers is necessary.
+You find a detailed description about how
+to migrate in
+:external+uv-keycloak-mig:doc:`Migration Guide to Keycloak <index>`.
 
 .. _relnotes-openldap-bdb:
 
 Migration of OpenLDAP database backend from BDB to MDB
 ======================================================
 
-|UCSUCS| 5.2 will no longer support the database backend *Berkeley DB*
-for :program:`OpenLDAP`. All system with database backend *Berkeley DB*
-must be migrated before the update to UCS 5.2. Please see
-:uv:kb:`22322` for how to perform this migration.
+|UCSUCS| 5.2 no longer supports the database backend *Berkeley DB* for :program:`OpenLDAP`.
+You need to migrate all systems with the database backend *Berkeley DB*
+before the update to UCS 5.2.
+For information about how to perform this migration,
+see :uv:kb:`22322`.
 
 .. _relnotes-python-311-compatibility:
 
 Mixed environments consisting of both 5.2 and 5.0 nodes
 =======================================================
 
-FIXME: This should state the detailed requirements and constraints in terms of mixed
-environments.
+If you continue to operate |UCSREPLICADN|\ s or |UCSMANAGEDNODE|\ s in version 5.0 in your 5.2 domain,
+you must ensure that Python 2.7 is no longer used on these systems,
+for example in UDM hooks, UMC modules, etc.
 
-* If you plan to create a new local software repository on an |UCSUCS| 5.2
-  system and want to use this local repository for updating other UCS systems
-  from 5.0-x to 5.2-x, please read the
-  `knowledgebase article #23755 <https://help.univention.com/t/23755/>`_
-  for further notes.
+If you plan to create a new local software repository on an |UCSUCS| 5.2 system
+and want to use this local repository for updating other UCS systems from 5.0-x to 5.2-x,
+make sure you read :uv:kb:`23755`
+for further notes.
 
 .. _relnotes-mixed-environments:
 
@@ -157,17 +175,20 @@ Python 3.11 compatibility
 
 Before you update, verify manually crafted Python code for compatibility with
 Python 3.11 and adjust it accordingly. This includes |UCSUCR| templates
-containing Python code. Customized AD-Connector mapping templates are an example
-for this. See also the :cite:t:`developer-reference` for advice.
+containing Python code.
+Customized AD Connector mapping templates are an example for this.
+For advice, see the various Python 3 migration sections in the :cite:t:`developer-reference`.
 
 .. _relnotes-ad-connector-mapping:
 
 AD Connector mapping
 ====================
 
-When you operate multiple instances of the :program:`AD Connector` as described
-in :ref:`uv-ext-windows:ad-multiple`, you need to adjust the mapping configuration and ensure
-Python 3.11 compatibility before the update. :uv:kb:`17754` describes the steps.
+When you operate multiple instances of the :program:`AD Connector`
+as described in :external+uv-ext-windows:ref:`ad-multiple`,
+you need to adjust the mapping configuration
+and ensure Python 3.11 compatibility before the update.
+:uv:kb:`17754` describes the steps.
 
 .. _relnotes-sufficient-disc-space:
 
@@ -175,8 +196,8 @@ Sufficient disk space
 =====================
 
 Also verify that you have sufficient disk space available for the update. A
-standard installation requires a minimum of FIXME GB of disk space. The update
-requires approximately FIXME GB additional disk space to download and install the
+standard installation requires a minimum of 6-10 GB of disk space. The update
+requires approximately 5 GB additional disk space to download and install the
 packages, depending on the size of the existing installation.
 
 .. _relnotes-console-for-update:
@@ -239,11 +260,11 @@ either use the UMC module *Domain join* or run the command
 
 Subsequently, you need to restart the UCS system.
 
-Please check the PostgreSQL version all systems updated to UCS 5.2.
+Please verify the PostgreSQL version on all UCS systems that updated to UCS 5.2.
 As UCS 5.2 ships Version 15 of PostgreSQL, updated systems may need
-migration from PostgreSQL-11.
-The `knowledgebase article #22162 <https://help.univention.com/t/22162/>`_
-explains the recommended steps.
+migration from PostgreSQL 11.
+For the recommended migration steps,
+see :uv:kb:`22162`.
 
 .. _relnotes-packages:
 
@@ -300,7 +321,7 @@ Users running older browsers may experience display or performance issues.
 Changelog
 *********
 
-You find the changes since UCS 5.0-7 in
+You find the changes since UCS 5.0-9 in
 :external+uv-changelog-5.2-0:doc:`index`.
 
 .. _biblio:
