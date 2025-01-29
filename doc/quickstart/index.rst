@@ -247,9 +247,7 @@ This domain join is described in :ref:`UCS Manual - How UCS systems join domains
 UCS offers various additional services which are covered by the UCS
 license and which can be integrated at a later point in time:
 
-- Single-sign-on with web services using a SAML identity provider, see :ref:`UCS
-  manual - SAML identity provider
-  <uv-manual:domain-saml>`.
+- Single-sign-on with web services, see :external+uv-manual:ref:`domain-single-sign-on`.
 
 - :ref:`UCS manual - IP assignment via DHCP
   <uv-manual:module-dhcp-dhcp>`.
