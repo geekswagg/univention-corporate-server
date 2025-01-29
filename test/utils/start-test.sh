@@ -5,9 +5,9 @@
 
 # defaults for release
 release='5.2-0'  #
-export CURRENT_AMI="${CURRENT_AMI:=ami-01b2ab9247d2150d9}"  # AMI: Univention Corporate Server (UCS) 5.2 BETA5
+export CURRENT_AMI="${CURRENT_AMI:=ami-0b35281633c15c501}"  # AMI: Univention Corporate Server (UCS) 5.2 (official image) rev. 1
 old_release='5.0-9'  #
-export OLD_AMI="${OLD_AMI:=ami-068c5ee1a47ec4429}"  # AMI: Univention Corporate Server (UCS) 5.0 (official image) rev. 8
+export OLD_AMI="${OLD_AMI:=ami-0d29832308bf979df}"  # AMI: Univention Corporate Server (UCS) 5.0 (official image) rev. 10
 export KVM_UCSVERSION="${KVM_UCSVERSION:=5.2-0+2025}"  #
 export OPENSTACK_IMAGE_VERSION="${OPENSTACK_IMAGE_VERSION:=5.2-0}"  # version for the openstack image
 export OPENSTACK_IMAGE_NAME="${OPENSTACK_IMAGE_NAME:=UCS $OPENSTACK_IMAGE_VERSION}"  # name of the default openstack image
