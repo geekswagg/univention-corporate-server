@@ -1,0 +1,37 @@
+product: ucs
+release: "5.2"
+version: [0]
+scope: ucs_5.2-0-errata5.2-0
+src: xen
+fix: 4.17.5+23-ga4e5191dc0-1
+desc: |
+ This update addresses the following issues:
+ * CVSS score unknown. (CVE-2024-45819, CVE-2024-45818, CVE-2024-31142)
+ * CVSS score 7.5 (CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H).
+   (CVE-2024-31143)
+ * CVSS score 7.5 (CVSS:3.1/AV:L/AC:H/PR:H/UI:N/S:C/C:H/I:H/A:H).
+   (CVE-2024-31146, CVE-2024-31145)
+ * CVSS score 7.3 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L).
+   (CVE-2024-45817)
+ * CVSS score 6.5 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:C/C:N/I:N/A:H).
+   (CVE-2023-46842, CVE-2023-46841)
+ * CVSS score 6.5 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:C/C:H/I:N/A:N).
+   (CVE-2023-28746)
+ * CVSS score 5.5 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N).
+   (CVE-2024-2193)
+ * CVSS score 4.7 (CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:N/A:N).
+   (CVE-2024-2201)
+bug: [57912]
+cve:
+- CVE-2023-28746
+- CVE-2023-46841
+- CVE-2023-46842
+- CVE-2024-2193
+- CVE-2024-2201
+- CVE-2024-31142
+- CVE-2024-31143
+- CVE-2024-31145
+- CVE-2024-31146
+- CVE-2024-45817
+- CVE-2024-45818
+- CVE-2024-45819
