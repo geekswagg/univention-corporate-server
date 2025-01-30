@@ -1,0 +1,20 @@
+product: ucs
+release: "5.2"
+version: [0]
+scope: ucs_5.2-0-errata5.2-0
+src: openjpeg2
+fix: 2.5.0-2+deb12u1
+desc: |
+ This update addresses the following issues:
+ * CVSS score 7.5 (CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:H/A:H).
+   (CVE-2021-3575)
+ * CVSS score 5.6 (CVSS:3.1/AV:L/AC:L/PR:L/UI:R/S:U/C:L/I:N/A:H).
+   (CVE-2024-56827, CVE-2024-56826)
+ * CVSS score 4.3 (CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:L).
+   (CVE-2023-39327)
+bug: [57928]
+cve:
+- CVE-2021-3575
+- CVE-2023-39327
+- CVE-2024-56826
+- CVE-2024-56827
