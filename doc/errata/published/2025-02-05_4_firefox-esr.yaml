@@ -25,3 +25,6 @@ cve:
 - CVE-2025-0241
 - CVE-2025-0242
 - CVE-2025-0243
+erratum: 4
+announced: 2025-02-05
+support: core
