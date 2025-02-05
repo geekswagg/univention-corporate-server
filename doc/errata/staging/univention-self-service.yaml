@@ -1,0 +1,11 @@
+product: ucs
+release: "5.2"
+version: [0]
+scope: ucs_5.2-0-errata5.2-0
+src: univention-self-service
+fix: 7.0.6
+desc: |
+ This update addresses the following issues:
+ * The Message-ID header has been added to emails sent via Self Service
+   to prevent rejection by certain email providers
+bug: [57512]

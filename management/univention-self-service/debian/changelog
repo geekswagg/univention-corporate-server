@@ -1,3 +1,9 @@
+univention-self-service (7.0.6) unstable; urgency=medium
+
+  * Bug #57512: add Message-ID to emails sent via Self Service
+
+ -- Christian Castens <castens@univention.de>  Mon, 03 Feb 2025 14:22:38 +0200
+
 univention-self-service (7.0.5) unstable; urgency=medium
 
   * Bug #57609: Make the UMC module a singleton. As it does not need to
