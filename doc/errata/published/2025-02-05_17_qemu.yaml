@@ -11,3 +11,6 @@ desc: |
 bug: [57922]
 cve:
 - CVE-2024-7409
+erratum: 17
+announced: 2025-02-05
+support: core
