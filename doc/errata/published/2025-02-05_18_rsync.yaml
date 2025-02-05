@@ -21,3 +21,6 @@ cve:
 - CVE-2024-12087
 - CVE-2024-12088
 - CVE-2024-12747
+erratum: 18
+announced: 2025-02-05
+support: core
