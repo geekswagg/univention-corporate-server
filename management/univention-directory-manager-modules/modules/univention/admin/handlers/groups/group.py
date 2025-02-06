@@ -519,6 +519,7 @@ class object(univention.admin.handlers.simpleLdap):
     def _ldap_modlist(self):
         # type: () -> list
         ml = univention.admin.handlers.simpleLdap._ldap_modlist(self)
+        t1 = time.time()
 
         self._samba_sid = None
         if 'samba' in self.options:
@@ -592,6 +593,8 @@ class object(univention.admin.handlers.simpleLdap):
             if memberUidAdd:
                 memberUidAdd = [x.encode('UTF-8') for x in memberUidAdd]
                 ml.append(('memberUid', '', memberUidAdd))
+
+            log.debug('groups/group: _ldap_modlist(): %.3fs', time.time() - t1)
 
         return ml
 
