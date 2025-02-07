@@ -530,7 +530,7 @@ install_docker_app_from_branch () {
     univention-app dev-set "$app_name" "DockerImage=$custom_docker_image"
 	fi
 	declare -a cmd=(univention-app install "$app_name" --noninteractive --username Administrator --pwdfile /tmp/univention)
-	"${cmd[@]}" ${1:+--set $@}
+	"${cmd[@]}" ${1:+--set $@} || return $?
 	container_name="appcenter/apps/$app_name/container"
 	container="$(ucr get "$container_name")"
 	commit="$(docker inspect --format='{{.Config.Labels.commit}}' "$container")"

@@ -46,7 +46,7 @@ install_bb_api () {
 }
 
 install_kelvin_api () {
-  install_docker_app_from_branch ucsschool-kelvin-rest-api "$UCS_ENV_KELVIN_IMAGE" ucsschool/kelvin/processes=0 ucsschool/kelvin/log_level=DEBUG
+  install_docker_app_from_branch ucsschool-kelvin-rest-api "$UCS_ENV_KELVIN_IMAGE" ucsschool/kelvin/processes=0 ucsschool/kelvin/log_level=DEBUG || return $?
 }
 
 install_kelvin_in_version() {
@@ -68,7 +68,7 @@ upgrade_kelvin () {
 }
 
 install_ucsschool_id_connector () {
-  install_docker_app_from_branch ucsschool-id-connector "$UCS_ENV_ID_CONNECTOR_IMAGE" ucsschool-id-connector/log_level=DEBUG
+  install_docker_app_from_branch ucsschool-id-connector "$UCS_ENV_ID_CONNECTOR_IMAGE" ucsschool-id-connector/log_level=DEBUG || return $?
 }
 
 install_ucsschool_id_connector_in_version() {
@@ -119,7 +119,7 @@ add_dns_entry () {
 }
 
 install_ucsschool_apis () {
-  install_docker_app_from_branch ucsschool-apis "$UCS_ENV_UCSSCHOOL_APIS_IMAGE" ucsschool/apis/log_level=DEBUG ucsschool/apis/processes=0
+  install_docker_app_from_branch ucsschool-apis "$UCS_ENV_UCSSCHOOL_APIS_IMAGE" ucsschool/apis/log_level=DEBUG ucsschool/apis/processes=0 || return $?
 }
 
 install_mv_idm_gw_sender_ext_attrs () {
