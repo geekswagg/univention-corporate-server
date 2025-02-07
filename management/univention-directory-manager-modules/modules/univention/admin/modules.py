@@ -46,6 +46,7 @@ import ldap
 from ldap.filter import filter_format
 
 import univention.admin
+import univention.admin.handlers
 import univention.admin.hook
 import univention.admin.syntax
 import univention.admin.uldap
