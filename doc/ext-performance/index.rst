@@ -320,6 +320,10 @@ To use LMDB instead of TDB, set the corresponding |UCSUCRV|
 :envvar:`samba/database/backend/store` to ``mdb`` before you install the app
 :program:`Active Directory-compatible Domain Controller` in your UCS domain.
 
+.. versionadded:: 5.2-0
+
+   LMDB is the default for provisioning the Samba backend database.
+
 The |UCSUCRV| :envvar:`samba/database/backend/store/size` defines the current
 maximal size of the individual backend database store files and has the default
 value of ``8GB``. Since there is one backend storage file per Active Directory
@@ -333,6 +337,27 @@ check the number of used storage pages, ``4KiB`` each, by running the command
 pages used`` minus ``Free pages``. The value at ``Max pages`` shows the current
 effective limit. The backend storage files locate in :file:`/var/lib/samba/private/sam.ldb.d/`
 and have the file extension :file:`.ldb`.
+
+LMDB uses ``fdatasync`` to persist transactions.
+As an optimization,
+the operating system should only write modified memory pages to the disk.
+On Amazon EC2,
+writing modified memory pages can result in a higher number of IOPS as compared to TDB,
+which can significantly slow down provisioning
+and operations such as bulk group membership changes.
+As a temporary speed-up option, Samba offers the ``ldb:nosync`` parameter.
+Enabling ``ldb:nosync`` provides performance benefits during a provisioning phase.
+However, don't enable ``ldb:nosync`` permanently during day-to-day operations,
+as this compromises durability of changes committed to the SAM database.
+Instead, consider other means of improving I/O performance.
+To set this parameter,
+use the following commands:
+
+.. code-block:: console
+
+   $ echo -e "\n[global}\n\tldb:nosync = true" >> /etc/samba/local.conf
+   $ ucr commit /etc/samba/smb.conf
+   $ /etc/init.d/samba restart
 
 .. _group-cache:
 
