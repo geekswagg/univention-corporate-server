@@ -25,6 +25,7 @@ desc: |
  * CVSS score 4.4 (CVSS:3.1/AV:L/AC:L/PR:H/UI:N/S:U/C:N/I:N/A:H).
    (CVE-2024-49994)
 bug: [57948]
+note: This is the 2nd of three parts.
 cve:
 - CVE-2024-53685
 - CVE-2024-56664

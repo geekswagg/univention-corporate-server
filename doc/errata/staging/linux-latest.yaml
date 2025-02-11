@@ -2,8 +2,8 @@ product: ucs
 release: "5.2"
 version: [0]
 scope: ucs_5.2-0-errata5.2-0
-src: linux-signed-amd64
-fix: 6.1.128+1
+src: linux-latest
+fix: 105+deb10u22
 desc: |
  This update addresses the following issues:
  * CVSS score 7.8 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H).
@@ -25,7 +25,7 @@ desc: |
  * CVSS score 4.4 (CVSS:3.1/AV:L/AC:L/PR:H/UI:N/S:U/C:N/I:N/A:H).
    (CVE-2024-49994)
 bug: [57948]
-note: This is the 1st of three parts.
+note: This is the 3dd of three parts.
 cve:
 - CVE-2024-53685
 - CVE-2024-56664
