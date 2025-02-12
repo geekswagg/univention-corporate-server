@@ -129,6 +129,8 @@ class ClientSaml(Client):
         saml_login_url = "https://%s/univention/saml/" % self.hostname
         print('GET SAML login form at: %s' % saml_login_url)
         saml_login_page = self.__samlSession.get(saml_login_url)
+        keycloak_no_kerberos_redirect = get_html_tag_value(saml_login_page.text, 'form', ('method', 'POST'), 'action')
+        saml_login_page = self.__samlSession.get(keycloak_no_kerberos_redirect)
         saml_login_page.raise_for_status()
         saml_idp_login_ans = self._login_at_idp_with_credentials(saml_login_page)
 
@@ -138,10 +140,10 @@ class ClientSaml(Client):
 
     def _login_at_idp_with_credentials(self, saml_login_page: Any) -> Any:
         """Send login form to IdP"""
-        auth_state = get_html_tag_value(saml_login_page.text, 'input', ('name', 'AuthState'), 'value')
-        data = {'username': self.username, 'password': self.password, 'AuthState': auth_state}
-        print('Post SAML login form to: %s' % saml_login_page.url)
-        saml_idp_login_ans = self.__samlSession.post(saml_login_page.url, data=data)
+        data = {'username': self.username, 'password': self.password}
+        saml_login_url = get_html_tag_value(saml_login_page.text, 'form', ('method', 'post'), 'action')
+        print('Post SAML login form to: %s' % saml_login_url)
+        saml_idp_login_ans = self.__samlSession.post(saml_login_url, data=data)
         saml_idp_login_ans.raise_for_status()
         if 'umcLoginWarning' in saml_idp_login_ans.text:
             raise SamlLoginError(f'Login failed?:\n{saml_idp_login_ans.text}')
