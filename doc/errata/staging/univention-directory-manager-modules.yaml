@@ -3,9 +3,11 @@ release: "5.2"
 version: [0]
 scope: ucs_5.2-0-errata5.2-0
 src: univention-directory-manager-modules
-fix: 17.0.27
+fix: 17.0.28
 desc: |
  This update addresses the following issues:
  * An issue with a circular import in UDM has been fixed,
    which could have prevented a hook from being loaded.
-bug: [57970]
+ * Improve performance of `_ldap_modlist()` in `groups/group`
+   handler to speed up modifications of very large groups.
+bug: [57970, 57961]
