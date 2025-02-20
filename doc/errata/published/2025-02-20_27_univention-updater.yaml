@@ -8,3 +8,6 @@ desc: |
  This update addresses the following issues:
  * Fix the link to the 5.2 changelog for the preup check.
 bug: [57973]
+erratum: 27
+announced: 2025-02-20
+support: core
