@@ -2,6 +2,7 @@
 ## desc: Check if ip_change also changes the ucs-sso entry
 ## roles-not: [basesystem]
 ## exposure: dangerous
+## apps: [keycloak]
 
 import sys
 

@@ -18,8 +18,15 @@ import pytest
 from univention import uldap
 from univention.testing.license_client import TestLicenseClient
 from univention.testing.strings import random_username
+from univention.udm import UDM
 
 from umc import UDMModule
+
+
+udm_users = UDM.admin().version(2).get('users/user')
+users = len(list(udm_users.search()))
+
+check_no_users = pytest.mark.skipif(users > 5, reason='test makes no sense in pre-filled environment')
 
 
 @pytest.fixture(scope='session')
@@ -36,6 +43,7 @@ def udm_license_module():
         _udm_license_module.delete_created_users()
 
 
+@check_no_users
 def test_free_license(udm_license_module):
     """
     Uploads a free license, checks its info, attempts to create
@@ -62,6 +70,7 @@ def test_free_license(udm_license_module):
     udm_license_module.delete_created_users()
 
 
+@check_no_users
 def test_expired_license(udm_license_module):
     """
     Uploads an expired license, attempts to create computers and users
@@ -80,6 +89,7 @@ def test_expired_license(udm_license_module):
     udm_license_module.restart_umc_server()
 
 
+@check_no_users
 def test_valid_license(udm_license_module):
     """Uploads a valid license, creates 10 computers and users with it"""
     udm_license_module.get_valid_license()
@@ -100,6 +110,7 @@ def test_valid_license(udm_license_module):
     udm_license_module.delete_created_users()
 
 
+@check_no_users
 def test_modified_signature(udm_license_module):
     """
     Modifies the current license LDAP object and tries to create
@@ -115,6 +126,7 @@ def test_modified_signature(udm_license_module):
     udm_license_module.modified_license_limits_check('user')
 
 
+@check_no_users
 def test_junk_license(udm_license_module):
     """
     Uploads a 'junk' license and tries to create computers
