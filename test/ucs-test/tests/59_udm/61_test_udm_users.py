@@ -112,7 +112,7 @@ class Test_UserCreation:
 
     def test_user_creation_with_uidNumber_already_in_use(self, udm):
         """Create users/user with uidNumber which is already in use"""
-        uid_number = str(random.randint(3000, 4999))
+        uid_number = str(random.randint(300000, 499999))
         udm.create_user(uidNumber=uid_number)
         with pytest.raises(udm_test.UCSTestUDM_CreateUDMObjectFailed):
             udm.create_user(uidNumber=uid_number)
