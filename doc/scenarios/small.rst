@@ -52,7 +52,7 @@ and requested when logging on to the Windows client.
 
 .. _create-user:
 
-.. figure:: /images/umc-benutzeranlegen.*
+.. figure:: ../manual/images/users_user_advanced.*
    :alt: Creating a user in Univention Directory Manager
 
    Creating a user in Univention Directory Manager
@@ -173,6 +173,6 @@ References
   <https://www.univention.com/products/app-catalog/oxseforucs/>`_
 
 * `Proxyserver / Webcache (Squid)
-  <https://www.univention.com/products/univention-app-center/app-catalog/squid/>`_
+  <https://www.univention.com/products/app-catalog/squid/>`_
 
-* `Self Service <https://www.univention.com/products/univention-app-center/app-catalog/self-service/>`_
+* `Self Service <https://www.univention.com/products/app-catalog/self-service/>`_
