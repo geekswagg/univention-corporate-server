@@ -1,3 +1,9 @@
+ucs-test (12.0.246) unstable; urgency=medium
+
+  * Issue univention/ucsschool#1347: fix flaky tests
+
+ -- Jürn Brodersen <brodersen@univention.de>  Mon, 24 Feb 2025 18:26:25 +0100
+
 ucs-test (12.0.245) unstable; urgency=medium
 
   * Issue univention/ucs#2317: reactivate 73_udm-rest/04_python_udm_api_client_compatibility
