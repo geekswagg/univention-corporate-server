@@ -241,7 +241,24 @@ def test_ignore_user_with_functional_flag(stopped_s4_connector, udm):
 
 
 @pytest.mark.exposure('dangerous')
-def test_script_lock_expired_accounts(stopped_s4_connector, udm):  # TODO: parametrize
+@pytest.mark.parametrize('delta,initial_state,expected_state', [
+    [-9, '0', '0'],
+    [-8, '0', '0'],
+    [-7, '0', '0'],
+    [-6, '0', '1'],
+    [-5, '0', '1'],
+    [-4, '0', '1'],
+    [-3, '0', '1'],
+    [-2, '0', '1'],
+    [-1, '0', '1'],
+    [0, '0', '1'],
+    [1, '0', '0'],
+    [2, '0', '0'],
+    [-4, '1', '1'],
+    [0, '1', '1'],
+    [2, '1', '1'],
+])
+def test_script_lock_expired_accounts(delta, initial_state, expected_state, stopped_s4_connector, udm):
     """Check cron job script lock_expired_accounts"""
     # bugs: [35088]
 
@@ -258,47 +275,29 @@ def test_script_lock_expired_accounts(stopped_s4_connector, udm):  # TODO: param
             subprocess.check_call(['/usr/bin/python3', '-m', 'univention.lib.account', 'lock', '--dn', userdn, '--lock-time', locktime])
         return username
 
-    userdata = {}
-    for delta, initial_state, expected_state in [
-            [-9, '0', '0'],
-            [-8, '0', '0'],
-            # [-7, '0', '0'],  disabled due to bug #36210
-            # [-6, '0', '1'],  disabled due to bug #36210
-            [-5, '0', '1'],
-            [-4, '0', '1'],
-            [-3, '0', '1'],
-            [-2, '0', '1'],
-            [-1, '0', '1'],
-            # [0, '0', '1'],  disabled due to bug #36210
-            [1, '0', '0'],
-            [2, '0', '0'],
-            [-4, '1', '1'],
-            # [0, '1', '1'],  disabled due to bug #36210
-            [2, '1', '1'],
-    ]:
-        userdata[create_user(delta, initial_state)] = [initial_state, expected_state]
+    username = create_user(delta, initial_state)
 
-    ldap_filter = '(|(uid=' + ')(uid='.join(userdata.keys()) + '))'
+    ldap_filter = f"(uid={username})"
 
     results = udm_modules.lookup('users/user', None, lo, scope='sub', filter=ldap_filter)
-    if len(results) != len(userdata):
+    if len(results) != 1:
         print('RESULTS: %r' % (pprint.PrettyPrinter(indent=2).pformat(results),))
         utils.fail('Did not find all users prior to script execution!')
-    for entry in results:
-        entry.open()
-        assert entry['locked'] == userdata[entry['username']][0], 'uid=%s should not be locked for posix prior to script execution!' % (entry['username'],)
+    entry = results[0]
+    entry.open()
+    assert entry['locked'] == initial_state, 'uid=%s should not be locked for posix prior to script execution!' % (entry['username'],)
 
     print('Calling lock_expired_accounts...')
     subprocess.check_call(['/usr/share/univention-directory-manager-tools/lock_expired_accounts', '--only-last-week'])
     print('DONE')
 
     results = udm_modules.lookup('users/user', None, lo, scope='sub', filter=ldap_filter)
-    if len(results) != len(userdata):
+    if len(results) != 1:
         print('RESULTS: %r' % (pprint.PrettyPrinter(indent=2).pformat(results),))
         utils.fail('Did not find all users after script execution!')
-    for entry in results:
-        entry.open()
-        assert entry['locked'] == userdata[entry['username']][1], 'The account uid=%r is not in expected locking state: expected=%r  current=%r' % (entry['username'], userdata[entry['username']][1], entry['locked'])
+    entry = results[0]
+    entry.open()
+    assert entry['locked'] == expected_state, 'The account uid=%r is not in expected locking state: expected=%r  current=%r' % (entry['username'], expected_state, entry['locked'])
 
 
 @pytest.mark.exposure('dangerous')
