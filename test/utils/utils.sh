@@ -1469,7 +1469,7 @@ fix_certificates53013 () { # <ip>
 	[ -f /var/univention-join/joined ] || return 0
 
 	# Overwrite IP address from KVM template with current IP
-	univention-register-network-address --verbose
+	univention-register-network-address --verbose --interface "$(ucr get interfaces/primary)"
 	udm "computers/${server_role}" modify --dn "${ldap_hostdn}" --set ip="${ip}"
 	udm dns/host_record modify --dn relativeDomainName="${ucs_server_sso_fqdn%%.*},zoneName=${ucs_server_sso_fqdn#*.},cn=dns,${ldap_base:?}" --set a="${ip}"
 	nscd -i hosts || :
