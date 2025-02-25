@@ -380,3 +380,28 @@ To run a specific playwright test you can use the following syntax:
 ```
 E   ModuleNotFoundError: No module named 'playwright'
 ```
+
+### Debugging playwright tests
+
+Debugging browser based tests can be hard due to their flakiness, however playwright offers some tools to make this a lot easier.
+
+How to watch the test execute:
+```bash
+ucr set sshd/xforwarding=yes
+systemctl restart sshd
+# disconnect from the VM and reconnect with ssh -Y <ip>
+# run the test directly with the playwright executable
+/usr/share/ucs-test/playwright --headed /usr/share/ucs-test/...path to test.py
+```
+
+Furthermore step-by-step debugging is available as well if the test is started with `PWDEBUG=1`
+
+```bash
+playwright install chromium # needed for debugging
+
+PWDEBUG=1 /usr/share/ucs-test/playwright --headed /usr/share/ucs-test/...path to test.py
+```
+
+Failed tests also produce screenshots and traces. These are found at `/usr/share/ucs-test/86_browser/browser` for the browser tests or at `/usr/share/ucs-test/81_keycloak/browser` for Keycloak tests.
+They are also linked to in Jenkins in the failed test log.
+The traces can be viewed either locally, if playwright is installed, with `playwright show-trace <path to trace>` or at https://trace.playwright.dev/.
