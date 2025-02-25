@@ -1740,7 +1740,7 @@ basic_setup_ucs_joined () {
 		local sso_fqdn sso_hostname
 		sso_fqdn="$(ucr get keycloak/server/sso/fqdn)"
 		sso_hostname="${sso_fqdn%%.*}"
-		[ -n "$old_ip" ] && udm dns/host_record modify \
+		[ -n "$old_ip" ] && [ -n "$sso_hostname" ] && udm dns/host_record modify \
 			--dn "relativeDomainName=$sso_hostname,zoneName=$domain,cn=dns,$ldap_base" \
 			--remove a="$old_ip"
 		;;
