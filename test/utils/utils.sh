@@ -81,7 +81,7 @@ _fix_grub56574 () {  # Bug #38911,56574: Fix GRUB root device
 	local bdev
 	bdev="$(/usr/sbin/grub-probe -t disk /boot/grub)" &&
 		[ -n "$bdev" ] &&
-		echo set grub-pc/install_devices "$bdev" | debconf-communicate
+		echo set grub-pc/install_devices "$bdev" | DEBIAN_FRONTEND=noninteractive debconf-communicate
 }
 
 _fix_dns46993 () {  # Bug #46993: Use AmazonProvidedDNS/dnsmasq4kvm and remove OpenDNS resolver
