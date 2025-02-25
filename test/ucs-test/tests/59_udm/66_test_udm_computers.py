@@ -776,7 +776,7 @@ class Test_ComputerRolesExceptMacos:
             # validate computer sambaSID
             computer_sambaSID = lo.getAttr(computer_DN, 'sambaSID')[0].decode('ASCII')
             udm.addCleanupLock('sid', computer_sambaSID)
-            if utils.s4connector_present():
+            if utils.s4connector_present() and not ucr.is_true("connector/s4/mapping/sid_to_s4", False):
                 assert computer_sambaSID.startswith('S-1-4'), '"sambaSID" of %s did not start with "S-1-4-" as expected' % computer_DN
             else:
                 sambaDomainSID = lo.search(filter='objectClass=sambaDomain', attr=['sambaSID'])[0][1]['sambaSID'][0].decode('ASCII')
