@@ -1,3 +1,9 @@
+univention-management-console-module-welcome (3.0.4-1) UNRELEASED; urgency=medium
+
+  * Bug #58015 UCS 5.2-1 version bump
+
+ -- Christian Castens <castens@univention.de>  Mon, 03 Mar 2025 10:45:33 +0100
+
 univention-management-console-module-welcome (3.0.3) unstable; urgency=medium
 
   * univention/ucs#2522: add keycloak installation hint to the welcome dialog

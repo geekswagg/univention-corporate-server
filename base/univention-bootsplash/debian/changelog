@@ -1,3 +1,9 @@
+univention-bootsplash (13.0.5-1) UNRELEASED; urgency=medium
+
+  * Bug #58015 UCS 5.2-1 version bump
+
+ -- Christian Castens <castens@univention.de>  Mon, 03 Mar 2025 10:45:39 +0100
+
 univention-bootsplash (13.0.4) unstable; urgency=medium
 
   * Issue univention/ucs#2561: update logos

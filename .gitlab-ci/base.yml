@@ -10,7 +10,7 @@ default:
       - runner_system_failure
 
 variables:
-  ucs: 520
+  ucs: 521
   DOC_TARGET_VERSION: "5.2"
   CHANGELOG_TARGET_VERSION: "5.2-0"
   GIT_STRATEGY: fetch

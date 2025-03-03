@@ -1,3 +1,9 @@
+univention-ssl (16.0.4-1) UNRELEASED; urgency=medium
+
+  * Bug #58015 UCS 5.2-1 version bump
+
+ -- Christian Castens <castens@univention.de>  Mon, 03 Mar 2025 10:45:39 +0100
+
 univention-ssl (16.0.3) unstable; urgency=medium
 
   * Issue #2296: Create new keys in pkcs1 format (like in UCS 5.0), not in

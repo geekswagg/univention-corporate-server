@@ -1,3 +1,9 @@
+univention-ldb-modules (10.0.4-1) UNRELEASED; urgency=medium
+
+  * Bug #58015 UCS 5.2-1 version bump
+
+ -- Christian Castens <castens@univention.de>  Mon, 03 Mar 2025 10:45:30 +0100
+
 univention-ldb-modules (10.0.3) unstable; urgency=medium
 
   * Bug #57690: Version bump to re-build

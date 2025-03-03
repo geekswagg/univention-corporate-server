@@ -1,3 +1,9 @@
+univention-archive-key (12.0.4-1) UNRELEASED; urgency=medium
+
+  * Bug #58015 UCS 5.2-1 version bump
+
+ -- Christian Castens <castens@univention.de>  Mon, 03 Mar 2025 10:45:39 +0100
+
 univention-archive-key (12.0.3) unstable; urgency=medium
 
   * Bug #57312: Remove postinst script

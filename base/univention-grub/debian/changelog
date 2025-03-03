@@ -1,3 +1,9 @@
+univention-grub (15.0.2-1) UNRELEASED; urgency=medium
+
+  * Bug #58015 UCS 5.2-1 version bump
+
+ -- Christian Castens <castens@univention.de>  Mon, 03 Mar 2025 10:45:39 +0100
+
 univention-grub (15.0.1) unstable; urgency=medium
 
   * Bug #55706: UCS 5.2-0 version bump
