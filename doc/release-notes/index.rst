@@ -14,7 +14,7 @@ Publication date of UCS |release|: 2025-02-05
 Release highlights
 ******************
 
-With |UCSUCS| 5.2-0, the second minor release for |UCSUCS| (UCS) is available.
+With |UCSUCS| 5.2-1, the second minor release for |UCSUCS| (UCS) is available.
 It provides several feature improvements and extensions, properties, as well as, bug fixes.
 Here is an overview of the most important changes:
 
@@ -77,7 +77,7 @@ on version 5.0-9 erratum 1204.
 
    When installing a |UCSBACKUPDN| from the 5.0-9 appliance images or the
    5.0-9 DVD, the final domain join fails,
-   if the UCS |UCSPRIMARYDN| has version 5.2-0.
+   if the UCS |UCSPRIMARYDN| has version 5.2-1.
 
    Start the setup without the domain join
    and upgrade the system to at least 5.0-9 erratum 1204.
@@ -229,10 +229,10 @@ and run it on the UCS system.
 .. code-block:: console
 
    # download
-   $ curl -OOf https://updates.software-univention.de/download/univention-update-checks/pre-update-checks-5.2-0{.gpg,}
+   $ curl -OOf https://updates.software-univention.de/download/univention-update-checks/pre-update-checks-5.2-1{.gpg,}
 
    # verify and run script
-   $ apt-key verify pre-update-checks-5.2-0{.gpg,} && bash pre-update-checks-5.2-0
+   $ apt-key verify pre-update-checks-5.2-1{.gpg,} && bash pre-update-checks-5.2-1
 
    ...
 
@@ -322,7 +322,7 @@ Changelog
 *********
 
 You find the changes since UCS 5.0-9 in
-:external+uv-changelog-5.2-0:doc:`index`.
+:external+uv-changelog-5.2-1:doc:`index`.
 
 .. _biblio:
 

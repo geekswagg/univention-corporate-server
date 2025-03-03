@@ -60,7 +60,7 @@ def ref(name: str, *, lang: str = "en", ver: str = "") -> tuple[str, tuple[str |
 
 version = "5.2"
 # The full version, including alpha/beta/rc tags
-release = "5.2-0"
+release = "5.2-1"
 
 project = f'UCS {release} Changelog'
 copyright = f'2023-{date.today().year}, Univention GmbH'
@@ -182,10 +182,8 @@ univention_use_doc_base = True
 
 # See README.md in this repository
 # https://git.knut.univention.de/univention/documentation/univention_sphinx_changelog#configuration-settings
-univention_changelog_previous_release = "5.0-7"
-univention_changelog_builder = "ucs-rst"
-univention_changelog_errata_yaml_dir = "staged"
-univention_changelog_errata_yaml = "*.rst"
+univention_changelog_previous_release = "5.2-0"
+univention_changelog_builder = "ucs"
 
 # See Univention Sphinx Extension for its options.
 # https://git.knut.univention.de/univention/documentation/univention_sphinx_extension

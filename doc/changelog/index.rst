@@ -14,170 +14,207 @@ Changelog for Univention Corporate Server (UCS) |release|
 General
 *******
 
-* The version of all modified join scripts has been increased by 10 so that join
-  script versions in UCS 5.0-x can be increased after UCS 5.1 has been released
-  (:uv:bug:`56927`).
+.. _security:
 
-* All Python 2.7 packages have been removed (:uv:bug:`56533`, :uv:bug:`56533`,
-  :uv:bug:`55994`).
+* All security updates issued for UCS 5.2-0 are included:
 
-* The code compatibility for Python 3.11 has been improved (:uv:bug:`55915`).
+  * :program:`avahi` (:uv:cve:`2023-38469`, :uv:cve:`2023-38470`,
+    :uv:cve:`2023-38471`, :uv:cve:`2023-38472`, :uv:cve:`2023-38473`)
+    (:uv:bug:`57914`)
 
-* The package management library of :program:`univention-lib` has been adjusted to
-  upstream changes in :program:`apt` (:uv:bug:`56536`).
+  * :program:`bind9` (:uv:cve:`2024-11187`, :uv:cve:`2024-12705`)
+    (:uv:bug:`57926`)
 
-* Code which ensured compatibility with Python 2.7 has been removed
-  (:uv:bug:`56604`).
+  * :program:`firefox-esr` (:uv:cve:`2024-11704`, :uv:cve:`2025-0237`,
+    :uv:cve:`2025-0238`, :uv:cve:`2025-0239`, :uv:cve:`2025-0240`,
+    :uv:cve:`2025-0241`, :uv:cve:`2025-0242`, :uv:cve:`2025-0243`,
+    :uv:cve:`2025-1009`, :uv:cve:`2025-1010`, :uv:cve:`2025-1011`,
+    :uv:cve:`2025-1012`, :uv:cve:`2025-1013`, :uv:cve:`2025-1014`,
+    :uv:cve:`2025-1016`, :uv:cve:`2025-1017`) (:uv:bug:`57919`,
+    :uv:bug:`57950`)
 
-* Various dependencies on old transitional Debian and Univention packages have been
-  replaced with dependencies on new successor packages. The :program:`univention-saml`
-  packages were transitional since UCS 5.1 and have now been removed completely
-  (:uv:bug:`56858`).
+  * :program:`git` (:uv:cve:`2024-50349`, :uv:cve:`2024-52006`)
+    (:uv:bug:`57911`)
 
-* The argument to the ``--ucsversionstart`` flag for
-  ``ucs_registerLDAPExtension`` has been changed to ``5.0-7`` (:uv:bug:`56124`).
+  * :program:`glib2.0` (:uv:cve:`2024-52533`) (:uv:bug:`57920`)
 
-.. _changelog-basic:
+  * :program:`gnutls28` (:uv:cve:`2024-12133`, :uv:cve:`2024-12243`)
+    (:uv:bug:`57969`)
 
-*********************
-Basic system services
-*********************
+  * :program:`gsl` (:uv:cve:`2020-35357`) (:uv:bug:`57923`)
 
-.. _changelog-basis-ucr:
+  * :program:`intel-microcode` (:uv:cve:`2024-21820`,
+    :uv:cve:`2024-21853`, :uv:cve:`2024-23918`) (:uv:bug:`57916`)
 
-Univention Configuration Registry
-=================================
+  * :program:`jinja2` (:uv:cve:`2024-22195`, :uv:cve:`2024-34064`)
+    (:uv:bug:`57927`)
 
-* Strict type checking has been enabled when setting or modifying |UCSUCRV|\ s
-  (:uv:bug:`55981`).
+  * :program:`libsoup2.4` (:uv:cve:`2024-52530`, :uv:cve:`2024-52531`,
+    :uv:cve:`2024-52532`) (:uv:bug:`57924`)
 
-.. _changelog-basis-ucr-template:
+  * :program:`libtasn1-6` (:uv:cve:`2024-12133`) (:uv:bug:`57966`)
 
-Changes to templates and modules
---------------------------------
+  * :program:`linux` (:uv:cve:`2022-49034`, :uv:cve:`2023-52916`,
+    :uv:cve:`2024-26595`, :uv:cve:`2024-27407`, :uv:cve:`2024-35870`,
+    :uv:cve:`2024-35956`, :uv:cve:`2024-36479`, :uv:cve:`2024-36899`,
+    :uv:cve:`2024-37021`, :uv:cve:`2024-41014`, :uv:cve:`2024-42252`,
+    :uv:cve:`2024-42315`, :uv:cve:`2024-42319`, :uv:cve:`2024-43098`,
+    :uv:cve:`2024-44950`, :uv:cve:`2024-45828`, :uv:cve:`2024-46809`,
+    :uv:cve:`2024-46841`, :uv:cve:`2024-46896`, :uv:cve:`2024-47143`,
+    :uv:cve:`2024-47408`, :uv:cve:`2024-47745`, :uv:cve:`2024-48881`,
+    :uv:cve:`2024-49571`, :uv:cve:`2024-49861`, :uv:cve:`2024-49891`,
+    :uv:cve:`2024-49897`, :uv:cve:`2024-49898`, :uv:cve:`2024-49899`,
+    :uv:cve:`2024-49909`, :uv:cve:`2024-49911`, :uv:cve:`2024-49915`,
+    :uv:cve:`2024-49917`, :uv:cve:`2024-49925`, :uv:cve:`2024-49929`,
+    :uv:cve:`2024-49934`, :uv:cve:`2024-49939`, :uv:cve:`2024-49951`,
+    :uv:cve:`2024-49994`, :uv:cve:`2024-49996`, :uv:cve:`2024-50014`,
+    :uv:cve:`2024-50047`, :uv:cve:`2024-50051`, :uv:cve:`2024-50055`,
+    :uv:cve:`2024-50121`, :uv:cve:`2024-50146`, :uv:cve:`2024-50164`,
+    :uv:cve:`2024-50248`, :uv:cve:`2024-50258`, :uv:cve:`2024-50275`,
+    :uv:cve:`2024-50304`, :uv:cve:`2024-52332`, :uv:cve:`2024-53099`,
+    :uv:cve:`2024-53105`, :uv:cve:`2024-53124`, :uv:cve:`2024-53125`,
+    :uv:cve:`2024-53128`, :uv:cve:`2024-53141`, :uv:cve:`2024-53142`,
+    :uv:cve:`2024-53145`, :uv:cve:`2024-53146`, :uv:cve:`2024-53148`,
+    :uv:cve:`2024-53150`, :uv:cve:`2024-53151`, :uv:cve:`2024-53154`,
+    :uv:cve:`2024-53155`, :uv:cve:`2024-53156`, :uv:cve:`2024-53157`,
+    :uv:cve:`2024-53158`, :uv:cve:`2024-53161`, :uv:cve:`2024-53164`,
+    :uv:cve:`2024-53165`, :uv:cve:`2024-53170`, :uv:cve:`2024-53171`,
+    :uv:cve:`2024-53172`, :uv:cve:`2024-53173`, :uv:cve:`2024-53174`,
+    :uv:cve:`2024-53175`, :uv:cve:`2024-53180`, :uv:cve:`2024-53181`,
+    :uv:cve:`2024-53183`, :uv:cve:`2024-53184`, :uv:cve:`2024-53190`,
+    :uv:cve:`2024-53194`, :uv:cve:`2024-53196`, :uv:cve:`2024-53197`,
+    :uv:cve:`2024-53198`, :uv:cve:`2024-53206`, :uv:cve:`2024-53207`,
+    :uv:cve:`2024-53208`, :uv:cve:`2024-53210`, :uv:cve:`2024-53213`,
+    :uv:cve:`2024-53214`, :uv:cve:`2024-53215`, :uv:cve:`2024-53217`,
+    :uv:cve:`2024-53220`, :uv:cve:`2024-53226`, :uv:cve:`2024-53227`,
+    :uv:cve:`2024-53229`, :uv:cve:`2024-53230`, :uv:cve:`2024-53231`,
+    :uv:cve:`2024-53233`, :uv:cve:`2024-53237`, :uv:cve:`2024-53239`,
+    :uv:cve:`2024-53240`, :uv:cve:`2024-53241`, :uv:cve:`2024-53680`,
+    :uv:cve:`2024-53685`, :uv:cve:`2024-53690`, :uv:cve:`2024-55881`,
+    :uv:cve:`2024-55916`, :uv:cve:`2024-56369`, :uv:cve:`2024-56531`,
+    :uv:cve:`2024-56532`, :uv:cve:`2024-56533`, :uv:cve:`2024-56539`,
+    :uv:cve:`2024-56546`, :uv:cve:`2024-56548`, :uv:cve:`2024-56551`,
+    :uv:cve:`2024-56557`, :uv:cve:`2024-56558`, :uv:cve:`2024-56562`,
+    :uv:cve:`2024-56567`, :uv:cve:`2024-56568`, :uv:cve:`2024-56569`,
+    :uv:cve:`2024-56570`, :uv:cve:`2024-56571`, :uv:cve:`2024-56572`,
+    :uv:cve:`2024-56574`, :uv:cve:`2024-56575`, :uv:cve:`2024-56576`,
+    :uv:cve:`2024-56578`, :uv:cve:`2024-56579`, :uv:cve:`2024-56581`,
+    :uv:cve:`2024-56582`, :uv:cve:`2024-56584`, :uv:cve:`2024-56585`,
+    :uv:cve:`2024-56586`, :uv:cve:`2024-56587`, :uv:cve:`2024-56589`,
+    :uv:cve:`2024-56590`, :uv:cve:`2024-56593`, :uv:cve:`2024-56594`,
+    :uv:cve:`2024-56595`, :uv:cve:`2024-56596`, :uv:cve:`2024-56597`,
+    :uv:cve:`2024-56598`, :uv:cve:`2024-56599`, :uv:cve:`2024-56600`,
+    :uv:cve:`2024-56601`, :uv:cve:`2024-56602`, :uv:cve:`2024-56603`,
+    :uv:cve:`2024-56604`, :uv:cve:`2024-56605`, :uv:cve:`2024-56606`,
+    :uv:cve:`2024-56608`, :uv:cve:`2024-56610`, :uv:cve:`2024-56614`,
+    :uv:cve:`2024-56615`, :uv:cve:`2024-56616`, :uv:cve:`2024-56619`,
+    :uv:cve:`2024-56622`, :uv:cve:`2024-56623`, :uv:cve:`2024-56625`,
+    :uv:cve:`2024-56626`, :uv:cve:`2024-56627`, :uv:cve:`2024-56628`,
+    :uv:cve:`2024-56629`, :uv:cve:`2024-56630`, :uv:cve:`2024-56631`,
+    :uv:cve:`2024-56633`, :uv:cve:`2024-56634`, :uv:cve:`2024-56636`,
+    :uv:cve:`2024-56637`, :uv:cve:`2024-56640`, :uv:cve:`2024-56642`,
+    :uv:cve:`2024-56643`, :uv:cve:`2024-56644`, :uv:cve:`2024-56645`,
+    :uv:cve:`2024-56648`, :uv:cve:`2024-56650`, :uv:cve:`2024-56651`,
+    :uv:cve:`2024-56658`, :uv:cve:`2024-56659`, :uv:cve:`2024-56660`,
+    :uv:cve:`2024-56661`, :uv:cve:`2024-56662`, :uv:cve:`2024-56663`,
+    :uv:cve:`2024-56664`, :uv:cve:`2024-56665`, :uv:cve:`2024-56670`,
+    :uv:cve:`2024-56672`, :uv:cve:`2024-56675`, :uv:cve:`2024-56677`,
+    :uv:cve:`2024-56678`, :uv:cve:`2024-56679`, :uv:cve:`2024-56681`,
+    :uv:cve:`2024-56683`, :uv:cve:`2024-56687`, :uv:cve:`2024-56688`,
+    :uv:cve:`2024-56690`, :uv:cve:`2024-56691`, :uv:cve:`2024-56693`,
+    :uv:cve:`2024-56694`, :uv:cve:`2024-56698`, :uv:cve:`2024-56700`,
+    :uv:cve:`2024-56701`, :uv:cve:`2024-56703`, :uv:cve:`2024-56704`,
+    :uv:cve:`2024-56705`, :uv:cve:`2024-56707`, :uv:cve:`2024-56708`,
+    :uv:cve:`2024-56709`, :uv:cve:`2024-56715`, :uv:cve:`2024-56716`,
+    :uv:cve:`2024-56717`, :uv:cve:`2024-56718`, :uv:cve:`2024-56720`,
+    :uv:cve:`2024-56722`, :uv:cve:`2024-56723`, :uv:cve:`2024-56724`,
+    :uv:cve:`2024-56725`, :uv:cve:`2024-56726`, :uv:cve:`2024-56727`,
+    :uv:cve:`2024-56728`, :uv:cve:`2024-56739`, :uv:cve:`2024-56741`,
+    :uv:cve:`2024-56745`, :uv:cve:`2024-56746`, :uv:cve:`2024-56747`,
+    :uv:cve:`2024-56748`, :uv:cve:`2024-56751`, :uv:cve:`2024-56754`,
+    :uv:cve:`2024-56755`, :uv:cve:`2024-56756`, :uv:cve:`2024-56759`,
+    :uv:cve:`2024-56763`, :uv:cve:`2024-56765`, :uv:cve:`2024-56766`,
+    :uv:cve:`2024-56767`, :uv:cve:`2024-56769`, :uv:cve:`2024-56770`,
+    :uv:cve:`2024-56774`, :uv:cve:`2024-56776`, :uv:cve:`2024-56777`,
+    :uv:cve:`2024-56778`, :uv:cve:`2024-56779`, :uv:cve:`2024-56780`,
+    :uv:cve:`2024-56781`, :uv:cve:`2024-56783`, :uv:cve:`2024-56785`,
+    :uv:cve:`2024-56787`, :uv:cve:`2024-57791`, :uv:cve:`2024-57792`,
+    :uv:cve:`2024-57798`, :uv:cve:`2024-57807`, :uv:cve:`2024-57838`,
+    :uv:cve:`2024-57849`, :uv:cve:`2024-57850`, :uv:cve:`2024-57874`,
+    :uv:cve:`2024-57876`, :uv:cve:`2024-57887`, :uv:cve:`2024-57892`,
+    :uv:cve:`2024-57907`, :uv:cve:`2024-57946`) (:uv:bug:`57913`,
+    :uv:bug:`57948`)
 
-* The deprecated SSH configuration option ``ChallengeResponseAuthentication``
-  has been replaced with ``KbdInteractiveAuthentication``. The new |UCSUCRV|
-  :envvar:`sshd/KbdInteractiveAuthentication` allows to configure this option
-  (:uv:bug:`56147`).
+  * :program:`linux-signed-amd64` (:uv:cve:`2023-52916`,
+    :uv:cve:`2024-27407`, :uv:cve:`2024-35870`, :uv:cve:`2024-35956`,
+    :uv:cve:`2024-36479`, :uv:cve:`2024-36899`, :uv:cve:`2024-37021`,
+    :uv:cve:`2024-41014`, :uv:cve:`2024-42252`, :uv:cve:`2024-42315`,
+    :uv:cve:`2024-44950`, :uv:cve:`2024-46809`, :uv:cve:`2024-49861`,
+    :uv:cve:`2024-49891`, :uv:cve:`2024-49897`, :uv:cve:`2024-49898`,
+    :uv:cve:`2024-49899`, :uv:cve:`2024-49909`, :uv:cve:`2024-49911`,
+    :uv:cve:`2024-49915`, :uv:cve:`2024-49917`, :uv:cve:`2024-49925`,
+    :uv:cve:`2024-49929`, :uv:cve:`2024-49939`, :uv:cve:`2024-49951`,
+    :uv:cve:`2024-49994`, :uv:cve:`2024-49996`, :uv:cve:`2024-50014`,
+    :uv:cve:`2024-50047`, :uv:cve:`2024-50055`, :uv:cve:`2024-50121`,
+    :uv:cve:`2024-50146`, :uv:cve:`2024-50164`, :uv:cve:`2024-50248`,
+    :uv:cve:`2024-50258`, :uv:cve:`2024-50275`, :uv:cve:`2024-50304`,
+    :uv:cve:`2024-53099`, :uv:cve:`2024-53105`, :uv:cve:`2024-53124`,
+    :uv:cve:`2024-53125`, :uv:cve:`2024-53128`, :uv:cve:`2024-53141`,
+    :uv:cve:`2024-53142`, :uv:cve:`2024-53164`, :uv:cve:`2024-53170`,
+    :uv:cve:`2024-53229`, :uv:cve:`2024-53240`, :uv:cve:`2024-53241`,
+    :uv:cve:`2024-53685`, :uv:cve:`2024-56551`, :uv:cve:`2024-56582`,
+    :uv:cve:`2024-56599`, :uv:cve:`2024-56608`, :uv:cve:`2024-56631`,
+    :uv:cve:`2024-56664`, :uv:cve:`2024-56703`, :uv:cve:`2024-56709`,
+    :uv:cve:`2024-56715`, :uv:cve:`2024-56718`, :uv:cve:`2024-56759`,
+    :uv:cve:`2024-57887`, :uv:cve:`2024-57892`, :uv:cve:`2024-57907`)
+    (:uv:bug:`57930`, :uv:bug:`57948`)
 
-* Scripts have been adjusted for binary paths changed in Debian
-  (:uv:bug:`56665`).
+  * :program:`nvidia-graphics-drivers` (:uv:cve:`2024-0126`)
+    (:uv:bug:`57925`)
 
-* Various Univention Configuration Registry templates have been updated to
-  closer match upstream Debian 12 configuration. The |UCSUCRV|
-  :envvar:`syslog/template/default` has been deleted. The template files
-  :file:`/etc/default/samba` and :file:`/etc/default/apache2` have been deleted
-  (:uv:bug:`46120`).
+  * :program:`openjpeg2` (:uv:cve:`2021-3575`, :uv:cve:`2023-39327`,
+    :uv:cve:`2024-56826`, :uv:cve:`2024-56827`) (:uv:bug:`57928`)
 
-* The package :program:`ntp` has been replaced by the package :program:`ntpsec`
-  (:uv:bug:`56661`).
+  * :program:`python-tornado` (:uv:cve:`2023-28370`,
+    :uv:cve:`2024-52804`) (:uv:bug:`57918`)
 
-.. _changelog-basis-other:
+  * :program:`python-urllib3` (:uv:cve:`2023-43804`,
+    :uv:cve:`2023-45803`, :uv:cve:`2024-37891`) (:uv:bug:`57931`)
 
-Other system services
-=====================
+  * :program:`python3.11` (:uv:cve:`2023-27043`, :uv:cve:`2024-11168`,
+    :uv:cve:`2024-6923`, :uv:cve:`2024-7592`, :uv:cve:`2024-9287`)
+    (:uv:bug:`57915`)
 
-* :program:`univention-ssh` has been adjusted to work with ``openssh-8.4-p1``
-  (:uv:bug:`56593`).
+  * :program:`qemu` (:uv:cve:`2024-7409`) (:uv:bug:`57922`)
 
-.. _changelog-domain:
+  * :program:`rsync` (:uv:cve:`2024-12084`, :uv:cve:`2024-12085`,
+    :uv:cve:`2024-12086`, :uv:cve:`2024-12087`, :uv:cve:`2024-12088`,
+    :uv:cve:`2024-12747`) (:uv:bug:`57932`)
 
-***************
-Domain services
-***************
+  * :program:`setuptools` (:uv:cve:`2024-6345`) (:uv:bug:`57917`)
 
-.. _changelog-domain-openldap:
+  * :program:`tiff` (:uv:cve:`2023-25433`, :uv:cve:`2023-26965`,
+    :uv:cve:`2023-26966`, :uv:cve:`2023-2908`, :uv:cve:`2023-3618`,
+    :uv:cve:`2023-52356`, :uv:cve:`2024-7006`) (:uv:bug:`57921`)
 
-OpenLDAP
-========
+  * :program:`util-linux` (:uv:cve:`2024-28085`) (:uv:bug:`57929`)
 
-* The configurability of the LDAP overlay module ``memberOf`` has been removed.
-  Since UCS 4.3, UCS needs the ``memberOf`` overlay and activates it by default (:uv:bug:`56662`).
+  * :program:`xen` (:uv:cve:`2023-28746`, :uv:cve:`2023-46841`,
+    :uv:cve:`2023-46842`, :uv:cve:`2024-2193`, :uv:cve:`2024-2201`,
+    :uv:cve:`2024-31142`, :uv:cve:`2024-31143`, :uv:cve:`2024-31145`,
+    :uv:cve:`2024-31146`, :uv:cve:`2024-45817`, :uv:cve:`2024-45818`,
+    :uv:cve:`2024-45819`) (:uv:bug:`57912`)
 
-* All LDAP utility command line calls have been adjusted to use :samp:`-H
-  {LDAP_URI}` instead of the obsolete :samp:`-h {host} -p {port}` arguments
-  (:uv:bug:`55997`).
 
-* Support for the :program:`Berkeley DB` database backend for
-  :program:`OpenLDAP` has been removed (:uv:bug:`57112`).
+.. _debian:
 
-* The Univention Virtual Machine Manager related LDAP schema and objects are
-  automatically removed during the upgrade to UCS 5.2 (:uv:bug:`56651`).
+* The following updated packages from Debian 0.0 are included:
 
-.. _changelog-domain-openldap-schema:
+  :program:`FIXME`
 
-LDAP schema changes
--------------------
+.. _maintained:
 
-* The LDAP attributes ``univentionFetchmailAddress``,
-  ``univentionFetchmailServer``, ``univentionFetchmailProtocol``,
-  ``univentionFetchmailPasswd``, ``univentionFetchmailKeepMailOnServer`` and
-  ``univentionFetchmailUseSSL`` are deprecated, ``univentionFetchmailSingle`` is
-  used instead for Fetchmail configurations (:uv:bug:`55905`).
-
-.. _changelog-domain-openldap-replication:
-
-Listener/Notifier domain replication
-------------------------------------
-
-* Listener modules are now executed with Python 3.11 (:uv:bug:`56533`).
-
-.. _changelog-domain-dnsserver:
-
-DNS server
-==========
-
-* All :program:`systemd` references for the renamed ``named.service`` have been
-  adjusted (:uv:bug:`56003`).
-
-.. _changelog-udm:
-
-LDAP Directory Manager
-======================
-
-* The HTTP status code for move operations has been fixed to ``202`` for *ACCEPTED* (:uv:bug:`55057`).
-
-* The obsolete UDM modules ``settings/portal*`` have been removed
-  (:uv:bug:`52048`).
-
-* The list of country names for the UDM syntax class ``Country`` has been
-  updated (:uv:bug:`56541`).
-
-* Moving of objects without children is now done directly and doesn't require a
-  HTTP redirection (:uv:bug:`55019`).
-
-* A migration of the LDAP data for the mapping of the UDM property ``country``
-  to the LDAP attribute ``c`` is now enforced for the upgrade to UCS 5.2
-  (:uv:bug:`56528`).
-
-* The default values of |UCSUCRV|
-  :envvar:`directory/manager/user/enable-legacy-username-format`
-  and |UCSUCRV|
-  :envvar:`directory/manager/group/enable-legacy-cn-format`
-  have been changed to ``false`` which configures UCS
-  to disallow purely numerical user and group names (:uv:bug:`56992`).
-
-* The |UCSUCRV| :envvar:`directory/manager/user/group-memberships-via-memberof`
-  has been removed. Group memberships in the UDM module ``users/user`` are now
-  always resolved through the LDAP attribute ``memberOf`` (:uv:bug:`56253`).
-
-.. _changelog-service-keycloak:
-
-Keycloak
-========
-
-* Several changes to ``univention-keycloak`` for better integration with
-  Univention Nubus (:uv:bug:`57492`).
-
-* Starting with UCS 5.2-0, the Identity Provider (IDP) endpoint for SAML and
-  OIDC services for all UCS systems is defined by the policy
-  ``sso_uri_domainwide_setting``. This policy sets the |UCSUCRV|
-  :envvar:`ucs/server/sso/uri` on all UCS systems in the domain. During
-  installation of the :program:`Keycloak` app or when changing the FQDN of the
-  IDP, this policy is automatically updated. Services can use the value of
-  :envvar:`ucs/server/sso/uri` to configure |SSO| with :program:`Keycloak` on
-  systems with at least UCS 5.2-0 (:uv:bug:`57826`).
+* The following packages have been moved to the maintained repository of UCS:
 
 .. _changelog-umc:
 
@@ -185,74 +222,13 @@ Keycloak
 Univention Management Console
 *****************************
 
-* Deprecated Python APIs especially regarding the use of
-  :program:`python-notifier` have been removed (:uv:bug:`56538`).
-
-.. _changelog-umc-portal:
-
-Univention Portal
-=================
-
-* The UCS Portal's graphical user interface has received various updates
-  (:uv:bug:`57083`).
-
-.. _changelog-umc-appcenter:
-
-Univention App Center
-=====================
-
-* Removed the commands :command:`univention-rename-app` and
-  :command:`univention-register-apps` which used old code that didn't work since at
-  least UCS 5.0 and which are unneeded (:uv:bug:`56724`).
-
-* The initial App Center cache has been updated. It's important especially when
-  working offline (:uv:bug:`56716`).
-
-* Adapted code to API changes in the new Python :program:`apt` library
-  (:uv:bug:`56598`).
-
-* The Docker daemon is configured to log to :program:`journald` by default now,
-  not in per-container JSON log files. :program:`journald` can be queried to
-  get the logs for one app (:uv:bug:`56058`, :uv:bug:`56131`).
-
-* The obsolete |UCSUCRV| :envvar:`docker/daemon/default/map/.*` has been
-  removed from the Docker configuration templates and is no longer evaluated
-  (:uv:bug:`56058`).
-
-* The App Center now avoids assigning a subnet to an app that conflicts with
-  other networks already created in Docker (:uv:bug:`57210`).
-
 .. _changelog-umc-user:
 
 User management
 ===============
 
-* The deprecated self service frontend ``/univention/self-service/``
-  that came with UCS 4.4 has been removed (:uv:bug:`56601`).
-  Since UCS 5.0, the self service frontend is ``/univention/selfservice/``.
-
-.. _changelog-umc-diagnostic:
-
-System diagnostic module
-========================
-
-* The diagnostic script :file:`62_check_slapschema` has been adjusted to changed
-  output of :program:`slapschema` (:uv:bug:`56546`).
-
-* Added diagnostic script :file:`68_old_fetchmail_attributes` to detect the use
-  of deprecated Fetchmail LDAP attributes (:uv:bug:`55905`).
-
-.. _changelog-lib:
-
-*************************
-Univention base libraries
-*************************
-
-* The package dependencies have been adjusted to depend on
-  :program:`libldap-2.5-0` (:uv:bug:`56596`).
-
-* The concept ``decode ignorelist`` has been removed. UDM doesn't decode
-  attributes automatically anymore since UCS 5.0 (:uv:bug:`50343`).
+* The Message-ID header has been added to emails sent via Self Service to
+  prevent rejection by certain email providers (:uv:bug:`57512`).
 
 .. _changelog-deployment:
 
@@ -260,10 +236,7 @@ Univention base libraries
 Software deployment
 *******************
 
-* During the update to UCS 5.2, objects from deprecated UCS versions are deleted
-  from the LDAP directory. Information about deleted objects and the objects
-  LDIF output can be found in the log file
-  :file:`/var/univention-backup/update-to-5.2-0/removed_with_ucs5_{<timestamp>}.ldif` (:uv:bug:`56134`).
+* Fix the link to the 5.2 changelog for the preup check (:uv:bug:`57973`).
 
 .. _changelog-service:
 
@@ -271,167 +244,24 @@ Software deployment
 System services
 ***************
 
-.. _changelog-service-postgresql:
+.. _changelog-service-saml:
 
-PostgreSQL
-==========
+SAML
+====
 
-* PostgreSQL has been upgraded to version 15. As administrator, you now have
-  the option to change the password encryption to ``scram-sha-256``.
-  This can be achieved by using the UCR variables |UCSUCRV|
-  :envvar:`postgres15/password-encryption` and |UCSUCRV|
-  :envvar:`postgres15/pg_hba/password-encryption` (:uv:bug:`56540`).
+* Fixed an issue that causes `univention-keycloak` to crash on system that were
+  not running UCR (:uv:bug:`57964`).
 
-.. _changelog-service-mail:
+* Fixed the link to the 5.2 changelog in `univention-keycloak-migration-status`
+  (:uv:bug:`57973`).
 
-Mail services
-=============
+.. _changelog-service-proxy:
 
-* Some deprecated Fetchmail LDAP attributes are now hidden in UMC.
-  Their data is automatically migrated during upgrade (:uv:bug:`55905`).
+Proxy services
+==============
 
-.. _changelog-service-imap:
+* You can now manually configure the squid cache settings. Any value other than
+  `ufs` in the UCRV `squid/cache/format` disables the cache configuration in
+  `squid.conf`. A custom squid cache configuration can be added to
+  `/etc/squid/local.conf` (:uv:bug:`57775`).
 
-IMAP services
--------------
-
-* The |UCSUCRV| :envvar:`mail/dovecot/ssl/protocols` has been replaced with
-  |UCSUCRV| :envvar:`mail/dovecot/ssl/min_protocol` and must manually be set.
-  The minimum required TLS version has been adjusted to TLS 1.2. The TLS
-  versions 1.0 and 1.1 are no longer supported with default settings
-  (:uv:bug:`56544`).
-
-.. _changelog-service-print:
-
-Printing services
-=================
-
-* The printer driver list has been updated (:uv:bug:`56542`).
-
-.. _changelog-service-nagios:
-
-Nagios
-======
-
-* The Nagios server functionality has been removed from UDM.
-  Therefore, the UDM module ``nagios/timeperiod`` has been removed.
-  The UDM module ``nagios/service`` has been reduced
-  to the minimal required NRPE properties (:uv:bug:`56367`).
-
-* LDAP credentials are now passed through the environment variable
-  :envvar:`LDAP_PASSWORD` instead of using the deprecated option ``-y``
-  (:uv:bug:`56580`).
-
-* The patches to :program:`monitoring-plugins` have been adapted to the new
-  upstream version. The patch adding the option ``-y`` to read the LDAP
-  credentials from a file has been dropped. The patch fixing a spelling mistake
-  has been dropped as it has been fixed upstream (:uv:bug:`55829`).
-
-.. _changelog-service-radius:
-
-RADIUS
-======
-
-* FreeRADIUS now uses TLS 1.3 as default maximum TLS version. TLS 1.3 may cause
-  issues for Microsoft Windows 10 Clients. See UCS Manual (:uv:bug:`55763`).
-
-* The MD4 functionality is now provided by the ``python3-samba`` package,
-  because it was dropped from ``OpenSSL`` (:uv:bug:`55996`).
-
-* The FreeRADIUS service now uses a specific credentials file in
-  :file:`/etc/freeradius.secret` (:uv:bug:`55963`).
-
-.. _changelog-service-ssl:
-
-SSL/TLS
-=======
-
-* Radius now has TLS 1.3 enabled by default. TLS 1.3 might cause issues with
-  Microsoft Windows 10. To use TLS 1.2, set the |UCSUCRV|
-  :envvar:`freeradius/conf/tls-max-version` to the value ``1.2``
-  (:uv:bug:`55763`).
-
-.. _changelog-service-dhcp:
-
-DHCP services
-=============
-
-* The LDAP configuration in :file:`dhcpd.conf` has been turned off temporarily
-  during UCS 5.1 to avoid issues with :program:`isc-dhcp-server` version
-  ``4.4.1-2.3`` running into a thread deadlock when testing the configuration
-  (:uv:bug:`56730`).
-
-.. _changelog-service-pam:
-
-PAM / Local group cache
-=======================
-
-* The deprecated :program:`libnss-ldap` and :program:`libpam-ldap` have been replaced with :program:`sssd`.
-  :program:`sssd` is currently used for users only.
-  This also means that :program:`nscd` isn't used any longer
-  for the :program:`passwd` related system calls,
-  but it still is used as cache for ``hosts`` resolution.
-  The UCR variables :envvar:`nscd/passwd/.` aren't used any longer.
-
-  The :program:`sssd` is configured through :file:`/etc/sssd/sssd.conf`
-  which is generated from a UCR template now.
-  :program:`sssd` additionally reads configuration sub files
-  from the directory :file:`/etc/sssd/conf.d`
-  which can be used in case options need to be customized differently
-  from what the UCR template initially supports.
-
-  The user cache of :program:`sssd` can be flushed by running :command:`sss_cache -U`,
-  instead of running :command:`nscd -i passwd`.
-
-  Note that :program:`sssd` by default doesn't dynamically ``enumerate`` accounts in :program:`passwd`.
-  Some tools that expect that by default,
-  may need adjustment to consider this.
-  For example, :program:`repquota` needs to be called with the option ``-C`` to resolve ``uid`` numbers to names.
-
-  Additionally, :program:`sssd` doesn't support resolving ``shadow`` information at all,
-  so for example ``pam_unix`` won't be able to read ``shadow`` related information for domain users.
-  There's a difference between domain users managed in UDM/LDAP and traditional Linux local accounts.
-
-  Also note that UCS currently still uses ``pam_krb5`` separately from :program:`sssd`,
-  as UCS and Samba use *Heimdal Kerberos*,
-  while :program:`sssd` may be more leaning towards *MIT Kerberos* (:uv:bug:`56793`).
-
-* The obsolete :program:`pam-tally` has been replaced with :program:`pam-faillock`
-  (:uv:bug:`56547`).
-
-* The obsolete :program:`libpam-cracklib` has been replaced with :program:`libpam-pwquality`
-  (:uv:bug:`56002`).
-
-* The :program:`pam` configuration file :file:`/etc/pam.d/common-session-noninteractive` is now
-  generated from a UCR template (:uv:bug:`57298`).
-
-.. _changelog-service-nfs:
-
-NFS
-===
-
-* The :program:`systemd` service unit for :program:`nfs-kernel-server` has been
-  adjusted to make restarts possible again (:uv:bug:`56545`).
-
-NTP
-===
-
-* The :program:`ntpsec` service has been updated to version 1.2.3 to support
-  MS-SNTP (:uv:bug:`57147`).
-
-.. _changelog-win:
-
-********************
-Services for Windows
-********************
-
-.. _changelog-win-samba:
-
-Samba
-=====
-
-* :program:`samba` has been updated to version 4.21.1 (:uv:bug:`57690`).
-* The default for the Samba database is now ``mdb`` (:uv:bug:`57145`).
-* :program:`samba-tool` has been adjusted to revert the changes for
-  `Samba Bug 14676 <https://bugzilla.samba.org/show_bug.cgi?id=14676>`_
-  which caused a regression for samba-tool backup with ``mdb`` backend database (:uv:bug:`57297`).
