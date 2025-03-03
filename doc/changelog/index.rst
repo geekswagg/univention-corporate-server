@@ -16,7 +16,7 @@ General
 
 .. _security:
 
-* All security updates issued for UCS 5.2-0 are included:
+* |UCSUCS| |release| includes all security updates issued for UCS 5.2-0:
 
   * :program:`avahi` (:uv:cve:`2023-38469`, :uv:cve:`2023-38470`,
     :uv:cve:`2023-38471`, :uv:cve:`2023-38472`, :uv:cve:`2023-38473`)
@@ -208,13 +208,80 @@ General
 
 .. _debian:
 
-* The following updated packages from Debian 0.0 are included:
+* |UCSUCS| |release| includes the following updated packages from Debian 12:
 
-  :program:`FIXME`
-
-.. _maintained:
-
-* The following packages have been moved to the maintained repository of UCS:
+  :program:`emacs`
+  :program:`xorg-server`
+  :program:`base-files`
+  :program:`criu`
+  :program:`debootstrap`
+  :program:`espeak-ng`
+  :program:`nfs-utils`
+  :program:`systemd`
+  :program:`tzdata`
+  :program:`ucf`
+  :program:`allow-html-temp`
+  :program:`ansible-core`
+  :program:`audiofile`
+  :program:`bochs`
+  :program:`cacti`
+  :program:`chromium`
+  :program:`cpuinfo`
+  :program:`debian-installer`
+  :program:`debian-installer-netboot-images`
+  :program:`debian-security-support`
+  :program:`dnsmasqg`
+  :program:`dpdkg`
+  :program:`eas4tbsyncg`
+  :program:`fastnetmong`
+  :program:`geoclue-2.0g`
+  :program:`git-lfsg`
+  :program:`grml-rescuebootg`
+  :program:`gst-plugins-base1.0g`
+  :program:`gst-plugins-good1.0g`
+  :program:`gstreamer1.0g`
+  :program:`gunicorng`
+  :program:`icinga2g`
+  :program:`lemonldap-ngg`
+  :program:`libebmlg`
+  :program:`libpgjavag`
+  :program:`libreofficeg`
+  :program:`libxstream-javag`
+  :program:`live-bootg`
+  :program:`llvm-toolchain-19g`
+  :program:`lxcg`
+  :program:`mailmindrg`
+  :program:`nvidia-open-gpu-kernel-modulesg`
+  :program:`oarg`
+  :program:`openafsg`
+  :program:`openh264g`
+  :program:`openjdk-17g`
+  :program:`openscg`
+  :program:`pam-pkcs11g`
+  :program:`pam-u2fg`
+  :program:`pdns-recursorg`
+  :program:`pgtclg`
+  :program:`pocog`
+  :program:`prometheus-node-exporter-collectorsg`
+  :program:`pypy3g`
+  :program:`python-asyncsshg`
+  :program:`python-werkzeugg`
+  :program:`quicktextg`
+  :program:`redisg`
+  :program:`renderdocg`
+  :program:`ruby-doorkeeperg`
+  :program:`snapcastg`
+  :program:`sqlparseg`
+  :program:`srtg`
+  :program:`tangog`
+  :program:`tbsyncg`
+  :program:`texlive-bing`
+  :program:`thunderbirdg`
+  :program:`tomcat10g`
+  :program:`webkit2gtkg`
+  :program:`xsaneg`
+  :program:`zfs-linuxg`
+  :program:`zookeeperg`
 
 .. _changelog-umc:
 
@@ -227,7 +294,7 @@ Univention Management Console
 User management
 ===============
 
-* The Message-ID header has been added to emails sent via Self Service to
+* Added the Message-ID header to emails sent through Self Service to
   prevent rejection by certain email providers (:uv:bug:`57512`).
 
 .. _changelog-deployment:
@@ -236,7 +303,7 @@ User management
 Software deployment
 *******************
 
-* Fix the link to the 5.2 changelog for the preup check (:uv:bug:`57973`).
+* Fixed the link to the 5.2 changelog for the pre-update check (:uv:bug:`57973`).
 
 .. _changelog-service:
 
@@ -249,10 +316,10 @@ System services
 SAML
 ====
 
-* Fixed an issue that causes `univention-keycloak` to crash on system that were
+* Fixed an issue that causes ``univention-keycloak`` to crash on system that were
   not running UCR (:uv:bug:`57964`).
 
-* Fixed the link to the 5.2 changelog in `univention-keycloak-migration-status`
+* Fixed the link to the 5.2 changelog in ``univention-keycloak-migration-status``
   (:uv:bug:`57973`).
 
 .. _changelog-service-proxy:
@@ -260,8 +327,7 @@ SAML
 Proxy services
 ==============
 
-* You can now manually configure the squid cache settings. Any value other than
-  `ufs` in the UCRV `squid/cache/format` disables the cache configuration in
-  `squid.conf`. A custom squid cache configuration can be added to
-  `/etc/squid/local.conf` (:uv:bug:`57775`).
-
+* You can now manually configure the squid cache settings. Any value other than ``ufs``
+  in the UCR variable :envvar:`squid/cache/format` deactivates the cache configuration
+  in :file:`squid.conf`. You can add a custom squid cache configuration to the
+  :file:`/etc/squid/local.conf` file (:uv:bug:`57775`).
