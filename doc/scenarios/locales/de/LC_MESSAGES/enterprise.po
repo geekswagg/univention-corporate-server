@@ -448,10 +448,10 @@ msgstr ":ref:`uv-handbuch:domain-ldap-directory-logger`"
 #: ../../enterprise.rst:209
 msgid ""
 "`Extended installation documentation <https://docs.software-"
-"univention.de/installation-5.0.html>`_"
+"univention.de/installation-5.2.html>`_"
 msgstr ""
 "`Extended installation documentation <https://docs.software-"
-"univention.de/installation-5.0.html>`_"
+"univention.de/installation-5.2.html>`_"
 
 #: ../../enterprise.rst:212
 msgid ""
