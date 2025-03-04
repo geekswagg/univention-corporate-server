@@ -1,6 +1,7 @@
-univention-updater (17.0.34-1) UNRELEASED; urgency=medium
+univention-updater (17.0.34-1) unstable; urgency=medium
 
   * Bug #58015 UCS 5.2-1 version bump
+  * Bug #58016: Adapt links and components for 5.2-1
 
  -- Christian Castens <castens@univention.de>  Mon, 03 Mar 2025 10:45:37 +0100
 
