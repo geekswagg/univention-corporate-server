@@ -1,3 +1,9 @@
+ucs-test (12.0.248-3) unstable; urgency=medium
+
+  * Bug #57681: adjust tests to work with shadowMax - 1
+
+ -- Marius Meschter <marius.meschter@univention.de>  Tue, 10 Mar 2025 16:27:56 +0100
+
 ucs-test (12.0.248-2) unstable; urgency=medium
 
   * Bug #58014 fix 86_browser/191_app_suggestions_category.py
