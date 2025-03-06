@@ -1,3 +1,10 @@
+ucs-test (12.0.248-4) unstable; urgency=medium
+
+  * Bug #57681: reduce flakiness of playwright password change during plain
+    login test
+
+ -- Marius Meschter <marius.meschter@univention.de>  Thu, 10 Mar 2025 17:05:05 +0100
+
 ucs-test (12.0.248-3) unstable; urgency=medium
 
   * Bug #57681: adjust tests to work with shadowMax - 1
