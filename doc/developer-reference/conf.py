@@ -102,6 +102,7 @@ bibtex_reference_style = "label"
 intersphinx_mapping = {
     "uv-architecture": ref("architecture"),
     "uv-manual": ref("manual"),
+    "uv-nubus-kubernetes-customization": ("https://docs.software-univention.de/nubus-kubernetes-customization/latest/en/", None),
     "uv-app-center": ref("app-center"),
     "python": ("https://docs.python.org/3.11/", ("/usr/share/doc/python3/html/objects.inv", None)),
     "python-general": ("https://docs.python.org/3/", ("/usr/share/doc/python3/html/objects.inv", None)),
@@ -164,7 +165,8 @@ if "spelling" in sys.argv:
 
 linkcheck_ignore = [
     r"https://errata\.software-univention\.de/#/\?erratum=\d\.\dx\d{1,3}",
-    r"https://www\.zytrax\.com/books/ldap/",  # FIXME : Reactivate, once the expired certificate is replaced and works.
+    # FIXME : Reactivate, once the expired certificate is replaced and works.
+    r"https://www\.zytrax\.com/books/ldap/",
 ]
 
 linkcheck_allowed_redirects = {
@@ -184,7 +186,8 @@ rst_epilog = """
 latex_engine = 'lualatex'
 latex_show_pagerefs = True
 latex_show_urls = "footnote"
-latex_documents = [(root_doc, f'{pdf_doc_base}.tex', "", author, "manual", False)]
+latex_documents = [
+    (root_doc, f'{pdf_doc_base}.tex', "", author, "manual", False)]
 latex_elements = {
     "papersize": "a4paper",
     "babel": "\\usepackage{babel}",
