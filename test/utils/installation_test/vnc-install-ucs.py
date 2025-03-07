@@ -475,7 +475,8 @@ class UCSInstallation(VNCInstallation):
           (x) Ja
 
         """
-        self.click_on('no')
+        # self.click_on('no')
+        self.client.keyPress('up')
         self.type('\n')
 
         """
