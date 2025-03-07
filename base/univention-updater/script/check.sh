@@ -44,13 +44,9 @@ fi
 VERSION="52"  # we don't put 51 here because the upgrade should look like upgrading to UCS 5.2
 VERSION_NAME="5.2"
 MIN_VERSION="5.0-7"
-MIN_VERSION_SYSTEM="5.0-9-1204"
 
 # shellcheck disable=SC2034
 updateLogDir="/var/univention-backup/update-to-${UPDATE_NEXT_VERSION:-$VERSION_NAME}"
-
-tmp="$(mktemp)"
-trap 'rm -f "$tmp"' EXIT
 
 echo
 echo "Starting $0 ($(date)):"
@@ -168,27 +164,6 @@ update_check_ldap_connection () {
 	return 1
 }
 
-
-update_check_openldap_bdb () {
-	case "$server_role" in
-	domaincontroller_master|domaincontroller_backup|domaincontroller_slave) : ;;
-	*) return 0 ;;
-	esac
-	if [ "bdb" = "$ldap_database_type" ]; then
-		echo "	OpenLDAP uses Berkeley DB as backend. This is no longer supported"
-		echo "	in UCS 5.2. The OpenLDAP database has to be migrated to the MDB"
-		echo "	database backend."
-		echo
-		echo "	Please read the release notes"
-		echo "		<https://docs.software-univention.de/release-notes/5.2-0/en/index.html>"
-		echo "	and the help article"
-		echo "		<https://help.univention.com/t/22322>"
-		echo "	on how to migrate OpenLDAP to MDB."
-		return 1
-	fi
-	return 0
-}
-
 _migrate_openldap_bdb_failed () {
 	local msg="$1"
 	local revert="${2:-false}"
@@ -237,15 +212,6 @@ migrate_openldap_bdb () {
 	univention-ldapsearch -LLL "uid=$(hostname)\$" >/dev/null || \
 		_migrate_openldap_bdb_failed "error during LDAP lookup" true
 	echo "$(date) migration to MDB done"
-}
-
-update_check_keycloak_migration () {
-	local var="update$VERSION/ignore_keycloak_migration" msg
-	ignore_check "$var" && return 100
-	msg="$(univention-keycloak-migration-status 2>&1)" && return 0
-	msg="${msg//$'\n'/$'\n'$'\t'}"
-	echo -e "$msg"
-	return 1
 }
 
 update_check_role_package_removed () {
@@ -311,52 +277,6 @@ declare -a obsolete_objectclasses=(
 	'(&(objectClass=univentionLDAPExtensionSchema)(cn=univention-virtual-machine-manager))'  # LDAP schema
 )
 
-update_check_legacy_objects () {
-	local var="update$VERSION/ignore_legacy_objects"
-	ignore_check "$var" && return 100
-	[ -f /var/univention-join/joined ] || return 0
-
-	declare -a found_structural=() found_auxiliary=()
-	local IFS=''
-
-	local filter="(|${legacy_ocs_structural[*]})"
-	univention-ldapsearch -LLL "$filter" 1.1 >"$tmp" || die "Failed to search LDAP"
-	IFS=$'\n' read -d '' -r -a found_structural <<<"$(grep '^dn:' "$tmp")"
-
-	local filter="${legacy_ocs_auxiliary[*]}"
-	univention-ldapsearch -LLL -E mv="($filter)" "(|$filter)" objectClass >"$tmp" || die "Failed to search LDAP"
-	IFS=$'\n' read -d '' -r -a found_auxiliary <<<"$(sed '/^./{H;d};x;s/\n/\t/g' "$tmp")"
-
-	# shellcheck disable=SC2128
-	[ -z "${found_structural:-}" ] && [ -z "${found_auxiliary:-}" ] && return 0
-
-	if [ -n "${found_structural:-}" ]
-	then
-		echo "	The following objects are no longer supported with UCS 5.2:"
-		local obj
-		for obj in "${found_structural[@]}"
-		do
-			printf '\t\t%s\n' "${obj}"
-		done
-		echo "	They must be removed before the update can be done."
-		echo
-	fi
-	if [ -n "${found_auxiliary:-}" ]
-	then
-		echo "	The following objects contain auxiliary data no longer supported with UCS 5.2:"
-		local obj
-		for obj in "${found_auxiliary[@]}"
-		do
-			printf '\t%s\n' "${obj}"
-		done
-		echo "	They must be cleaned up before the update can be done."
-		echo
-	fi
-	echo "	See <https://help.univention.com/t/22252> for details."
-	echo
-	echo "	This check can be disabled by setting the UCR variable '$var' to 'yes'."
-	return 1
-}
 delete_legacy_objects () {
 	local filter ldif oc
 	[ -r /etc/ldap.secret ] || die "Cannot get LDAP credentials from '/etc/ldap.secret'"
@@ -464,16 +384,6 @@ update_check_package_status () {
 	return 1
 }
 
-
-# check if apps are available
-update_check_blocking_apps () {
-	local var="update$VERSION/ignore_blocking_apps"
-	ignore_check "$var" && return 100
-	[ -f /var/univention-join/joined ] || return 0
-	univention-app update-check --ucs-version "${VERSION_NAME}"
-}
-
-
 # check for Primary Directory Node UCS version
 update_check_master_version () {
 	local master_version ATTR=univentionOperatingSystemVersion var="update$VERSION/ignore_version"
@@ -541,19 +451,13 @@ update_check_system_date_too_old() {
 	system_year="$(date +%Y)"
 	local var="update$VERSION/ignore_system_date"
 	ignore_check "$var" && return 100
-	[ "$system_year" -lt 2020 ] || return 0
+	[ "$system_year" -lt 2025 ] || return 0
 
 	echo "	The system date ($(date +%Y-%m-%d)) does not seem to be correct."
 	echo "	Please set a current system time before the update, otherwise the"
 	echo "	update will fail if Spamassassin is installed."
 	echo
 	echo "	This check can be disabled by setting the UCR variable '$var' to 'yes'."
-	return 1
-}
-
-update_check_min_version () {
-	dpkg --compare-versions "$MIN_VERSION_SYSTEM" le "${version_version}-${version_patchlevel}-${version_erratalevel}" && return 0
-	echo "	The system needs to be at least at version $MIN_VERSION_SYSTEM in order to update!"
 	return 1
 }
 
@@ -597,100 +501,6 @@ if blocking_objects:
 
 if blocking_computers or blocking_objects:
     exit(1)'
-}
-
-update_check_user_country_mapping () {
-	# https://forge.univention.org/bugzilla/show_bug.cgi?id=56528
-	is_ucr_false directory/manager/web/modules/users/user/map-country-to-st && return 0
-	[ "$server_role" = "domaincontroller_master" ] || return 0
-
-	echo '	Users in LDAP need to be migrated so their "country" property is stored'
-	echo '	in the correct LDAP attribute "c" instead of in the state ("st").'
-	echo '	UCS 5.0 supported both configurations. With UCS 5.2 only the correct mapping'
-	echo '	is supported. A migration is necessary before upgrading.'
-	echo ""
-	echo '	The migration can be performed using the command'
-	echo '		/usr/share/univention-directory-manager-tools/udm-remap-country-from-st-to-c'
-	echo '	or using the UMC module "System diagnostic".'
-	return 1
-}
-
-update_check_docker_storage_driver () {  # Issue #2570
-	[ -x /usr/bin/docker ] || return 0
-	local active_storage_driver dircount
-
-	active_storage_driver=$(docker info -f '{{.Driver}}')
-	eval "$(ucr shell docker/daemon/default/opts/storage-driver)"
-	if [ "$active_storage_driver" = overlay2 ] && [ "$docker_daemon_default_opts_storage_driver" = overlay ]; then
-		echo '	Docker is running with overlay2 as Storage Driver but the UCR variable docker/daemon/default/opts/storage-driver is set to "overlay"'
-		echo '	unsetting UCR variable to avoid docker ignoring the container data in /var/lib/docker/overlay2'
-		ucr unset docker/daemon/default/opts/storage-driver
-		if [ -d /var/lib/docker/overlay ]; then
-			dircount=$(find /var/lib/docker/overlay/ -mindepth 1 -maxdepth 1 -type d -printf '.' | wc -c)
-			if [ "$dircount" -gt 0 ]; then
-				echo '	INFO: There is still data in /var/lib/docker/overlay/, please consider checking if that is still required.'
-			fi
-		fi
-	fi
-}
-
-## Check for PostgreSQL-9.6 (Issue #2573)
-update_check_for_postgresql96 () {
-	local legacy_psql var="update$VERSION/ignore_postgresql96"
-	ignore_check "$var" && return 100
-
-	case "$(dpkg-query -W -f '${Status}' postgresql-9.6 2>/dev/null)" in
-	install*) legacy_psql="PostgreSQL-9.6" ;;
-	esac
-
-	if [ -z "$legacy_psql" ]; then  # since the migration guide also mentions 9.4 we also check for that here.
-		case "$(dpkg-query -W -f '${Status}' postgresql-9.4 2>/dev/null)" in
-		install*) legacy_psql="PostgreSQL-9.4" ;;
-		esac
-	fi
-
-	if [ -z "$legacy_psql" ]; then
-		return 0
-	fi
-
-	echo "WARNING: $legacy_psql is no longer supported by UCS-5.2 and must be migrated to"
-	echo "         a newer version of PostgreSQL. See https://help.univention.com/t/17531 for"
-	echo "         more details."
-
-	echo
-	echo "	This check can be disabled by setting the UCR variable '$var' to 'yes'."
-	echo "	But be aware that this is not recommended!"
-
-	return 1
-}
-
-# block update if SELinux is still active (Bug #57902)
-update_check_selinux_deactivated() {
-	[ -e /sys/fs/selinux/deny_unknown ] || return 0
-
-	local var="update$VERSION/ignore_selinux_active"
-	ignore_check "$var" && return 100
-
-	echo "	The file /sys/fs/selinux/deny_unknown exists indicating that SELinux is still active."
-	echo "	Please reboot the system to let errata update 5.0x873 take effect."
-	echo "	The update can be started after SELinux has been disabled."
-	return 1
-}
-
-update_check_auth_faillog() {
-	is_ucr_true auth/faillog || return 0
-	echo "	The UCR variable 'auth/faillog' is set to '$(/usr/sbin/univention-config-registry get auth/faillog)', indicating that the pam_tally module is in use."
-	echo "	However, the pam_tally and pam_tally2 modules have been removed on UCS 5.2. You must remove all "
-	echo "	references to these modules from your PAM configuration before upgrading the system."
-	echo ""
-	echo "	Please execute the following command:"
-	echo ""
-	echo "		ucr set auth/faillog=no"
-	echo ""
-	echo "	Before upgrading, ensure your PAM configuration no longer references pam_tally or pam_tally2."
-	echo "	If you need the functionality previously provided by this variable, you can re-enable it after"
-	echo "	the upgrade."
-	return 1
 }
 
 checks () {
