@@ -475,8 +475,9 @@ class UCSInstallation(VNCInstallation):
           (x) Ja
 
         """
-        # self.click_on('no')
+        sleep(30, "wait for no swap dialog")
         self.client.keyPress('up')
+        sleep(3, "part")
         self.type('\n')
 
         """
