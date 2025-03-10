@@ -5,7 +5,7 @@
 set -e -u -x
 
 [ -n "${KVM_BUILD_SERVER:-}" ] &&
-	exec ssh -o BatchMode=yes "${KVM_BUILD_SERVER:?}" "bash -s" <GIT_BRANCH=${GIT_BRANCH} "$0"
+  exec ssh -o BatchMode=yes "${KVM_BUILD_SERVER:?}" "GIT_BRANCH=${GIT_BRANCH:?} bash -s" < "$0"
 
 die () {
 	echo "ERROR: $*" >&2
