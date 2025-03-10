@@ -1,9 +1,9 @@
 product: ucs
-release: "5.0"
-version: [9]
-scope: ucs_5.0-0-errata5.0-9
+release: "5.2"
+version: [1]
+scope: ucs_5.2-0-errata5.2-1
 src: univention-ad-connector
-fix: 14.0.20-5
+fix: 16.0.14-3
 desc: |
  This update addresses the following issues:
  * The PAM module `pam_unix` interprets `(shadowLastChange + shadowMax)` as
@@ -20,4 +20,4 @@ desc: |
    compensate for the behavior of `pam_unix` and make it more consistent
    with the behavior of Kerberos.
    The AD-Connector has been adjusted accordingly.
-bug: [57681]
+bug: [58048]

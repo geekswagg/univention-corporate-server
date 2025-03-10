@@ -3,7 +3,7 @@ release: "5.2"
 version: [1]
 scope: ucs_5.2-0-errata5.2-1
 src: openldap
-fix: 2.5.13+dfsg-5A~5.2.1.20250310TODO
+fix: 2.5.13+dfsg-5A~5.2.0.202503101504
 desc: |
  This update addresses the following issues:
  * When checking for password expiry the OpenLDAP overlay module `shdowbind`
