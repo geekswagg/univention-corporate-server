@@ -1,8 +1,12 @@
-ucs-test (12.0.248-1) UNRELEASED; urgency=medium
+ucs-test (12.0.248-1) unstable; urgency=medium
 
+  [ Christian Castens ]
   * Bug #58015 UCS 5.2-1 version bump
 
- -- Christian Castens <castens@univention.de>  Mon, 03 Mar 2025 10:45:36 +0100
+  [ Felix Botner ]
+  * Bug #58014 fix 86_browser/191_app_suggestions_category.py
+
+ -- Felix Botner <botner@univention.de>  Mon, 10 Mar 2025 10:42:34 +0100
 
 ucs-test (12.0.247) unstable; urgency=medium
 
