@@ -86,10 +86,6 @@ memberserver) apt_install univention-server-member ;;
 *) die "The server role '$server_role' is not supported!" ;;
 esac
 
-# Issue univention/ucs#2549
-is_ucr_true update52/skip/autoremove ||
-	DEBIAN_FRONTEND=noninteractive apt-get -y remove python2.7 python2.7-minimal libpython2.7-stdlib libpython2.7-minimal >&3 2>&3
-
 is_ucr_true update52/skip/autoremove ||
 	DEBIAN_FRONTEND=noninteractive apt-get -y --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages autoremove >&3 2>&3
 
@@ -143,50 +139,23 @@ find /usr/lib/python3/dist-packages/ -type d -not -perm 755 -name __pycache__ -e
 
 
 # Bug #52923 #57296: switch back to old fetchmail/autostart status
-if [ -n "$(ucr search "^fetchmail/autostart/update520$")" ] ; then
-	eval "$(ucr shell fetchmail/autostart/update520)"
-	if [ -z "$fetchmail_autostart_update520" ] ; then
+if [ -n "$(ucr search "^fetchmail/autostart/update521$")" ] ; then
+	eval "$(ucr shell fetchmail/autostart/update521)"
+	if [ -z "$fetchmail_autostart_update521" ] ; then
 		ucr unset fetchmail/autostart >&3 2>&3
 	else
-		ucr set fetchmail/autostart="$fetchmail_autostart_update520" >&3 2>&3
+		ucr set fetchmail/autostart="$fetchmail_autostart_update521" >&3 2>&3
 	fi
-	ucr unset fetchmail/autostart/update520 >&3 2>&3
+	ucr unset fetchmail/autostart/update521 >&3 2>&3
 	echo "Please note:" >&3
 	echo "The following fetchmail restart might fail if fetchmail is unconfigured." >&3
 	echo "This is usually no error." >&3
 	systemctl restart fetchmail >&3 2>&3
 fi
 
-if [ "${server_role:-}" = "domaincontroller_master" ]; then
-	if univention-ldapsearch -LLL '(uid=ucs-sso)' 1.1 | grep -q '^dn'; then
-		udm users/user remove --dn="uid=ucs-sso,cn=users,$(ucr get ldap/base)"
-	fi
-fi
-rm -f /etc/simplesamlphp.keytab /etc/simplesamlphp/ucs-sso-kerberos.secret
-
-# remove pinning after upgrade
-rm -f /etc/apt/preferences.d/99ucs520.pref /etc/apt/apt.conf.d/99ucs520
-
 # remove backup packages sources
-rm -f /etc/apt/sources.list.d/15_ucs-online-version.list.upgrade510.bak
-rm -f /etc/apt/sources.list.d/20_ucs-online-component.list.upgrade510.bak
-rm -f /etc/apt/sources.list.d/15_ucs-online-version.list.upgrade520.bak
-rm -f /etc/apt/sources.list.d/20_ucs-online-component.list.upgrade520.bak
-
-# univention/ucs#2636 Bug 57896
-# fix samba deleted objects
-if is_joined; then
-	if is_installed univention-samba4 2>&3; then
-		if [ -x "$(which samba-tool)" ]; then
-			# shellcheck disable=SC2154
-			samba-tool dbcheck --yes --fix "CN=Deleted Objects,CN=Configuration,$samba4_ldap_base" >&3 2>&3
-			samba-tool dbcheck --yes --fix "CN=Deleted Objects,DC=DomainDnsZones,$samba4_ldap_base" >&3 2>&3
-			samba-tool dbcheck --yes --fix "CN=Deleted Objects,DC=ForestDnsZones,$samba4_ldap_base" >&3 2>&3
-			samba-tool dbcheck --yes --fix "CN=Deleted Objects,$samba4_ldap_base" >&3 2>&3
-		fi
-	fi
-fi
-
+rm -f /etc/apt/sources.list.d/15_ucs-online-version.list.upgrade521.bak
+rm -f /etc/apt/sources.list.d/20_ucs-online-component.list.upgrade521.bak
 
 echo "
 

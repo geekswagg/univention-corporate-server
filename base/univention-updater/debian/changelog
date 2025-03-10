@@ -1,3 +1,9 @@
+univention-updater (17.0.34-3) unstable; urgency=medium
+
+  * Bug #58016: update preup/postup updater scripts
+
+ -- Felix Botner <botner@univention.de>  Mon, 10 Mar 2025 12:03:39 +0100
+
 univention-updater (17.0.34-2) unstable; urgency=medium
 
   * Bug #58016: Remove pre-upgrade checks that are no longer needed

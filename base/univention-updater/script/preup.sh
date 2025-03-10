@@ -118,9 +118,6 @@ update_check_kernel () {
 
 checks
 
-# Several LDAP objects are no longer supported with UCS 5 and are removed automatically.
-delete_obsolete_objects
-
 # save ucr settings
 [ -d "${updateLogDir:?}" ] ||
 	install -m0700 -o root -d "$updateLogDir"
@@ -136,8 +133,8 @@ mv /boot/*.bak "$initrd_backup" >/dev/null 2>&1
 
 # Bug #52923 #57296: disable fetchmail during update to prevent aborting update
 if dpkg -l univention-fetchmail 2>&3 | grep ^ii  >&3 ; then
-	if [ -z "$(ucr search "^fetchmail/autostart/update520$")" ] ; then
-		ucr set fetchmail/autostart/update520="$(ucr get fetchmail/autostart)" >&3
+	if [ -z "$(ucr search "^fetchmail/autostart/update521$")" ] ; then
+		ucr set fetchmail/autostart/update521="$(ucr get fetchmail/autostart)" >&3
 	fi
 	ucr set fetchmail/autostart=no >&3 2>&3
 	systemctl stop fetchmail >&3 2>&3 || :
@@ -159,25 +156,12 @@ esac
 is_ucr_true update52/skip/autoremove ||
 	DEBIAN_FRONTEND=noninteractive apt-get -y --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages autoremove >&3 2>&3
 
-[ -f /etc/apt/preferences.d/99ucs520.pref ] ||
-cat >/etc/apt/preferences.d/99ucs520.pref <<__PREF__
-Package: runc
-Pin: release l=Univention Corporate Server, v=5.2.0
-Pin-Priority: 1001
-__PREF__
-[ -f /etc/apt/apt.conf.d/99ucs520 ] || echo 'APT::Get::Allow-Downgrades "true";' >/etc/apt/apt.conf.d/99ucs520
-
-
-# univention/ucs#1945 - disable php7.4 and php7.0
-a2dismod php7.4 || true
-a2dismod php7.0 || true
-
 deactivate_old_package_sources () {
 	# disable UCS 5.1 package sources to avoid mixing package versions during update
 	local sources_lists
 	sources_lists=("/etc/apt/sources.list.d/15_ucs-online-version.list" "/etc/apt/sources.list.d/20_ucs-online-component.list")
 	for sources_list in "${sources_lists[@]}"; do
-		mv "$sources_list" "${sources_list}.upgrade520.bak"
+		mv "$sources_list" "${sources_list}.upgrade521.bak"
 	done
 }
 deactivate_old_package_sources
@@ -197,40 +181,6 @@ for pkg in $preups; do
 		echo "done."
 	fi
 done
-
-# Bug #56232: Enable the support for numeric user ID's if it is required
-if [ "${server_role:-}" = "domaincontroller_master" ] && dpkg --compare-versions "$1" eq "5.1"
-then
-	echo "Checking for usernames and groups with legacy format. This can take a few minutes..."
-
-	echo "Checking usernames..."
-	if univention-ldapsearch -LLL "objectClass=person" uid | ldapsearch-decode64 | grep -qoP "(?<=uid: )[0-9]+$"; then
-		echo "Legacy username format required. Creating policy..."
-
-		udm policies/registry create \
-			--position "cn=config-registry,cn=policies,${ldap_base:?}" \
-			--set name=enable-legacy-username-format \
-			--set registry="directory/manager/user/enable-legacy-username-format true"
-
-		udm container/dc modify \
-			--dn "$ldap_base" \
-			--policy-reference "cn=enable-legacy-username-format,cn=config-registry,cn=policies,$ldap_base"
-	fi
-
-	echo "Checking groups..."
-	if univention-ldapsearch -LLL "univentionObjectType=groups/group" cn | ldapsearch-decode64 | grep -qoP "(?<=cn: )[0-9]+$"; then
-		echo "Legacy group cn format required. Creating policy..."
-
-		udm policies/registry create \
-			--position "cn=config-registry,cn=policies,$ldap_base" \
-			--set name=enable-legacy-group-cn-format \
-			--set registry="directory/manager/group/enable-legacy-cn-format true"
-
-		udm container/dc modify \
-			--dn "$ldap_base" \
-			--policy-reference "cn=enable-legacy-group-cn-format,cn=config-registry,cn=policies,$ldap_base"
-	fi
-fi
 
 echo "** Starting: apt-get -s -o Debug::pkgProblemResolver=yes dist-upgrade" >&3 2>&3
 apt-get -s -o Debug::pkgProblemResolver=yes dist-upgrade >&3 2>&3
