@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: Univention Corporate Server - Manual for users and "
 "administrators\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-28 15:38+0000\n"
+"POT-Creation-Date: 2025-03-11 11:41+0000\n"
 "PO-Revision-Date: 2024-06-03 13:43+0200\n"
 "Last-Translator: Univention GmbH <packages@univention.de>\n"
 "Language: de\n"
@@ -208,10 +208,6 @@ msgstr ""
 "auth/sshd/group/DC Slave Hosts: yes\n"
 "auth/sshd/group/Domain Admins: yes\n"
 "auth/sshd/restrict: yes"
-
-#: ../../computers/ucr.rst:106
-msgid "Managing |UCSUCR| variables via the UMC"
-msgstr "Verwaltung von |UCSUCR|-Variablen über die UMC"
 
 #: ../../computers/basic-system-services.rst:118
 msgid "Configuration of the LDAP server in use"
@@ -746,11 +742,11 @@ msgstr ""
 
 #: ../../computers/basic-system-services.rst:384
 msgid ""
-"Since UCS 5.2-1, the user information (``passwd``) is no longer cached "
+"Since UCS 5.2-0, the user information (``passwd``) is no longer cached "
 "via NSCD. Instead the *System Security Services Daemon* (SSSD) is used to"
 " get and cache user information, see `SSSD documentation <sssd-docs_>`_."
 msgstr ""
-"Ab UCS 5.2-1 werden Benutzerinformationen (``passwd``) nicht mehr über "
+"Ab UCS 5.2-0 werden Benutzerinformationen (``passwd``) nicht mehr über "
 "den NSCD zwischengespeichert. Stattdessen wird der *System Security "
 "Services Daemon* (SSSD) verwendet, um Benutzerinformationen abzurufen und"
 " zwischenzuspeichern, siehe `SSSD-Dokumentation <sssd-docs_>`_."
@@ -2312,7 +2308,11 @@ msgstr ""
 "besteht die Möglichkeit über :guilabel:`Hinzufügen` neue Variablen zu "
 "setzen."
 
-#: ../../computers/ucr.rst:101
+#: ../../computers/ucr.rst:106
+msgid "Managing |UCSUCR| variables via the UMC"
+msgstr "Verwaltung von |UCSUCR|-Variablen über die UMC"
+
+#: ../../computers/ucr.rst:108
 msgid ""
 "A search mask is displayed on the start page. All variables are "
 "classified using a *Category*, for example all LDAP-specific settings."
@@ -2321,7 +2321,7 @@ msgstr ""
 "anhand einer *Kategorie* klassifiziert, etwa alle LDAP-bezogenen "
 "Einstellungen."
 
-#: ../../computers/ucr.rst:104
+#: ../../computers/ucr.rst:111
 msgid ""
 "The *Search attribute* can be entered as a filter in the search mask, "
 "which can refer to the variable name, value or description."
@@ -2330,7 +2330,7 @@ msgstr ""
 " sich auf den Variablennamen, den Wert oder die Beschreibung beziehen "
 "kann."
 
-#: ../../computers/ucr.rst:107
+#: ../../computers/ucr.rst:114
 msgid ""
 "Following a successful search, the variables found are displayed in a "
 "table with the variable name and the value. A detailed description of the"
@@ -2342,7 +2342,7 @@ msgstr ""
 "man den Mauszeiger auf den Variablennamen, wird eine weiterführende "
 "Beschreibung der Variable angezeigt."
 
-#: ../../computers/ucr.rst:111
+#: ../../computers/ucr.rst:118
 msgid ""
 "A variable can be edited by clicking on its name. A variable can be "
 "deleted by right-clicking and selecting :guilabel:`Delete`."
@@ -2351,11 +2351,11 @@ msgstr ""
 "Mit einem Rechts-Klick und der Auswahl von :guilabel:`Löschen` können "
 "Variablen gelöscht werden."
 
-#: ../../computers/ucr.rst:117
+#: ../../computers/ucr.rst:124
 msgid "Using the command line frontend"
 msgstr "Verwendung des Kommandozeilenfrontends"
 
-#: ../../computers/ucr.rst:121
+#: ../../computers/ucr.rst:128
 msgid ""
 "The command line interface of |UCSUCR| is run using the :command"
 ":`univention-config-registry` command. Alternatively, the short form "
@@ -2365,11 +2365,11 @@ msgstr ""
 ":`univention-config-registry` aufgerufen. Alternativ kann auch die "
 "Kurzform :command:`ucr` verwendet werden."
 
-#: ../../computers/ucr.rst:128
+#: ../../computers/ucr.rst:135
 msgid "Querying a UCR variable"
 msgstr "Abfrage einer UCR-Variable"
 
-#: ../../computers/ucr.rst:132
+#: ../../computers/ucr.rst:139
 msgid ""
 "A single |UCSUCR| variable can be queried with the parameter "
 ":option:`get`:"
@@ -2377,11 +2377,11 @@ msgstr ""
 "Eine einzelne |UCSUCR|-Variable kann mit dem Aufrufparameter "
 ":option:`get` ausgelesen werden:"
 
-#: ../../computers/ucr.rst:135
+#: ../../computers/ucr.rst:142
 msgid "$ univention-config-registry get ldap/server/ip"
 msgstr "$ univention-config-registry get ldap/server/ip"
 
-#: ../../computers/ucr.rst:142
+#: ../../computers/ucr.rst:149
 msgid ""
 "The parameter :option:`dump` can also be used to display all currently "
 "set variables:"
@@ -2389,15 +2389,15 @@ msgstr ""
 "Mit dem Aufrufparameter :option:`dump` können auch alle aktuell gesetzten"
 " Variablen ausgegeben werden:"
 
-#: ../../computers/ucr.rst:145
+#: ../../computers/ucr.rst:152
 msgid "$ univention-config-registry dump"
 msgstr "$ univention-config-registry dump"
 
-#: ../../computers/ucr.rst:153
+#: ../../computers/ucr.rst:160
 msgid "Setting UCR variables"
 msgstr "Setzen von UCR-Variablen"
 
-#: ../../computers/ucr.rst:157
+#: ../../computers/ucr.rst:164
 msgid ""
 "The parameter :option:`set` is used to set a variable. The variable can "
 "be given any name consisting exclusively of letters, full stops, figures,"
@@ -2407,11 +2407,11 @@ msgstr ""
 "Der Name der Variable kann frei gewählt werden, darf aber ausschließlich "
 "aus Buchstaben, Punkten, Zahlen, Binde- und Schrägstrichen bestehen."
 
-#: ../../computers/ucr.rst:161
+#: ../../computers/ucr.rst:168
 msgid "$ univention-config-registry set VARIABLENAME=VALUE"
 msgstr "$ univention-config-registry set VARIABLENNAME=WERT"
 
-#: ../../computers/ucr.rst:166
+#: ../../computers/ucr.rst:173
 msgid ""
 "If the variable already exists, the content is updated; otherwise, a new "
 "entry is created."
@@ -2419,7 +2419,7 @@ msgstr ""
 "Ist die Variable schon vorhanden, wird der Inhalt aktualisiert.  "
 "Ansonsten wird ein neuer Eintrag angelegt."
 
-#: ../../computers/ucr.rst:169
+#: ../../computers/ucr.rst:176
 msgid ""
 "When setting a new value for a |UCSUCR| variable UCR runs checks to "
 "verify the compatibility of the value with the variable type. In case of "
@@ -2433,7 +2433,7 @@ msgstr ""
 "den neuen Wert gesetzt. Wenn die Option ``--ignore-check`` verwendet "
 "wird, wird der Wert immer gesetzt, unabhängig von der Typ-Kompatibilität."
 
-#: ../../computers/ucr.rst:175
+#: ../../computers/ucr.rst:182
 msgid ""
 "When a variable changes, UCR rewrites all configuration files immediately"
 " for which the variable is registered. UCR outputs the paths of the "
@@ -2443,7 +2443,7 @@ msgstr ""
 "Konfigurationsdateien neu, für die die Variable registriert ist. UCR gibt"
 " die Pfade der aktualisierten Dateien auf der Konsole aus."
 
-#: ../../computers/ucr.rst:178
+#: ../../computers/ucr.rst:185
 msgid ""
 "In doing so it must be noted that although the configuration of a service"
 " is updated, the service in question is not restarted automatically! The "
@@ -2454,7 +2454,7 @@ msgstr ""
 "aber nicht automatisch neu gestartet wird! Der Neustart muss manuell "
 "erfolgen."
 
-#: ../../computers/ucr.rst:182
+#: ../../computers/ucr.rst:189
 msgid ""
 "It is also possible to perform simultaneous changes to several variables "
 "in one command line. If these refer to the same configuration file, the "
@@ -2464,7 +2464,7 @@ msgstr ""
 "möglich. Wenn sich diese auf ein- und dieselbe Konfigurationsdatei "
 "beziehen, wird diese nur einmal neu geschrieben."
 
-#: ../../computers/ucr.rst:186
+#: ../../computers/ucr.rst:193
 msgid ""
 "$ univention-config-registry set \\\n"
 "  dns/forwarder1=192.0.2.2 \\\n"
@@ -2476,7 +2476,7 @@ msgstr ""
 "  sshd/xforwarding=\"no\" \\\n"
 "  sshd/port=2222"
 
-#: ../../computers/ucr.rst:193
+#: ../../computers/ucr.rst:200
 msgid ""
 "A conditional setting is also possible. For example, if a value should "
 "only be saved in a |UCSUCR| variable when the variable does not yet "
@@ -2488,15 +2488,15 @@ msgstr ""
 "vorhanden ist, kann dies durch ein Fragezeichen (``?``) statt des "
 "Gleichheitszeichens (``=``) beim Zuweisen des Wertes erreicht werden."
 
-#: ../../computers/ucr.rst:198
+#: ../../computers/ucr.rst:205
 msgid "$ univention-config-registry set dns/forwarder1?192.0.2.2"
 msgstr "$ univention-config-registry set dns/forwarder1?192.0.2.2"
 
-#: ../../computers/ucr.rst:206
+#: ../../computers/ucr.rst:213
 msgid "Searching for variables and set values"
 msgstr "Suche nach Variablen und gesetzten Werten"
 
-#: ../../computers/ucr.rst:210
+#: ../../computers/ucr.rst:217
 msgid ""
 "The parameter :option:`search` can be used to search for a variable. This"
 " command searches for variable names which contain ``ldap`` and displays "
@@ -2506,11 +2506,11 @@ msgstr ""
 "werden. Dieser Befehl sucht nach Variablennamen, welche die Zeichenkette "
 "``ldap`` enthalten und gibt diese mit den aktuellen Belegungen aus:"
 
-#: ../../computers/ucr.rst:214
+#: ../../computers/ucr.rst:221
 msgid "$ univention-config-registry search ldap"
 msgstr "$ univention-config-registry search ldap"
 
-#: ../../computers/ucr.rst:219
+#: ../../computers/ucr.rst:226
 msgid ""
 "Alternatively, searches can also be performed for set variable values. "
 "This request searches for all variables set to ``primary.example.com``:"
@@ -2519,11 +2519,11 @@ msgstr ""
 "Dieser Aufruf sucht nach allen Variablen, die auf ``primary.example.com``"
 " gesetzt sind:"
 
-#: ../../computers/ucr.rst:222
+#: ../../computers/ucr.rst:229
 msgid "$ univention-config-registry search --value primary.example.com"
 msgstr "$ univention-config-registry search --value primary.example.com"
 
-#: ../../computers/ucr.rst:227
+#: ../../computers/ucr.rst:234
 msgid ""
 "Search templates in the form of regular expressions can also be used in "
 "the search. The complete format is documented at `Regular expression "
@@ -2533,11 +2533,11 @@ msgstr ""
 "verwendet werden. Das vollständige Format ist unter `Regular expression "
 "operations in the Python 3 documentation <python3-re_>`_ dokumentiert."
 
-#: ../../computers/ucr.rst:234
+#: ../../computers/ucr.rst:241
 msgid "Deleting UCR variables"
 msgstr "Löschen von UCR-Variablen"
 
-#: ../../computers/ucr.rst:238
+#: ../../computers/ucr.rst:245
 msgid ""
 "The parameter :option:`unset` is used to delete a variable. The following"
 " example deletes the variable :envvar:`dns/forwarder2`. It is also "
@@ -2548,15 +2548,15 @@ msgstr ""
 ":envvar:`dns/forwarder2`. Auch hier können mehrere zu löschende Variablen"
 " übergeben werden:"
 
-#: ../../computers/ucr.rst:242
+#: ../../computers/ucr.rst:249
 msgid "$ univention-config-registry unset dns/forwarder2"
 msgstr "$ univention-config-registry unset dns/forwarder2"
 
-#: ../../computers/ucr.rst:250
+#: ../../computers/ucr.rst:257
 msgid "Regeneration of configuration files from their template"
 msgstr "Neuerzeugung von Konfigurationsdateien aus ihrem Template"
 
-#: ../../computers/ucr.rst:254
+#: ../../computers/ucr.rst:261
 msgid ""
 "The parameter :option:`commit` is used to regenerate a configuration file"
 " from its template. The name of the configuration file is entered as a "
@@ -2566,11 +2566,11 @@ msgstr ""
 "aus ihrem Template neu erzeugt. Der Name der Konfigurationsdatei ist als "
 "Parameter anzugeben, z.B.:"
 
-#: ../../computers/ucr.rst:258
+#: ../../computers/ucr.rst:265
 msgid "$ univention-config-registry commit /etc/samba/smb.conf"
 msgstr "$ univention-config-registry commit /etc/samba/smb.conf"
 
-#: ../../computers/ucr.rst:263
+#: ../../computers/ucr.rst:270
 msgid ""
 "As UCR templates are generally regenerated automatically when UCR "
 "variables are edited, this is primarily used for tests."
@@ -2578,7 +2578,7 @@ msgstr ""
 "Da UCR-Templates beim Editieren von UCR-Variablen in der Regel "
 "automatisch neu erzeugt werden, wird dies vor allem für Tests verwendet."
 
-#: ../../computers/ucr.rst:266
+#: ../../computers/ucr.rst:273
 msgid ""
 "If no filename is given when running :command:`ucr commit`, all of the "
 "files managed by |UCSUCR| will be regenerated from the templates. It is, "
@@ -2590,11 +2590,11 @@ msgstr ""
 "erzeugt. In der Regel sollte es allerdings nicht notwendig sein, alle "
 "Konfigurationsdateien neu zu erzeugen."
 
-#: ../../computers/ucr.rst:273
+#: ../../computers/ucr.rst:280
 msgid "Sourcing variables in shell scripts"
 msgstr "Übernahme von Variablen in Shell-Skripte"
 
-#: ../../computers/ucr.rst:277
+#: ../../computers/ucr.rst:284
 msgid ""
 "The parameter :option:`shell` is used to display |UCSUCR| variables and "
 "their current assignments in a format that can be used in shell scripts."
@@ -2603,11 +2603,11 @@ msgstr ""
 "ihre aktuellen Belegungen in einem Format ausgegeben, das in Shell-"
 "Skripten verwendet werden kann."
 
-#: ../../computers/ucr.rst:280
+#: ../../computers/ucr.rst:287
 msgid "$ univention-config-registry shell ldap/server/name"
 msgstr "$ univention-config-registry shell ldap/server/name"
 
-#: ../../computers/ucr.rst:285
+#: ../../computers/ucr.rst:292
 msgid ""
 "Different conversions are involved in this: forward slashes in variable "
 "names are replaced with underscores and characters in the values which "
@@ -2619,7 +2619,7 @@ msgstr ""
 "enthaltene Zeichen, die in Shell-Skripten eine besondere Bedeutung haben,"
 " werden durch Anführungszeichen geschützt."
 
-#: ../../computers/ucr.rst:290
+#: ../../computers/ucr.rst:297
 msgid ""
 "The |UCSUCR| output must be executed via the command :command:`eval` for "
 "|UCSUCR| variables to be able to be read in a shell script as environment"
@@ -2629,7 +2629,7 @@ msgstr ""
 "eingelesen werden, muss die Ausgabe von |UCSUCR| durch den Befehl "
 ":command:`eval` ausgeführt werden:"
 
-#: ../../computers/ucr.rst:294
+#: ../../computers/ucr.rst:301
 msgid ""
 "# eval \"$(univention-config-registry shell ldap/server/name)\"\n"
 "# echo \"$ldap_server_name\"\n"
@@ -2639,11 +2639,11 @@ msgstr ""
 "# echo \"$ldap_server_name\"\n"
 "primary.firma.de"
 
-#: ../../computers/ucr.rst:304
+#: ../../computers/ucr.rst:311
 msgid "Policy-based configuration of UCR variables"
 msgstr "Richtlinienbasierte Konfiguration von UCR-Variablen"
 
-#: ../../computers/ucr.rst:306
+#: ../../computers/ucr.rst:313
 msgid ""
 "Part of the settings configured in |UCSUCR| are system-specific (e.g., "
 "the computer name); many settings can, however, be used on more then one "
@@ -2658,13 +2658,13 @@ msgstr ""
 "Registry*-Richtlinie können Variablen zusammengefasst und auf mehr als "
 "einen Rechner angewendet werden."
 
-#: ../../computers/ucr.rst:317
+#: ../../computers/ucr.rst:324
 msgid "Policy-based configuration of the Apache start page and forced HTTPS"
 msgstr ""
 "Richtlinienbasierte Konfiguration der Webserver Startseite mit forciertem"
 " HTTPS"
 
-#: ../../computers/ucr.rst:319
+#: ../../computers/ucr.rst:326
 msgid ""
 "Firstly, a *Name* must be set for the policy which is to be created, "
 "under which the variables will later be assigned to the individual "
@@ -2674,7 +2674,7 @@ msgstr ""
 "unter dem die Variablen später einzelnen Rechner-Objekten zugewiesen "
 "werden können."
 
-#: ../../computers/ucr.rst:322
+#: ../../computers/ucr.rst:329
 msgid ""
 "In addition, at least one *Variable* must be configured and a *Value* "
 "assigned."
@@ -2682,7 +2682,7 @@ msgstr ""
 "Außerdem muss mindestens eine *Variable* konfiguriert und ein *Wert* "
 "zugewiesen werden."
 
-#: ../../computers/ucr.rst:324
+#: ../../computers/ucr.rst:331
 msgid ""
 "This policy can then be assigned to a computer object or a container or "
 "OU (see :ref:`central-policies-assign`). Note that the evaluation of "
@@ -2701,11 +2701,11 @@ msgstr ""
 " durch die |UCSUCRV| :envvar:`ldap/policy/cron` konfiguriert und erfolgt "
 "standardmäßig stündlich."
 
-#: ../../computers/ucr.rst:335
+#: ../../computers/ucr.rst:342
 msgid "Modifying UCR templates"
 msgstr "Anpassung von UCR-Templates"
 
-#: ../../computers/ucr.rst:337
+#: ../../computers/ucr.rst:344
 msgid ""
 "In the simplest case, a |UCSUCR| template is a copy of the original "
 "configuration file in which the points at which the value of a variable "
@@ -2716,7 +2716,7 @@ msgstr ""
 " einer Variable verwendet werden soll, eine Referenz auf den "
 "Variablennamen enthalten."
 
-#: ../../computers/ucr.rst:341
+#: ../../computers/ucr.rst:348
 msgid ""
 "Inline Python code can also be integrated for more complicated scenarios,"
 " which then also allows more complicated constructions such as "
@@ -2725,7 +2725,7 @@ msgstr ""
 "Für komplexere Szenarien kann auch Inline-Python-Code integriert werden, "
 "der dann auch komplexere Konstrukte wie etwa bedingte Abfragen erlaubt."
 
-#: ../../computers/ucr.rst:347
+#: ../../computers/ucr.rst:354
 msgid ""
 "|UCSUCR| templates are included in the corresponding software packages as"
 " configuration files. When packages are updated, a check is performed for"
@@ -2735,7 +2735,7 @@ msgstr ""
 "Konfigurationsdateien enthalten. Bei der Aktualisierung von Paketen wird "
 "überprüft, ob Änderungen an Konfigurationsdateien vorgenommen wurden."
 
-#: ../../computers/ucr.rst:352
+#: ../../computers/ucr.rst:359
 msgid ""
 "If configuration files are no longer there in the form in which they were"
 " delivered, they will not be overwritten. Instead a new version will be "
@@ -2745,7 +2745,7 @@ msgstr ""
 "werden diese nicht überschrieben. Stattdessen wird eine neue Version im "
 "selben Verzeichnis mit der Endung :file:`.debian.dpkg-new` abgelegt."
 
-#: ../../computers/ucr.rst:356
+#: ../../computers/ucr.rst:363
 msgid ""
 "If changes are to be made on the |UCSUCR| templates, these templates are "
 "also not overwritten during the update and are instead re-saved in the "
@@ -2761,7 +2761,7 @@ msgstr ""
 ":file:`/var/log/univention/updater.log` geschrieben.  Dies tritt nur auf,"
 " wenn UCR-Templates lokal angepasst werden."
 
-#: ../../computers/ucr.rst:363
+#: ../../computers/ucr.rst:370
 msgid ""
 "The UCR templates are stored in the "
 ":file:`/etc/univention/templates/files/` directory. The path to the "
@@ -2777,7 +2777,7 @@ msgstr ""
 " die Vorlage für die Konfigurationsdatei :file:`/etc/issue` unter "
 ":file:`/etc/univention/templates/files/etc/issue`."
 
-#: ../../computers/ucr.rst:369
+#: ../../computers/ucr.rst:376
 msgid ""
 "For the configuration files to be processed correctly by |UCSUCR| they "
 "must be in UNIX format. If configuration files are edited in DOS or "
@@ -2790,11 +2790,11 @@ msgstr ""
 "Kennzeichnung des Zeilenumbruchs eingefügt, die die Verwendung der Datei "
 "durch |UCSUCR| stören."
 
-#: ../../computers/ucr.rst:377
+#: ../../computers/ucr.rst:384
 msgid "Referencing of UCR variables in templates"
 msgstr "Referenzierung von UCR-Variablen in Templates"
 
-#: ../../computers/ucr.rst:379
+#: ../../computers/ucr.rst:386
 msgid ""
 "In the simplest case, a UCR variable can be directly referenced in the "
 "template. The variable name framed by the string ``@%@`` represents the "
@@ -2808,11 +2808,11 @@ msgstr ""
 "Aktivierung von X11-Forwarding in der Konfigurationsdatei "
 ":file:`/etc/ssh/sshd_config` des OpenSSH-Servers:"
 
-#: ../../computers/ucr.rst:384
+#: ../../computers/ucr.rst:391
 msgid "X11Forwarding @%@sshd/xforwarding@%@"
 msgstr "X11Forwarding @%@sshd/xforwarding@%@"
 
-#: ../../computers/ucr.rst:388
+#: ../../computers/ucr.rst:395
 msgid ""
 "Newly added references to UCR variables are automatically evaluated by "
 "templates; additional registration is only required with the use of "
@@ -2823,11 +2823,11 @@ msgstr ""
 "Verwendung von Inline-Python-Code nötig (siehe :ref:`ucr-templates-"
 "extend-python`)."
 
-#: ../../computers/ucr.rst:395
+#: ../../computers/ucr.rst:402
 msgid "Integration of inline Python code in templates"
 msgstr "Integration von Inline-Python-Code in Templates"
 
-#: ../../computers/ucr.rst:397
+#: ../../computers/ucr.rst:404
 msgid ""
 "Any type of Python code can be embedded in UCR templates by entering a "
 "code block framed by the string ``@!@``. For example, these blocks can be"
@@ -2844,7 +2844,7 @@ msgstr ""
 "Folgende Code-Sequenz konfiguriert beispielsweise Netzwerk-Einstellungen "
 "anhand der |UCSUCR|-Einstellungen:"
 
-#: ../../computers/ucr.rst:404
+#: ../../computers/ucr.rst:411
 #, python-format
 msgid ""
 "@!@\n"
@@ -2859,7 +2859,7 @@ msgstr ""
 "        configRegistry['apache2/ssl/certificate'])\n"
 "@!@"
 
-#: ../../computers/ucr.rst:413
+#: ../../computers/ucr.rst:420
 msgid ""
 "All the data output with the print function are written in the generated "
 "configuration file. The data saved in |UCSUCR| can be requested via the "
@@ -2869,7 +2869,7 @@ msgstr ""
 "generierte Konfigurationsdatei geschrieben. Die in |UCSUCR| gespeicherten"
 " Daten können über das ``ConfigRegistry``-Objekt abgefragt werden, z.B.:"
 
-#: ../../computers/ucr.rst:417
+#: ../../computers/ucr.rst:424
 msgid ""
 "@!@\n"
 "if configRegistry.get('version/version') and \\\n"
@@ -2885,7 +2885,7 @@ msgstr ""
 "        configRegistry)\n"
 "@!@"
 
-#: ../../computers/ucr.rst:427
+#: ../../computers/ucr.rst:434
 msgid ""
 "In contrast to directly referenced UCR variables (see :ref:`ucr-"
 "templates-extend-simple`), variables accessed in inline Python code must "
@@ -2895,7 +2895,7 @@ msgstr ""
 "templates-extend-simple`) müssen Variablen, auf die in Inline-Python-Code"
 " zugegriffen wird, explizit registriert werden."
 
-#: ../../computers/ucr.rst:431
+#: ../../computers/ucr.rst:438
 msgid ""
 "The |UCSUCR| variables used in the configuration files are registered in "
 "*info* files in the :file:`/etc/univention/templates/info/` directory "
@@ -2913,7 +2913,7 @@ msgstr ""
 "zusätzliche oder andere Variablen nutzt, so muss einer der bestehenden "
 ":file:`.info`-Dateien modifiziert oder eine neue hinzugefügt werden."
 
-#: ../../computers/ucr.rst:438
+#: ../../computers/ucr.rst:445
 msgid ""
 "Following the changing of :file:`.info` files, the :command:`ucr update` "
 "command must be run."
