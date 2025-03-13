@@ -185,9 +185,9 @@ class UCSPortal:
         self.tester: UMCBrowserTest = tester
         self.page: Page = tester.page
 
-    def navigate(self, username='Administrator', password='univention', do_login: bool = True, portal_url=None):
+    def navigate(self, username='Administrator', password='univention', do_login: bool = True, portal_url=None, wait_until_login: str = 'networkidle'):
         if do_login:
-            self.tester.login(username, password, location='/univention/portal')
+            self.tester.login(username, password, location='/univention/portal', wait_until=wait_until_login)
         else:
             self.page.goto(f'{portal_url or self.tester.base_url}/univention/portal')
 

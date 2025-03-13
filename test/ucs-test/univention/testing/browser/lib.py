@@ -277,6 +277,7 @@ class UMCBrowserTest(Interactions):
         login_should_fail: bool = False,
         do_navigation: bool = True,
         expect_password_change_prompt: bool = False,
+        wait_until: str = 'networkidle',
     ):
         """
         Navigates to {base_url}/univention/login?location={location} and logs in with the given credentials
@@ -320,7 +321,8 @@ class UMCBrowserTest(Interactions):
             logger.info('Logging in without waiting for requests to finish')
             login_button.click()
 
-        self.page.wait_for_url(re.compile(r'.*univention/(management|portal|selfservice).*'), wait_until='load')
+        # TODO: wait_until networkidle is discouraged by Playwright, replace at some point
+        self.page.wait_for_url(re.compile(r'.*univention/(management|portal|selfservice).*'), wait_until=wait_until)
         logging.info('Login Done')
 
     def end_umc_session(self):

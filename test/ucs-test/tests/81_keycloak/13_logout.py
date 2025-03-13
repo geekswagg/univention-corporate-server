@@ -40,7 +40,7 @@ def enable_logout_refresh(ucr_proper):
 
 def test_logout_refresh_plain(multi_tab_context: BrowserContext):
     tabs = [UCSPortal(UMCBrowserTest(multi_tab_context.new_page())) for _ in range(num_tabs)]
-    tabs[0].navigate()
+    tabs[0].navigate(wait_until_login='load')
     expect(tabs[0].page.get_by_role('link', name=_('Users'))).to_be_visible()
     for tab in tabs[1:]:
         tab.navigate(do_login=False)
