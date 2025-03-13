@@ -320,8 +320,7 @@ class UMCBrowserTest(Interactions):
             logger.info('Logging in without waiting for requests to finish')
             login_button.click()
 
-        # TODO: wait_until networkidle is discouraged by Playwright, replace at some point
-        self.page.wait_for_url(re.compile(r'.*univention/(management|portal|selfservice).*'), wait_until='networkidle')
+        self.page.wait_for_url(re.compile(r'.*univention/(management|portal|selfservice).*'), wait_until='load')
         logging.info('Login Done')
 
     def end_umc_session(self):

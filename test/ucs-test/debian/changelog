@@ -1,3 +1,11 @@
+ucs-test (12.0.249-3) unstable; urgency=medium
+
+  * Bug #57681: use wait_until='load' instead of 'networkidle'
+    in univention.testing.browser.lib.UMCBrowserTest.login
+    to fix 13_logout.py::test_logout_refresh_plain
+
+ -- Felix Botner <botner@univention.de>  Thu, 13 Mar 2025 12:34:51 +0100
+
 ucs-test (12.0.249-2) unstable; urgency=medium
 
   * Bug #57681: fix 55_adconnector/503test_password_change_next_logon
