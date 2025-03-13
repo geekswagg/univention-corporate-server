@@ -6,7 +6,7 @@
 ## exposure: careful
 ## packages:
 ##   - univention-directory-manager-rest
-## external_junit: /tmp/04_python_udm_api_client_compatibility.xml
+## external-junit: /tmp/04_python_udm_api_client_compatibility.xml
 
 # shellcheck source=../../lib/base.sh
 . "$TESTLIBPATH/base.sh" || exit 137
@@ -43,9 +43,4 @@ password: ${tests_domainadmin_pwd}
 EOF
 
 python3 -m pip install -r requirements_test.txt
-python3 -m pytest --tb=native -s -l -vv --junit-xml=/tmp/04_python_udm_api_client_compatibility.xml --junit-prefix=73_udm-rest tests && pytest_rc=$? || pytest_rc=$?
-if [ "$pytest_rc" -eq 1 ] && [ -n "$JENKINS_WS" ]; then
-    echo "Some tests failed, jenkins will check the external_junit"
-else
-    exit "$pytest_rc"
-fi
+python3 -m pytest --tb=native -s -l -vv --junit-xml=/tmp/04_python_udm_api_client_compatibility.xml --junit-prefix=73_udm-rest tests
