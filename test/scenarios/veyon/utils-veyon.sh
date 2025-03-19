@@ -70,6 +70,8 @@ rename_and_join () {
 		--domainpassword "$domain_password" \
 		--domainuser "$domain_user" \
 		--dnsserver "$dns_server"
+	# Windows seems to need some preparation time after the join
+	sleep 30
 	# add school group to local rdp group
 	# shellcheck disable=SC2016
 	ucs_winrm run-ps --client "$client" --cmd '
