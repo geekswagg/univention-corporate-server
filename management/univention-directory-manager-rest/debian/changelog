@@ -1,8 +1,13 @@
-univention-directory-manager-rest (12.0.8-1) UNRELEASED; urgency=medium
+univention-directory-manager-rest (12.1.0) unstable; urgency=medium
 
+  [ Florian Best ]
+  * Bug #57988: allow to set multiple items for multivlaues policies like UCR
+    policies for strict openapi clients
+
+  [ Christian Castens ]
   * Bug #58015 UCS 5.2-1 version bump
 
- -- Christian Castens <castens@univention.de>  Mon, 03 Mar 2025 10:45:32 +0100
+ -- Florian Best <best@univention.de>  Tue, 01 Apr 2025 12:25:18 +0200
 
 univention-directory-manager-rest (12.0.7) unstable; urgency=medium
 

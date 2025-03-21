@@ -994,7 +994,7 @@ class _OpenAPIBase:
                 "properties": {pol['objectType']: {
                     "type": "array",
                     "minItems": 0,
-                    "maxItems": 1,
+                    "maxItems": 100 if UDM_Module(pol['objectType'], ldap_connection=self.ldap_connection, ldap_position=self.ldap_position).is_policy_multivalue else 1,
                     "items": {
                         "type": "string",
                         "format": "dn",
