@@ -5,7 +5,7 @@ Three new properties have been added to UDM.
 ##### guardianRoles
 GuardianRoles is the property on which roles are saved that directly apply to
 an object. Available in LDAP on every univentionObject.
-Available in UDM as a porperty on each computer and user module
+Available in UDM as a porperty on each computer and user module.
 This property does not include roles that were inherited by group membership.
 
 ##### guardianMemberRoles
@@ -40,10 +40,6 @@ obj = module.get("uid=Administrator,cn=users,dc=school,dc=test", properties=['gu
 
 <u>**TODOS for the Guardian Apps:**</u>
 
-- The extended attribute guardianRole can be removed. These properties need to be migrated on upgrade to
-
-- guardianRoles and guardianMemberRoles.
-- The UDM REST client fork in the Guardian App needs to be updated to the new version, so that guardianInheritedRoles can be
-- requested.
+- The extended attribute guardianRole can be removed. These properties need to be migrated on upgrade to guardianRoles and guardianMemberRoles.
+- The UDM REST client fork in the Guardian App needs to be updated to the new version, so that guardianInheritedRoles can be requested.
 - The new app version needs to depend on the errata which released the new features.
-
