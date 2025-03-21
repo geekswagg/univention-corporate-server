@@ -18,6 +18,7 @@ Depends:
  lockfile-progs,
  lsb-release,
  lsof,
+ net-tools,
  psmisc,
  rsyslog,
  sysvinit-utils,
