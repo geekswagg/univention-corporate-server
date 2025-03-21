@@ -6,7 +6,7 @@
 # Like what you see? Join us!
 # https://www.univention.com/about-us/careers/vacancies/
 #
-# Copyright 2004-2024 Univention GmbH
+# Copyright 2004-2025 Univention GmbH
 #
 # https://www.univention.de/
 #
@@ -46,7 +46,7 @@ def display_help(out=sys.stdout):
     if cmd == 'univention-ssh':
         text = '''
         %(cmd)s: internal managing tool for UCS clients
-        Copyright (c) 2001-2024 Univention GmbH, Germany
+        Copyright (c) 2001-2025 Univention GmbH, Germany
 
         Syntax:
           %(cmd)s [-timeout <seconds>] [--no-split] <pwd_file> [ssh-options] [user@]<host> <command> [<arguments>...]
@@ -76,7 +76,7 @@ def display_help(out=sys.stdout):
     elif cmd == 'univention-scp':
         text = '''
         %(cmd)s: internal managing tool for UCS clients
-        Copyright (c) 2001-2024 Univention GmbH, Germany
+        Copyright (c) 2001-2025 Univention GmbH, Germany
 
         Syntax:
           %(cmd)s [-timeout <seconds>] [--no-split] <pwd_file> [scp-options] files [user@]host:[path]
@@ -105,7 +105,7 @@ def display_help(out=sys.stdout):
     else:
         text = '''
         %(cmd)s: internal managing tool for UCS clients
-        Copyright (c) 2001-2024 Univention GmbH, Germany
+        Copyright (c) 2001-2025 Univention GmbH, Germany
 
         Syntax:
           %(cmd)s [-timeout <seconds>] [--no-split] <pwd_file> [rsync-options] files [user@]host:[path]

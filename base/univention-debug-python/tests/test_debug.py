@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 #
-# Copyright 2024 Univention GmbH
+# Copyright 2024-2025 Univention GmbH
 #
 # Like what you see? Join us!
 # https://www.univention.com/about-us/careers/vacancies/

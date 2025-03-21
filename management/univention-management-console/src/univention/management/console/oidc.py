@@ -3,7 +3,7 @@
 # Univention Management Console
 #  OpenID Connect implementation for the UMC
 #
-# Copyright 2022-2024 Univention GmbH
+# Copyright 2022-2025 Univention GmbH
 #
 # https://www.univention.de/
 #

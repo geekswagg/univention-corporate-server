@@ -3,7 +3,7 @@
 # Univention Management Console
 # Univention Configuration Registry Module to rewrite OIDC configuration for UMC
 #
-# Copyright 2022-2024 Univention GmbH
+# Copyright 2022-2025 Univention GmbH
 #
 # https://www.univention.de/
 #

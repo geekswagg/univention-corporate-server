@@ -1,4 +1,4 @@
-.. SPDX-FileCopyrightText: 2021-2024 Univention GmbH
+.. SPDX-FileCopyrightText: 2021-2025 Univention GmbH
 ..
 .. SPDX-License-Identifier: AGPL-3.0-only
 
@@ -507,7 +507,7 @@ described in `Machine-readable debian/copyright file
    Source: https://docs.software-univention.de/
 
    Files: *
-   Copyright: 2013-2023 Univention GmbH
+   Copyright: 2013-2025 Univention GmbH
    License: AGPL
 
 
