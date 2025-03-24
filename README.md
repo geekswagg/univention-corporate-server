@@ -8,7 +8,7 @@ These tools make it very easy to administrate applications, users and resources 
 
 ## Download and Demo
 
-ISO and virtual machine images of UCS are [available for download](https://www.univention.com/downloads/ucs-download/).
+ISO and virtual machine images of UCS are [available for download](https://www.univention.com/products/download/)
 
 The online demo of UCS is available at [demo.univention.de](https://demo.univention.de/).
 

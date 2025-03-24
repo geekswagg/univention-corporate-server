@@ -39,7 +39,6 @@ You find the source code at the following locations:
   * :uv:src:`management/univention-self-service/umc/`
   * :uv:src:`management/univention-server-overview/umc/`
   * :uv:src:`management/univention-system-info/umc/`
-  * :uv:src:`saml/univention-saml/umc/`
   * :uv:src:`services/univention-ad-connector/umc/`
   * :uv:src:`services/univention-admin-diary/umc/`
   * :uv:src:`services/univention-pkgdb/umc/`
