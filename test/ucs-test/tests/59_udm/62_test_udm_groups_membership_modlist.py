@@ -12,7 +12,7 @@ import pytest
 from univention.admin import modules, uldap
 
 
-@pytest.fixture()
+@pytest.fixture
 def group():
     lo, position = uldap.getMachineConnection()
     modules.update()

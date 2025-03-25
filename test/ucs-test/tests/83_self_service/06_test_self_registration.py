@@ -52,23 +52,23 @@ def kill_umc_module_process():
     subprocess.call(['pkill', '-f', '/usr/sbin/univention-management-console-module'])
 
 
-@pytest.fixture()
+@pytest.fixture
 def readudm():
     return UDM.machine().version(2)
 
 
-@pytest.fixture()
+@pytest.fixture
 def mails():
     with capture_mails(timeout=MAILS_TIMEOUT) as mails:
         yield mails
 
 
-@pytest.fixture()
+@pytest.fixture
 def umc_client():
     return Client(language="en_US")
 
 
-@pytest.fixture()
+@pytest.fixture
 def get_registration_info(ucr):
     class local:
         dns = []

@@ -14,7 +14,7 @@ from univention.testing.ucr import UCSTestConfigRegistry
 from univention.testing.udm import UCSTestUDM, UCSTestUDM_CreateUDMObjectFailed, UCSTestUDM_ModifyUDMObjectFailed
 
 
-@pytest.fixture()
+@pytest.fixture
 def mail_domain(udm: UCSTestUDM, ucr: UCSTestConfigRegistry, random_string: Callable) -> str:
     ucr.handler_set(['directory/manager/mail-address/uniqueness=true'])
     udm.stop_cli_server()

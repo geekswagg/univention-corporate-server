@@ -60,7 +60,7 @@ class PasswordChangeExpectedOutcome(Enum):
         return ''
 
 
-@pytest.fixture()
+@pytest.fixture
 def random_password():
     return uts.random_string()
 

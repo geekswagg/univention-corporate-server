@@ -44,12 +44,12 @@ class UDMClient(UDMClient):
         return cls.master_connection(account.username, account.bindpw)
 
 
-@pytest.fixture()
+@pytest.fixture
 def udm_client():
     return UDMClient.test_connection()
 
 
-@pytest.fixture()
+@pytest.fixture
 def udm_rest():
     with UDM() as udm:
         yield udm

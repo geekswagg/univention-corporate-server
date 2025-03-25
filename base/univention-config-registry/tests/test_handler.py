@@ -97,7 +97,7 @@ def test_ConfigHandler():
 
 class TestConfigHandlerDiverting:
 
-    @pytest.fixture()
+    @pytest.fixture
     def hdivert(self):
         return ucrh.ConfigHandlerDiverting("/divert")
 
@@ -274,13 +274,13 @@ def test_grep_variables(tmpl, vars):
     assert ucrh.grep_variables(tmpl) == vars
 
 
-@pytest.fixture()
+@pytest.fixture
 def handler0(mocker):
     """Return empty dummy handler."""
     return mocker.MagicMock(preinst=None, postinst=None, user=None, group=None, mode=None)
 
 
-@pytest.fixture()
+@pytest.fixture
 def handlers(tmpcache):
     """Return :py:class:`ConfigHandlers` instance with private cache directory."""
     handlers = ucrh.ConfigHandlers()

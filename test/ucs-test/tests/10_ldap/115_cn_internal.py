@@ -25,7 +25,7 @@ def create_container(lo, cn, base):
     lo.delete(dn)
 
 
-@pytest.fixture()
+@pytest.fixture
 def slapd_config():
 
     def _func(ucr_changes: list) -> None:

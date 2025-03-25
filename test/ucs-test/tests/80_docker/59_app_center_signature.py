@@ -80,7 +80,7 @@ def test_appcenter():
         yield sac
 
 
-@pytest.fixture()
+@pytest.fixture
 def appcenter(test_appcenter):
     test_appcenter.download_index_json()
     test_appcenter.download_index_json_gpg()

@@ -79,12 +79,12 @@ def bindpwdfile(tmpdir_factory):
     return str(path)
 
 
-@pytest.fixture()
+@pytest.fixture
 def failbindpwdfile():
     return "/qwertzui"
 
 
-@pytest.fixture()
+@pytest.fixture
 def binddn(ucr):
     if ucr.get("tests/domainadmin/account", None):
         return str(ucr.get("tests/domainadmin/account"))
@@ -92,7 +92,7 @@ def binddn(ucr):
         return "uid=Administrator,cn=users,%s" % (ucr.get('ldap/base'),)
 
 
-@pytest.fixture()
+@pytest.fixture
 def failbinddn():
     return "uid=Administrator,cn=users"
 

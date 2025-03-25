@@ -40,7 +40,7 @@ _uldap = import_module('uldap', 'modules/', 'univention.uldap', use_installed=Fa
 univention_password = import_module('password', 'modules/', 'univention.password', use_installed=False)
 
 
-@pytest.fixture()
+@pytest.fixture
 def mocked_ucr(mock_ucr, mocker):
     mock = mocker.patch.object(univention_password, 'ucr')
     mock.ucr = mock_ucr

@@ -37,7 +37,7 @@ def test_process_overview_module(umc_browser_test: UMCBrowserTest):
     assert all(cell.inner_text() == 'root' for cell in cells)
 
 
-@pytest.fixture()
+@pytest.fixture
 def sleep_process() -> Generator[subprocess.Popen, None, None]:
     p = subprocess.Popen(['sleep', '900'])
     yield p

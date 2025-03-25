@@ -28,7 +28,7 @@ def get_uuid() -> str:
     return str(uuid.uuid1())
 
 
-@pytest.fixture()
+@pytest.fixture
 def blocklist_position(random_string):
     name = random_string()
     lo, _po = getMachineConnection(ldap_master=True)
@@ -44,7 +44,7 @@ def blocklist_position(random_string):
     lo.delete(dn)
 
 
-@pytest.fixture()
+@pytest.fixture
 def blocklist_list(random_string, udm):
     name = random_string()
     data = {
@@ -56,7 +56,7 @@ def blocklist_list(random_string, udm):
     return SimpleNamespace(cn=name, dn=dn)
 
 
-@pytest.fixture()
+@pytest.fixture
 def add_ldap_blocklistentries(blocklist_position, random_string):
     dns = []
     container = blocklist_position.cn
@@ -86,7 +86,7 @@ def add_ldap_blocklistentries(blocklist_position, random_string):
             pass
 
 
-@pytest.fixture()
+@pytest.fixture
 def udm_rest_client(ucr, account):
     udm_rest = UDM_REST(
         uri='https://%(hostname)s.%(domainname)s/univention/udm/' % ucr,

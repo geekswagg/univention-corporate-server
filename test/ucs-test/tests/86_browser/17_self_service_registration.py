@@ -35,7 +35,7 @@ _ = Translation('ucs-test-browser').translate
 MAILS_TIMEOUT = 5
 
 
-@pytest.fixture()
+@pytest.fixture
 def mails():
     with capture_mails(timeout=MAILS_TIMEOUT) as mails:
         yield mails
@@ -53,7 +53,7 @@ def activate_self_registration(ucr):
     )
 
 
-@pytest.fixture()
+@pytest.fixture
 def get_registration_info(ucr):
     class local:
         dns = []

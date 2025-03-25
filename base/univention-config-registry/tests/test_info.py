@@ -21,12 +21,12 @@ def _variable():
     return v
 
 
-@pytest.fixture()
+@pytest.fixture
 def variable():
     return _variable()
 
 
-@pytest.fixture()
+@pytest.fixture
 def category():
     """Complete UCR category description."""
     c = ucri.Category()
@@ -82,7 +82,7 @@ class TestConfigRegistryInfo:
         variables = base.join(ucri.ConfigRegistryInfo.VARIABLES)
         return Namespace(base=base, categories=categories, variables=variables)
 
-    @pytest.fixture()
+    @pytest.fixture
     def setup(self, setup0):
         """Fake populated UCR info files."""
         setup0.categories.mkdir()
@@ -95,12 +95,12 @@ class TestConfigRegistryInfo:
         setup0.variables.join("d.cfg").write("[key/.*/abc]\nDescription=description\nType=int\nCategories=category\n\n")
         return setup0
 
-    @pytest.fixture()
+    @pytest.fixture
     def info0(self, setup0):
         """Empty registry info instance."""
         return ucri.ConfigRegistryInfo(install_mode=True)
 
-    @pytest.fixture()
+    @pytest.fixture
     def info(self, setup):
         """Registry info instance."""
         return ucri.ConfigRegistryInfo()

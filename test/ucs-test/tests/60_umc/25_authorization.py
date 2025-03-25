@@ -18,7 +18,7 @@ from univention.testing.umc import Client
 check_delegation = pytest.mark.skipif(not _ucr.is_true('umc/udm/delegation'), reason='umc/udm/delegation not activated')
 
 
-@pytest.fixture()
+@pytest.fixture
 def bremen_ou(udm, random_username):
     dn_ou = udm.create_object('container/ou', name='bremen')
     ouadmin_username = random_username()

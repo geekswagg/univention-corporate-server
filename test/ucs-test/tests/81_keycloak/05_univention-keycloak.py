@@ -294,7 +294,7 @@ def test_bindpwd(admin_account):
         run_command(cmd)
 
 
-@pytest.fixture()
+@pytest.fixture
 def without_keycloak_secret():
     secret = '/etc/keycloak.secret'
     secret_tmp = f'{secret}.tmp'

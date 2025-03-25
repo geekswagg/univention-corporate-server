@@ -41,7 +41,7 @@ from univentionunittests import import_module
 from univentionunittests.umc import import_umc_module, save_result_on_request
 
 
-@pytest.fixture()
+@pytest.fixture
 def mocked_connection(mocker, lo, pos):
     udm_module = _import('udm')
     mocker.patch.object(udm_module, 'getMachineConnection', return_value=[lo, pos])
@@ -49,13 +49,13 @@ def mocked_connection(mocker, lo, pos):
     return lo
 
 
-@pytest.fixture()
+@pytest.fixture
 def get_action():
     actions_module = _import('actions')
     return actions_module.get_action
 
 
-@pytest.fixture()
+@pytest.fixture
 def mocked_ucr_appcenter(mock_ucr, mocker):
     ucr_module = _import('ucr')
     mocker.patch.object(ucr_module, '_UCR', mock_ucr)
@@ -81,7 +81,7 @@ def mocked_ucr_appcenter(mock_ucr, mocker):
     return mock_ucr
 
 
-@pytest.fixture()
+@pytest.fixture
 def custom_apps(mocker):
     cache_module = _import('app_cache')
     app_module = _import('app')
@@ -150,17 +150,17 @@ def _import(name):
     return sys.modules[f'univention.appcenter.{name}']
 
 
-@pytest.fixture()
+@pytest.fixture
 def imported_appcenter_modules():
     import_appcenter_modules()
 
 
-@pytest.fixture()
+@pytest.fixture
 def import_appcenter_module():
     return _import
 
 
-@pytest.fixture()
+@pytest.fixture
 def appcenter_umc_instance(imported_appcenter_modules, mocker):
     appcenter = import_umc_module('appcenter')
     mocker.patch.object(appcenter.Instance, 'finished', side_effect=save_result_on_request)

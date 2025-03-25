@@ -13,7 +13,7 @@ import pytest
 import univention.updater.locking as L
 
 
-@pytest.fixture()
+@pytest.fixture
 def lock(tmpdir, monkeypatch):
     """Mock locking file"""
     lock = tmpdir / "lock"
@@ -164,7 +164,7 @@ def test_error_taken(lock):
         lock.mkdir()
 
 
-@pytest.fixture()
+@pytest.fixture
 def apt_lock(tmpdir, monkeypatch):
     """Mock APT locking file"""
     lock = tmpdir / "lock"

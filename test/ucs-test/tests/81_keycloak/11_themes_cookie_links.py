@@ -24,7 +24,7 @@ def cleanup_cookies(context):
     context.clear_cookies()
 
 
-@pytest.fixture()
+@pytest.fixture
 def login_links(lang: str, link_count: int) -> tuple[str, int]:
     try:
         for i in range(1, link_count + 1):

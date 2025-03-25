@@ -58,7 +58,7 @@ def create_user(new, username, maildom):
     return new.dn
 
 
-@pytest.fixture()
+@pytest.fixture
 def blocklist_setup(random_string, udm):
     assert udm.list_objects('blocklists/list') == [], 'please remove all blocklists before starting this test'
     name = f'extreme setup {random_string()}'
@@ -98,7 +98,7 @@ def blocklist_setup(random_string, udm):
     udm.create_object('blocklists/list', **data)
 
 
-@pytest.fixture()
+@pytest.fixture
 def mail_domain_name(udm, random_name):
     mail_domain_name = f'{random_name()}.{random_name()}'
     udm.create_object('mail/domain', name=mail_domain_name)

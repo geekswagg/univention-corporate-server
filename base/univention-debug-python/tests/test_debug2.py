@@ -77,7 +77,7 @@ CATEGORY = [
 ]
 
 
-@pytest.fixture()
+@pytest.fixture
 def parse() -> Iterator[Callable[[str], Iterator[tuple[str, dict[str, str]]]]]:
     """Setup parser."""
     now = datetime.now()
@@ -120,7 +120,7 @@ def parse() -> Iterator[Callable[[str], Iterator[tuple[str, dict[str, str]]]]]:
     return f
 
 
-@pytest.fixture()
+@pytest.fixture
 def tmplog(tmpdir):
     """Setup temporary logging."""
     tmp = tmpdir.ensure('log')

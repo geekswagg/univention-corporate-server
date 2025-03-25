@@ -49,12 +49,12 @@ def primary_or_backup():
         return ucr.get('server/role') in ["domaincontroller_backup", "domaincontroller_master"]
 
 
-@pytest.fixture()
+@pytest.fixture
 def acl_extension(lo, ucr):
     return get_acl_extension(ucr)
 
 
-@pytest.fixture()
+@pytest.fixture
 def verify_acl_extension(ucr):
     """
     check that the objects univentionLDAPACLActive is FALSE after

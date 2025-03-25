@@ -10,7 +10,7 @@ import pytest
 import univention.info_tools as uit
 
 
-@pytest.fixture()
+@pytest.fixture
 def lval0():
     """Return an empty localized value instance."""
     obj = uit.LocalizedValue()
@@ -57,7 +57,7 @@ class TestLocalizedValue:
         assert lval0.get(locale='fr') == ''
 
 
-@pytest.fixture()
+@pytest.fixture
 def ldict0():
     """Return an empty localized dictionary instance."""
     obj = uit.LocalizedDictionary()
@@ -161,7 +161,7 @@ class TestLocalizedDictionary:
         assert not ldict0.__eq__(())
 
 
-@pytest.fixture()
+@pytest.fixture
 def lval():
     """Return a pre-initialized localized value instance."""
     lval = uit.LocalizedValue()
@@ -171,7 +171,7 @@ def lval():
     return lval
 
 
-@pytest.fixture()
+@pytest.fixture
 def ldict():
     """Return a pre-initialized localized dictionary instance."""
     ldict = uit.LocalizedDictionary()
@@ -202,7 +202,7 @@ class TestSetLanguage:
 
 class TestUnicodeConfig:
 
-    @pytest.fixture()
+    @pytest.fixture
     def cfg(self):
         """Return UnicodeConfig instance."""
         return uit.UnicodeConfig()

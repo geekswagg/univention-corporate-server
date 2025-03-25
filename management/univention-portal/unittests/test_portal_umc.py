@@ -11,7 +11,7 @@ import pytest
 from univention.portal.extensions.portal import UMCPortal
 
 
-@pytest.fixture()
+@pytest.fixture
 def stub_module():
     """A stub module as returned from the UMC API."""
     return {
@@ -28,7 +28,7 @@ def stub_module():
     }
 
 
-@pytest.fixture()
+@pytest.fixture
 def stub_visible_content(stub_module):
     """
     A stub of the datastructure which is returned by `UMCPortal.get_visible_content`.
@@ -47,7 +47,7 @@ def stub_visible_content(stub_module):
     }
 
 
-@pytest.fixture()
+@pytest.fixture
 def umc_portal():
     """An instance of UMCPortal with mocked dependencies."""
     umc_portal = UMCPortal(mock.Mock(), mock.Mock())

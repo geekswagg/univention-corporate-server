@@ -16,7 +16,7 @@ from test_self_service import self_service_user
 from univention.testing.strings import random_username
 
 
-@pytest.fixture()
+@pytest.fixture
 def close_all_processes():
     """force all module processes to close"""
     yield
@@ -24,7 +24,7 @@ def close_all_processes():
     time.sleep(3)
 
 
-@pytest.fixture()
+@pytest.fixture
 def self_service_prepare(ucr, udm, close_all_processes):
     """force all module processes to close"""
     ucr.handler_set([

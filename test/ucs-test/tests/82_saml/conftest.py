@@ -5,7 +5,7 @@ import pytest
 import samltest
 
 
-@pytest.fixture()
+@pytest.fixture
 def kerberos_ticket(ucr, account) -> None:
     ucr.handler_set(['kerberos/defaults/rdns=false', 'saml/idp/authsource=univention-negotiate'])
     subprocess.call(['kdestroy'])
@@ -14,11 +14,11 @@ def kerberos_ticket(ucr, account) -> None:
     subprocess.call(['kdestroy'])
 
 
-@pytest.fixture()
+@pytest.fixture
 def saml_session(account):
     return samltest.SamlTest(account.username, account.bindpw)
 
 
-@pytest.fixture()
+@pytest.fixture
 def saml_session_kerberos():
     return samltest.SamlTest('', '', use_kerberos=True)

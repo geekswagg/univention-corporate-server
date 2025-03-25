@@ -680,7 +680,7 @@ class TestEncoders(TestCase):
         assert [o.dn for o in obj.props.secretary.objs] == [obj2.dn]
 
 
-@pytest.fixture()
+@pytest.fixture
 def simple_udm(ucr) -> UDM:
     account = utils.UCSTestDomainAdminCredentials()
     return UDM.credentials(
@@ -692,7 +692,7 @@ def simple_udm(ucr) -> UDM:
     ).version(1)
 
 
-@pytest.fixture()
+@pytest.fixture
 def schedule_delete_udm_obj(simple_udm):
     objs: list[tuple[str, str]] = []
 

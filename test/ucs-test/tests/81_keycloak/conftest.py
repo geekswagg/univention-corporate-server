@@ -76,12 +76,12 @@ def ucr_proper() -> ConfigRegistry:
     return ucr.load()
 
 
-@pytest.fixture()
+@pytest.fixture
 def admin_account() -> UCSTestDomainAdminCredentials:
     return UCSTestDomainAdminCredentials()
 
 
-@pytest.fixture()
+@pytest.fixture
 def keycloak_secret() -> str | None:
     secret_file = '/etc/keycloak.secret'
     password = None
@@ -93,7 +93,7 @@ def keycloak_secret() -> str | None:
 
 # make sure we are the keycloak server, useful for tests that change local configuration
 # and expect a certain behavior in keycloak
-@pytest.fixture()
+@pytest.fixture
 def is_keycloak(keycloak_config, ucr_proper):
     keycloak_ip = socket.gethostbyname(keycloak_config.server)
     my_ip = socket.gethostbyname(ucr_proper['hostname'])
@@ -106,12 +106,12 @@ def is_keycloak(keycloak_config, ucr_proper):
         handler_unset([f'hosts/static/{my_ip}'])
 
 
-@pytest.fixture()
+@pytest.fixture
 def keycloak_admin() -> str:
     return 'admin'
 
 
-@pytest.fixture()
+@pytest.fixture
 def keycloak_settings() -> dict:
     apps_cache = Apps()
     settings = {}
@@ -122,7 +122,7 @@ def keycloak_settings() -> dict:
     return settings
 
 
-@pytest.fixture()
+@pytest.fixture
 def tracing_page(page, request: pytest.FixtureRequest, ucr_proper):
     page.context.tracing.start(screenshots=True, snapshots=True)
 
@@ -131,7 +131,7 @@ def tracing_page(page, request: pytest.FixtureRequest, ucr_proper):
     fixtures.teardown_umc_browser_test(request, ucr_proper, page, page.context, page.context.browser)
 
 
-@pytest.fixture()
+@pytest.fixture
 def upgrade_status_obj(ucr_proper) -> SettingsDataObject:
     udm = UDM.admin().version(2)
     mod = udm.get('settings/data')
@@ -167,14 +167,14 @@ class UnverfiedUser:
         wait_for_listener_replication()
 
 
-@pytest.fixture()
+@pytest.fixture
 def unverified_user() -> Iterator[UnverfiedUser]:
     with UCSTestUDM() as udm:
         user = UnverfiedUser(udm)
         yield user
 
 
-@pytest.fixture()
+@pytest.fixture
 def portal_config(ucr_proper: ConfigRegistry) -> SimpleNamespace:
     portal_fqdn = ucr_proper['umc/saml/sp-server'] if ucr_proper['umc/saml/sp-server'] else f"{ucr_proper['hostname']}.{ucr_proper['domainname']}"
     config = {
@@ -200,7 +200,7 @@ def portal_config(ucr_proper: ConfigRegistry) -> SimpleNamespace:
     return SimpleNamespace(**config)
 
 
-@pytest.fixture()
+@pytest.fixture
 def keycloak_config(ucr_proper: ConfigRegistry) -> SimpleNamespace:
     url = run_command(['univention-keycloak', 'get-keycloak-base-url']).rstrip()
     server = urlparse(url).netloc
@@ -295,17 +295,17 @@ def __portal_login_func(
     return page
 
 
-@pytest.fixture()
+@pytest.fixture
 def portal_login_via_keycloak(tracing_page: Page, portal_config: SimpleNamespace, keycloak_config: SimpleNamespace):
     return functools.partial(__portal_login_func, portal_config, keycloak_config, tracing_page)
 
 
-@pytest.fixture()
+@pytest.fixture
 def portal_login_via_keycloak_custom_page(portal_config: SimpleNamespace, keycloak_config: SimpleNamespace):
     return functools.partial(__portal_login_func, portal_config, keycloak_config)
 
 
-@pytest.fixture()
+@pytest.fixture
 def keycloak_adm_login(tracing_page: Page, keycloak_config: SimpleNamespace):
     page = tracing_page
 
@@ -329,12 +329,12 @@ def keycloak_adm_login(tracing_page: Page, keycloak_config: SimpleNamespace):
     return _func
 
 
-@pytest.fixture()
+@pytest.fixture
 def domain_admins_dn(ucr_proper: ConfigRegistry) -> str:
     return f"cn={custom_groupname('Domain Admins')},cn=groups,{ucr_proper['ldap/base']}"
 
 
-@pytest.fixture()
+@pytest.fixture
 def keycloak_session(keycloak_config: SimpleNamespace) -> Callable[[str, str], KeycloakAdmin]:
     def _session(username: str, password: str) -> KeycloakAdmin:
         session = KeycloakAdmin(
@@ -351,12 +351,12 @@ def keycloak_session(keycloak_config: SimpleNamespace) -> Callable[[str, str], K
     return _session
 
 
-@pytest.fixture()
+@pytest.fixture
 def keycloak_administrator_connection(keycloak_session: Callable, admin_account: UCSTestDomainAdminCredentials) -> KeycloakAdmin:
     return keycloak_session(admin_account.username, admin_account.bindpw)
 
 
-@pytest.fixture()
+@pytest.fixture
 def keycloak_admin_connection(
     keycloak_session: Callable,
     keycloak_admin: str,
@@ -366,7 +366,7 @@ def keycloak_admin_connection(
         return keycloak_session(keycloak_admin, keycloak_secret)
 
 
-@pytest.fixture()
+@pytest.fixture
 def keycloak_openid(keycloak_secret: str, keycloak_config: SimpleNamespace) -> KeycloakOpenID:
     def _session(client_id: str, realm_name: str = 'ucs', client_secret_key: str | None = None) -> KeycloakAdmin:
         return KeycloakOpenID(
@@ -379,12 +379,12 @@ def keycloak_openid(keycloak_secret: str, keycloak_config: SimpleNamespace) -> K
     return _session
 
 
-@pytest.fixture()
+@pytest.fixture
 def keycloak_openid_connection(keycloak_openid: Callable) -> KeycloakOpenID:
     return keycloak_openid('admin-cli')
 
 
-@pytest.fixture()
+@pytest.fixture
 def legacy_authorization_setup_saml(
     udm: UCSTestUDM,
     ucr: ConfigRegistry,
@@ -418,7 +418,7 @@ def legacy_authorization_setup_saml(
         legacy_auth_config_remove(keycloak_administrator_connection, groups)
 
 
-@pytest.fixture()
+@pytest.fixture
 def legacy_authorization_setup_oidc(
     udm: UCSTestUDM,
     ucr: ConfigRegistry,
@@ -462,7 +462,7 @@ def legacy_authorization_setup_oidc(
         keycloak_administrator_connection.delete_client(client_id)
 
 
-@pytest.fixture()
+@pytest.fixture
 def modify_keycloak_clients(request):
     mod_func: Callable[[dict[Any, Any]]] = request.param
     modified_clients = []
@@ -481,7 +481,7 @@ def modify_keycloak_clients(request):
         run_command(['univention-keycloak', 'oidc/rp', 'update', client['clientId'], json.dumps(client)])
 
 
-@pytest.fixture()
+@pytest.fixture
 def oidc_client_logout_meachanism(request):
     modified_clients = []
     oidc_clients = json.loads(run_command(['univention-keycloak', 'oidc/rp', 'get', '--json', '--all']))
@@ -501,7 +501,7 @@ def oidc_client_logout_meachanism(request):
         run_command(['univention-keycloak', 'oidc/rp', 'update', client['clientId'], json.dumps(client)])
 
 
-@pytest.fixture()
+@pytest.fixture
 def multi_tab_context(browser: Browser, request: pytest.FixtureRequest, ucr_proper) -> Generator[BrowserContext, None, None]:
     context = browser.new_context(ignore_https_errors=True)
     context.set_default_timeout(30 * 1000)

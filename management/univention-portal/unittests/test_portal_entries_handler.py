@@ -48,7 +48,7 @@ def async_method_patch(mocker, callable):
     return mocker.MagicMock()
 
 
-@pytest.fixture()
+@pytest.fixture
 def user():
     return User(
         username=None,
@@ -58,7 +58,7 @@ def user():
     )
 
 
-@pytest.fixture()
+@pytest.fixture
 def portal_mock(mocker, user):
     async def get_user():
         return user
@@ -85,7 +85,7 @@ def portal_mock(mocker, user):
 
 class TestPortalEntriesHandlerHttpCache:
 
-    @pytest.fixture()
+    @pytest.fixture
     def app(self, portal_mock):
         portal_mock.portal_cache = PortalFileCacheHTTP(
             ucs_internal_url='https://example.com',
@@ -104,7 +104,7 @@ class TestPortalEntriesHandlerHttpCache:
 
 class TestPortalEntriesHandlerNoHttpCache:
 
-    @pytest.fixture()
+    @pytest.fixture
     def app(self, portal_mock):
         routes = build_routes({
             "default": portal_mock,

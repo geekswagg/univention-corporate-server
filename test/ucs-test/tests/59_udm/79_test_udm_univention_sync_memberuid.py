@@ -15,7 +15,7 @@ import pytest
 TOOL_PATH = '/usr/share/univention-directory-manager-tools/univention-sync-memberuid'
 
 
-@pytest.fixture()
+@pytest.fixture
 def inconsistent_membership(udm, lo):
     ret = {}
     ret['groups'] = []

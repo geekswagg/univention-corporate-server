@@ -61,7 +61,7 @@ class TestMtimeBasedLazyFileReloader:
         self._os = mocked_os
         self._shutil = mocked_shutil
 
-    @pytest.fixture()
+    @pytest.fixture
     def mocked_reloader(self, dynamic_class, patch_object_module):
         Reloader = dynamic_class("MtimeBasedLazyFileReloader")
         self.patch_reloader_modules(Reloader, patch_object_module)
@@ -105,7 +105,7 @@ class TestMtimeBasedLazyFileReloader:
 class TestPortalReloaderUDM(TestMtimeBasedLazyFileReloader):
     _portal_dn = "cn=domain,cn=portal,cn=univention"
 
-    @pytest.fixture()
+    @pytest.fixture
     def mocked_portal_reloader(self, dynamic_class, patch_object_module, mocker):
         Reloader = dynamic_class("PortalReloaderUDM")
         self.patch_reloader_modules(Reloader, patch_object_module)
@@ -139,7 +139,7 @@ class TestGroupsReloaderLDAP(TestMtimeBasedLazyFileReloader):
     _bind_dn = "cn=ucs,cn=computers"
     _password_file = "path/to/password/file.secret"
 
-    @pytest.fixture()
+    @pytest.fixture
     def mocked_portal_reloader(self, dynamic_class, patch_object_module):
         Reloader = dynamic_class("GroupsReloaderLDAP")
         self.patch_reloader_modules(Reloader, patch_object_module)

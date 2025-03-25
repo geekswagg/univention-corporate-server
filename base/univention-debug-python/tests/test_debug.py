@@ -40,7 +40,7 @@ from conftest import CATEGORY, LEVEL
 import univention.debug as ud
 
 
-@pytest.fixture()
+@pytest.fixture
 def tmplog(tmpdir):
     """Setup temporary logging."""
     tmp = tmpdir.ensure('log')

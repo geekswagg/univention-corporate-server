@@ -21,7 +21,7 @@ from univention.testing.udm import UCSTestUDM
 WAIT_TIME_SYSTEMMAIL = 45.0
 
 
-@pytest.fixture()
+@pytest.fixture
 def restart_services():
     subprocess.call(['service', 'postfix', 'restart'], close_fds=True)
     subprocess.call(

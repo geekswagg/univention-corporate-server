@@ -24,7 +24,7 @@ from univention.testing.browser.udm_users import User, create_test_user
 _ = Translation('ucs-test-browser').translate
 
 
-@pytest.fixture()
+@pytest.fixture
 def test_user(lo, udm):
     return create_test_user(udm, lo)
 

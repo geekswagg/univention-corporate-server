@@ -36,7 +36,7 @@ class PluginData:
     plugin_path: Path
 
 
-@pytest.fixture()
+@pytest.fixture
 def plugin_data() -> Generator[PluginData, None, None]:
     p_data = create_diagnostics_plugin()
 
