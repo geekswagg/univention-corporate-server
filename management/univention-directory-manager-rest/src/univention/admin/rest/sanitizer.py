@@ -258,8 +258,8 @@ class PatchRepresentationSanitizer(PatchDocumentSanitizer):
 class DictSanitizer(UMCDictSanitizer):
 
     def __init__(self, sanitizers, allow_other_keys=True, **kwargs):
-        self.default_sanitizer = kwargs.get('default_sanitizer', None)
-        self.key_sanitizer = kwargs.get('key_sanitizer', None)
+        self.default_sanitizer = kwargs.get('default_sanitizer')
+        self.key_sanitizer = kwargs.get('key_sanitizer')
         super().__init__(sanitizers, allow_other_keys=allow_other_keys, **kwargs)
 
     def _sanitize(self, value, name, further_arguments):
