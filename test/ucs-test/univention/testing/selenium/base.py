@@ -216,8 +216,7 @@ class UMCSeleniumTest(ChecksAndWaits, Interactions):
         if os.environ.get('JENKINS_WS'):
             logger.info('Browser Log URL: {}ws/test/selenium/selenium/{}'.format(os.environ['JENKINS_WS'], os.path.basename(filename)))
         with open(filename, 'w') as f:
-            for entry in self.driver.get_log('browser'):
-                f.write(f'{json.dumps(entry)}\n')
+            f.writelines(f'{json.dumps(entry)}\n' for entry in self.driver.get_log('browser'))
 
     def show_notifications(self, show_notifications: bool = True) -> None:
         if show_notifications:

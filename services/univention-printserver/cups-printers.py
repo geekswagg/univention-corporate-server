@@ -397,8 +397,7 @@ def remove_printer_from_samba(printername: str) -> None:
 @listener.SetUID(0)
 def update_samba_printers_conf():
     with open('/etc/samba/printers.conf.temp', 'w') as fp:
-        for f in os.listdir('/etc/samba/printers.conf.d'):
-            fp.write('include = %s\n' % os.path.join('/etc/samba/printers.conf.d', f))
+        fp.writelines('include = %s\n' % os.path.join('/etc/samba/printers.conf.d', f) for f in os.listdir('/etc/samba/printers.conf.d'))
     os.rename('/etc/samba/printers.conf.temp', '/etc/samba/printers.conf')
 
 

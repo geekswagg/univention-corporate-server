@@ -142,8 +142,7 @@ class Update(UniventionAppAction):
         # type: (AppCenterCache, Mapping[str, str]) -> None
         etags_file = os.path.join(cache.get_cache_dir(), '.etags')
         with open(etags_file, 'w') as f:
-            for fname, etag in etags.items():
-                f.write('%s\t%s\n' % (fname, etag))
+            f.writelines('%s\t%s\n' % (fname, etag) for fname, etag in etags.items())
 
     def _download_supra_files(self, appcenter_cache):
         # type: (AppCenterCache) -> bool
