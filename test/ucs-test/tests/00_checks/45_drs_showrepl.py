@@ -6,7 +6,6 @@
 ## packages:
 ## - univention-samba4
 
-import re
 from subprocess import PIPE, Popen
 
 from univention.testing import utils
@@ -31,5 +30,5 @@ if stderr.strip():
     if errors:
         utils.fail('samba-tool drsi showrepl returned on stderr: %s' % '\n'.join(errors))
 
-if re.search('ERR_', stdout):
+if 'ERR_' in stdout:
     utils.fail('samba-tool drsi showrepl returned a string with ERR_')
