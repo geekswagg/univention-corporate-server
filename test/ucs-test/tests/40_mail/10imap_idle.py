@@ -79,8 +79,6 @@ def main():
                 elif status and os.WEXITSTATUS(status) != 0:
                     print('observer: child failed with %d' % os.WEXITSTATUS(status))
                     utils.fail('imap idle client check failed with %d') % os.WEXITSTATUS(status)
-                else:
-                    pass
 
 
 if __name__ == '__main__':
