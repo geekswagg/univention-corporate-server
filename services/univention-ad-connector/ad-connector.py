@@ -175,9 +175,7 @@ def clean() -> None:
 
 
 def postrun() -> None:
-    global init_mode
-    global group_objects
-    global connector_needs_restart
+    global init_mode, group_objects, connector_needs_restart
     if init_mode:
         listener.setuid(0)
         try:

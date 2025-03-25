@@ -413,8 +413,7 @@ def main() -> None:
     typ = options.typ
     args = options.args
 
-    global lo
-    global position
+    global lo, position
     lo, position = bind()
 
     univention.admin.modules.update()

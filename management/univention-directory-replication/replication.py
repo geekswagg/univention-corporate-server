@@ -194,8 +194,7 @@ connection: ldap.ldapobject | None = None
 
 
 def connect(ldif: bool = False) -> ldap.ldapobject:
-    global connection
-    global reconnect
+    global connection, reconnect
 
     if connection and not reconnect:
         return connection
