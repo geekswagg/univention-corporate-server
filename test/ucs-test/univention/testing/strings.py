@@ -31,12 +31,13 @@
 # /usr/share/common-licenses/AGPL-3; if not, see
 # <https://www.gnu.org/licenses/>.
 
+import string
 from collections.abc import Iterator
 from random import choice, randint
 
 
-STR_NUMERIC = '0123456789'
-STR_ALPHA = 'abcdefghijklmnopqrstuvwxyz'
+STR_NUMERIC = string.digits
+STR_ALPHA = string.ascii_lowercase
 STR_ALPHANUM = STR_ALPHA + STR_NUMERIC
 STR_ALPHANUMDOTDASH = STR_ALPHANUM + '.-'
 

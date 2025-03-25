@@ -42,6 +42,7 @@ import pprint
 import random
 import re
 import sqlite3 as lite
+import string
 import sys
 import traceback
 from types import FunctionType
@@ -78,9 +79,9 @@ def decode_guid(value):
 
 
 password_charsets = [
-    'abcdefghijklmnopqrstuvwxyz',
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-    '0123456789',
+    string.ascii_lowercase,
+    string.ascii_uppercase,
+    string.digits,
     r'^!\$%&/()=?{[]}+~#-_.:,;<>|\\',
 ]
 

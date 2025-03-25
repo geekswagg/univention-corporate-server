@@ -421,7 +421,7 @@ def parseNtlmTypeTwo(msg: bytes) -> None:
 
 
 def createNtlmTypeTwo() -> tuple[str, bytes]:
-    challenge = "".join(random.sample(string.printable + "0123456789", 8)).encode('ASCII')
+    challenge = "".join(random.sample(string.printable + string.digits, 8)).encode('ASCII')
 
     domain = cr.get("windows/domain", "").upper()
     domain = domain.encode('utf-16le')
