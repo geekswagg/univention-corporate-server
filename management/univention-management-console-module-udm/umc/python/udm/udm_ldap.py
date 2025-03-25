@@ -469,7 +469,7 @@ class UDM_Module:
             except (LDAPError, udm_errors.ldapError):
                 self.ldap_connection, _po = get_user_connection(bind=get_bind_function(), write=True, bindhash=get_bind_hash())
             self.ldap_position = udm.uldap.position(self.ldap_connection.base)
-        return self.ldap_connection, udm.uldap.position(base if base else self.ldap_connection.base)
+        return self.ldap_connection, udm.uldap.position(base or self.ldap_connection.base)
 
     def load(self, module=None, template_object=None, force_reload=False):
         """

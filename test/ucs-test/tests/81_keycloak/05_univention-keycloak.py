@@ -401,7 +401,7 @@ def test_oidc_audience_mapper(random_string, keycloak_admin_connection, audience
         "protocolMapper": "oidc-audience-mapper",
         "consentRequired": False,
         "config": {
-            "included.client.audience": audience_to_map if audience_to_map else client_id,
+            "included.client.audience": audience_to_map or client_id,
             "id.token.claim": "true",
             "access.token.claim": "true",
             "userinfo.token.claim": "true",

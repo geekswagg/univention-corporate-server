@@ -106,7 +106,7 @@ class UcsRepoUrl:  # noqa: PLW1641
                 self.scheme = defaults.scheme
                 prefix = ucrv('prefix', defaults.path)
 
-        self.port = int(port if port else 443 if self.scheme == 'https' else 80)
+        self.port = int(port or (443 if self.scheme == 'https' else 80))
         if prefix:
             prefix = prefix.strip('/')
             if prefix:

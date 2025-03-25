@@ -110,14 +110,14 @@ def run(_umc_instance: Instance) -> None:
         if ucs_rejects:
             error_descriptions.append(_('UCS rejected:'))
             for (filename, ucs_dn, s4_dn) in ucs_rejects:
-                s4_dn = s4_dn if s4_dn else _('not found')
+                s4_dn = s4_dn or _('not found')
                 line = _('UCS DN: {ucs}, S4 DN: {s4}, Filename: {fn}')
                 line = line.format(ucs=ucs_dn, s4=s4_dn, fn=filename)
                 error_descriptions.append(line)
         if s4_rejects:
             error_descriptions.append(_('S4 rejected:'))
             for (_s4_id, s4_dn, ucs_dn) in s4_rejects:
-                ucs_dn = ucs_dn if ucs_dn else _('not found')
+                ucs_dn = ucs_dn or _('not found')
                 line = _('S4 DN: {s4}, UCS DN: {ucs}')
                 line = line.format(s4=s4_dn, ucs=ucs_dn)
                 error_descriptions.append(line)

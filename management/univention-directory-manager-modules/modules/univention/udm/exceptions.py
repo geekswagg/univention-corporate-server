@@ -138,7 +138,7 @@ class SearchLimitReached(UdmError):
     def __init__(self, msg=None, dn=None, module_name=None, search_filter=None, sizelimit=None):
         # type: (Optional[str], Optional[str], Optional[str], Optional[str], Optional[int]) -> None
         msg = msg or 'The search_filter {} resulted in more objects than the specified sizelimit of {} allowed.'.format(
-            search_filter if search_filter else "''", sizelimit if sizelimit else "/",
+            search_filter or "''", sizelimit or "/",
         )
         self.search_filter = search_filter
         self.sizelimit = sizelimit

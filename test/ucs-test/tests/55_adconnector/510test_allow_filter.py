@@ -64,7 +64,7 @@ def create_objects_in_ucs(
 
     objects = []
 
-    name = username if username else random_string()
+    name = username or random_string()
     dn, _ = udm.create_user('users/user', username=name)
     objects.append(
         DomObject(
@@ -76,7 +76,7 @@ def create_objects_in_ucs(
             ad_dn=f'cn={name},cn=users,{AD.adldapbase}',
         ),
     )
-    name = groupname if groupname else random_string()
+    name = groupname or random_string()
     dn = udm.create_object('groups/group', name=name)
     objects.append(
         DomObject(
@@ -88,7 +88,7 @@ def create_objects_in_ucs(
             ad_dn=f'cn={name},{AD.adldapbase}',
         ),
     )
-    name = containername if containername else random_string()
+    name = containername or random_string()
     dn = udm.create_object('container/cn', name=name)
     objects.append(
         DomObject(
@@ -100,7 +100,7 @@ def create_objects_in_ucs(
             ad_dn=f'cn={name},{AD.adldapbase}',
         ),
     )
-    name = ouname if ouname else random_string()
+    name = ouname or random_string()
     dn = udm.create_object('container/ou', name=name)
     objects.append(
         DomObject(

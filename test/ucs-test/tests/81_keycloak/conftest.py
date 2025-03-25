@@ -176,7 +176,7 @@ def unverified_user() -> Iterator[UnverfiedUser]:
 
 @pytest.fixture
 def portal_config(ucr_proper: ConfigRegistry) -> SimpleNamespace:
-    portal_fqdn = ucr_proper['umc/saml/sp-server'] if ucr_proper['umc/saml/sp-server'] else f"{ucr_proper['hostname']}.{ucr_proper['domainname']}"
+    portal_fqdn = ucr_proper['umc/saml/sp-server'] or f"{ucr_proper['hostname']}.{ucr_proper['domainname']}"
     config = {
         'url': f'https://{portal_fqdn}/univention/portal',
         'fqdn': portal_fqdn,
@@ -282,7 +282,7 @@ def __portal_login_func(
     keycloak_login(page, keycloak_config, username, password, fails_with=fails_with if not new_password else None, no_login=no_login)
     # check password change
     if new_password:
-        new_password_confirm = new_password_confirm if new_password_confirm else new_password
+        new_password_confirm = new_password_confirm or new_password
         keycloak_password_change(page, keycloak_config, username, password, new_password, new_password_confirm, fails_with=fails_with)
     if protocol == 'oidc':
         grant_oidc_privileges(page)

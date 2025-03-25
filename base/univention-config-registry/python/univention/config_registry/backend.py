@@ -191,7 +191,7 @@ class ReadOnlyConfigRegistry(_M, BooleanConfigRegistry):
         self._registry: dict[int, _ConfigRegistry] = {}
         for reg in self.LAYER_PRIORITIES:
             if reg == self.CUSTOM:
-                self._registry[reg] = _ConfigRegistry(custom if custom else os.devnull)
+                self._registry[reg] = _ConfigRegistry(custom or os.devnull)
             else:
                 self._registry[reg] = _ConfigRegistry(os.devnull if custom else os.path.join(self.PREFIX, self.BASES[reg]))
 

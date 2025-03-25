@@ -274,8 +274,8 @@ class Session:
             ioloop.remove_timeout(self._timeout_id)
 
     def timed_out(self, now=None, session_end_time=None):
-        now = now if now else monotonic()
-        session_end_time = session_end_time if session_end_time else self.session_end_time
+        now = now or monotonic()
+        session_end_time = session_end_time or self.session_end_time
         return session_end_time < now
 
     @property
