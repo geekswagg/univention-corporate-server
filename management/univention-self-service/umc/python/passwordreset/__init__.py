@@ -615,7 +615,7 @@ class Instance(Base):
                     'message': _('The username is already taken'),
                 }
         invalid = {k: v for (k, v) in res.items() if not (all(v['isValid']) if isinstance(v['isValid'], list) else v['isValid'])}
-        if len(invalid):
+        if invalid:
             return {
                 'success': False,
                 'failType': 'INVALID_ATTRIBUTES',

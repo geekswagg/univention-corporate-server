@@ -94,8 +94,8 @@ def _get_mail(mails, idx=-1):
     body = mail.get_payload(decode=True).decode('utf-8')
     verification_links = [line for line in body.split() if line.startswith('https://')]
 
-    auto_verify_link = verification_links[0] if len(verification_links) else ''
-    verify_link = verification_links[1] if len(verification_links) else ''
+    auto_verify_link = verification_links[0] if verification_links else ''
+    verify_link = verification_links[1] if verification_links else ''
     verify_fragment = urlparse(auto_verify_link).fragment
     verify_params = parse_qs(verify_fragment)
     return {

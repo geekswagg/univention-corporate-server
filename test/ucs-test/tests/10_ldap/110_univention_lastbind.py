@@ -109,7 +109,7 @@ def bind_for_timestamp(dn, host=None):
         args.insert(1, '-H')
     out = subprocess.check_output(args).decode('UTF-8', 'replace')
     timestamp = [line.split()[1] for line in out.splitlines() if 'authTimestamp' in line]
-    timestamp = timestamp[0] if len(timestamp) else None
+    timestamp = timestamp[0] if timestamp else None
     return timestamp
 
 
