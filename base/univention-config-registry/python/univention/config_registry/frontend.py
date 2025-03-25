@@ -267,11 +267,11 @@ def _ucr_from_opts(opts: dict[str, Any]) -> ConfigRegistry:
     :param opts: Command line options.
     :returns: A new UCR instance.
     """
-    if opts.get('ldap-policy', False):
+    if opts.get('ldap-policy'):
         scope = ConfigRegistry.LDAP
-    elif opts.get('force', False):
+    elif opts.get('force'):
         scope = ConfigRegistry.FORCED
-    elif opts.get('schedule', False):
+    elif opts.get('schedule'):
         scope = ConfigRegistry.SCHEDULE
     else:
         scope = ConfigRegistry.NORMAL
@@ -407,13 +407,13 @@ def handler_search(args: list[str], opts: dict[str, Any] = {}) -> Iterator[str]:
     ucr.load()
 
     details = _SHOW_EMPTY | _SHOW_DESCRIPTION
-    if opts.get('non-empty', False):
+    if opts.get('non-empty'):
         details &= ~_SHOW_EMPTY
-    if opts.get('brief', False) or ucr.is_true('ucr/output/brief', False):
+    if opts.get('brief') or ucr.is_true('ucr/output/brief', False):
         details &= ~_SHOW_DESCRIPTION
     if ucr.is_true('ucr/output/scope', False):
         details |= _SHOW_SCOPE
-    if opts.get('verbose', False):
+    if opts.get('verbose'):
         details |= _SHOW_CATEGORIES | _SHOW_DESCRIPTION
 
     all_vars: dict[str, tuple[str | None, cri.Variable | None, int | None]] = {}  # key: (value, vinfo, scope)
