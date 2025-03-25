@@ -138,7 +138,7 @@ _handler_syslog = None
 _do_flush = False
 _enable_function = False
 _enable_syslog = False
-_logger_level = {key: DEFAULT for key in _map_id_old2new.values()}  # noqa: RUF025
+_logger_level = {key: DEFAULT for key in _map_id_old2new.values()}  # noqa: C420
 
 
 def init(logfile, force_flush=0, enable_function=0, enable_syslog=0):
