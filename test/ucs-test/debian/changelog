@@ -1,3 +1,12 @@
+ucs-test (12.0.249-8) unstable; urgency=medium
+
+  * Issue univention/ucs#2338: convert
+      83_self_service/07_test_frontend_links.py
+      83_self_service/08_service_specific_passwords.py
+    to playwright
+
+ -- Felix Botner <botner@univention.de>  Tue, 25 Mar 2025 18:26:01 +0100
+
 ucs-test (12.0.249-7) unstable; urgency=low
 
   * Issue univention/ucs#2733: add 01_base/72interfaces_additional_route

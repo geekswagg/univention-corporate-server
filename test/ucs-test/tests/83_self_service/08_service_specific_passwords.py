@@ -1,4 +1,4 @@
-#!/usr/share/ucs-test/runner python3
+#!/usr/share/ucs-test/runner /usr/share/ucs-test/playwright
 ## desc: Tests the service specific password creation for radius
 ## tags: [apptest]
 ## roles: [domaincontroller_master]
@@ -7,15 +7,12 @@
 ##   - univention-self-service
 ##   - univention-radius
 
-import importlib
-import os
 import subprocess
-import sys
 import time
 
 import passlib.hash
 import pytest
-from selenium.webdriver.common.by import By
+from playwright.sync_api import expect
 
 import univention.admin.uldap
 from univention.config_registry import handler_set as hs
@@ -23,12 +20,21 @@ from univention.testing import utils
 from univention.testing.ucr import UCSTestConfigRegistry
 
 
-test_lib = os.environ.get('UCS_TEST_LIB', 'univention.testing.apptest')
-try:
-    test_lib = importlib.import_module(test_lib)
-except ImportError:
-    print(f'Could not import {test_lib}. Maybe set $UCS_TEST_LIB')
-    sys.exit(1)
+@pytest.fixture(scope='session')
+def browser_context_args(browser_context_args):
+    expect.set_options(timeout=30 * 1000)
+    return {**browser_context_args, 'ignore_https_errors': True, 'locale': 'en-US'}
+
+
+@pytest.fixture(scope='session')
+def browser_type_launch_args(browser_type_launch_args):
+    return {
+        **browser_type_launch_args,
+        'executable_path': '/usr/bin/chromium',
+        'args': [
+            '--disable-gpu',
+        ],
+    }
 
 
 @pytest.fixture(scope="module", autouse=True)
@@ -52,47 +58,51 @@ def radius_auth(username, password):
     ])
 
 
-def get_new_ssp(chrome, user):
-    chrome.get('/')
-    chrome.get('/univention/portal/#/selfservice/servicespecificpasswords')
-    chrome.enter_input('username', user.properties['username'])
-    chrome.enter_input('password', 'univention')
-    chrome.enter_return()
+def get_new_ssp(page, username, ucr):
+    page.goto(f'http://{ucr["hostname"]}.{ucr["domainname"]}/univention/portal/#/selfservice/servicespecificpasswords')
+    page.reload()
+    page.get_by_label("Username", exact=True).fill(username)
+    page.get_by_label("Password", exact=True).fill("univention")
+    page.get_by_role("button", name="Next").click()
+    page.get_by_role("button", name="Generate WLAN password").click()
     time.sleep(10)
-    print(chrome.driver.page_source)
-    chrome.driver.find_elements(By.CSS_SELECTOR, ".button--primary")[0].click()
+    print(page.content())
+    password = page.locator(".service-specific-passwords__hint").inner_text().split('\n')
+    print(password)
+    return password[1]
+
+
+def test_service_specific_password(page, ucr, udm):
+    lo = univention.admin.uldap.access(
+        host=ucr.get('ldap/master'),
+        port=ucr.get('ldap/server/port'),
+        base=ucr.get('ldap/base'),
+        binddn=ucr.get('tests/domainadmin/account'),
+        bindpw=ucr.get('tests/domainadmin/pwd'),
+        start_tls=2,
+        follow_referral=True,
+    )
+    # needs to be restarted to be current wrt umc/self-service/service-specific-passwords/backend/enabled=true
+    subprocess.call(['service', 'univention-management-console-server', 'restart'])
     time.sleep(10)
-    elem = chrome.driver.find_elements(By.CSS_SELECTOR, ".service-specific-passwords__hint")[0]
-    return elem.text.splitlines()[1]
 
+    dn, username = udm.create_user(password='univention', username='service-specific-password', networkAccess='1')
+    password = get_new_ssp(page, username, ucr)
+    utils.wait_for_replication()
 
-def test_service_specific_password(chrome, ucr, users):
-    lo = univention.admin.uldap.access(host=ucr.get('ldap/master'), port=ucr.get('ldap/server/port'), base=ucr.get('ldap/base'), binddn=ucr.get('tests/domainadmin/account'), bindpw=ucr.get('tests/domainadmin/pwd'), start_tls=2, follow_referral=True)
-    subprocess.call(['service', 'univention-management-console-server', 'restart'])  # needs to be restarted to be current wrt umc/self-service/service-specific-passwords/backend/enabled=true
-    time.sleep(10)
-    with chrome.capture('test_service_specific_password'):
-        user = users('service-specific-password', {'networkAccess': True})
-        password = get_new_ssp(chrome, user)
-        utils.wait_for_replication()
-        user2 = lo.get(user.dn)
-        ldap_nt = user2.get('univentionRadiusPassword', ['???'])[0]
-        nt = passlib.hash.nthash.hash(password).upper().encode('ascii')
-        assert ldap_nt == nt
-        with pytest.raises(subprocess.CalledProcessError):
-            radius_auth(user.properties['username'], 'univention')
-        radius_auth(user.properties['username'], password)
+    ldap_nt = lo.get(dn).get('univentionRadiusPassword', ['???'])[0]
+    nt = passlib.hash.nthash.hash(password).upper().encode('ascii')
+    assert ldap_nt == nt
+    with pytest.raises(subprocess.CalledProcessError):
+        radius_auth(username, 'univention')
+    radius_auth(username, password)
 
-        # get another ssp and verify that the old password does not work any more
-        new_password = get_new_ssp(chrome, user)
-        utils.wait_for_replication()
-        user2 = lo.get(user.dn)
-        ldap_nt = user2.get('univentionRadiusPassword', ['???'])[0]
-        nt = passlib.hash.nthash.hash(new_password).upper().encode('ascii')
-        assert ldap_nt == nt
-        with pytest.raises(subprocess.CalledProcessError):
-            radius_auth(user.properties['username'], password)
-        radius_auth(user.properties['username'], new_password)
-
-
-if __name__ == '__main__':
-    test_lib.run_test_file(__file__)
+    # get another ssp and verify that the old password does not work any more
+    new_password = get_new_ssp(page, username, ucr)
+    utils.wait_for_replication()
+    ldap_nt = lo.get(dn).get('univentionRadiusPassword', ['???'])[0]
+    nt = passlib.hash.nthash.hash(new_password).upper().encode('ascii')
+    assert ldap_nt == nt
+    with pytest.raises(subprocess.CalledProcessError):
+        radius_auth(username, password)
+    radius_auth(username, new_password)
