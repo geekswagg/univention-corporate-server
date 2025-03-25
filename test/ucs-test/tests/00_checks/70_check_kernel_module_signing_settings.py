@@ -31,8 +31,7 @@ def main():
 
     missing_config_lines = set(MINIMUM_CONFIG)
     with open(config_file) as cfg:
-        for line in cfg:
-            missing_config_lines.discard(line.strip())
+        missing_config_lines.difference_update(line.strip() for line in cfg)
 
     if missing_config_lines:
         msg = "The following lines are missing in {}:\n {}".format(

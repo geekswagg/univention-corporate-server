@@ -37,8 +37,7 @@ class PhaseKernelModules(Executable):
         return modules
 
     def clean_known_modules(self, modules: set[str]) -> None:
-        for module, _option in self.module_option:
-            modules.discard(module)
+        modules.difference_update(module for module, _option in self.module_option)
 
     def scan_required_modules(self) -> set[str]:
         modules = set()
