@@ -6,23 +6,23 @@ exclude: "^packaging/ucslint/testframework/\
          "
 repos:
   - repo: https://git.knut.univention.de/univention/dist/pre-commit-ucr
-    rev: '0.1.0'
+    rev: '0.1.1'
     hooks:
       - id: ucr-flake8
         additional_dependencies: ["flake8==5.0.4"]
       - id: ucr-ruff
-        additional_dependencies: ["ruff==0.3.2"]
+        additional_dependencies: ["ruff==0.11.2"]
       - id: ucr-autopep8
         additional_dependencies: ["autopep8<=2.0.2"]
         stages: [ manual ]
       - id: ucr-ruff-fix
-        additional_dependencies: ["ruff==0.3.2"]
+        additional_dependencies: ["ruff==0.11.2"]
         stages: [ manual ]
       - id: ucr-ruff-format-check
-        additional_dependencies: ["ruff==0.3.2"]
+        additional_dependencies: ["ruff==0.11.2"]
         stages: [ manual ]
       - id: ucr-ruff-format
-        additional_dependencies: ["ruff==0.3.2"]
+        additional_dependencies: ["ruff==0.11.2"]
         stages: [ manual ]
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.5.0
@@ -96,7 +96,7 @@ repos:
         files: ^doc/errata/staging/[^0].*[.]yaml$
         args: ["--schemafile", "https://git.knut.univention.de/univention/dist/repo-ng/-/raw/master/doc/erratum.schema.json?ref_type=heads"]
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 'v0.3.2'
+    rev: 'v0.11.2'
     hooks:
       - id: ruff
         exclude: "^services/univention-ldb-modules/buildtools/\
