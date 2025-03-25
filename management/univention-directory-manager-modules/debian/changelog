@@ -1,3 +1,11 @@
+univention-directory-manager-modules (17.0.32) unstable; urgency=medium
+
+  * Issue univention/ucs#2742: implement new incremental feature for delegated
+    administration, readable/writeable attributes in authorization
+
+ -- Ivan Barbecho Delgado <ivan.delgado@univention.de>  Mon, 31 Mar 2025 13:33:01 +0100
+
+
 univention-directory-manager-modules (17.0.31) unstable; urgency=medium
 
   * Bug #58119: fix performance problem during computer removal in

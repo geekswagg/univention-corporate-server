@@ -35,6 +35,7 @@
 import copy
 import json
 import os
+import re
 
 from univention.management.console.config import ucr
 from univention.management.console.error import Forbidden
@@ -149,7 +150,7 @@ def _check_condition(position: str, condition: dict) -> bool:
     raise NotImplementedError(f"Scope {scope} not implemented")
 
 
-def _check_permissions(obj: object, caps: list[dict], action: str) -> bool:
+def _check_permissions(obj: object | str, caps: list[dict], action: str) -> bool:
     position = _obj2position(obj)
     module_name = _obj2module(obj)
     caps.sort(key=_get_cap_priority(position))
@@ -160,27 +161,34 @@ def _check_permissions(obj: object, caps: list[dict], action: str) -> bool:
     return False
 
 
-def _get_attrs_from_permissions(module_name: str, permissions: dict) -> (list[str], list[str]):
+def _get_attrs_from_permissions(module_name: str, permissions: dict) -> (list[str], list[str], list[str]):
     """Retrieves writable and explicitly readable attributes for a given module from permissions."""
     attributes = permissions.get(module_name, {}).get('attributes', []) or permissions.get('*', {}).get('attributes', [])
     readable_attributes = [attr for attr in attributes if attributes[attr] == 'read']
     writable_attributes = [attr for attr in attributes if attributes[attr] == 'write']
-    return writable_attributes, readable_attributes
+    none_attributes = [attr for attr in attributes if attributes[attr] == 'none']
+    return writable_attributes, readable_attributes, none_attributes
 
 
 def _get_readable_attrs_from_permissions(module_name: str, permissions: dict) -> (list[str], list[str]):
     """Retrieves readable attributes for a given module from permissions."""
-    writable_attrs, readable_attrs = _get_attrs_from_permissions(module_name, permissions)
-    return writable_attrs + readable_attrs
+    writable_attrs, readable_attrs, none_attrs = _get_attrs_from_permissions(module_name, permissions)
+    return writable_attrs + readable_attrs, none_attrs
+
+
+def _get_writable_attrs_from_permissions(module_name: str, permissions: dict) -> (list[str], list[str]):
+    """Retrieves readable attributes for a given module from permissions."""
+    writable_attrs, readable_attrs, none_attrs = _get_attrs_from_permissions(module_name, permissions)
+    return writable_attrs, readable_attrs + none_attrs
 
 
 def _check_permissions_delete(obj: object, caps: list[dict]) -> bool:
     return _check_permissions(obj, caps, "delete")
 
 
-def _check_permissions_modify(obj: object | dict | str, caps: list[dict]) -> bool:
+def _check_permissions_modify(obj: object, caps: list[dict]) -> bool:
     """
-    currently only checks if one attribuet is writable
+    currently only checks if one attribute is writable
     in the future we need to get the list of modified attributes
     and check if they are all writable
     """
@@ -189,12 +197,16 @@ def _check_permissions_modify(obj: object | dict | str, caps: list[dict]) -> boo
     caps.sort(key=_get_cap_priority(position))
     for cap in caps:
         if _check_condition(position, cap['condition']):
-            writable_attrs, readable_attrs = _get_attrs_from_permissions(module_name, cap['permissions'])
+            writable_attrs, not_writabple_attrs = _get_writable_attrs_from_permissions(module_name, cap['permissions'])
             if writable_attrs:
-                if "*" in writable_attrs and readable_attrs:
-                    # TODO: check that modified attributes are not in the list of readable attributes
+                modified_attrs = obj.diff()
+                if "*" in writable_attrs:
+                    if not_writabple_attrs:
+                        if any(attr in not_writabple_attrs for attr, _, _ in modified_attrs):
+                            return False
                     return True
-                return True
+                else:
+                    return not any(attr not in writable_attrs for attr, _, _ in modified_attrs)
     return False
 
 
@@ -216,21 +228,30 @@ def _check_permissions_read(objs: list[object | dict | str], caps: list[dict]) -
         caps.sort(key=_get_cap_priority(position))
         for cap in caps:
             if _check_condition(position, cap['condition']):
-                readable_attrs = _get_readable_attrs_from_permissions(module_name, cap['permissions'])
+                readable_attrs, not_readable_attrs = _get_readable_attrs_from_permissions(module_name, cap['permissions'])
 
                 if readable_attrs:
-                    attrs_readable[(position, module_name)] = readable_attrs
+                    attrs_readable[(position, module_name)] = readable_attrs, not_readable_attrs
                     break
 
     for (position, module_name), _objs in objs_processed.items():
         if (position, module_name) in attrs_readable:
-            # TODO: remove unreadable attributes from objects
+            if not isinstance(_objs[0], dict | str):
+                readable_attrs, not_readable_attrs = attrs_readable[(position, module_name)]
+                for obj in _objs:
+                    if "*" not in readable_attrs:
+                        obj.info = {attr_name: obj.info[attr_name] for attr_name in readable_attrs if attr_name in obj.info}
+                    else:
+                        for attr_name in not_readable_attrs:
+                            if attr_name in obj.info:
+                                del obj.info[attr_name]
+                        obj.info = {attr_name: obj.info[attr_name] for attr_name in obj.info}
             readables.extend(_objs)
 
     return readables
 
 
-def _check_permissions_create(obj: object, caps: list[dict]) -> bool:
+def _check_permissions_create(obj: object | str, caps: list[dict]) -> bool:
     return _check_permissions(obj, caps, "create")
 
 
@@ -259,15 +280,32 @@ def user_may_create(obj: object | dict | str, actor_roles_func: callable) -> Non
         raise Forbidden()
 
 
-def user_may_read(objs: list[object | dict | str], actor_roles_func: callable) -> list[object | dict | str]:
+def user_may_read(objs: list[object | dict | str] | object, actor_roles_func: callable, filter_options: dict | None = None) -> list[object | dict | str] | object:
     if not _check_authorization():
         return objs
+    result = objs
+    if not isinstance(objs, list):
+        result = [objs]
     actor_roles = actor_roles_func()
     cap = _get_capabilities(actor_roles)
-    return _check_permissions_read(objs, cap)
+    result = _check_permissions_read(result, cap)
+    if not isinstance(objs, list):
+        if not result:
+            raise Forbidden()
+        return result[0]
+    if filter_options:
+        attribute = filter_options.get('attribute')
+        value = filter_options.get('value')
+        default_attributes = filter_options.get('default_attributes', [])
+        if result and not isinstance(result[0], str) and attribute not in [None, 'None']:
+            result = [obj for obj in result if attribute in obj.info]
+        elif result and not isinstance(result[0], str) and value and value != '*':
+            re_value = re.compile(value.replace('*', '.*'))
+            result = [obj for obj in result if any(attr in obj.info and re_value.match(obj.info[attr]) for attr in default_attributes)]
+    return result
 
 
-def user_may_modify(obj: list[object | dict | str], actor_roles_func: callable) -> None:
+def user_may_modify(obj: object, actor_roles_func: callable) -> None:
     if not _check_authorization():
         return
     actor_roles = actor_roles_func()
@@ -276,7 +314,7 @@ def user_may_modify(obj: list[object | dict | str], actor_roles_func: callable) 
         raise Forbidden()
 
 
-def user_may_delete(obj: list[object | dict | str], actor_roles_func: callable) -> None:
+def user_may_delete(obj: object, actor_roles_func: callable) -> None:
     if not _check_authorization():
         return
     actor_roles = actor_roles_func()
@@ -286,5 +324,14 @@ def user_may_delete(obj: list[object | dict | str], actor_roles_func: callable) 
 
 
 # TODO: check if we need something special for move/rename
-# def user_may_move(obj: list[object | dict | str], actor_roles_func: callable) -> None:
-#    return
+def user_may_move(obj: object, dest: str, actor_roles_func: callable) -> None:
+    if not _check_authorization():
+        return
+    # user_may_modify(obj, actor_roles_func)  # optional
+    actor_roles = actor_roles_func()
+    cap = _get_capabilities(actor_roles)
+    if not _check_permissions_delete(obj, cap):
+        raise Forbidden()
+    if not _check_permissions_create(dest, cap):
+        raise Forbidden()
+    return

@@ -15,6 +15,20 @@ sys.modules["univention.admin.uexceptions"] = MagicMock()
 sys.modules["univention.management.console.config"] = MagicMock()
 sys.modules["univention.management.console.error"] = MagicMock()
 sys.modules["univention.management.console.log"] = MagicMock()
+sys.modules["unidecode"] = MagicMock()
+sys.modules["univention.admin.localization"] = MagicMock()
+sys.modules["univention.config_registry"] = MagicMock()
+sys.modules["univention.logging"] = MagicMock()
+sys.modules["univention.admin._ucr"] = MagicMock()
+sys.modules["ldap"] = MagicMock()
+sys.modules["ldap.filter"] = MagicMock()
+# hook, mapping, modules, objects, syntax
+sys.modules["univention.admin.hook"] = MagicMock()
+sys.modules["univention.admin.mapping"] = MagicMock()
+sys.modules["univention.admin.modules"] = MagicMock()
+sys.modules["univention.admin.objects"] = MagicMock()
+sys.modules["univention.admin.syntax"] = MagicMock()
+sys.modules["univention.admin.handlers"] = MagicMock()
 
 
 def parentDn(dn):
@@ -30,7 +44,7 @@ try:
         _check_authorization, _check_condition, _check_permission_action, _check_permissions, _check_permissions_create,
         _check_permissions_delete, _check_permissions_modify, _check_permissions_read, _check_scope_base,
         _check_scope_subtree, _get_attrs_from_permissions, _get_cap_priority, _get_capabilities,
-        _get_readable_attrs_from_permissions, _obj2dn, _obj2module, _obj2position,
+        _get_readable_attrs_from_permissions, _get_writable_attrs_from_permissions, _obj2dn, _obj2module, _obj2position,
     )
 except ImportError:
     raise
@@ -43,8 +57,22 @@ def mock_fun(return_value):
 
 
 def get_default_roles():
-    with open('umc-udm-roles.json') as roles:
+    roles_json = os.path.join(os.path.dirname(os.path.dirname(__file__)), "umc-udm-roles.json")
+    with open(roles_json) as roles:
         return json.load(roles)
+
+
+def mock_obj(obj_dict: dict):
+    obj = SimpleNamespace(**obj_dict)
+    if "id" in obj_dict:
+        obj.dn = obj_dict["id"]
+    if "module_name" in obj_dict:
+        obj.module = obj_dict["module_name"]
+    if "position" in obj_dict:
+        obj.position = MagicMock()
+        obj.position.getDn.return_value = obj_dict["position"]
+    obj.diff = lambda: obj_dict.get("diff", [])
+    return obj
 
 
 class TestUDMPermission:
@@ -166,24 +194,42 @@ class TestUDMPermission:
         assert _check_condition(position, condition) == expected
 
     @pytest.mark.parametrize("module_name, permissions, expected", [
-        ("users/user", {"users/user": {"attributes": {"username": "read", "email": "write"}}}, (['email'], ['username'])),
-        ("groups/group", {"users/user": {"attributes": {"username": "read", "email": "write"}}}, ([], [])),
-        ("users/user", {"*": {"attributes": {"username": "read", "email": "write"}}}, (['email'], ['username'])),
-        ("users/user", {"users/user": {"attributes": {"*": "read"}}}, ([], ["*"])),
-        ("groups/group", {"users/user": {"attributes": {"*": "read"}}}, ([], [])),
+        ("users/user", {"users/user": {"attributes": {"username": "read", "email": "write"}}}, (['email'], ['username'], [])),
+        ("groups/group", {"users/user": {"attributes": {"username": "read", "email": "write"}}}, ([], [], [])),
+        ("users/user", {"*": {"attributes": {"username": "read", "email": "write"}}}, (['email'], ['username'], [])),
+        ("users/user", {"users/user": {"attributes": {"*": "read"}}}, ([], ["*"], [])),
+        ("groups/group", {"users/user": {"attributes": {"*": "read"}}}, ([], [], [])),
     ])
     def test_get_attrs_from_permissions(self, module_name, permissions, expected):
         assert _get_attrs_from_permissions(module_name, permissions) == expected
 
     @pytest.mark.parametrize("module_name, permissions, expected", [
-        ("users/user", {"users/user": {"attributes": {"username": "read", "email": "write"}}}, ["username", "email"]),
-        ("groups/group", {"users/user": {"attributes": {"username": "read", "email": "write"}}}, []),
-        ("users/user", {"*": {"attributes": {"username": "read", "email": "write"}}}, ["username", "email"]),
-        ("users/user", {"users/user": {"attributes": {"*": "read"}}}, ["*"]),
-        ("groups/group", {"users/user": {"attributes": {"*": "read"}}}, []),
+        ("users/user", {"users/user": {"attributes": {"username": "read", "email": "write"}}}, (["username", "email"], [])),
+        ("groups/group", {"users/user": {"attributes": {"username": "read", "email": "write"}}}, ([], [])),
+        ("users/user", {"*": {"attributes": {"username": "read", "email": "write"}}}, (["username", "email"], [])),
+        ("users/user", {"users/user": {"attributes": {"*": "read"}}}, (["*"], [])),
+        ("groups/group", {"users/user": {"attributes": {"*": "read"}}}, ([], [])),
+        ("users/user", {"users/user": {"attributes": {"username": "read", "email": "write", "description": "none"}}}, (["username", "email"], ["description"])),
     ])
     def test_get_readable_attrs_from_permissions(self, module_name, permissions, expected):
-        assert set(_get_readable_attrs_from_permissions(module_name, permissions)) == set(expected)
+        readable, non_readable = _get_readable_attrs_from_permissions(module_name, permissions)
+        readable_expected, non_readable_expected = expected
+        assert set(readable) == set(readable_expected)
+        assert set(non_readable) == set(non_readable_expected)
+
+    @pytest.mark.parametrize("module_name, permissions, expected", [
+        ("users/user", {"users/user": {"attributes": {"username": "read", "email": "write"}}}, (["email"], ["username"])),
+        ("groups/group", {"users/user": {"attributes": {"username": "read", "email": "write"}}}, ([], [])),
+        ("users/user", {"*": {"attributes": {"username": "read", "email": "write"}}}, (["email"], ["username"])),
+        ("users/user", {"users/user": {"attributes": {"*": "write"}}}, (["*"], [])),
+        ("groups/group", {"users/user": {"attributes": {"*": "write"}}}, ([], [])),
+        ("users/user", {"users/user": {"attributes": {"username": "read", "email": "write", "description": "none"}}}, (["email"], ["description", "username"])),
+    ])
+    def test_get_writable_attrs_from_permissions(self, module_name, permissions, expected):
+        writable, non_writable = _get_writable_attrs_from_permissions(module_name, permissions)
+        writable_expected, non_writable_expected = expected
+        assert set(writable) == set(writable_expected)
+        assert set(non_writable) == set(non_writable_expected)
 
     @pytest.mark.parametrize("obj, cap, action, expected", [
         ({"id": "cn=test,dc=example,dc=com", "module_name": "users/user"}, [{"condition": {"position": "*"}, "permissions": {"users/user": {"create": True}}}], "create", True),
@@ -257,7 +303,7 @@ class TestUDMPermission:
     ])
     def test_check_permissions_modify(self, module_name, expected):
         caps = [{"condition": {"position": "*"}, "permissions": {"users/user": {"attributes": {"*": "write"}}}}]
-        obj = {"id": "cn=test,dc=example,dc=com", "module_name": module_name}
+        obj = mock_obj({"id": "cn=test,dc=example,dc=com", "module_name": module_name, "diff": [("description", None, "new_description")]})
         assert _check_permissions_modify(obj, caps) == expected
 
     @pytest.mark.parametrize("module_name, expected", [
@@ -286,14 +332,42 @@ class TestUDMPermission:
         with patch("univention.admin.authorization._check_authorization", return_value=True):
             assert auth.user_may_read(objs, get_user_roles) == [objs[0]]
 
-    @pytest.mark.parametrize("module_name, expected", [
-        ("users/user", True),
-        ("groups/group", False),
+    @pytest.mark.parametrize("info, attribute, value, objs_name, expected", [
+        ({"username": "test", "description": "test"}, "description", "*test*", ["user1", "user2", "user3"], []),
+        ({"username": "test", "description": "test"}, "username", "*test*", ["user1"], ["user1"]),
+        ({"username": "test", "description": "test"}, None, "*test*", ["user1", "user2", "user3"], ["user1"]),
+    ])
+    def test_user_may_read_with_filter(self, info, attribute, value, objs_name, expected):
+        default_search_attrs = ["username", "description", "lastname"]
+        get_user_roles = mock_fun({"test_role": []})
+        with patch("univention.admin.authorization._check_authorization", return_value=True):
+            with patch("univention.admin.authorization.ROLES", {"test_role": [{"condition": {"position": "*"}, "permissions": {"*": {"attributes": {"*": "write", "description": "none"}}}}]}):
+                user1 = mock_obj({"id": "cn=user1,dc=example,dc=com", "module_name": "users/user", "info": info})
+                user2 = mock_obj({"id": "cn=user2,dc=example,dc=com", "module_name": "users/user", "info": {"username": "user2-ou2", "description": "test"}})
+                user3 = mock_obj({"id": "cn=user3,dc=example,dc=com", "module_name": "users/user", "info": {"username": "user3-ou2", "description": "test"}})
+                objs = []
+                if "user1" in objs_name:
+                    objs.append(user1)
+                if "user2" in objs_name:
+                    objs.append(user2)
+                if "user3" in objs_name:
+                    objs.append(user3)
+                result = auth.user_may_read(objs, get_user_roles, filter_options={'attribute': attribute, 'value': value, 'default_attributes': default_search_attrs})
+                result_dn = [u.dn for u in result]
+                assert set(result_dn) == {f"cn={u_e},dc=example,dc=com" for u_e in expected}
+                # for u_e in expected:
+                #     if f"cn={u_e},dc=example,dc=com" not in [u.dn for u in result]:
+                #         assert False
+
+    @pytest.mark.parametrize("module_name, diff, expected", [
+        ("users/user", [("username", None, "new_username")], True),
+        ("users/user", [("description", None, "new_description")], False),
+        ("groups/group", [("description", None, "new_description")], False),
     ])
     @patch("univention.admin.authorization.ROLES", {"test_role": [{"condition": {"position": "*"}, "permissions": {"users/user": {"attributes": {"username": "write", "lastname": "read"}}}}]})
-    def test_user_may_modify(self, module_name, expected):
+    def test_user_may_modify(self, module_name, diff, expected):
         get_user_roles = mock_fun({"test_role": []})
-        obj = {"id": "cn=test,dc=example,dc=com", "module_name": module_name}
+        obj = mock_obj({"id": "cn=test,dc=example,dc=com", "module_name": module_name, "diff": diff})
         with patch("univention.admin.authorization._check_authorization", return_value=False):
             assert auth.user_may_modify(obj, get_user_roles) is None
         with patch("univention.admin.authorization._check_authorization", return_value=True):
@@ -320,22 +394,40 @@ class TestUDMPermission:
                 with pytest.raises(TypeError):
                     assert auth.user_may_delete(obj, get_user_roles) is None
 
+    @pytest.mark.parametrize("obj, dest, role, expected", [
+        ({'dn': 'uid=user,ou=ou1,dc=example,dc=com', 'module': 'users/user'}, 'uid=user,cn=users,ou=ou1,dc=example,dc=com', "test_role", True),
+        ({'dn': 'uid=user,ou=ou1,dc=example,dc=com', 'module': 'users/user'}, 'uid=user,cn=users,ou=ou1,dc=example,dc=com', "test_role2", False),
+    ])
+    @patch("univention.admin.authorization.ROLES", {"test_role": [{"condition": {"position": "*"}, "permissions": {"*": {"create": True, "delete": True}}}],
+                                                    "test_role2": [{"condition": {"position": "ou=ou1,dc=example,dc=com"}, "permissions": {"*": {"create": True, "delete": True}}}]})
+    def test_user_may_move(self, obj, dest, role, expected):
+        obj = mock_obj(obj)
+        get_user_roles = mock_fun({role: []})
+        with patch("univention.admin.authorization._check_authorization", return_value=False):
+            assert auth.user_may_move(obj, dest, get_user_roles) is None
+        with patch("univention.admin.authorization._check_authorization", return_value=True):
+            if expected:
+                assert auth.user_may_move(obj, dest, get_user_roles) is None
+            else:
+                with pytest.raises(TypeError):
+                    assert auth.user_may_move(obj, dest, get_user_roles) is None
+
     @patch("univention.admin.authorization.ldap_base", "dc=test")
     @patch("univention.admin.authorization.ROLES", get_default_roles())
     def test_check_permissions_modify_default_roles(self):
         caps = _get_capabilities({'domainadmin': []})
         assert caps
-        assert _check_permissions_modify({'position': 'ou=hans', 'module_name': 'users/user'}, caps)
-        assert _check_permissions_modify({'position': 'ou=hans', 'module_name': 'users/user'}, caps)
-        assert _check_permissions_modify({'position': 'xyz', 'module_name': 'users/user'}, caps)
-        assert _check_permissions_modify({'position': 'dc=bla', 'module_name': 'whatever'}, caps)
+        assert _check_permissions_modify(mock_obj({'position': 'ou=hans', 'module_name': 'users/user', 'diff': []}), caps)
+        assert _check_permissions_modify(mock_obj({'position': 'ou=hans', 'module_name': 'users/user', 'diff': []}), caps)
+        assert _check_permissions_modify(mock_obj({'position': 'xyz', 'module_name': 'users/user', 'diff': []}), caps)
+        assert _check_permissions_modify(mock_obj({'position': 'dc=bla', 'module_name': 'whatever', 'diff': []}), caps)
         caps = _get_capabilities({'ouadmin': ['ou=ou1', 'ou=ou2']})
-        assert _check_permissions_modify({'position': 'ou=ou1,dc=test', 'module_name': 'users/user'}, caps)
-        assert not _check_permissions_modify({'position': 'xyz', 'module_name': 'users/user'}, caps)
-        assert _check_permissions_modify({'position': 'ou=ou2,dc=test', 'module_name': 'users/user'}, caps)
-        assert not _check_permissions_modify({'position': 'ou=ou3,dc=test', 'module_name': 'users/user'}, caps)
-        assert _check_permissions_modify({'position': 'ou=ou2,dc=test', 'module_name': 'whatever'}, caps)
-        assert not _check_permissions_modify({'position': 'ou=aada', 'module_name': 'whatever'}, caps)
+        assert _check_permissions_modify(mock_obj({'position': 'ou=ou1,dc=test', 'module_name': 'users/user', 'diff': []}), caps)
+        assert not _check_permissions_modify(mock_obj({'position': 'xyz', 'module_name': 'users/user', 'diff': []}), caps)
+        assert _check_permissions_modify(mock_obj({'position': 'ou=ou2,dc=test', 'module_name': 'users/user', 'diff': []}), caps)
+        assert not _check_permissions_modify(mock_obj({'position': 'ou=ou3,dc=test', 'module_name': 'users/user', 'diff': []}), caps)
+        assert _check_permissions_modify(mock_obj({'position': 'ou=ou2,dc=test', 'module_name': 'whatever', 'diff': []}), caps)
+        assert not _check_permissions_modify(mock_obj({'position': 'ou=aada', 'module_name': 'whatever', 'diff': []}), caps)
 
     @patch("univention.admin.authorization.ldap_base", "dc=test")
     @patch("univention.admin.authorization.ROLES", get_default_roles())

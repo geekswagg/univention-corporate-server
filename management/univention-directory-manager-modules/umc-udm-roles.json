@@ -26,7 +26,7 @@
           "attributes": {
             "*": "write",
             "guardianMemberRoles": "read",
-            "guardianRole": "read"
+            "guardianRoles": "read"
           },
           "create": true,
           "delete": true
@@ -54,6 +54,29 @@
       "permissions": {
         "mail/domain": {
           "create": true
+        }
+      }
+    },
+    {
+      "condition": {
+        "position": "*",
+        "scope": "base"
+      },
+      "permissions": {
+        "policies/desktop": {
+          "attributes": {
+            "*": "read"
+          }
+        },
+        "policies/pwhistory": {
+          "attributes": {
+            "*": "read"
+          }
+        },
+        "policies/umc": {
+          "attributes": {
+            "*": "read"
+          }
         }
       }
     }
