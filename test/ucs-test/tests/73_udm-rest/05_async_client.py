@@ -19,7 +19,7 @@ from univention.testing import strings as uts
 from univention.testing.utils import verify_ldap_object
 
 
-@pytest.mark.asyncio()
+@pytest.mark.asyncio
 async def test_create_modify_move_remove(random_string, ucr):
     uri = 'http://localhost/univention/udm/'
     username = ucr.get('tests/domainadmin/username', 'Administrator')
@@ -100,7 +100,7 @@ async def test_create_modify_move_remove(random_string, ucr):
         verify_ldap_object(obj.dn, should_exist=False)
 
 
-@pytest.mark.asyncio()
+@pytest.mark.asyncio
 async def test_json_patch(random_string, ucr):
     uri = 'http://localhost/univention/udm/'
     pwd = ucr.get('tests/domainadmin/pwd', 'univention')
@@ -139,7 +139,7 @@ async def test_json_patch(random_string, ucr):
         }, retry_count=1)
 
 
-@pytest.mark.asyncio()
+@pytest.mark.asyncio
 async def test_various_api_methods(random_string, ucr):
     uri = 'http://localhost/univention/udm/'
     dn = ucr.get('tests/domainadmin/account', 'Administrator')
@@ -200,7 +200,7 @@ async def test_various_api_methods(random_string, ucr):
             await mod.get_by_entry_uuid('6d925222-6706-48c5-bf33-86ef00610b3f')
 
 
-@pytest.mark.asyncio()
+@pytest.mark.asyncio
 async def test_service_unavailable(ucr):
     uri = 'http://localhost/univention/udm/'
     pwd = ucr.get('tests/domainadmin/pwd', 'univention')

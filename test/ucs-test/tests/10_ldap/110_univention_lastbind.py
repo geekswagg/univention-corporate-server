@@ -122,7 +122,7 @@ def bind_for_timestamp(dn, host=None):
 #         assert 'Could not create a writable connection to UDM on this server. Try to provide "binddn" and "bindpwdfile"' in str(excinfo.value)
 
 
-@pytest.mark.slow()
+@pytest.mark.slow
 def test_save_timestamp(udm, readudm, binddn, bindpwdfile, capsys):
     dn, _ = udm.create_user()
     o = readudm.obj_by_dn(dn)
@@ -145,7 +145,7 @@ def test_save_timestamp(udm, readudm, binddn, bindpwdfile, capsys):
     assert o.props.lastbind == timestamp
 
 
-@pytest.mark.slow()
+@pytest.mark.slow
 def test_main_single_server(activate_lastbind, binddn, bindpwdfile, udm, readudm):
     o = readudm.obj_by_dn(udm.create_user()[0])
     assert o.props.lastbind is None
@@ -158,7 +158,7 @@ def test_main_single_server(activate_lastbind, binddn, bindpwdfile, udm, readudm
 
 
 @pytest.mark.skipif(not is_multi_domain(), reason="Test only in multi domain")
-@pytest.mark.slow()
+@pytest.mark.slow
 def test_main_multi_server(activate_lastbind, binddn, bindpwdfile, udm, readudm, other_server):
     assert other_server is not None
     o = readudm.obj_by_dn(udm.create_user()[0])
@@ -185,7 +185,7 @@ def test_main_not_enough_arguments():
     assert 'Provide either --user USER or --allusers.' in str(excinfo.value)
 
 
-@pytest.mark.slow()
+@pytest.mark.slow
 def test_server_down(ucr, udm, readudm, capsys):
     mod = readudm.get('computers/%s' % (ucr.get('server/role'),))
     comp = mod.get_by_id(ucr.get('hostname'))

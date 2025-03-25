@@ -37,7 +37,7 @@ import sys
 import pytest
 
 
-@pytest.mark.xfail()
+@pytest.mark.xfail
 @pytest.mark.parametrize('nonblocking', [True, False])
 def test_locking(locking, nonblocking):
     lock = locking.get_lock('foo', nonblocking)

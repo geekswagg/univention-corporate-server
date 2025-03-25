@@ -32,7 +32,7 @@ def image(data):
     return 'docker.software-univention.de/ucs-appbox-amd64:' + max(data['tags'])
 
 
-@pytest.mark.skip()
+@pytest.mark.skip
 @pytest.mark.exposure('dangerous')
 def test_app_umc_install_setup(appcenter, data, image):  # get latest app box image
     # installation should fail if setup fails
@@ -62,7 +62,7 @@ exit 1
         app.remove()
 
 
-@pytest.mark.skip()
+@pytest.mark.skip
 @pytest.mark.exposure('dangerous')
 def test_app_umc_install(appcenter, data, image):
     # installation should succeed if setup is fine
@@ -83,7 +83,7 @@ exit 0
         app.remove()
 
 
-@pytest.mark.skip()
+@pytest.mark.skip
 @pytest.mark.exposure('dangerous')
 def test_app_umc_install_latest_appbox(appcenter, data, image):
     # test appbox app installation

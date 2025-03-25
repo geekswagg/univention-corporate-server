@@ -95,7 +95,7 @@ class TestPortalEntriesHandlerHttpCache:
         })
         return tornado.web.Application(routes)
 
-    @pytest.mark.gen_test()
+    @pytest.mark.gen_test
     def test_get_portals_json_http_backed_cache(self, http_client, base_url, portal_mock):
         response = yield http_client.fetch(f"{base_url}/_/portal.json")
         assert response.code == 200
@@ -111,7 +111,7 @@ class TestPortalEntriesHandlerNoHttpCache:
         })
         return tornado.web.Application(routes)
 
-    @pytest.mark.gen_test()
+    @pytest.mark.gen_test
     def test_get_portals_json_standard(self, http_client, base_url, portal_mock):
         response = yield http_client.fetch(f"{base_url}/_/portal.json")
         assert response.code == 200

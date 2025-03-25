@@ -412,30 +412,30 @@ class TestConfigHandlers:
         assert h2._subfiles == handlers._subfiles
         assert h2._multifiles == handlers._multifiles
 
-    @pytest.mark.skip()
+    @pytest.mark.skip
     def test_update(self, handlers):
         pass
 
-    @pytest.mark.skip()
+    @pytest.mark.skip
     def test_update_divert(self, handlers):
         pass
 
-    @pytest.mark.skip()
+    @pytest.mark.skip
     def test_register(self, handlers):
         pass
 
-    @pytest.mark.skip()
+    @pytest.mark.skip
     def test_unregister(self, handlers):
         pass
 
-    @pytest.mark.skip()
+    @pytest.mark.skip
     def test_call(self, handlers):
         pass
 
-    @pytest.mark.skip()
+    @pytest.mark.skip
     def test_commit(self, handlers):
         pass
 
-    @pytest.mark.skip()
+    @pytest.mark.skip
     def test_call_handler(self, handlers):
         pass

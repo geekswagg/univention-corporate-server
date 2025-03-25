@@ -413,7 +413,7 @@ def _test_federated_user(keycloak_admin_connection: KeycloakAdmin, ucr: ConfigRe
     assert kc_user['lastName'] == 'Example'
 
 
-@pytest.mark.skip()
+@pytest.mark.skip
 @pytest.mark.skipif(not os.path.isfile('/etc/keycloak.secret'), reason='fails on hosts without keycloak.secret')
 def test_adhoc_federation(keycloak_admin_connection: KeycloakAdmin, ucr: ConfigRegistry, context, keycloak_config: SimpleNamespace, portal_config: SimpleNamespace):
     realm = 'dummy'
