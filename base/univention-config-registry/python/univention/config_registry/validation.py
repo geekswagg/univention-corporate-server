@@ -341,9 +341,9 @@ class Cron(BaseValidator):
     """Validator for |UCR| type "cron"."""
 
     NAME = "cron"
-    PREDEFINED = frozenset("@annually @yearly @monthly @weekly @daily @hourly @reboot".split())
-    MONTHS = frozenset("jan feb mar apr may jun jul aug sep oct nov dec".split())
-    DAYS = frozenset("sun mon tue wed thu fri sat".split())
+    PREDEFINED = frozenset(["@annually", "@yearly", "@monthly", "@weekly", "@daily", "@hourly", "@reboot"])
+    MONTHS = frozenset(["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"])
+    DAYS = frozenset(["sun", "mon", "tue", "wed", "thu", "fri", "sat"])
 
     def validate(self, value):
         # type: (str) -> object

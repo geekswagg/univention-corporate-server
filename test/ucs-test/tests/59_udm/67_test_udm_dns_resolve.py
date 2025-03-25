@@ -95,7 +95,7 @@ class Test_DNSResolve:
         assert answer == zoneName, f'IPv4: resolved name "{answer}" != created ldap-object "{zoneName}"'
 
         # IPv6
-        ipv6 = '2011:06f8:13dc:0002:19b7:d592:09dd:1041'.split(':')  # create uts.random_ipV6()?
+        ipv6 = ['2011', '06f8', '13dc', '0002', '19b7', 'd592', '09dd', '1041']  # create uts.random_ipV6()?
         subnet = ipv6[:7]
         reverse_zone_properties.update({
             'subnet': ':'.join(subnet),
@@ -287,7 +287,7 @@ class Test_DNSResolve:
         assert answer == [ptr_record], f'resolved name "{answer}" != created ldap-object "{[ptr_record]}"'
 
         # IPv6
-        ipv6 = '2011:06f8:13dc:0002:19b7:d592:09dd:1041'.split(':')  # create uts.random_ipV6()?
+        ipv6 = ['2011', '06f8', '13dc', '0002', '19b7', 'd592', '09dd', '1041']  # create uts.random_ipV6()?
         subnet = ipv6[:7]
         reverse_zone_properties.update({
             'subnet': ':'.join(subnet),

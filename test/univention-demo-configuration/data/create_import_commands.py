@@ -44,7 +44,7 @@ DOMAIN = '$domainname'
 
 IMPORTFILE = '%s/data.csv' % CWD
 IMPORTIMAGEDIR = '%s/images' % CWD
-FIELDS = (
+FIELDS = (  # noqa: SIM905
     "dn uid firstname lastname displayName gender birthplace birthday age imageref "  # 0-9
     "mail office organisation department employeeType degree manager managerDN "  # 10-17
     "ip18 num19 ip20 num21 home22 phone roomNumber num25 str26 uid27 employeeNumber computerType"  # 18-30
