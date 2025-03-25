@@ -3190,7 +3190,7 @@ class dnsHostname(dnsName):
         text = super().parse(text)
         if self.NUMERIC.match(text):
             raise univention.admin.uexceptions.valueError(_("Full name must not be all numeric!"))
-        labels = (text[:-1] if text.endswith('.') else text).split('.')
+        labels = (text.removesuffix('.')).split('.')
         if not all(self.LABEL.match(label) for label in labels):
             raise univention.admin.uexceptions.valueError(_(
                 "A hostname or any part of a FQDN, separated by dots, starts and ends with a letter or a digit. "

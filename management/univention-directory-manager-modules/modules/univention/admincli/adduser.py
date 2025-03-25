@@ -134,8 +134,7 @@ def doit(arglist):
     if len(args) == 1:
         if scope == 'machine':
             machine = args[0]
-            if machine.endswith('$'):
-                machine = machine[:-1]
+            machine = machine.removesuffix('$')
             if configRegistry.get('samba/defaultcontainer/computer'):
                 position.setDn(configRegistry['samba/defaultcontainer/computer'])
             else:

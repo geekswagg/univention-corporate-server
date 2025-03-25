@@ -81,8 +81,7 @@ class App:
         self.ucs_version = ucs_version
         self.meta_inf_dir = meta_inf_dir
         self.components_dir = components_dir
-        if server.endswith('/'):
-            server = server[:-1]
+        server = server.removesuffix('/')
         self.server = server
 
     def get_metainf_url(self):

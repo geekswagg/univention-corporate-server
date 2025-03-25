@@ -288,8 +288,7 @@ class App:
         self.container_id = self.ucr.get('appcenter/apps/%s/container' % self.app_name)
 
     def file(self, fname):
-        if fname.startswith('/'):
-            fname = fname[1:]
+        fname = fname.removeprefix('/')
         dirname = subprocess.check_output(['docker', 'inspect', '--format={{.GraphDriver.Data.MergedDir}}', self.container_id], text=True).strip()
         return os.path.join(dirname, fname)
 

@@ -345,8 +345,7 @@ class Docker:
     def path(self, filename=''):
         if self.container is None:
             return
-        if filename.startswith('/'):
-            filename = filename[1:]
+        filename = filename.removeprefix('/')
         return os.path.join(self.root_dir, filename)
 
     def ucr_filter_env_file(self, env):

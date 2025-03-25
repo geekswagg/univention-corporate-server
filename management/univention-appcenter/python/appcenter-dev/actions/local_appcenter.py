@@ -191,8 +191,7 @@ class AppcenterApp:
             # since UCS 4.1, each app has a separate subdirectory
             self.app_dir = self.id
         self.components_dir = components_dir
-        if server.endswith('/'):
-            server = server[:-1]
+        server = server.removesuffix('/')
         self.server = server
         self.config = ConfigParser()
         self.config.read([self.get_ini_file(), self.get_meta_file()])

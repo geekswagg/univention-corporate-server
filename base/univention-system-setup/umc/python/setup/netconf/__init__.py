@@ -143,8 +143,7 @@ class Phase:  # noqa: PLW1641
 
     def __str__(self) -> str:
         name = self.__class__.__name__
-        if name.startswith("Phase"):
-            name = name[len("Phase"):]
+        name = name.removeprefix("Phase")
         return name
 
     @classmethod
