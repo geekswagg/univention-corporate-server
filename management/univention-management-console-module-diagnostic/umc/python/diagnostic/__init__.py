@@ -87,7 +87,7 @@ class Instance(Base, ProgressMixin):
     PLUGIN_DIR = os.path.dirname(plugins.__file__)
 
     def init(self) -> None:
-        self.modules: dict[str, "Plugin"] = {}
+        self.modules: dict[str, Plugin] = {}
         self.load()
 
     @sanitize(
