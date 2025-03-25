@@ -57,7 +57,9 @@ import univention.admin.modules as udm_modules
 import univention.admin.objects as udm_objects
 import univention.admin.syntax as udm_syntax
 import univention.admin.uexceptions as udm_errors
-from univention.admin.authorization import user_may_create, user_may_delete, user_may_modify, user_may_read
+from univention.admin.authorization import (
+    user_may_create, user_may_delete, user_may_modify, user_may_move, user_may_read,
+)
 from univention.management.console import Translation
 from univention.management.console.config import ucr
 from univention.management.console.error import UMC_Error
@@ -101,11 +103,6 @@ def get_bind_function():
     return __bind_function
 
 
-def set_bind_user(user_dn):
-    global __bind_user_dn
-    __bind_user_dn = user_dn
-
-
 def set_user_roles(user_dn: str) -> None:
     global __user_roles
     # FIXME: This is a workaround to get the roles of the user
@@ -129,10 +126,6 @@ def set_user_roles(user_dn: str) -> None:
                 if res["context_name"]:
                     __user_roles[res["role_name"]].append(res["context_name"])
     MODULE.info('Setting user roles to %s' % __user_roles)
-
-
-def get_bind_user():
-    return __bind_user_dn
 
 
 def get_user_roles():
@@ -640,7 +633,7 @@ class UDM_Module:
             rdn = udm.uldap.explodeDn(ldap_dn)[0]
             dest = '%s,%s' % (rdn, container)
             MODULE.info('Moving LDAP object %s to %s' % (ldap_dn, dest))
-            user_may_modify(obj, get_user_roles)
+            user_may_move(obj, dest, get_user_roles)
             obj.move(dest)
             return dest
         except udm_errors.base as e:
@@ -761,14 +754,15 @@ class UDM_Module:
                     raise ObjectDoesNotExist(container)
             UDM_Error(e).reraise()
 
+        if result:
+            result = user_may_read(result, get_user_roles, filter_options={'filter': filter, 'attribute': attribute, 'value': value, 'allow_asterisks': allow_asterisks, 'default_attributes': self.default_search_attrs})
+            if result and isinstance(result[0], dict):
+                result = [x['id'] for x in result]
+
         # call the garbage collector manually as many parallel request may cause the
         # process to use too much memory
         MODULE.info('Triggering garbage collection')
         gc.collect()
-        if result:
-            result = user_may_read(result, get_user_roles)
-            if result and isinstance(result[0], dict):
-                result = [x['id'] for x in result]
         return result
 
     def get(self, ldap_dn=None, superordinate=None, attributes=[]):
@@ -790,6 +784,7 @@ class UDM_Module:
             if isinstance(exc, udm_errors.noObject) and superordinate and not ldap_connection.get(superordinate.dn):
                 raise SuperordinateDoesNotExist(superordinate)
             UDM_Error(exc).reraise()
+        obj = user_may_read(obj, get_user_roles)
         return obj
 
     def get_property(self, property_name):
