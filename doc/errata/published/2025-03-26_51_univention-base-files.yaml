@@ -14,3 +14,6 @@ desc: |
    interfaces. The package dependencies have been adjusted accordingly so
    that this package is now automatically installed again.
 bug: [58061]
+erratum: 51
+announced: 2025-03-26
+support: core
