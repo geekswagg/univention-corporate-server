@@ -1435,13 +1435,22 @@ def read_syntax_choices(syn, options=None, ldap_connection=None, ldap_position=N
                         'icon': 'udm-%s' % module.name.replace('/', '-'),
                     })
                 choices.append(choice)
+            choices = user_may_read(choices, get_user_roles)
         else:
             choices = syn.get_choices(ldap_connection, options)
-            if len(syn.udm_modules) == 1:
+            # TODO: how to filter syntax choices for delegative administration?
+            if hasattr(syn, 'udm_module'):
+                module_name = syn.udm_module
+            elif hasattr(syn, 'udm_modules') and len(syn.udm_modules) == 1:
                 module_name = syn.udm_modules[0]
             else:
-                raise ValueError('Syntax %r: More than one UDM module' % syn.udm_modules)
-            choices = [{'id': x[0], 'label': x[1], "module_name": module_name} for x in choices]
+                module_name = None
+                MODULE.info('Can not filter choices for delegative administration, because syntax for multiple udm modules: %r' % syn)
+            if module_name:
+                choices = [{'id': x[0], 'label': x[1], 'module_name': module_name} for x in choices]
+                choices = user_may_read(choices, get_user_roles)
+            else:
+                choices = [{'id': x[0], 'label': x[1]} for x in choices]
     except udm_errors.ldapTimeout:
         raise SearchTimeoutError()
     except udm_errors.ldapSizelimitExceeded:
@@ -1454,7 +1463,6 @@ def read_syntax_choices(syn, options=None, ldap_connection=None, ldap_position=N
             if container and not ldap_connection.get(container):
                 raise ObjectDoesNotExist(container)
         UDM_Error(e).reraise()
-    choices = user_may_read(choices, get_user_roles)
     return choices
 
 
