@@ -44,6 +44,7 @@ fi
 VERSION="52"  # we don't put 51 here because the upgrade should look like upgrading to UCS 5.2
 VERSION_NAME="5.2"
 MIN_VERSION="5.0-7"
+MIN_VERSION_SYSTEM="5.2-1-39"
 
 # shellcheck disable=SC2034
 updateLogDir="/var/univention-backup/update-to-${UPDATE_NEXT_VERSION:-$VERSION_NAME}"
@@ -125,7 +126,7 @@ update_check_slapd_on_member () {
 update_check_ldap_schema () {
 	[ -x /usr/sbin/slapschema ] ||
 		return 0
-	/usr/sbin/slapschema -f /etc/ldap/slapd.conf 1>&2 &&
+	/usr/sbin/slapschema -f /etc/ldap/slapd.conf -c 1>&2 &&
 		return 0
 
 	echo "	There is a problem with the LDAP schema on this system."
