@@ -182,7 +182,7 @@ class ModuleServer:
             except Exception as exc:
                 error = _('Failed to load module %(module)s: %(error)s\n%(traceback)s') % {'module': modname, 'error': exc, 'traceback': traceback.format_exc()}
                 # TODO: systemctl reload univention-management-console-server
-                MODULE.error(error)
+                MODULE.error('%s', error)
                 if isinstance(exc, ImportError) and str(exc).startswith('No module named %s' % (modname,)):
                     error = '\n'.join((
                         _('The requested module %r does not exist.') % (modname,),

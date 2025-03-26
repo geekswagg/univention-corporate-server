@@ -1,4 +1,11 @@
-univention-management-console (14.0.46-1) unstable; urgency=medium
+univention-management-console (14.0.47) unstable; urgency=medium
+
+  * Bug #46057: logging of stack traces is now done with ERROR facility and
+    the format has been corrected
+
+ -- Florian Best <best@univention.de>  Fri, 28 Mar 2025 08:00:56 +0100
+
+univention-management-console (14.0.46) unstable; urgency=medium
 
   [ Florian Best ]
   * Bug #58114: enhance log message when retrieving OIDC access token

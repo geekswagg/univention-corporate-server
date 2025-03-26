@@ -386,7 +386,7 @@ class Base(Translation):
             if isinstance(error['command'], bytes):  # Python 2
                 error['command'] = error['command'].decode('utf-8', 'replace')
             message = self._('Internal server error during "%(command)s".') % error
-        MODULE.process(str(message))
+        MODULE.error('%s: %s', message, error['traceback'])
         self.finished(request.id, result, message, status=status, headers=headers, error=error, reason=reason)
 
     def default_response_headers(self):
