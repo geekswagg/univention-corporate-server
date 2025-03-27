@@ -193,6 +193,18 @@ jenkins_updates () {
 
 	eval "$(ucr shell '^version/(version|patchlevel|erratalevel)$')"
 	echo "Finished at ${version_version}-${version_patchlevel}+${version_erratalevel}"
+
+	if [ -e /etc/apt/sources.list.d/99_extra_scope.list.disabled ]; then
+		# We update to the gitlab repo here and not with the updater.
+		# Why: If the package has the same version in the gitlab and ucs repo
+		#      we get a nasty endless loop because apt-get thinks the package
+		#      installed is the version from the ucs repo and always wants
+		#      to downgrade to the gitlab repo version.
+		mv /etc/apt/sources.list.d/99_extra_scope.list.disabled /etc/apt/sources.list.d/99_extra_scope.list
+		apt-get update -qq
+		eval "$(ucr shell update/commands/distupgrade)"
+		$update_commands_distupgrade
+	fi
 	return $rc
 }
 
@@ -1565,9 +1577,9 @@ add_extra_apt_scope () {
 		echo "deb [trusted=yes] http://192.168.0.10/build2/ ucs_$(ucr get version/version)-0-$SCOPE/all/"
 		echo "deb [trusted=yes] http://192.168.0.10/build2/ ucs_$(ucr get version/version)-0-$SCOPE/\$(ARCH)/"
 		;;
-	esac >/etc/apt/sources.list.d/99_extra_scope.list
-	# do not ignore errors, fail if repo is not available
-	apt-get update -qq
+	esac >/etc/apt/sources.list.d/99_extra_scope.list.disabled
+	# create sources list, but disabled, you are supposed to call "jenkins_update" in your cfg to do the
+	# actual upgrade see "jenkins_update" why
 }
 
 create_version_file_tmp_ucsver () {
