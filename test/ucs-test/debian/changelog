@@ -1,3 +1,9 @@
+ucs-test (12.0.249-10) unstable; urgency=medium
+
+  * Bug #58120: Improve robustness of test
+
+ -- Arvid Requate <requate@univention.de>  Thu, 27 Mar 2025 11:04:50 +0100
+
 ucs-test (12.0.249-9) unstable; urgency=medium
 
   * Bug #58120: Add test for slapschema
