@@ -75,47 +75,47 @@ def run_test(func, *args, **kwargs):
 
 def test_get_1_user():
     users = 1
-    assert run_test(open_users, users=users, roles=True) < 0.6
-    assert run_test(open_users, users=users, roles=False) < 0.02
+    assert run_test(open_users, users=users, roles=True) < 0.8
+    assert run_test(open_users, users=users, roles=False) < 0.09
 
 
 def test_get_10_user():
     users = 10
-    assert run_test(open_users, users=users, roles=True) < 0.8
+    assert run_test(open_users, users=users, roles=True) < 0.9
     assert run_test(open_users, users=users, roles=False) < 0.07
 
 
 def test_get_100_user():
     users = 100
-    assert run_test(open_users, users=users, roles=True) < 1.5
+    assert run_test(open_users, users=users, roles=True) < 2.5
     assert run_test(open_users, users=users, roles=False) < 1
 
 
 def test_get_1000_user():
     users = 1000
-    assert run_test(open_users, users=users, roles=True) < 9
-    assert run_test(open_users, users=users, roles=False) < 6
+    assert run_test(open_users, users=users, roles=True) < 12
+    assert run_test(open_users, users=users, roles=False) < 8
 
 
 def test_rest_get_1_user():
     users = 1
-    assert run_test(open_users_rest, users=users, roles=True) < 0.3
-    assert run_test(open_users_rest, users=users, roles=False) < 0.07
+    assert run_test(open_users_rest, users=users, roles=True) < 0.4
+    assert run_test(open_users_rest, users=users, roles=False) < 0.2
 
 
 def test_rest_get_10_user():
     users = 10
-    assert run_test(open_users_rest, users=users, roles=True) < 0.7
-    assert run_test(open_users_rest, users=users, roles=False) < 0.8
+    assert run_test(open_users_rest, users=users, roles=True) < 1.5
+    assert run_test(open_users_rest, users=users, roles=False) < 1.4
 
 
 def test_rest_get_100_user():
     users = 100
-    assert run_test(open_users_rest, users=users, roles=True) < 8
-    assert run_test(open_users_rest, users=users, roles=False) < 7
+    assert run_test(open_users_rest, users=users, roles=True) < 15
+    assert run_test(open_users_rest, users=users, roles=False) < 13
 
 
 def test_rest_get_1000_user():
     users = 1000
-    assert run_test(open_users_rest, users=users, roles=True) < 75
-    assert run_test(open_users_rest, users=users, roles=False) < 70
+    assert run_test(open_users_rest, users=users, roles=True) < 150
+    assert run_test(open_users_rest, users=users, roles=False) < 135

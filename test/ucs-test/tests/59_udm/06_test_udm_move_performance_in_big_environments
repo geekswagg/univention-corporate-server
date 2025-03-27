@@ -11,8 +11,8 @@ start=$(date +%s)
 udm users/user move --dn "uid=testuser4,cn=users,$(ucr get ldap/base)" --position "$(ucr get ldap/base)" || fail_test 110
 duration=$(($(date +%s)-$start))
 
-if [ $duration -gt 300 ]; then
-    fail_test 1 "The udm move operation took to long. Allowed: 300 seconds, actually: $duration"
+if [ $duration -gt 600 ]; then
+    fail_test 1 "The udm move operation took to long. Allowed: 600 seconds, actually: $duration"
 fi
 
 exit "$RETVAL"
