@@ -144,7 +144,7 @@ if [ "$server_role" = "domaincontroller_master" -o "$server_role" = "domaincontr
 	if [ -e /etc/univention/ssl ]; then
 		res=`find /etc/univention/ssl/ -group root`
 		if [ -n "$res" ]; then
-			find /etc/univention/ssl/ -group root | xargs chown root."DC Backup Hosts"
+			find /etc/univention/ssl/ -group root | xargs chown root:"DC Backup Hosts"
 		fi
 	fi
 fi

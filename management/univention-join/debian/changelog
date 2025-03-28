@@ -1,8 +1,12 @@
-univention-join (14.0.7-1) UNRELEASED; urgency=medium
+univention-join (14.0.7) unstable; urgency=medium
 
+  [ Florian Best ]
+  * Bug #58033: make use of chown future proof
+
+  [ Christian Castens ]
   * Bug #58015 UCS 5.2-1 version bump
 
- -- Christian Castens <castens@univention.de>  Mon, 03 Mar 2025 10:45:34 +0100
+ -- Florian Best <best@univention.de>  Fri, 28 Mar 2025 16:51:49 +0100
 
 univention-join (14.0.6-1) unstable; urgency=medium
 

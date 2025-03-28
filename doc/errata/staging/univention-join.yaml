@@ -1,0 +1,11 @@
+product: ucs
+release: "5.2"
+version: [1]
+scope: ucs_5.2-0-errata5.2-1
+src: univention-join
+fix: 14.0.7
+desc: |
+ This update addresses the following issues:
+ * The usage of "chown" has been made future proof to prevent a misleading
+   error message in the join logfile.
+bug: [58033]
