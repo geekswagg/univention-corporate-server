@@ -1,8 +1,14 @@
-univention-self-service (7.0.7-1) UNRELEASED; urgency=medium
+univention-self-service (7.1.0) unstable; urgency=medium
 
+  [ Florian Best ]
+  * Bug #57397: add "c" to allowed list of LDAP attributes to be changed in
+    default profile view
+
+  [ Christian Castens ]
   * Bug #58015 UCS 5.2-1 version bump
 
- -- Christian Castens <castens@univention.de>  Mon, 03 Mar 2025 10:45:33 +0100
+
+ -- Florian Best <best@univention.de>  Fri, 28 Mar 2025 16:31:44 +0100
 
 univention-self-service (7.0.6) unstable; urgency=medium
 

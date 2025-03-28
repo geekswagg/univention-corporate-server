@@ -1,0 +1,13 @@
+product: ucs
+release: "5.2"
+version: [1]
+scope: ucs_5.2-0-errata5.2-1
+src: univention-self-service
+fix: 7.1.0
+desc: |
+ This update addresses the following issues:
+ * Users can now edit their country in the self service profile view again.
+   The LDAP attribute "c" has been added to the default list of allowed
+   attributes to be changed in the profile view. Since UCS 5.2 the "Country"
+   property corresponds to the LDAP attribute "c" instead of "st".
+bug: [57397]
