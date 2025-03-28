@@ -29,10 +29,16 @@ policies = udm.get('policies/umc')
 # FIXME not for everybody, just for ouadmins
 r = policies.search('name=default-umc-users')
 policy = next(iter(r))
-allow = f'cn=udm-all,cn=operations,cn=UMC,cn=univention,{ucr["ldap/base"]}'
-if allow not in policy.props.allow:
-    policy.props.allow.append(allow)
-    policy.save()
+ops = [
+    f'cn=udm-groups,cn=operations,cn=UMC,cn=univention,{ucr["ldap/base"]}',
+    f'cn=udm-users,cn=operations,cn=UMC,cn=univention,{ucr["ldap/base"]}',
+    f'cn=udm-syntax,cn=operations,cn=UMC,cn=univention,{ucr["ldap/base"]}',
+]
+
+for op in ops:
+    if op not in policy.props.allow:
+        policy.props.allow.append(op)
+policy.save()
 
 # domainadmins role for Domain Admins group
 r = groups.search('name=Domain Admins')
