@@ -239,7 +239,7 @@ class GenericObject(BaseObject):
         """
         assert self._udm_module is not None
         if self._deleted:
-            logging.getLogger('ADMIN').warning(f'{self} has already been deleted')
+            logging.getLogger('ADMIN').warning('%s has already been deleted', self)
             return
         if not self.dn or not self._orig_udm_object:
             raise NotYetSavedError()
@@ -598,7 +598,7 @@ class GenericModule(BaseModule, metaclass=GenericModuleMeta):
             try:
                 retrieved_obj = self.get(dn)
             except NoObject:
-                logging.getLogger('ADMIN').warning(f'Skipping over search result with DN {dn!r}, that does not exist anymore')
+                logging.getLogger('ADMIN').warning('Skipping over search result with DN %r, that does not exist anymore', dn)
                 continue
             yield retrieved_obj
 
