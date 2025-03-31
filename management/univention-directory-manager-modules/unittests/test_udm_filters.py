@@ -180,8 +180,8 @@ def test_presence_filters(module, property, udm_filter, expected_filter):
     ('users/user', 'organisation', 'organisation=foo', 'o=foo'),
     ('users/user', 'userexpiry', 'userexpiry=foo', '|(shadowExpire=foo)(krb5ValidEnd=foo)(sambaKickoffTime=foo)'),
     ('users/user', 'passwordexpiry', 'passwordexpiry=foo', 'passwordexpiry=foo'),  # FIXME: not mapped
-    ('users/user', 'pwdChangeNextLogin', 'pwdChangeNextLogin=1', 'pwdChangeNextLogin=1'),  # FIXME
-    ('users/user', 'pwdChangeNextLogin', 'pwdChangeNextLogin=0', 'pwdChangeNextLogin=0'),  # FIXME
+    ('users/user', 'pwdChangeNextLogin', 'pwdChangeNextLogin=1', 'pwdChangeNextLogin=1'),  # FIXME:
+    ('users/user', 'pwdChangeNextLogin', 'pwdChangeNextLogin=0', 'pwdChangeNextLogin=0'),  # FIXME:
     ('users/user', 'preferredLanguage', 'preferredLanguage=foo', 'preferredLanguage=foo'),
     ('users/user', 'accountActivationDate', 'accountActivationDate=2006-06-09 02:43 Europe/Berlin', 'krb5ValidStart=20060609004300Z'),
     ('users/user', 'accountActivationDate', 'krb5ValidStart=20060609004300Z', 'krb5ValidStart=20060609004300Z'),
@@ -224,9 +224,9 @@ def test_presence_filters(module, property, udm_filter, expected_filter):
     ('users/user', 'mailPrimaryAddress', 'mailPrimaryAddress=foo', 'mailPrimaryAddress=foo'),
     ('users/user', 'mailAlternativeAddress', 'mailAlternativeAddress=foo', 'mailAlternativeAddress=foo'),
     ('users/user', 'mailForwardAddress', 'mailForwardAddress=foo', 'mailForwardAddress=foo'),
-    ('users/user', 'mailForwardCopyToSelf', 'mailForwardCopyToSelf=1', 'mailForwardCopyToSelf=1'),  # FIXME
-    ('users/user', 'overridePWHistory', 'overridePWHistory=1', 'overridePWHistory=1'),  # FIXME
-    ('users/user', 'overridePWLength', 'overridePWLength=1', 'overridePWLength=1'),  # FIXME
+    ('users/user', 'mailForwardCopyToSelf', 'mailForwardCopyToSelf=1', 'mailForwardCopyToSelf=1'),  # FIXME:
+    ('users/user', 'overridePWHistory', 'overridePWHistory=1', 'overridePWHistory=1'),  # FIXME:
+    ('users/user', 'overridePWLength', 'overridePWLength=1', 'overridePWLength=1'),  # FIXME:
     ('users/user', 'homeShare', 'homeShare=foo', 'homeShare=foo'),
     ('users/user', 'homeSharePath', 'homeSharePath=foo', 'homeSharePath=foo'),
     ('users/user', 'sambaUserWorkstations', 'sambaUserWorkstations=foo', 'sambaUserWorkstations=foo'),

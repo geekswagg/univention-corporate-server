@@ -69,7 +69,7 @@ class File(list):
             for _line in fd:
                 line = self.__parse(_line)
                 if not isinstance(line, Entry) and _line.strip() and not _line.strip().startswith('#'):
-                    raise InvalidEntry('The following is not a valid fstab entry: %r' % (_line,))  # TODO
+                    raise InvalidEntry('The following is not a valid fstab entry: %r' % (_line,))  # TODO:
                 self.append(line)
 
     def find(self, **kargs):

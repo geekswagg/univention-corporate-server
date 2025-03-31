@@ -882,7 +882,7 @@ class simpleLdap:
                     subobject.move(subolddn)
                 raise
 
-        return None  # FIXME
+        return None  # FIXME:
 
     def remove(self, remove_childs: bool = False) -> None:
         """

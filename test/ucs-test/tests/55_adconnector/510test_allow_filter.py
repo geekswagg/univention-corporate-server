@@ -423,7 +423,7 @@ def test_filter_no_longer_matches(sync_mode: str) -> None:
             AD.verify_object(ad_dn, {'name': username})
             udm.modify_object('users/user', dn=udm_dn, description='nosync')
             wait_for_sync()
-            # TODO is this OK?
+            # TODO: is this OK?
             # Problem: the allowed attribute has been removed from the object,
             # this change is not synced to the other side
             AD.verify_object(ad_dn, {'name': username, 'description': 'sync'})
@@ -438,7 +438,7 @@ def test_filter_no_longer_matches(sync_mode: str) -> None:
                 udm.verify_ldap_object(udm_dn)
                 AD.set_attribute(ad_dn, 'description', b'nosync')
                 wait_for_sync()
-                # TODO is this OK?
+                # TODO: is this OK?
                 udm.verify_ldap_object(udm_dn, expected_attr={'description': ['sync']})
             finally:
                 AD.delete(ad_dn)

@@ -326,7 +326,7 @@ class Test_DNSResolve:
         udm.create_object('dns/forward_zone', position=pos, **forward_zone_properties)
         utils.wait_for_replication_and_postrun()
         answers = resolve_dns_entry(zone, 'TXT')
-        # FIXME PMH-2017-01-14: returned TXT data is enclosed in "
+        # FIXME(@pmhahn): 2017-01-14: returned TXT data is enclosed in "
         answer = [rdata.to_text().strip('"') for rdata in answers]
         assert answer == [txt], f'resolved name "{answer}" != created ldap-object "{[txt]}"'
 

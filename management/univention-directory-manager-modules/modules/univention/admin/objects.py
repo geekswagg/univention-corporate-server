@@ -205,7 +205,7 @@ def ocToType(oc):
     for module in univention.admin.modules.modules.values():
         if univention.admin.modules.policyOc(module) == oc:
             return univention.admin.modules.name(module)
-    return None  # FIXME
+    return None  # FIXME:
 
 
 def fixedAttribute(object, key):
@@ -332,7 +332,7 @@ def wantsCleanup(object):
     :param object: parent object.
     :returns: `True´ if a cleanup is requested, `False` otherwise.
     """
-    # TODO make this a method of object
+    # TODO: make this a method of object
     wantsCleanup = False
 
     object_module = module(object)

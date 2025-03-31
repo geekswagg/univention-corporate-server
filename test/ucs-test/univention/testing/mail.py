@@ -62,7 +62,7 @@ class MailSinkGuard:
     def add(self, sink: MailSink) -> None:
         self.mail_sinks.add(sink)
 
-    def __enter__(self) -> MailSinkGuard:  # FIXME Py3.9: Self
+    def __enter__(self) -> MailSinkGuard:  # FIXME: Py3.9: Self
         return self
 
     def __exit__(self, exc_type: type[BaseException] | None, exc_value: BaseException | None, etraceback: TracebackType | None) -> None:
@@ -98,7 +98,7 @@ class MailSink:
         self.process: subprocess.Popen | None = None
         self.fqdn = fqdn
 
-    def __enter__(self) -> MailSink:  # FIXME Py3.9: Self
+    def __enter__(self) -> MailSink:  # FIXME: Py3.9: Self
         self.start()
         return self
 

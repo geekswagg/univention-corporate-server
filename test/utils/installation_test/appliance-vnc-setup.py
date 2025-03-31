@@ -104,7 +104,7 @@ class UCSSetup(VNCInstallation):
         #     self.type('\n')
         #     sleep(60, "net.gateway")
 
-        # FIXME in ad member mode dns sometimes fails (TODO why?)
+        # FIXME: in ad member mode dns sometimes fails (TODO: why?)
         # ignore this for now and just continue
         if self.text_is_visible('continue without access'):
             self.type('\n')
@@ -131,11 +131,11 @@ class UCSSetup(VNCInstallation):
         elif role in {'join', 'slave'}:
             text = 'Join into an existing UCS domain'
         elif role == 'fast':
-            text = 'Fast demo'  # FIXME
+            text = 'Fast demo'  # FIXME:
         elif self.args.ucs:
             text = 'Create a new UCS domain'
         else:
-            text = 'Manage users and permissions'  # FIXME
+            text = 'Manage users and permissions'  # FIXME:
 
         self.click_on(text)
         self.screenshot('domain-setup.png')

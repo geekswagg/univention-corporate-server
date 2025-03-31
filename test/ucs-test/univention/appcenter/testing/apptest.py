@@ -124,7 +124,7 @@ class Session:
         subprocess.check_output(import_cert)
 
     def __enter__(self):  # -> Session # Py3.9: Self
-        yield self  # FIXME?
+        yield self  # FIXME: ?
 
     def __exit__(self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None) -> None:
         self.driver.quit()

@@ -98,7 +98,7 @@ class Instance(Base):
     @simple_response
     @log
     def ldapsearch(self, value):
-        # TODO
+        # TODO:
         return '%r' % (value,)
 
     @sanitize(value=s.ListSanitizer(s.Sanitizer(), required=True))

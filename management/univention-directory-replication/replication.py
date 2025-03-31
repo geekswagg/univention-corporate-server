@@ -679,9 +679,9 @@ def clean() -> Any:
     ud.debug(ud.LISTENER, ud.INFO, 'replication: removing cache')
     # init_slapd('stop')
 
-    # FIXME
+    # FIXME:
     listener.run('/usr/bin/killall', ['killall', '-9', 'slapd'], uid=0)
-    time.sleep(1)  # FIXME
+    time.sleep(1)  # FIXME:
 
     dirname = '/var/lib/univention-ldap/ldap'
     listener.setuid(0)

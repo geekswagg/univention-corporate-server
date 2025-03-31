@@ -1214,7 +1214,7 @@ def revert_ucr_settings():
     # type: () -> None
     ud.debug(ud.MODULE, ud.PROCESS, "Revert UCR settings")
 
-    # TODO something else?
+    # TODO: something else?
     ucr_unset = [
         'ad/member',
         'directory/manager/web/modules/users/user/display',
@@ -1258,7 +1258,7 @@ def revert_connector_settings(ucr=None):
     # type: (Optional[ConfigRegistry]) -> None
     ud.debug(ud.MODULE, ud.PROCESS, "Revert connector settings")
 
-    # TODO something else?
+    # TODO: something else?
     ucr_unset = [
         'connector/ad/ldap/host',
         'connector/ad/ldap/base',
@@ -1371,7 +1371,7 @@ def add_host_record_in_ad(uid=None, binddn=None, bindpw=None, bindpwdfile=None, 
         print('%s A record for %s found' % (fqdn, ip))
         return True
 
-    # create host record  # FIXME; missing quoting
+    # create host record  # FIXME: missing quoting
     fd = tempfile.NamedTemporaryFile('w+', delete=False)
     fd.write('server %s\n' % ad_ip)
     fd.write('update add %s 86400 A %s\n' % (fqdn, ip))
@@ -1572,7 +1572,7 @@ def configure_ad_member(ad_server_ip, username, password):
 
 def configure_backup_as_ad_member():
     # type: () -> None
-    # TODO something else?
+    # TODO: something else?
     set_nameserver_from_ucs_master()
     remove_install_univention_samba()
     prepare_ucr_settings()
@@ -1580,7 +1580,7 @@ def configure_backup_as_ad_member():
 
 def configure_slave_as_ad_member():
     # type: () -> None
-    # TODO something else?
+    # TODO: something else?
     set_nameserver_from_ucs_master()
     remove_install_univention_samba()
     prepare_ucr_settings()
@@ -1588,7 +1588,7 @@ def configure_slave_as_ad_member():
 
 def configure_member_as_ad_member():
     # type: () -> None
-    # TODO something else?
+    # TODO: something else?
     set_nameserver_from_ucs_master()
     remove_install_univention_samba()
     prepare_ucr_settings()
@@ -1601,21 +1601,21 @@ def configure_container_as_ad_member():
 
 def revert_backup_ad_member():
     # type: () -> None
-    # TODO something else?
+    # TODO: something else?
     remove_install_univention_samba(install=False)
     revert_ucr_settings()
 
 
 def revert_slave_ad_member():
     # type: () -> None
-    # TODO something else?
+    # TODO: something else?
     remove_install_univention_samba(install=False)
     revert_ucr_settings()
 
 
 def revert_member_ad_member():
     # type: () -> None
-    # TODO something else?
+    # TODO: something else?
     remove_install_univention_samba(install=False)
     revert_ucr_settings()
 

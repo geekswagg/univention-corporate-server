@@ -12,7 +12,7 @@ from univention.testing.utils import fail
 
 
 def test_download_certificate(ucr):
-    # TODO where to get the sso_fqdn from, ucs/server/sso/fqdn or keycloak/server/sso/fqdn
+    # TODO: where to get the sso_fqdn from, ucs/server/sso/fqdn or keycloak/server/sso/fqdn
     sso_fqdn = f'ucs-sso-ng.{ucr["domainname"]}'
     metadata_url = f'https://{sso_fqdn}/realms/ucs/protocol/saml/descriptor'
     response = requests.get(metadata_url)

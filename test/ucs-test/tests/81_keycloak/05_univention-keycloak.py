@@ -593,7 +593,7 @@ def test_oidc_client_defaults(random_string, keycloak_admin_connection):
         assert not client.get('baseUrl')
         assert client['publicClient'] is False
         assert client['attributes']['backchannel.logout.revoke.offline.tokens'] == 'false'
-        # TODO test more options
+        # TODO: test more options
     finally:
         if keycloak_id:
             keycloak_admin_connection.delete_client(keycloak_id)
@@ -624,7 +624,7 @@ def test_oidc_client_options(random_string, keycloak_admin_connection):
         assert app_url in client['webOrigins']
         assert client['publicClient'] is True
         assert client['attributes']['backchannel.logout.revoke.offline.tokens'] == 'true'
-        # TODO test more options
+        # TODO: test more options
     finally:
         if keycloak_id:
             keycloak_admin_connection.delete_client(keycloak_id)

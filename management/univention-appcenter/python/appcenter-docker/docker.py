@@ -129,9 +129,9 @@ def access(image):
         if exc.getcode() == 401:
             return False
         else:
-            return False  # TODO
+            return False  # TODO:
     except (urllib.error.URLError, ssl.CertificateError, http.client.BadStatusLine):
-        return False  # TODO
+        return False  # TODO:
     else:
         return True
 

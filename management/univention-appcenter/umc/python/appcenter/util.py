@@ -258,7 +258,7 @@ class Changes:
                 value = self._bool_string(name, value)
 
             # Possibly useful: if the value is the empty string -> try to unset this variable.
-            # FIXME Someone please confirm that there are no UCR variables that need
+            # FIXME: Someone please confirm that there are no UCR variables that need
             #        to be set to an empty string!
             if value == '':
                 value = None

@@ -206,7 +206,7 @@ def test_ConfigHandlerMultifile(mocker):
     h.remove_subfile("")
     h.remove_subfile("subfile2")
 
-    return  # TODO
+    return  # TODO:
 
     mocker.patch("univention.config_registry.handler.run_module")
     mocker.patch("univention.config_registry.handler.run_script")
@@ -222,7 +222,7 @@ def test_ConfigHandlerFile(mocker):
     h = ucrh.ConfigHandlerFile("file.from", "file.to")
     assert h.need_divert()
 
-    return  # TODO
+    return  # TODO:
 
     mocker.patch("univention.config_registry.handler.run_module")
     mocker.patch("univention.config_registry.handler.run_script")

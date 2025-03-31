@@ -35,7 +35,7 @@ class UCSInstallation(VNCInstallation):
         self.ucsschool()
         self.finish()
         if self.args.second_interface:
-            # TODO activate 2nd interface for ucs-kvm-create to connect to instance
+            # TODO: activate 2nd interface for ucs-kvm-create to connect to instance
             # this is done via login and setting interfaces/eth0/type, is there a better way?
             self.configure_kvm_network(self.args.second_interface)
 

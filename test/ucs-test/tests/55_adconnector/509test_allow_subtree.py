@@ -168,7 +168,7 @@ def create_objects_in_ucs(udm: UCSTestUDM, tree: SubTree, wait: bool = True) -> 
             udm_module='users/user',
         ),
     )
-    # TODO group
+    # TODO: group
     if wait:
         wait_for_sync()
     return objects
@@ -188,7 +188,7 @@ def create_objects_in_ad(ad: ADConnection, tree: SubTree, wait: bool = True) -> 
             udm_module='users/user',
         ),
     )
-    # TODO group
+    # TODO: group
     if wait:
         wait_for_sync()
     return objects
@@ -392,6 +392,6 @@ def test_ignored_object_is_not_removed(sync_mode: str, ucr) -> None:
         delete_con_user(AD, ad_dn, udm_dn, wait_for_sync)
 
 
-# TODO
+# TODO:
 # def test_only_ucs
 # def test_only_ad

@@ -48,7 +48,7 @@ description = '\n'.join([
 ])
 
 _UPDATED = False
-UdmModule = Any  # FIXME
+UdmModule = Any  # FIXME:
 
 
 def udm_objects_without_type(lo: access) -> list[tuple[str, list[UdmModule], list[bytes]]]:

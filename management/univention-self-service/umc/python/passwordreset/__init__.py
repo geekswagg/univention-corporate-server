@@ -385,7 +385,7 @@ class Instance(Base):
             dict(wd, value=properties.get(wd['id'])) for wd in self._get_user_attributes_descriptions()
             if user.has_property(wd['id'])
         ]
-        # TODO make layout configurable via ucr ?
+        # TODO: make layout configurable via ucr ?
         layout = [wd['id'] for wd in widget_descriptions]
 
         return {
@@ -692,7 +692,7 @@ class Instance(Base):
                 'data': (_('The account could not be created:\n%s\n%s') % (UDM_Error(exc), password_complexity_message)).rstrip(),
             }
         finally:
-            # TODO cleanup
+            # TODO: cleanup
             # reinit user module without template.
             # This has to be done since the modules are singletons?
             univention.admin.modules.update()

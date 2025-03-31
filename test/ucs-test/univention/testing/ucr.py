@@ -112,7 +112,7 @@ class UCSTestConfigRegistry(ConfigRegistry):
         # load new/original values
         self.load()
 
-    def __enter__(self) -> UCSTestConfigRegistry:  # FIXME Py3.9: Self
+    def __enter__(self) -> UCSTestConfigRegistry:  # FIXME: Py3.9: Self
         self.load()
         return self
 

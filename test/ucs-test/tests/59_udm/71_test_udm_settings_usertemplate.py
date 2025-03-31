@@ -197,11 +197,11 @@ def test_use_usertemplate(udm):
         'departmentNumber': [properties['departmentNumber']],
         'street': [properties['street']],
         'l': [properties['city']],
-        # 'userDisabledPreset': [properties['disabled']],  # TODO
-        # 'userPwdMustChangePreset': [properties['pwdChangeNextLogin']],  # TODO
+        # 'userDisabledPreset': [properties['disabled']],  # TODO:
+        # 'userPwdMustChangePreset': [properties['pwdChangeNextLogin']],  # TODO:
         'automountInformation': ['-rw %s:%s/%s/%s' % (host, path, user_properties['username'][0], user_properties['username'])],
-        # 'gidNumber': [properties['primaryGroup']],  # TODO
-        # 'userGroupsPreset': properties['groups'],  # TODO
+        # 'gidNumber': [properties['primaryGroup']],  # TODO:
+        # 'userGroupsPreset': properties['groups'],  # TODO:
         'mailPrimaryAddress': ['%s.%s@%s' % (user_properties['firstname'], user_properties['lastname'], MAIL_DOMAIN)],
         'mailAlternativeAddress': ['%s@%s' % (user_properties['username'], MAIL_DOMAIN), '%s@%s' % (user_properties['lastname'], MAIL_DOMAIN)],
         # 'krb5PrincipalName': [],

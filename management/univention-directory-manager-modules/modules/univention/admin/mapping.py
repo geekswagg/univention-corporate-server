@@ -233,7 +233,7 @@ def IgnoreNone(value, encoding=()):
     """
     if value != 'None':
         return value.encode(*encoding)
-    return None  # FIXME
+    return None  # FIXME:
 
 
 def _stringToInt(value):

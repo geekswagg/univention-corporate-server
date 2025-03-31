@@ -78,7 +78,7 @@ def get_installed_packages() -> tuple[set[str], set[str]]:
             installed_packages.add(package.name)
             # maintained components
             if next((True for i in package.candidate.uris if '/maintained/component/' in i), False):
-                # TODO also test package.candidate.origins
+                # TODO: also test package.candidate.origins
                 #  [<Origin component:'' archive:'' origin:'Univention' label:'Univention' site:'appcenter.software-univention.de' isTrusted:True>,
                 #   <Origin component:'now' archive:'now' origin:'' label:'' site:'' isTrusted:False>]
                 # e.g. site is appcenter.software-univention.de or service.univention.de, or isTrusted is True

@@ -421,7 +421,7 @@ class Instance(Base):
     def __del__(self) -> None:
         self._unlock()
 
-    # TODO __finalize__?
+    # TODO: __finalize__?
 
     @simple_response
     def logview(self) -> list[str]:

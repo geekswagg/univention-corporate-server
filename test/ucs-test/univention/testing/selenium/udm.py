@@ -193,7 +193,7 @@ class Portals(UDMBase):
 
         self.open_add_dialog()
 
-        # FIXME add this to the open_add_dialog() function
+        # FIXME: add this to the open_add_dialog() function
         self.selenium.enter_input_combobox('objectType', 'Portal: Portal')
         self.selenium.wait_until_standby_animation_appears_and_disappears()
         self.selenium.click_button('Next')

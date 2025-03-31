@@ -175,7 +175,7 @@ def test_main_multi_server(activate_lastbind, binddn, bindpwdfile, udm, readudm,
     o.reload()
     assert o.props.lastbind == youngest_timestamp
 
-# TODO test precision
+# TODO: test precision
 
 
 def test_main_not_enough_arguments():

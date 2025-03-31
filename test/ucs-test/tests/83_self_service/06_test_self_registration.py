@@ -224,7 +224,7 @@ def test_usercontainer_ucr_var_not_existing(umc_client, get_registration_info):
 
 
 def test_usertemplate_ucr_var(umc_client, udm, ucr, get_registration_info):
-    # TODO test all fields
+    # TODO: test all fields
     template_dn = udm.create_object('settings/usertemplate', name=uts.random_name(), title="<username>")
     ucr.handler_set(['umc/self-service/account-registration/usertemplate=%s' % (template_dn,)])
     info = get_registration_info()

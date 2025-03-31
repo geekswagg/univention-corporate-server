@@ -96,7 +96,7 @@ class UMCSeleniumTest(ChecksAndWaits, Interactions):
         translator.set_language(self.language)
         logging.basicConfig(level=logging.INFO)
 
-    def __enter__(self) -> UMCSeleniumTest:  # FIXME Py3.9: Self
+    def __enter__(self) -> UMCSeleniumTest:  # FIXME: Py3.9: Self
         self.restart_umc()
         self._ucr.__enter__()
         if self.selenium_grid:
@@ -375,5 +375,5 @@ class UMCSeleniumTest(ChecksAndWaits, Interactions):
 
     # def select_table_item_by_name(self, itemname):
     #     elem = self.driver.find_element(By.XPATH, "//div[contains(text(), %s )]/parent::td" % json.dumps(itemname))
-    #     #TODO if not elem search itemname
+    #     # TODO: if not elem search itemname
     #     elem.click()

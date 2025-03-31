@@ -48,7 +48,7 @@ def open_users_rest(users: int = 100, roles: bool = False) -> None:
     if roles:
         properties = ['*', 'guardianInheritedRoles']
     for s_filter in users:
-        # TODO use get(dn)?
+        # TODO: use get(dn)?
         res = udm_rest_users.search(s_filter, opened=True, properties=properties)
         res = next(iter(res))
         if roles:
@@ -61,7 +61,7 @@ def run_test(func, *args, **kwargs):
     t_total = 0
     reps = 3
     for i in range(reps):
-        # TODO some kind of initialization, makes the first request after open_* faster
+        # TODO: some kind of initialization, makes the first request after open_* faster
         open_users(users=1)
         open_users_rest(users=1)
         univention.admin.guardian_roles.get_group_role.cache_clear()

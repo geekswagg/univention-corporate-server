@@ -86,7 +86,7 @@ class Test_UserCreation:
         """Create users/user with just the person-option set"""
         # bugs: [24351]
 
-        user = udm.create_user(options=['person'])[0]  # FIXME
+        user = udm.create_user(options=['person'])[0]  # FIXME:
         utils.verify_ldap_object(user)
 
     @pytest.mark.tags('apptest')
@@ -692,7 +692,7 @@ def test_udm_users_user_bcrypt_password(restart_slapd_after_test, udm, ucr):
         univention.admin.uldap.access(binddn=dn, bindpw='univention1')
 
         # password history
-        # TODO how can we check univention.admin.uexceptions.pwalreadyused?
+        # TODO: how can we check univention.admin.uexceptions.pwalreadyused?
         with pytest.raises(udm_test.UCSTestUDM_ModifyUDMObjectFailed):
             udm.modify_object(module, dn=dn, password='univention1')
 

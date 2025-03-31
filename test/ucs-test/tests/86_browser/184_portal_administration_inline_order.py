@@ -134,7 +134,7 @@ class UMCTester:
         # Entry_B is in Category_B
         self.selenium.driver.find_element(By.XPATH, expand_path('//h2[text()="%s"]/following-sibling::*//*[@containsClass="tile__name"][text()="%s"]' % (self.cat_b_dname, self.entry_b_dname)))
 
-        # TODO dragging entries across categories does not work in selenium for some reason
+        # TODO: dragging entries across categories does not work in selenium for some reason
         self.selenium.drag_and_drop(
             expand_path('//*[@containsClass="dojoDndItem"]//*[@containsClass="tile__name"][text()="%s"]' % (self.entry_a_1_dname)),
             expand_path('//*[@containsClass="dojoDndItem"]//*[@containsClass="tile__name"][text()="%s"]' % (self.entry_a_2_dname)),

@@ -119,7 +119,7 @@ class UcsRepoUrl:  # noqa: PLW1641
     @property
     def cred(self) -> str:
         if self.username:
-            # FIXME http://bugs.debian.org/500560: [@:/] don't work
+            # FIXME: http://bugs.debian.org/500560: [@:/] don't work
             return '%s:%s@' % (quote(self.username), quote(self.password or ''))
         return ''
 
