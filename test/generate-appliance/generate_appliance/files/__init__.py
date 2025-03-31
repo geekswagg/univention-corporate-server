@@ -4,7 +4,7 @@
 # Like what you see? Join us!
 # https://www.univention.com/about-us/careers/vacancies/
 
-from abc import ABCMeta
+from abc import ABCMeta, abstractmethod
 from collections.abc import Callable
 from functools import wraps
 from hashlib import sha256
@@ -53,9 +53,11 @@ class Lazy(metaclass=ABCMeta):
             if temp.exists():
                 temp.unlink()
 
+    @abstractmethod
     def _create(self, path: Path) -> None:
         raise NotImplementedError()
 
+    @abstractmethod
     def hash(self) -> str:
         raise NotImplementedError()
 
