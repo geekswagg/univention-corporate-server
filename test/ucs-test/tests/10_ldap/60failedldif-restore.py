@@ -68,7 +68,7 @@ def __check_action_failure(udm, verify_args):
         pytest.fail('wrong ldap server or not down?')
 
 
-def test_modify_ldif(udm, name=random_name()):
+def test_modify_ldif(udm, name=random_name()):  # noqa: PT028
     dn = udm.create_object('container/cn', name=random_name(), description='will be modified')
     with local_ldap_down():
         udm.modify_object('container/cn', dn=dn, description='has been modified', wait_for_replication=False)

@@ -81,7 +81,7 @@ def test_samba_connection(ucr, username, password):
                 utils.fail(f"Samba login failed for {username} with {password}")
 
 
-def test(password="univention"):
+def test(password="univention"):  # noqa: PT028
     ucr = configRegistry.ConfigRegistry()
     ucr.load()
 

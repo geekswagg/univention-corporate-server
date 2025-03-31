@@ -38,39 +38,39 @@ def check_ldap_object(item, item_name, item_attribute=None, expected_values=None
         print(' Success ')
 
 
-def test_dns_ns(zone_name, test_object, should_exist=True):
+def test_dns_ns(zone_name, test_object, should_exist=True):  # noqa: PT028
     re_test_object = re.compile(r'{}\.*\s+\d+\s+IN\s+NS\s+\"*{}\"*'.format(*map(re.escape, (zone_name, test_object))))
     match(re_test_object, zone_name, 'NS', should_exist=should_exist)
 
 
-def test_dns_txt(dns_name, test_object, should_exist=True):
+def test_dns_txt(dns_name, test_object, should_exist=True):  # noqa: PT028
     re_test_object = re.compile(r'{}\.*\s+\d+\s+IN\s+TXT\s+\"*{}\"*'.format(*map(re.escape, (dns_name, test_object))))
     match(re_test_object, dns_name, 'TXT', should_exist=should_exist)
 
 
-def test_dns_soa_ttl(dns_name, test_object, should_exist=True):
+def test_dns_soa_ttl(dns_name, test_object, should_exist=True):  # noqa: PT028
     re_test_object = re.compile(r"{}\.*\s+{}\s+IN\s+SOA".format(*map(re.escape, (dns_name, test_object))))
     match(re_test_object, dns_name, 'SOA', should_exist=should_exist)
 
 
-def test_dns_reverse_zone(zone_name, test_object, should_exist=True):
+def test_dns_reverse_zone(zone_name, test_object, should_exist=True):  # noqa: PT028
     temp = zone_name.split('.')
     zone_namereverse = temp[2] + '.' + temp[1] + '.' + temp[0]
     re_test_object = re.compile(r"{}.in-addr.arpa.\s+\d+\s+IN\s+NS\s+{}".format(*map(re.escape, (zone_namereverse, test_object))))
     match(re_test_object, zone_name, 'NS', '-x', should_exist=should_exist)
 
 
-def test_dns_serial(zone_name, test_object, should_exist=True):
+def test_dns_serial(zone_name, test_object, should_exist=True):  # noqa: PT028
     re_test_object = re.compile(r"{}\.*\s+\d+\s+IN\s+SOA\s+.+\s+.+\s+{}\s+".format(*map(re.escape, (zone_name, test_object))))
     match(re_test_object, zone_name, 'SOA', should_exist=should_exist)
 
 
-def test_dns_a_record(dns_name, test_object, should_exist=True):
+def test_dns_a_record(dns_name, test_object, should_exist=True):  # noqa: PT028
     re_test_object = re.compile(r'{}\.*\s+\d+\s+IN\s+A\s+\"*{}\"*'.format(*map(re.escape, (dns_name, test_object))))
     match(re_test_object, dns_name, 'A', should_exist=should_exist)
 
 
-def test_dns_aaaa_record(dns_name, test_object, should_exist=True):
+def test_dns_aaaa_record(dns_name, test_object, should_exist=True):  # noqa: PT028
     # leading zeros will not be displayed in dig output so test_object has to be
     # manipulated accordingly or test will fail even with correct sync
     test_object_parts = test_object.split(':')
@@ -85,17 +85,17 @@ def test_dns_aaaa_record(dns_name, test_object, should_exist=True):
     match(re_test_object, dns_name, 'AAAA', should_exist=should_exist)
 
 
-def test_dns_alias(dns_name, test_object, should_exist=True):
+def test_dns_alias(dns_name, test_object, should_exist=True):  # noqa: PT028
     re_test_object = re.compile(r'{}\.*\s+\d+\s+IN\s+CNAME\s+\"*{}\"*'.format(*map(re.escape, (dns_name, test_object))))
     match(re_test_object, dns_name, 'CNAME', should_exist=should_exist)
 
 
-def test_dns_service_record(dns_name, test_object, should_exist=True):
+def test_dns_service_record(dns_name, test_object, should_exist=True):  # noqa: PT028
     re_test_object = re.compile(r'{}\.*\s+\d+\s+IN\s+SRV\s+\"*{}\"*'.format(*map(re.escape, (dns_name, test_object))))
     match(re_test_object, dns_name, 'SRV', should_exist=should_exist)
 
 
-def test_dns_pointer_record(reverse_zone, ip, test_object, should_exist=True):
+def test_dns_pointer_record(reverse_zone, ip, test_object, should_exist=True):  # noqa: PT028
     reverse_address = str(ip) + '.' + reverse_zone
     re_test_object = re.compile(r'{}\.*\s+\d+\s+IN\s+PTR\s+\"*{}\"*'.format(*map(re.escape, (reverse_address, test_object))))
     match(re_test_object, reverse_address, 'PTR', should_exist=should_exist)
