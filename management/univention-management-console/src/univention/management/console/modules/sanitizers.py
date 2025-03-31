@@ -575,7 +575,7 @@ class StringSanitizer(Sanitizer):
     :type regex_pattern: str or re._pattern_type
     """
 
-    def __init__(self, regex_pattern: None | Pattern[str] | str = None, re_flags: int = 0, minimum: int | None = None, maximum: int | None = None, **kwargs: Any) -> None:
+    def __init__(self, regex_pattern: Pattern[str] | str | None = None, re_flags: int = 0, minimum: int | None = None, maximum: int | None = None, **kwargs: Any) -> None:
         super().__init__(**kwargs)
         if isinstance(regex_pattern, str):
             regex_pattern = re.compile(regex_pattern, flags=re_flags)

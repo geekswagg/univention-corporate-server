@@ -234,7 +234,7 @@ class Interfaces:
 
         self.primary = ucr.get('interfaces/primary', 'eth0')
         try:
-            self.ipv4_gateway: IPv4Address | None | bool = IPv4Address("%(gateway)s" % ucr)
+            self.ipv4_gateway: IPv4Address | bool | None = IPv4Address("%(gateway)s" % ucr)
         except KeyError:
             self.ipv4_gateway = None
         except ValueError:
@@ -247,7 +247,7 @@ class Interfaces:
             parts = ucr['ipv6/gateway'].rsplit('%', 1)
             gateway = parts.pop(0)
             zone_index = parts[0] if parts else None
-            self.ipv6_gateway: IPv6Address | None | bool = IPv6Address("%s" % (gateway,))
+            self.ipv6_gateway: IPv6Address | bool | None = IPv6Address("%s" % (gateway,))
             self.ipv6_gateway_zone_index = zone_index
         except KeyError:
             self.ipv6_gateway = None

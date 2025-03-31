@@ -467,7 +467,7 @@ class Instance(Base):
                 critical_handler=self.progress_state.critical_handler,
             )
 
-        def _finished(thread, result: None | BaseException) -> None:
+        def _finished(thread, result: BaseException | None) -> None:
             MODULE.info('Finished joining')
             self._unlock()
             self.progress_state.info = _('finished...')
@@ -518,7 +518,7 @@ class Instance(Base):
                 critical_handler=self.progress_state.critical_handler,
             )
 
-        def _finished(thread, result: None | BaseException) -> None:
+        def _finished(thread, result: BaseException | None) -> None:
             MODULE.info('Finished running join scripts')
             self._unlock()
             self.progress_state.info = _('finished...')
