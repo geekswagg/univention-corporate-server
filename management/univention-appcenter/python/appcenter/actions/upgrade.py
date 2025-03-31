@@ -108,9 +108,7 @@ class Upgrade(Install):
             return True
         if app.docker and app.docker_script_update_packages:
             return True
-        if app.docker and app.docker_script_update_app_version:
-            return True
-        return False
+        return bool(app.docker and app.docker_script_update_app_version)
 
     def _revert(self, app, args):
         try:

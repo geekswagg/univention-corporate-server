@@ -780,9 +780,7 @@ def get_apps(no_cache: bool = False) -> list[dict[str, Any]]:
 
 
 def is_proxy(proxy: str) -> bool:
-    if proxy and proxy != 'http://' and proxy != 'https://' and not proxy.startswith('http://') and not proxy.startswith('https://'):
-        return False
-    return True
+    return not (proxy and proxy != 'http://' and proxy != 'https://' and not proxy.startswith('http://') and not proxy.startswith('https://'))
 
 
 def is_ipaddr(addr: str) -> bool:

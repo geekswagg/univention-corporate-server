@@ -107,9 +107,7 @@ def warningHidden(dn: str, attributes: dict[str, list[bytes]]) -> bool:
         return True
     if b'univentionThinClientSession' in ocs:
         return True
-    if b'univentionThinClientAutostart' in ocs:
-        return True
-    return False
+    return b'univentionThinClientAutostart' in ocs
 
 
 warningHidden.verbose = False  # type: ignore

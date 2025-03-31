@@ -217,7 +217,7 @@ class UniventionLDAPExtension(metaclass=ABCMeta):
         current_ucs_version = "%s-%s" % (ucr.get('version/version'), ucr.get('version/patchlevel'))
         if self.options.ucsversionstart and UCS_Version(current_ucs_version) < UCS_Version(self.options.ucsversionstart):
             return False
-        if self.options.ucsversionend and UCS_Version(current_ucs_version) > UCS_Version(self.options.ucsversionend):
+        if self.options.ucsversionend and UCS_Version(current_ucs_version) > UCS_Version(self.options.ucsversionend):  # noqa: SIM103
             return False
         return True  # probably yes
 

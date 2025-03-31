@@ -167,9 +167,7 @@ def is_localhost_in_adconnector_mode(ucr=None):
         ucr = ConfigRegistry()
         ucr.load()
 
-    if ucr.is_false('ad/member', True) and ucr.get('connector/ad/ldap/host'):
-        return True
-    return False
+    return bool(ucr.is_false('ad/member', True) and ucr.get('connector/ad/ldap/host'))
 
 
 def is_domain_in_admember_mode(ucr=None):
@@ -436,9 +434,7 @@ def _ucs_sid_is_well_known_administrator(user_sid, lo=None, ucr=None):
 
     ucs_domain_sid = _sid_of_ucs_sambadomain(lo, ucr)
     administrator_sid = "%s-%d" % (ucs_domain_sid, DOMAIN_RID_ADMINISTRATOR)
-    if user_sid == administrator_sid:
-        return True
-    return False
+    return user_sid == administrator_sid
 
 
 def _add_udm_account_to_domain_admins(user_dn, lo=None, ucr=None):

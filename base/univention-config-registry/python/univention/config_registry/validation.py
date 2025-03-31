@@ -242,9 +242,7 @@ class Integer(BaseValidator):
         val = int(value)
         if self._min is not None and val < self._min:
             return False
-        if self._max is not None and val > self._max:
-            return False
-        return True
+        return not (self._max is not None and val > self._max)
 
     def __str__(self):
         # type: () -> str

@@ -67,9 +67,7 @@ def _validate_smb_share_name(name: str) -> bool:
     if not name or len(name) > 80:
         return False
     illegal_chars = set('\\/[]:|<>+=;,*?"' + ''.join(map(chr, range(0x1F + 1))))
-    if set(str(name)) & illegal_chars:
-        return False
-    return True
+    return not set(str(name)) & illegal_chars
 
 
 def handler(dn: str, new: dict[str, list[bytes]], old: dict[str, list[bytes]], command: str) -> None:

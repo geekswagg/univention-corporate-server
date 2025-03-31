@@ -91,9 +91,7 @@ class Remove(InstallRemoveUpgrade):
         super()._run_parts(directory)
 
     def needs_credentials(self, app):
-        if os.path.exists(app.get_cache_file(self.prescript_ext)):
-            return True
-        return False
+        return bool(os.path.exists(app.get_cache_file(self.prescript_ext)))
 
     def _remove_app(self, app, args):
         self._configure(app, args)

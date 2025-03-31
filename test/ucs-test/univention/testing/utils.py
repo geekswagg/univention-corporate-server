@@ -661,9 +661,7 @@ def is_port_open(port: int, hosts: Iterable[str] | None = None, timeout: float =
 def no_change_in_file(no_change_for: int, log_file: str) -> bool:
     modify_time = os.path.getmtime(log_file)
     current_time = time.time()
-    if (current_time - modify_time) >= no_change_for:
-        return True
-    return False
+    return current_time - modify_time >= no_change_for
 
 
 def wait_for_s4_connector_to_be_inactive(no_change_for: int = 10) -> None:

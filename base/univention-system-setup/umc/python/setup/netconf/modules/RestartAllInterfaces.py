@@ -49,6 +49,4 @@ class PhaseRestartAllInterfaces(Phase):
             return False
         if iface.ipv4_address():
             return True
-        if any(iface.ipv6_address(name) for name in iface.ipv6_names):
-            return True
-        return False
+        return bool(any(iface.ipv6_address(name) for name in iface.ipv6_names))

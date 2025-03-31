@@ -75,9 +75,7 @@ def _validate_smb_share_name(name: str) -> bool:
     if len(name) > 80:
         return False
     illegal_chars = set('\\/[]:|<>+=;,*?"' + ''.join(map(chr, range(0x1F + 1))))
-    if set(str(name)) & illegal_chars:
-        return False
-    return True
+    return not set(str(name)) & illegal_chars
 
 
 class BasedirLimit(Exception):
