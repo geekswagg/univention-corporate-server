@@ -121,7 +121,7 @@ class _NoRelation(Exception):
     pass
 
 
-class Response:
+class Response:  # noqa: B903
 
     def __init__(self, response: requests.Response, data: Any, uri: str) -> None:
         self.response = response
@@ -293,7 +293,7 @@ class Session:
             raise _NoRelation(relation)
 
 
-class Client:
+class Client:  # noqa: B903
 
     def __init__(self, client: Session) -> None:
         self.client = client
