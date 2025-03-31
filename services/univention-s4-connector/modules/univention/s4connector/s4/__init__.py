@@ -1290,7 +1290,7 @@ class s4(univention.s4connector.ucs):
         ud.debug(ud.LDAP, ud.INFO, "group_members_sync_from_ucs: UCS-members in s4_members_from_ucs %s" % s4_members_from_ucs)
 
         # check if members in S4 don't exist in UCS, if true they need to be added in S4
-        for member_dn in s4_members_from_ucs:
+        for member_dn in s4_members_from_ucs.copy():
             if member_dn.lower() not in s4_members_from_ucs:
                 try:
                     ad_object = self.get_object(member_dn)
@@ -1300,7 +1300,7 @@ class s4(univention.s4connector.ucs):
                     if not self.lo.get(ucs_dn, attr=['cn']):
                         # Leave the following line commented out, as we don't want to keep the member in Samba/AD if it's not present in OpenLDAP
                         # Note: in this case the membership gets removed even if the object itself is ignored for synchronization
-                        # s4_members_from_ucs.append(member_dn.lower())
+                        # s4_members_from_ucs.add(member_dn.lower())
                         ud.debug(ud.LDAP, ud.INFO, "group_members_sync_from_ucs: Object exists only in S4 [%s]" % ucs_dn)
                     elif self._ignore_object(mo_key, {'dn': member_dn, 'attributes': ad_object}):
                         # Keep the member in Samba/AD if it's also present in OpenLDAP but ignored in synchronization?
