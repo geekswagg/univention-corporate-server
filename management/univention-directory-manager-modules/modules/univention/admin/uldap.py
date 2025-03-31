@@ -110,7 +110,7 @@ class DN:
         # compute hash only once - object is static
         # TODO: attributes which's values are case insensitive should be respected
         if self._hash is None:
-            self._hash = hash(tuple([tuple(sorted((x.lower(), y, z) for x, y, z in rdn)) for rdn in self._dn]))
+            self._hash = hash(tuple(tuple(sorted((x.lower(), y, z) for x, y, z in rdn)) for rdn in self._dn))
         return self._hash
 
     @classmethod
