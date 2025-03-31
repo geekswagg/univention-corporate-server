@@ -154,7 +154,7 @@ class UniventionPackageCheck(uub.UniventionPackageCheckDebian):
             '0015-2': (uub.RESULT_WARN, 'file contains "univention" incorrectly written'),
         }
 
-    RE_WHITEWORD = re.compile(r'|'.join([
+    RE_WHITEWORD = re.compile(r'|'.join([  # noqa: FLY002
         r"[0-9][0-9]univention",
         r"Xunivention",
         r"punivention",
@@ -170,7 +170,7 @@ class UniventionPackageCheck(uub.UniventionPackageCheckDebian):
         r"univention_",
     ]))
 
-    RE_WHITELINE = re.compile(r'|'.join([
+    RE_WHITELINE = re.compile(r'|'.join([  # noqa: FLY002
         r"\\[tnr]univention",
         r"-.univention",
         r"[SK]?[0-9][0-9]univention",

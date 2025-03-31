@@ -19,7 +19,7 @@ from appcentertest import get_requested_apps
 
 
 # taken from https://mail.python.org/pipermail/tutor/2002-September/017228.html
-urls = '(?: %s)' % '|'.join(["http", "https", "telnet", "gopher", "file", "wais", "ftp"])
+urls = '(?: http|https|telnet|gopher|file|wais|ftp)'
 ltrs = r'\w'
 gunk = r'/#~:.?+=&%@!\-'
 punc = r'.:?\-'
