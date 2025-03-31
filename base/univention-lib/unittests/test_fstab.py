@@ -70,8 +70,8 @@ def test_fstab_save(mocker, fstab):
     fd.__exit__ = mocker.Mock(return_value=None)
     mocker.patch.object(fstab, 'open', mocker.Mock(return_value=fd))
     fs.save()
-    write_calls = [args[0] for _, args, _ in fd.write.mock_calls]
-    assert [content] == [''.join(write_calls)]
+    write_calls = [args[0] for _, args, _ in fd.writelines.mock_calls]
+    assert [content] == [''.join(list(write_calls[0]))]
 
 
 @pytest.mark.parametrize('broken_line', [
