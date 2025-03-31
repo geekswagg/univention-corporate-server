@@ -453,7 +453,7 @@ def password_sync_kinit(connector, key, ucs_object):
     ucs_result = connector.lo.search(base=ucs_object['dn'], attr=attr.keys())
 
     modlist = []
-    for attribute in attr.keys():
+    for attribute in attr.keys():  # noqa: PLC0206
         expected_value = attr[attribute]
         if attribute in ucs_result[0][1]:
             userPassword = ucs_result[0][1][attribute][0]

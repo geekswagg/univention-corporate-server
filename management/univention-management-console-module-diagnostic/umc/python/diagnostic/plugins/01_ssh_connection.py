@@ -132,7 +132,7 @@ def run(_umc_instance: Instance) -> None:
     if bad:
         msg = gen_msg
         msg += '\n\n'
-        for host in bad:
+        for host in bad:  # noqa: PLC0206
             msg += '%s - %s\n' % (host, bad[host])
         if key_failed:
             msg += '\n' + key_msg + ' - ' + key_info + '\n'

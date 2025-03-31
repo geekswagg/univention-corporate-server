@@ -229,7 +229,7 @@ def test_role_attributes_on_modules():
     }
     modules.update()
     for mod_name, mod in modules.modules.items():
-        for prop in expected:
+        for prop in expected:  # noqa: PLC0206
             if prop in mod.property_descriptions:
                 assert mod_name in expected[prop], f'{mod_name} should not have {prop}'
             else:

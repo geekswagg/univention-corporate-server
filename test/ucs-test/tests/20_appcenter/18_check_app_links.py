@@ -142,7 +142,7 @@ def check_files():
         links[app.id] = findall_urls_from_ini(app)
         links[app.id].update(findall_urls_from_readme(app))
     bad_links = []
-    for app in links:
+    for app in links:  # noqa: PLC0206
         for link in links[app]:
             if link in forbidden_links:
                 print("Ignore link:", link)

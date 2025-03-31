@@ -123,7 +123,7 @@ def check_obsolete():
             ppd_path = os.path.join('/usr/share/ppd/', ppd)
             if not os.path.isfile(ppd_path) and ppd not in compressed_ppds:
                 obsolete.setdefault(cn, []).append(i)
-        for cn in obsolete:
+        for cn in obsolete:  # noqa: PLC0206
             print('/usr/lib/univention-printserver/univention-ppds/mark_models_as_deprecated.py "$@" --verbose --name %s \\' % (shlex.quote(cn),))
             print('\t' + ' \\\n\t'.join(map(shlex.quote, obsolete[cn])) + ' || rc=$?\n')
 
