@@ -206,9 +206,9 @@ async def test_service_unavailable(ucr):
     pwd = ucr.get('tests/domainadmin/pwd', 'univention')
     username = ucr.get('tests/domainadmin/username', 'Administrator')
     async with UDM.http(uri, username, pwd) as udm:
-        subprocess.call(['systemctl', 'stop', 'univention-directory-manager-rest'])  # noqa: ASYNC101
+        subprocess.call(['systemctl', 'stop', 'univention-directory-manager-rest'])  # noqa: ASYNC221
         try:
             with pytest.raises(ServiceUnavailable):
                 await udm.get("users/user")
         finally:
-            subprocess.call(['systemctl', 'start', 'univention-directory-manager-rest'])  # noqa: ASYNC101
+            subprocess.call(['systemctl', 'start', 'univention-directory-manager-rest'])  # noqa: ASYNC221
