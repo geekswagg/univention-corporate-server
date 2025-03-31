@@ -6,7 +6,6 @@
 ## packages:
 ##   - univention-directory-manager-tools
 
-from typing import TYPE_CHECKING
 
 import pytest
 import unidecode
@@ -16,10 +15,7 @@ import univention.testing.strings as uts
 from univention.admin.uldap import getAdminConnection
 from univention.testing import utils
 from univention.testing.strings import random_domain_name, random_int, random_name
-
-
-if TYPE_CHECKING:
-    from univention.testing.umc import Client
+from univention.testing.umc import Client
 
 
 PASSWORD = 'Univention@99'
