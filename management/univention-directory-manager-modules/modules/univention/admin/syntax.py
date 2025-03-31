@@ -5973,7 +5973,7 @@ class LDAP_Search(select):
         syntax name is given the object is expected to be created with
         the required settings programmatically.
         """
-        self = type(self)
+        self = type(self)  # noqa: PLW0642
 
         if not self.syntax:
             # programmatically

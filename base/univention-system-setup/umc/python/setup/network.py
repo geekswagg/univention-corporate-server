@@ -207,16 +207,16 @@ class Device:
             # detect type of interface
             device = Ethernet(name, interfaces)
             device.parse_ucr()
-            cls = Ethernet  # type: ignore
+            cls = Ethernet  # type: ignore  # noqa: PLW0642
             if '.' in name:
-                cls = VLAN  # type: ignore
+                cls = VLAN  # type: ignore  # noqa: PLW0642
             elif device.options:
                 if any(opt.startswith('bridge_ports') for opt in device.options):
-                    cls = Bridge  # type: ignore
+                    cls = Bridge  # type: ignore  # noqa: PLW0642
                 elif any(opt.startswith('bond-slaves') for opt in device.options):
-                    cls = Bond  # type: ignore
+                    cls = Bond  # type: ignore  # noqa: PLW0642
                 elif any(opt.startswith('vlan-raw-device') for opt in device.options):
-                    cls = VLAN  # type: ignore
+                    cls = VLAN  # type: ignore  # noqa: PLW0642
         return object.__new__(cls)
 
     @property
