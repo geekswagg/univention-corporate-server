@@ -1118,7 +1118,7 @@ class UCSTestUDM:
             except psutil.NoSuchProcess:
                 pass
         for signal in (15, 9):
-            for proc in procs:
+            for proc in procs[:]:
                 try:
                     print(f'sending signal {signal} to process {proc.pid} ({proc.cmdline()!r})')
                     os.kill(proc.pid, signal)
