@@ -342,7 +342,7 @@ class TestPasswordConfigExhaustedAvailableCharacterPool:
             univention_password.generate_password(**cfg)
 
     def test_exhausted_pool(self):
-        with pytest.raises(ValueError, match="All available characters are excluded by.*"):
+        with pytest.raises(ValueError, match=r"All available characters are excluded by.*"):
             cfg = {'digits': 1, 'lower': 1, 'other': 1, 'upper': 1, 'forbidden': string.printable, 'min_length': 6}
             univention_password.generate_password(**cfg)
 
