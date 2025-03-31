@@ -51,7 +51,7 @@ def primaryVersionGreaterEqual(version):
     """
     version = UCS_Version(version)
     lo = getMachineConnection()
-    # TODO is this enough to search for the primary, or do we need cn=ucr[ldap/master]?
+    # TODO: is this enough to search for the primary, or do we need cn=ucr[ldap/master]?
     res = lo.search('univentionObjectType=computers/domaincontroller_master')
     if len(res) != 1:
         return False

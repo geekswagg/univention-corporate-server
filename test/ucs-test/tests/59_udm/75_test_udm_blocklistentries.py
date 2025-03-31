@@ -18,13 +18,13 @@ from univention.admin.uldap import getMachineConnection
 from univention.testing.utils import wait_for_listener_replication_and_postrun
 
 
-@pytest.fixture()
+@pytest.fixture
 def enable_blocklists(ucr, udm):
     ucr.handler_set(['directory/manager/blocklist/enabled=true'])
     udm.stop_cli_server()
 
 
-@pytest.fixture()
+@pytest.fixture
 def blocklist_list(random_string, udm, enable_blocklists):
     name = random_string()
     data = {
@@ -53,7 +53,7 @@ def delete_blocklistentry(value, blocklist_dn):
     lo.delete(dn)
 
 
-@pytest.fixture()
+@pytest.fixture
 def mail_domain_name(udm):
     mail_domain_name = f'{uts.random_name()}.{uts.random_name()}'
     udm.create_object('mail/domain', name=mail_domain_name)

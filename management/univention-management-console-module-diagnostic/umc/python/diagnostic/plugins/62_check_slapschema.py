@@ -34,7 +34,7 @@ import os
 from subprocess import PIPE, Popen
 
 from univention.lib.i18n import Translation
-from univention.management.console.modules.diagnostic import Instance, Warning
+from univention.management.console.modules.diagnostic import Instance, Warning  # noqa: A004
 
 
 _ = Translation('univention-management-console-module-diagnostic').translate

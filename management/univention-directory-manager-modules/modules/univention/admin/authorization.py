@@ -94,7 +94,7 @@ def _obj2module(obj: object | dict | str) -> str:
         return obj["module_name"]
     if isinstance(obj, dict | str):
         dn = _obj2dn(obj)
-        # FIXME extract module name using dn
+        # FIXME: extract module name using dn
         if "cn=users" in dn:
             return "users/user"
         if "cn=groups" in dn:

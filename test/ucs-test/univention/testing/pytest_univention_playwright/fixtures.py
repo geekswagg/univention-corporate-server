@@ -114,32 +114,32 @@ def udm_module_scope() -> Iterator[_udm.UCSTestUDM]:
         yield udm
 
 
-@pytest.fixture()
+@pytest.fixture
 def ucr_module(umc_browser_test: UMCBrowserTest):
     return UniventionConfigurationRegistry(umc_browser_test)
 
 
-@pytest.fixture()
+@pytest.fixture
 def user_module(umc_browser_test: UMCBrowserTest):
     return UserModule(umc_browser_test)
 
 
-@pytest.fixture()
+@pytest.fixture
 def side_menu_license(umc_browser_test: UMCBrowserTest):
     return SideMenuLicense(umc_browser_test)
 
 
-@pytest.fixture()
+@pytest.fixture
 def side_menu_user(umc_browser_test: UMCBrowserTest):
     return SideMenuUser(umc_browser_test)
 
 
-@pytest.fixture()
+@pytest.fixture
 def self_service(umc_browser_test: UMCBrowserTest) -> SelfService:
     return SelfService(umc_browser_test)
 
 
-@pytest.fixture()
+@pytest.fixture
 def ldap_directory(umc_browser_test: UMCBrowserTest) -> LDAPDirectory:
     return LDAPDirectory(umc_browser_test)
 
@@ -162,7 +162,7 @@ def kill_module_processes_module():
     kill_univention_management_console_module()
 
 
-@pytest.fixture()
+@pytest.fixture
 def kill_module_processes():
     logger.info('killing module processes')
     kill_univention_management_console_module()
@@ -198,7 +198,7 @@ def umc_browser_test_module(
     return tester
 
 
-@pytest.fixture()
+@pytest.fixture
 def umc_browser_test(
     browser_type: BrowserType,
     ucs_browser_type_launch_args: dict,
@@ -252,7 +252,7 @@ def teardown_umc_browser_test(
             browser.close()
 
 
-@pytest.fixture()
+@pytest.fixture
 def app_center_cache():
     app_center_cache = AppCenterCacheTest()
     yield app_center_cache

@@ -38,7 +38,7 @@ import pycurl
 
 from univention.config_registry import ucr_live as ucr
 from univention.lib.i18n import Translation
-from univention.management.console.modules.diagnostic import MODULE, Critical, Instance, Warning
+from univention.management.console.modules.diagnostic import MODULE, Critical, Instance, Warning  # noqa: A004
 
 
 _ = Translation('univention-management-console-module-diagnostic').translate

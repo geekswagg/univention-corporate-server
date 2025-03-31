@@ -2171,7 +2171,7 @@ def wait_for_listener_replication(progress=None, max_time=None):
         delta_t = time.time() - t_1
         t_1 = t_1 + delta_t
         if max_time and t_1 - t_0 > max_time:
-            log.debug("Warning: Listener ID not yet up to date (last_id=%s, listener ID=%s). Waited for about %s seconds." % (last_id, notifier_id, int(round(t_1 - t_0))))
+            log.debug("Warning: Listener ID not yet up to date (last_id=%s, listener ID=%s). Waited for about %s seconds." % (last_id, notifier_id, round(t_1 - t_0)))
             return False
         delta_t_last_feedback = t_1 - t_last_feedback
         if progress and delta_t_last_feedback >= 1:
@@ -2196,7 +2196,7 @@ def wait_for_s4_connector_replication(ucr, lp, progress=None, max_time=None):
 
     if max_time == "scale10":
         max_time = 10 * connector_s4_retryrejected * connector_s4_poll_sleep
-        log.info("Waiting for S4 Connector sync (max. %s seconds)" % int(round(max_time)))
+        log.info("Waiting for S4 Connector sync (max. %s seconds)" % round(max_time))
 
     highestCommittedUSN = None
     lastUSN = None
@@ -2225,7 +2225,7 @@ def wait_for_s4_connector_replication(ucr, lp, progress=None, max_time=None):
         delta_t = time.time() - t_1
         t_1 = t_1 + delta_t
         if max_time and t_1 - t_0 > max_time:
-            log.debug("Warning: S4 Connector synchronization did not finish yet. Waited for about %s seconds." % (int(round(t_1 - t_0))))
+            log.debug("Warning: S4 Connector synchronization did not finish yet. Waited for about %s seconds." % (round(t_1 - t_0)))
             conn.close()
             return False
         delta_t_last_feedback = t_1 - t_last_feedback

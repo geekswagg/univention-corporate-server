@@ -75,7 +75,7 @@ class _HTTPType(type):
             HTTPError.codes[mcs.code] = mcs
         except (NameError, AttributeError):
             pass
-        return type.__init__(mcs, name, bases, dict)
+        type.__init__(mcs, name, bases, dict)
 
 
 class ConnectionError(Exception):
@@ -320,7 +320,7 @@ class Response:
     def get_header(self, name: str, default: _T = None) -> _T:
         pass
 
-    def get_header(self, name: str, default: _T = None) -> None | str | _T:
+    def get_header(self, name: str, default: _T = None) -> str | _T | None:
         """
         Return original |HTTP| response header.
 

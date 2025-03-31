@@ -3190,7 +3190,7 @@ class dnsHostname(dnsName):
         text = super().parse(text)
         if self.NUMERIC.match(text):
             raise univention.admin.uexceptions.valueError(_("Full name must not be all numeric!"))
-        labels = (text[:-1] if text.endswith('.') else text).split('.')
+        labels = (text.removesuffix('.')).split('.')
         if not all(self.LABEL.match(label) for label in labels):
             raise univention.admin.uexceptions.valueError(_(
                 "A hostname or any part of a FQDN, separated by dots, starts and ends with a letter or a digit. "
@@ -5973,7 +5973,7 @@ class LDAP_Search(select):
         syntax name is given the object is expected to be created with
         the required settings programmatically.
         """
-        self = type(self)
+        self = type(self)  # noqa: PLW0642
 
         if not self.syntax:
             # programmatically

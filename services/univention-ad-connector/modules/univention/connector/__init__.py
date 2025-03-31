@@ -42,6 +42,7 @@ import pprint
 import random
 import re
 import sqlite3 as lite
+import string
 import sys
 import traceback
 from types import FunctionType
@@ -78,9 +79,9 @@ def decode_guid(value):
 
 
 password_charsets = [
-    'abcdefghijklmnopqrstuvwxyz',
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-    '0123456789',
+    string.ascii_lowercase,
+    string.ascii_uppercase,
+    string.digits,
     r'^!\$%&/()=?{[]}+~#-_.:,;<>|\\',
 ]
 
@@ -513,7 +514,7 @@ class ucs:
         irrelevant_attributes = self.configRegistry.get('%s/ad/mapping/attributes/irrelevant' % (self.CONFIGBASENAME,), '')
         self.irrelevant_attributes = set(irrelevant_attributes.split(','))
 
-        # TODO just for testing, remove before merge
+        # TODO: just for testing, remove before merge
         # specific debug levels
         self._ignore_object_debug_level = int(self.configRegistry.get('%s/debug/level/ignore_object' % self.CONFIGBASENAME, ud.INFO))
 
@@ -781,7 +782,7 @@ class ucs:
                 try:
                     if self._ignore_object(key, object):
                         if (new and not old) and (old_dn and old_dn != dn) and not self._ignore_object(key, {'dn': old_dn, 'attributes': new}):
-                            # TODO why do we not get an old,
+                            # TODO: why do we not get an old,
                             # the _ignore_object in this case should operate on the old object, but currently we don't have it
                             # so we pass new because we need the attributes to check the ignore/allow filter
                             # we need to check if this is a move and in case that the new object is ignored and old object

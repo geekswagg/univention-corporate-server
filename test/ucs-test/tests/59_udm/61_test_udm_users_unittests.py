@@ -388,7 +388,7 @@ class TestUsers:
         udm.verify_ldap_object(user1, {'shadowMax': shadow_max_expiry, 'shadowLastChange': [str(today)] if expiry_interval else []})
 
         user2 = udm.create_user(position=cn, pwdChangeNextLogin='0')[0]
-        # FIXME?: the following was possible in UCS 4.2
+        # FIXME: ? the following was possible in UCS 4.2
         # udm.verify_ldap_object(user2, {'shadowMax': shadow_max_expiry, 'shadowLastChange': [str(today)]})
 
         user3 = udm.create_user(position=cn, pwdChangeNextLogin='1')[0]

@@ -49,7 +49,7 @@ class UMCTester:
         self.selenium.open_module(_('System services'))
 
     def reset(self):
-        # TODO This is not really a reset.
+        # TODO: This is not really a reset.
         # This justs starts all services and sets the start type to 'automatically'
         # but that should be the default anyway
         self.search('')
@@ -78,8 +78,8 @@ class UMCTester:
         ignore_these = [
             'apache2',
             'univention-management-console-server',
-            'univention-welcome-screen',  # TODO do the jenkins vms for the selenium test have a display manager installed?
-            'heimdal-kdc',  # TODO services['heimdal-kdc']['programs'] has mismatching output with psutil.Process.cmdline()
+            'univention-welcome-screen',  # TODO: do the jenkins vms for the selenium test have a display manager installed?
+            'heimdal-kdc',  # TODO: services['heimdal-kdc']['programs'] has mismatching output with psutil.Process.cmdline()
             'bind9',  # started automatically on reboot even if start type is manually
             'rpcbind',  # started automatically on reboot even if start type is manually
             'slapd',  # needed for login
@@ -87,7 +87,7 @@ class UMCTester:
         ]
         services = [key for key in self.srvs.services.iterkeys() if key not in ignore_these]
         if len(services) < 3:
-            pass  # TODO can't test all start types at once
+            pass  # TODO: can't test all start types at once
         count_per_start_type = len(services) / 3
         d = {}
         for idx, start_type in enumerate(('automatically', 'manually', 'never')):
@@ -131,8 +131,8 @@ class UMCTester:
         ignore_these = [
             'apache2',
             'univention-management-console-server',
-            'univention-welcome-screen',  # TODO do the jenkins vms for the selenium test have a display manager installed?
-            'heimdal-kdc',  # TODO services['heimdal-kdc']['programs'] has mismatching output from psutil.Process.cmdline()
+            'univention-welcome-screen',  # TODO: do the jenkins vms for the selenium test have a display manager installed?
+            'heimdal-kdc',  # TODO: services['heimdal-kdc']['programs'] has mismatching output from psutil.Process.cmdline()
         ]
         for service in self.srvs.services.iterkeys():
             if service in ignore_these:

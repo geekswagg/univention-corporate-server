@@ -74,7 +74,7 @@ class CheckSambaDrsRepl:
                 if server not in consecutive_sync_failures:
                     consecutive_sync_failures[server] = 0
                 consecutive_sync_failures[server] += n.consecutive_sync_failures
-        for server in consecutive_sync_failures:
+        for server in consecutive_sync_failures:  # noqa: PLC0206
             text = '%s failures on %s' % (consecutive_sync_failures[server], server)
             msg = msg + ', ' + text if msg else text
         return (failures, msg)

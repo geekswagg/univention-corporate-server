@@ -39,7 +39,7 @@ from univention.admin import modules, uldap
 from univention.lib.i18n import Translation
 from univention.management.console.config import ucr
 from univention.management.console.log import MODULE
-from univention.management.console.modules.diagnostic import Critical, Instance, Warning
+from univention.management.console.modules.diagnostic import Critical, Instance, Warning  # noqa: A004
 
 
 _ = Translation('univention-management-console-module-diagnostic').translate
@@ -132,7 +132,7 @@ def run(_umc_instance: Instance) -> None:
     if bad:
         msg = gen_msg
         msg += '\n\n'
-        for host in bad:
+        for host in bad:  # noqa: PLC0206
             msg += '%s - %s\n' % (host, bad[host])
         if key_failed:
             msg += '\n' + key_msg + ' - ' + key_info + '\n'

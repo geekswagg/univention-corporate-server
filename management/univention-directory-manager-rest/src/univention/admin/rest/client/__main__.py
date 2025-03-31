@@ -44,6 +44,7 @@ import sys
 import ldap
 import ldap.dn
 
+# ruff: noqa: A004
 from univention.admin.rest.client import (
     UDM, ConnectionError, HTTPError, NotFound, PatchDocument, ServerError, ServiceUnavailable, Unauthorized,
     UnprocessableEntity,

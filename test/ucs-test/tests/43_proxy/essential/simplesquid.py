@@ -24,7 +24,7 @@ class SimpleSquid:
     """
 
     def __init__(self, path=None):
-        self.path = path if path else "/etc/init.d/squid"
+        self.path = path or "/etc/init.d/squid"
         self.basename = os.path.basename(self.path)
         self.conf = "/etc/%s/squid.conf" % self.basename
 

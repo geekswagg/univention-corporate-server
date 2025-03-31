@@ -6,7 +6,7 @@ import pytest
 from dockertest import Appcenter, get_app_name, get_app_version
 
 
-@pytest.fixture()
+@pytest.fixture
 def appcenter():
     # Appcenter doesn't delete itself instantly. If a new test is run directly after running a test the test will fail
     wait_timeout = 5
@@ -19,11 +19,11 @@ def appcenter():
         yield appcenter
 
 
-@pytest.fixture()
+@pytest.fixture
 def app_name():
     return get_app_name()
 
 
-@pytest.fixture()
+@pytest.fixture
 def app_version():
     return get_app_version()

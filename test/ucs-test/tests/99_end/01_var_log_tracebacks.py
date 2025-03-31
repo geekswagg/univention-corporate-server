@@ -65,7 +65,7 @@ def test_journallog_tracebacks():
 #     'test_var_log_tracebacks',
 #     'test_var_log_tracebacks_gz',
 # ])  # FIXME: skip test_ucs_test_logfile
-def test_fetch_logfiles_on_dc_master(ucr, testcase=None):
+def test_fetch_logfiles_on_dc_master(ucr, testcase=None):  # noqa: PT028
     """Find traceback on the DC Master"""
     password = ucr.get('tests/root/pwd', 'univention')
     testpath = '/usr/share/ucs-test/99_end/01_var_log_tracebacks.py'

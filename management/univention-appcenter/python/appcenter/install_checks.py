@@ -293,10 +293,8 @@ class MustHaveNoConflictsApps(SingleRequirement, HardRequirement):
                 conflictedapps.add(app_id)
         for _app in self.other_apps(app):
             other_ports = set()
-            for i in _app.ports_exclusive:
-                other_ports.add(i)
-            for i in _app.ports_redirection:
-                other_ports.add(i.split(':', 1)[0])
+            other_ports.update(_app.ports_exclusive)
+            other_ports.update(i.split(':', 1)[0] for i in _app.ports_redirection)
             if other_ports.intersection(ports):
                 conflictedapps.add(_app.id)
         if conflictedapps:

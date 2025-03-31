@@ -498,7 +498,7 @@ def pull(name: str):
 
 
 def get_obj(name: str) -> str | None:
-    from univention.udm import UDM, ConnectionError, NoObject
+    from univention.udm import UDM, ConnectionError, NoObject  # noqa: A004
 
     try:
         udm = UDM.machine().version(1)

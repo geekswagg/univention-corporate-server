@@ -26,9 +26,7 @@ def keycloak_installed_on_primary():
     lo = utils.get_ldap_connection(admin_uldap=True)
     master = udm_modules.lookup('computers/domaincontroller_master', None, lo, scope='sub')
     master_name = master[0]['name']
-    if not lo.search(f'(&(univentionServerRole=master)(cn={master_name})(univentionService=keycloak))'):
-        return False
-    return True
+    return lo.search(f'(&(univentionServerRole=master)(cn={master_name})(univentionService=keycloak))')
 
 
 @pytest.mark.skipif(not keycloak_installed_on_primary(), reason='test makes no sense without keycloak on the primary')

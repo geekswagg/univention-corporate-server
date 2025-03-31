@@ -51,7 +51,7 @@ def test_logging_handler_changed():
     assert type(f) is univention.logging.Logger
 
 
-@pytest.fixture()
+@pytest.fixture
 def tmplog(tmpdir):
     """Setup temporary logging."""
     return tmpdir.ensure('log')

@@ -41,7 +41,7 @@ import univention.admin.uexceptions
 import univention.admin.uldap
 import univention.config_registry
 
-from .exceptions import ConnectionError
+from .exceptions import ConnectionError  # noqa: A004
 
 
 _T = TypeVar("_T")  # noqa: PYI018

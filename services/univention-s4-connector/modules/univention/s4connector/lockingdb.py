@@ -109,10 +109,7 @@ class LockingDB:
 
         rows = self.__execute_sql_commands(sql_commands, fetch_result=True)
 
-        if rows:
-            return True
-
-        return False
+        return bool(rows)
 
     def is_s4_locked(self, guid):
         if not guid:
@@ -124,10 +121,7 @@ class LockingDB:
 
         rows = self.__execute_sql_commands(sql_commands, fetch_result=True)
 
-        if rows:
-            return True
-
-        return False
+        return bool(rows)
 
     def __create_tables(self):
         sql_commands = [

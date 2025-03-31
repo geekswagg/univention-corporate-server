@@ -46,6 +46,7 @@ from pyasn1.type import base, char, namedtype, tag, univ, useful
 
 from univention.config_registry import handler_set as ucr_set, ucr_live as configRegistry
 from univention.lib.i18n import Translation
+# ruff: noqa: A004
 from univention.management.console.modules.diagnostic import MODULE, Critical, Instance, ProblemFixed, Warning, util
 
 
@@ -274,10 +275,7 @@ def probe_kdc(kdc: str, port: int, protocol: str, target_realm: str, user_name: 
     except KerberosException:
         return False
 
-    if target_realm.encode('UTF-8') in received:
-        return True
-
-    return False
+    return target_realm.encode('UTF-8') in received
 
     # this no longer works with >= 4.3, ??
     # I think the new pyasn1 version might need the full asn1Spec to work?:

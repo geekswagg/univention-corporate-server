@@ -114,7 +114,7 @@ class Config(ConfigParser):
             guessedPaths.append(alternativePath)
 
         # get the first valid path
-        while len(guessedPaths):
+        while guessedPaths:
             path = guessedPaths.pop(0)
             if os.path.exists(path):
                 return path

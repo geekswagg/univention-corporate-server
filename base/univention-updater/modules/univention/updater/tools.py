@@ -48,7 +48,7 @@ import urllib.error
 import urllib.request
 from http import client as httplib
 from tempfile import TemporaryDirectory
-from typing import TYPE_CHECKING, Any, Literal, TypeVar
+from typing import TYPE_CHECKING, Any, Literal
 
 from univention.config_registry import ConfigRegistry
 from univention.lib.ucs import UCS_Version
@@ -69,12 +69,7 @@ from .repo_url import UcsRepoUrl
 
 if TYPE_CHECKING:
     from collections.abc import Iterable, Iterator
-
-
-try:
     from typing import Self  # type: ignore[attr-defined]
-except ImportError:
-    Self = TypeVar("Self", bound="_UCSServer")  # type: ignore[misc]
 
 
 RE_ALLOWED_DEBIAN_PKGNAMES = re.compile('^[a-z0-9][a-z0-9.+-]+$')

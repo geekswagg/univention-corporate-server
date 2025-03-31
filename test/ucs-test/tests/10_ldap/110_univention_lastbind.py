@@ -79,12 +79,12 @@ def bindpwdfile(tmpdir_factory):
     return str(path)
 
 
-@pytest.fixture()
+@pytest.fixture
 def failbindpwdfile():
     return "/qwertzui"
 
 
-@pytest.fixture()
+@pytest.fixture
 def binddn(ucr):
     if ucr.get("tests/domainadmin/account", None):
         return str(ucr.get("tests/domainadmin/account"))
@@ -92,7 +92,7 @@ def binddn(ucr):
         return "uid=Administrator,cn=users,%s" % (ucr.get('ldap/base'),)
 
 
-@pytest.fixture()
+@pytest.fixture
 def failbinddn():
     return "uid=Administrator,cn=users"
 
@@ -109,7 +109,7 @@ def bind_for_timestamp(dn, host=None):
         args.insert(1, '-H')
     out = subprocess.check_output(args).decode('UTF-8', 'replace')
     timestamp = [line.split()[1] for line in out.splitlines() if 'authTimestamp' in line]
-    timestamp = timestamp[0] if len(timestamp) else None
+    timestamp = timestamp[0] if timestamp else None
     return timestamp
 
 
@@ -122,7 +122,7 @@ def bind_for_timestamp(dn, host=None):
 #         assert 'Could not create a writable connection to UDM on this server. Try to provide "binddn" and "bindpwdfile"' in str(excinfo.value)
 
 
-@pytest.mark.slow()
+@pytest.mark.slow
 def test_save_timestamp(udm, readudm, binddn, bindpwdfile, capsys):
     dn, _ = udm.create_user()
     o = readudm.obj_by_dn(dn)
@@ -145,7 +145,7 @@ def test_save_timestamp(udm, readudm, binddn, bindpwdfile, capsys):
     assert o.props.lastbind == timestamp
 
 
-@pytest.mark.slow()
+@pytest.mark.slow
 def test_main_single_server(activate_lastbind, binddn, bindpwdfile, udm, readudm):
     o = readudm.obj_by_dn(udm.create_user()[0])
     assert o.props.lastbind is None
@@ -158,7 +158,7 @@ def test_main_single_server(activate_lastbind, binddn, bindpwdfile, udm, readudm
 
 
 @pytest.mark.skipif(not is_multi_domain(), reason="Test only in multi domain")
-@pytest.mark.slow()
+@pytest.mark.slow
 def test_main_multi_server(activate_lastbind, binddn, bindpwdfile, udm, readudm, other_server):
     assert other_server is not None
     o = readudm.obj_by_dn(udm.create_user()[0])
@@ -175,7 +175,7 @@ def test_main_multi_server(activate_lastbind, binddn, bindpwdfile, udm, readudm,
     o.reload()
     assert o.props.lastbind == youngest_timestamp
 
-# TODO test precision
+# TODO: test precision
 
 
 def test_main_not_enough_arguments():
@@ -185,7 +185,7 @@ def test_main_not_enough_arguments():
     assert 'Provide either --user USER or --allusers.' in str(excinfo.value)
 
 
-@pytest.mark.slow()
+@pytest.mark.slow
 def test_server_down(ucr, udm, readudm, capsys):
     mod = readudm.get('computers/%s' % (ucr.get('server/role'),))
     comp = mod.get_by_id(ucr.get('hostname'))

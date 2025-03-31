@@ -273,7 +273,7 @@ def test_json(value, expected):
     assert jj.is_valid(value) == expected
 
 
-@pytest.fixture()
+@pytest.fixture
 def var():
     """Fake Variable type."""
     return {

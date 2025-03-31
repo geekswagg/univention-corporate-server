@@ -35,6 +35,7 @@ import subprocess
 
 from univention.config_registry import ucr_live as ucr
 from univention.lib.i18n import Translation
+# ruff: noqa: A004
 from univention.management.console.modules.diagnostic import MODULE, Critical, Instance, ProblemFixed, Warning
 from univention.udm import UDM, NoObject
 

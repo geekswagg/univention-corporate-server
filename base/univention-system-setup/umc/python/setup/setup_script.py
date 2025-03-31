@@ -223,8 +223,7 @@ class SetupScript:
 
         # remove script path from name
         self.script_name = os.path.abspath(sys.argv[0])
-        if self.script_name.startswith(PATH_SETUP_SCRIPTS):
-            self.script_name = self.script_name[len(PATH_SETUP_SCRIPTS):]
+        self.script_name = self.script_name.removeprefix(PATH_SETUP_SCRIPTS)
 
         self.profile = self.parse_profile()
 

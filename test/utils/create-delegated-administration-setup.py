@@ -26,7 +26,7 @@ groups = udm.get('groups/group')
 policies = udm.get('policies/umc')
 
 # enable umc udm for ouadmins (Domain Users)
-# FIXME not for everybody, just for ouadmins
+# FIXME: not for everybody, just for ouadmins
 r = policies.search('name=default-umc-users')
 policy = next(iter(r))
 ops = [

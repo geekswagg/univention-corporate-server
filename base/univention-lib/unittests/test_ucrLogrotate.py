@@ -33,7 +33,7 @@
 import pytest
 
 
-@pytest.fixture()
+@pytest.fixture
 def logrotate_ucr(mock_ucr):
     mock_ucr["logrotate/rotate"] = "weekly"
     mock_ucr["logrotate/rotate/count"] = "12"

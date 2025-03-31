@@ -113,7 +113,7 @@ def main():
             print("Warning: found univentionPolicyReference without such Attribute", policy_reference_dn)
 
     to_delete = []
-    for el in policy_object.keys():
+    for el in policy_object.keys():  # noqa: PLC0206
         if policy_object[el] == 0:
             print("no reference to policy", el)
             count_policies += 1

@@ -94,17 +94,13 @@ def _remove_cache_for_share(dn: str) -> None:
 def _is_share(new: dict[str, list[bytes]], old: dict[str, list[bytes]]) -> bool:
     if new and b'univentionShare' in new['objectClass']:
         return True
-    if old and b'univentionShare' in old['objectClass']:
-        return True
-    return False
+    return bool(old and b'univentionShare' in old['objectClass'])
 
 
 def _is_quota_policy(new: dict[str, list[bytes]], old: dict[str, list[bytes]]) -> bool:
     if new and b'univentionPolicyShareUserQuota' in new['objectClass']:
         return True
-    if old and b'univentionPolicyShareUserQuota' in old['objectClass']:
-        return True
-    return False
+    return bool(old and b'univentionPolicyShareUserQuota' in old['objectClass'])
 
 
 def _is_container(new: dict[str, list[bytes]], old: dict[str, list[bytes]]) -> bool:
@@ -158,9 +154,7 @@ def _is_share_used_on_this_server(new: dict[str, list[bytes]], old: dict[str, li
     fqdn = _get_fqdn().encode('ASCII')
     if new and fqdn in new['univentionShareHost']:
         return True
-    if old and fqdn in old['univentionShareHost']:
-        return True
-    return False
+    return bool(old and fqdn in old['univentionShareHost'])
 
 
 def _add_all_shares_below_this_container_to_dn_list(container_dn: str) -> None:

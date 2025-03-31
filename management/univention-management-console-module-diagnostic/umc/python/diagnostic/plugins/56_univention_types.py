@@ -36,7 +36,7 @@ from univention.admin.modules import identify, update
 from univention.admin.uldap import access, getAdminConnection
 from univention.config_registry import ucr_live as ucr
 from univention.lib.i18n import Translation
-from univention.management.console.modules.diagnostic import Instance, ProblemFixed, Warning
+from univention.management.console.modules.diagnostic import Instance, ProblemFixed, Warning  # noqa: A004
 
 
 _ = Translation('univention-management-console-module-diagnostic').translate
@@ -48,7 +48,7 @@ description = '\n'.join([
 ])
 
 _UPDATED = False
-UdmModule = Any  # FIXME
+UdmModule = Any  # FIXME:
 
 
 def udm_objects_without_type(lo: access) -> list[tuple[str, list[UdmModule], list[bytes]]]:

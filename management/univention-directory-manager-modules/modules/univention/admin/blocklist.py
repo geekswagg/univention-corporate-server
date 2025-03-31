@@ -49,7 +49,7 @@ from univention.admin._ucr import configRegistry
 
 if TYPE_CHECKING:
     import univention.admin.handlers
-    import univention.admin.handlers.blocklists.list  # noqa: TCH004
+    import univention.admin.handlers.blocklists.list  # noqa: TC004
 
 
 translation = univention.admin.localization.translation('univention.admin.handlers')

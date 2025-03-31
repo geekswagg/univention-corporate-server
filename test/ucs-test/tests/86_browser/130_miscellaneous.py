@@ -68,7 +68,7 @@ def search_for_session_id_cookie(context: BrowserContext) -> bool:
     return any('name' in cookie and cookie['name'] == 'UMCSessionId' for cookie in context.cookies())
 
 
-@pytest.fixture()
+@pytest.fixture
 def module_process_timeout(umc_browser_test: UMCBrowserTest, ucr):
     umc_browser_test.restart_umc()
     timeout = 30

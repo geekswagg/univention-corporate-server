@@ -24,7 +24,7 @@ def ucr0(tmpdir, monkeypatch, request):
     return ucr
 
 
-@pytest.fixture()
+@pytest.fixture
 def ucrf(ucr0):
     """Return a pre-initialized UCR instance."""
     ucr = be.ConfigRegistry(write_registry=be.ConfigRegistry.LDAP)
@@ -39,7 +39,7 @@ def ucrf(ucr0):
     return ucr0
 
 
-@pytest.fixture()
+@pytest.fixture
 def tmpucr(monkeypatch, tmpdir):
     fname = tmpdir / 'custom.conf'
     monkeypatch.setenv('UNIVENTION_BASECONF', str(fname))

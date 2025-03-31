@@ -82,6 +82,6 @@ class TestUCR:
         pass
 
 
-@pytest.fixture()
+@pytest.fixture
 def mock_ucr():
     return TestUCR()

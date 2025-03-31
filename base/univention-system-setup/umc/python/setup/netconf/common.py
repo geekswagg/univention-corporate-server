@@ -73,10 +73,10 @@ class AddressMap(AddressChange, metaclass=ABCMeta):
         self.net_changes = self._map_ip()
         self.ip_mapping = self._get_address_mapping()
 
-    def _map_ip(self) -> dict[IPv4Interface | IPv6Interface, None | IPv4Interface | IPv6Interface]:
+    def _map_ip(self) -> dict[IPv4Interface | IPv6Interface, IPv4Interface | IPv6Interface | None]:
         ipv4_changes = self.ipv4_changes()
         ipv6_changes = self.ipv6_changes()
-        net_changes: dict[IPv4Interface | IPv6Interface, None | IPv4Interface | IPv6Interface] = {}
+        net_changes: dict[IPv4Interface | IPv6Interface, IPv4Interface | IPv6Interface | None] = {}
         net_changes.update(ipv4_changes)  # type: ignore
         net_changes.update(ipv6_changes)  # type: ignore
         return net_changes

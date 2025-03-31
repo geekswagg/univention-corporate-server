@@ -480,8 +480,7 @@ class AppListener(AppListener):
                         with open(ORIGINAL_INIT_SCRIPT) as source:
                             lines = source.readlines()
                         with open(init_script, 'w') as target:
-                            for line in lines:
-                                target.write(re.sub(r'@%@APPID@%@', app.id, line))
+                            target.writelines(re.sub(r'@%@APPID@%@', app.id, line) for line in lines)
                         os.chmod(init_script, 0o755)
                         self._call_script('/usr/sbin/update-rc.d', os.path.basename(init_script), 'defaults', '41', '14')
                         self._call_script('/bin/systemctl', 'daemon-reload')

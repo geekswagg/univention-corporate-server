@@ -118,7 +118,7 @@ class ComplexHandler(ListenerModuleHandler):
     ) -> None:
         # `exc_type`, `exc_value` and `exc_traceback` can be examined for further
         # information about the exception.
-        self.logger.exception(
+        self.logger.exception(  # noqa: LOG004
             'An error occurred in listener module %r. dn=%r old={%d keys...} new={%d keys...} command=%r',
             self.config.name, dn, len(old.keys()), len(new.keys()), command,
         )

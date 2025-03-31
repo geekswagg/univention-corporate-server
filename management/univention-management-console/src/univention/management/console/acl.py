@@ -265,7 +265,7 @@ class ACLs:
 
     def _is_allowed(self, acls, command, hostname, options, flavor):
         for rule in acls:
-            if hostname and rule.host != '*' and rule.host != hostname:
+            if hostname and rule.host not in ('*', hostname):
                 continue
             match = self.__command_match(rule.command, command)
             opt_match = self.__option_match(rule.options, options)

@@ -106,7 +106,7 @@ class UcsRepoUrl:  # noqa: PLW1641
                 self.scheme = defaults.scheme
                 prefix = ucrv('prefix', defaults.path)
 
-        self.port = int(port if port else 443 if self.scheme == 'https' else 80)
+        self.port = int(port or (443 if self.scheme == 'https' else 80))
         if prefix:
             prefix = prefix.strip('/')
             if prefix:
@@ -119,7 +119,7 @@ class UcsRepoUrl:  # noqa: PLW1641
     @property
     def cred(self) -> str:
         if self.username:
-            # FIXME http://bugs.debian.org/500560: [@:/] don't work
+            # FIXME: http://bugs.debian.org/500560: [@:/] don't work
             return '%s:%s@' % (quote(self.username), quote(self.password or ''))
         return ''
 

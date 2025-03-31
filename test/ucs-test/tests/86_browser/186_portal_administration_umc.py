@@ -29,7 +29,7 @@ class PortalContext:
         self.dn = ''
 
 
-@pytest.fixture()
+@pytest.fixture
 def portal_context(ucr):
     old_portal_dn = ucr.get('portal/default-dn')
     portal_context = PortalContext()

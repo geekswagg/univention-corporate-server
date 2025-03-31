@@ -244,7 +244,7 @@ class object(univention.admin.handlers.simpleLdap):
                     new_acls_tmp.append(' '.join(acl))
 
         if rewrite_acl:
-            for (a, b, c) in ml:
+            for (a, b, c) in ml[:]:
                 if a in ['sharedFolderUserACL', 'sharedFolderGroupACL']:
                     ml.remove((a, b, c))
             new_acls_tmp = [x.encode('UTF-8') for x in new_acls_tmp]

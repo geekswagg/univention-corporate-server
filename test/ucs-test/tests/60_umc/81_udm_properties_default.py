@@ -9,7 +9,7 @@
 import unittest
 from argparse import Namespace as N
 
-from univention.admin import property
+from univention.admin import property  # noqa: A004
 
 
 class FakeObject(dict):

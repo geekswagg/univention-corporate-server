@@ -773,8 +773,7 @@ class PackageManager:
         except SystemError as exc:
             for message in self._get_error_message(exc):
                 self.progress_state.error(message)
-            for pkg in install + remove:
-                broken.add(pkg.name)
+            broken.update(pkg.name for pkg in install + remove)
 
         # if more than one package is to be installed and this package
         #   has an OR-dependency, the package will automatically choose

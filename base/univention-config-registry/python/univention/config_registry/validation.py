@@ -242,9 +242,7 @@ class Integer(BaseValidator):
         val = int(value)
         if self._min is not None and val < self._min:
             return False
-        if self._max is not None and val > self._max:
-            return False
-        return True
+        return not (self._max is not None and val > self._max)
 
     def __str__(self):
         # type: () -> str
@@ -341,9 +339,9 @@ class Cron(BaseValidator):
     """Validator for |UCR| type "cron"."""
 
     NAME = "cron"
-    PREDEFINED = frozenset("@annually @yearly @monthly @weekly @daily @hourly @reboot".split())
-    MONTHS = frozenset("jan feb mar apr may jun jul aug sep oct nov dec".split())
-    DAYS = frozenset("sun mon tue wed thu fri sat".split())
+    PREDEFINED = frozenset(["@annually", "@yearly", "@monthly", "@weekly", "@daily", "@hourly", "@reboot"])
+    MONTHS = frozenset(["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"])
+    DAYS = frozenset(["sun", "mon", "tue", "wed", "thu", "fri", "sat"])
 
     def validate(self, value):
         # type: (str) -> object

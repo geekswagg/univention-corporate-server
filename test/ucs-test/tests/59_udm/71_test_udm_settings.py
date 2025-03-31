@@ -351,7 +351,7 @@ file_name = uts.random_name()
 file_path = os.path.join('/tmp', file_name)
 
 
-@pytest.fixture()
+@pytest.fixture
 def remove_tmp_file():
     yield
     try:

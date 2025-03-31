@@ -174,7 +174,7 @@ if __name__ == "__main__":
 
     ldap_base = ucr.get('ldap/base', '')
 
-    for key in ucs_match_filter:
+    for key in ucs_match_filter:  # noqa: PLC0206
         for dn, attrs in s4.lo.search(ucs_match_filter[key], ldap_base, 'sub', []):
 
             log(1, "UCS: %s" % dn)

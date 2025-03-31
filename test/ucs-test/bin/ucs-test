@@ -213,7 +213,7 @@ def main() -> int | None:
     setup_environment()
     setup_debug(options.verbose)
 
-    selected_sections = options.sections if options.sections else all_sections.keys()
+    selected_sections = options.sections or all_sections.keys()
     tests = get_tests(selected_sections)
 
     coverage = Coverage(options)

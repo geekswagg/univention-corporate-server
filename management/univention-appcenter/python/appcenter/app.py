@@ -1345,8 +1345,7 @@ class App(metaclass=AppMetaClass):  # noqa: PLW1641
         return os.path.join(DATA_DIR, self.id, 'conf')
 
     def get_conf_file(self, fname):
-        if fname.startswith('/'):
-            fname = fname[1:]
+        fname = fname.removeprefix('/')
         fname = os.path.join(self.get_conf_dir(), fname)
         if not os.path.exists(fname):
             mkdir(os.path.dirname(fname))

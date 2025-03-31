@@ -19,7 +19,7 @@ from appcentertest import get_requested_apps
 
 
 # taken from https://mail.python.org/pipermail/tutor/2002-September/017228.html
-urls = '(?: %s)' % '|'.join("http https telnet gopher file wais ftp".split())
+urls = '(?: http|https|telnet|gopher|file|wais|ftp)'
 ltrs = r'\w'
 gunk = r'/#~:.?+=&%@!\-'
 punc = r'.:?\-'
@@ -142,7 +142,7 @@ def check_files():
         links[app.id] = findall_urls_from_ini(app)
         links[app.id].update(findall_urls_from_readme(app))
     bad_links = []
-    for app in links:
+    for app in links:  # noqa: PLC0206
         for link in links[app]:
             if link in forbidden_links:
                 print("Ignore link:", link)

@@ -40,7 +40,7 @@ _uldap = import_module('uldap', 'modules/', 'univention.uldap', use_installed=Fa
 univention_password = import_module('password', 'modules/', 'univention.password', use_installed=False)
 
 
-@pytest.fixture()
+@pytest.fixture
 def mocked_ucr(mock_ucr, mocker):
     mock = mocker.patch.object(univention_password, 'ucr')
     mock.ucr = mock_ucr
@@ -342,7 +342,7 @@ class TestPasswordConfigExhaustedAvailableCharacterPool:
             univention_password.generate_password(**cfg)
 
     def test_exhausted_pool(self):
-        with pytest.raises(ValueError, match="All available characters are excluded by.*"):
+        with pytest.raises(ValueError, match=r"All available characters are excluded by.*"):
             cfg = {'digits': 1, 'lower': 1, 'other': 1, 'upper': 1, 'forbidden': string.printable, 'min_length': 6}
             univention_password.generate_password(**cfg)
 

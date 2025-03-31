@@ -130,8 +130,7 @@ def update_fstab(args: argparse.Namespace, simulate: bool) -> set[str]:
 
     # Discard already mounted
     current_mtab = fstab.File('/etc/mtab')
-    for entry in current_mtab.get('nfs'):
-        to_mount.discard(entry.mount_point)
+    to_mount.difference_update(entry.mount_point for entry in current_mtab.get('nfs'))
     return to_mount
 
 

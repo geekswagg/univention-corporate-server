@@ -365,7 +365,7 @@ class AutomaticListenerRestart:
                 univention.config_registry.handler_set(['foo/bar=ding/dong'])
     """
 
-    def __enter__(self) -> AutomaticListenerRestart:  # FIXME Py3.9: Self
+    def __enter__(self) -> AutomaticListenerRestart:  # FIXME: Py3.9: Self
         return self
 
     def __exit__(self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None) -> None:
@@ -404,7 +404,7 @@ class AutoCallCommand:
         self.pipe_stdout = stdout
         self.pipe_stderr = stderr
 
-    def __enter__(self) -> AutoCallCommand:  # FIXME Py3.9: Self
+    def __enter__(self) -> AutoCallCommand:  # FIXME: Py3.9: Self
         if self.enter_cmd:
             subprocess.call(self.enter_cmd, stdout=self.pipe_stdout, stderr=self.pipe_stderr)
         return self
@@ -441,7 +441,7 @@ class FollowLogfile:
         self.always = always
         self.logfile_pos: dict[str, int] = dict.fromkeys(logfiles, 0)
 
-    def __enter__(self) -> FollowLogfile:  # FIXME Py3.9: Self
+    def __enter__(self) -> FollowLogfile:  # FIXME: Py3.9: Self
         self.logfile_pos.update((logfile, os.path.getsize(logfile)) for logfile in self.logfile_pos)
         return self
 
@@ -661,9 +661,7 @@ def is_port_open(port: int, hosts: Iterable[str] | None = None, timeout: float =
 def no_change_in_file(no_change_for: int, log_file: str) -> bool:
     modify_time = os.path.getmtime(log_file)
     current_time = time.time()
-    if (current_time - modify_time) >= no_change_for:
-        return True
-    return False
+    return current_time - modify_time >= no_change_for
 
 
 def wait_for_s4_connector_to_be_inactive(no_change_for: int = 10) -> None:

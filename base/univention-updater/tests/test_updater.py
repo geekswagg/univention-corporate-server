@@ -22,7 +22,7 @@ import univention.updater.tools as U
 UU = U.UniventionUpdater
 
 
-@pytest.fixture()
+@pytest.fixture
 def u(http):
     """Mock UCS updater."""
     http({

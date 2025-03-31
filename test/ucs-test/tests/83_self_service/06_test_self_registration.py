@@ -52,23 +52,23 @@ def kill_umc_module_process():
     subprocess.call(['pkill', '-f', '/usr/sbin/univention-management-console-module'])
 
 
-@pytest.fixture()
+@pytest.fixture
 def readudm():
     return UDM.machine().version(2)
 
 
-@pytest.fixture()
+@pytest.fixture
 def mails():
     with capture_mails(timeout=MAILS_TIMEOUT) as mails:
         yield mails
 
 
-@pytest.fixture()
+@pytest.fixture
 def umc_client():
     return Client(language="en_US")
 
 
-@pytest.fixture()
+@pytest.fixture
 def get_registration_info(ucr):
     class local:
         dns = []
@@ -115,8 +115,8 @@ def _get_mail(mails, idx=-1):
     for line in body.split():
         if line.startswith('https://'):
             verification_links.append(line)
-    auto_verify_link = verification_links[0] if len(verification_links) else ''
-    verify_link = verification_links[1] if len(verification_links) else ''
+    auto_verify_link = verification_links[0] if verification_links else ''
+    verify_link = verification_links[1] if verification_links else ''
     verify_fragment = urlparse(auto_verify_link).fragment
     verify_params = parse_qs(verify_fragment)
     return {
@@ -224,7 +224,7 @@ def test_usercontainer_ucr_var_not_existing(umc_client, get_registration_info):
 
 
 def test_usertemplate_ucr_var(umc_client, udm, ucr, get_registration_info):
-    # TODO test all fields
+    # TODO: test all fields
     template_dn = udm.create_object('settings/usertemplate', name=uts.random_name(), title="<username>")
     ucr.handler_set(['umc/self-service/account-registration/usertemplate=%s' % (template_dn,)])
     info = get_registration_info()

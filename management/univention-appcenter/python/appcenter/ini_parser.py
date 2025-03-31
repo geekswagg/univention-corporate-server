@@ -97,7 +97,7 @@ class IniSectionAttribute(UniventionMetaInfo):
         self.choices = choices
 
     def _canonical_name(self):
-        return re.sub('_', '', self.name)
+        return self.name.replace('_', '')
 
     @classmethod
     def _fetch_from_parser(cls, parser, section, name):

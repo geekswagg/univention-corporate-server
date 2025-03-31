@@ -26,7 +26,7 @@ if TYPE_CHECKING:
 pytest_plugins = ["univention.testing.conftest"]
 
 
-@pytest.fixture()
+@pytest.fixture
 def ucr() -> Iterator[_ucr.UCSTestConfigRegistry]:
     """Per `function` auto-reverting UCR instance."""
     with _ucr.UCSTestConfigRegistry() as ucr:
@@ -77,7 +77,7 @@ def ldap_master(ucr_session) -> str:
     return ucr_session.get('ldap/master')
 
 
-@pytest.fixture()
+@pytest.fixture
 def udm() -> Iterator[_udm.UCSTestUDM]:
     """Auto-reverting UDM wrapper."""
     with _udm.UCSTestUDM() as udm:
@@ -91,7 +91,7 @@ def udm_session() -> Iterator[_udm.UCSTestUDM]:
         yield udm
 
 
-@pytest.fixture()
+@pytest.fixture
 def selenium() -> Iterator[_sel.UMCSeleniumTest]:
     """Browser based testing for UMC using Selenium."""
     with _sel.UMCSeleniumTest() as s:
@@ -151,7 +151,7 @@ def account() -> utils.UCSTestDomainAdminCredentials:
     return utils.UCSTestDomainAdminCredentials()
 
 
-@pytest.fixture()
+@pytest.fixture
 def change_app_setting():
     """Change settings of an app and revert"""
     data = {'app': None, 'configure': None, 'changes': {}}

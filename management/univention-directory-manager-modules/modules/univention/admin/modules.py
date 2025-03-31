@@ -1094,8 +1094,7 @@ def policyPositionDnPrefix(module_name: UdmName) -> str:
     if not hasattr(module, 'policy_position_dn_prefix'):
         return ""
     policy_position_dn_prefix = module.policy_position_dn_prefix
-    if policy_position_dn_prefix.endswith(','):
-        policy_position_dn_prefix = policy_position_dn_prefix[:-1]
+    policy_position_dn_prefix = policy_position_dn_prefix.removesuffix(',')
     return policy_position_dn_prefix
 
 

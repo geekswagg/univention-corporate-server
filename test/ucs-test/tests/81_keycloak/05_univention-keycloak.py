@@ -294,7 +294,7 @@ def test_bindpwd(admin_account):
         run_command(cmd)
 
 
-@pytest.fixture()
+@pytest.fixture
 def without_keycloak_secret():
     secret = '/etc/keycloak.secret'
     secret_tmp = f'{secret}.tmp'
@@ -401,7 +401,7 @@ def test_oidc_audience_mapper(random_string, keycloak_admin_connection, audience
         "protocolMapper": "oidc-audience-mapper",
         "consentRequired": False,
         "config": {
-            "included.client.audience": audience_to_map if audience_to_map else client_id,
+            "included.client.audience": audience_to_map or client_id,
             "id.token.claim": "true",
             "access.token.claim": "true",
             "userinfo.token.claim": "true",
@@ -593,7 +593,7 @@ def test_oidc_client_defaults(random_string, keycloak_admin_connection):
         assert not client.get('baseUrl')
         assert client['publicClient'] is False
         assert client['attributes']['backchannel.logout.revoke.offline.tokens'] == 'false'
-        # TODO test more options
+        # TODO: test more options
     finally:
         if keycloak_id:
             keycloak_admin_connection.delete_client(keycloak_id)
@@ -624,7 +624,7 @@ def test_oidc_client_options(random_string, keycloak_admin_connection):
         assert app_url in client['webOrigins']
         assert client['publicClient'] is True
         assert client['attributes']['backchannel.logout.revoke.offline.tokens'] == 'true'
-        # TODO test more options
+        # TODO: test more options
     finally:
         if keycloak_id:
             keycloak_admin_connection.delete_client(keycloak_id)

@@ -44,7 +44,7 @@ translation = univention.admin.localization.translation('univention.admin')
 _ = translation.translate
 
 
-# TODO move to univention.admin.syntax
+# TODO: move to univention.admin.syntax
 class GuardianRole(simple):
     regex = re.compile(
         r"^([a-z0-9-_]+:[a-z0-9-_]+:[a-z0-9-_]+)(&[a-z0-9-_]+:[a-z0-9-_]+:[a-z0-9-_=,]+)?$",  # FIXME: why don't we allow LDAP DNs in the last part of context? That would be case insensitive UTF-8 see https://ldapwiki.com/wiki/Wiki.jsp?page=Distinguished%20Name%20Case%20Sensitivity and https://ldapwiki.com/wiki/Wiki.jsp?page=Ou
@@ -127,7 +127,7 @@ def get_group_role(lo: univention.admin.uldap.access, dn: str) -> list[str]:
     return [x.decode('UTF-8') for x in res.get('univentionGuardianMemberRoles', [])]
 
 
-# TODO
+# TODO:
 # naive approach to get role strings for groups by searching the LDAP
 def load_roles(lo: univention.admin.uldap.access, groups: list[str]) -> list[str]:
     return list(set(itertools.chain.from_iterable(get_group_role(lo, group) for group in groups)))

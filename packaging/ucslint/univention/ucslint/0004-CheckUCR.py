@@ -59,7 +59,7 @@ if TYPE_CHECKING:
 # 8) check, ob univention-install-config-registry-info in debian/rules vorhanden ist, sofern debian/*.univention-config-registry-variables existiert
 
 #
-# TODO / FIXME
+# TODO: / FIXME
 # - 0004-29: Different (conflicting) packages might provide the same Multifile with different definitions (e.g. univention-samba/etc/smb.conf)
 UcrInfo = dict[str, list[str]]
 

@@ -75,9 +75,7 @@ def _validate_smb_share_name(name: str) -> bool:
     if len(name) > 80:
         return False
     illegal_chars = set('\\/[]:|<>+=;,*?"' + ''.join(map(chr, range(0x1F + 1))))
-    if set(str(name)) & illegal_chars:
-        return False
-    return True
+    return not set(str(name)) & illegal_chars
 
 
 class BasedirLimit(Exception):
@@ -397,8 +395,7 @@ def remove_printer_from_samba(printername: str) -> None:
 @listener.SetUID(0)
 def update_samba_printers_conf():
     with open('/etc/samba/printers.conf.temp', 'w') as fp:
-        for f in os.listdir('/etc/samba/printers.conf.d'):
-            fp.write('include = %s\n' % os.path.join('/etc/samba/printers.conf.d', f))
+        fp.writelines('include = %s\n' % os.path.join('/etc/samba/printers.conf.d', f) for f in os.listdir('/etc/samba/printers.conf.d'))
     os.rename('/etc/samba/printers.conf.temp', '/etc/samba/printers.conf')
 
 

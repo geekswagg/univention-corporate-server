@@ -425,7 +425,7 @@ class Instance(Base):
         count=IntegerSanitizer(default=0),
     )
     @simple_response
-    def updater_log_file(self, job: str, count: int) -> None | float | list[str]:
+    def updater_log_file(self, job: str, count: int) -> float | list[str] | None:
         """
         returns the content of the log file associated with
         the job.

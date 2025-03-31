@@ -21,7 +21,7 @@ if configRegistry.is_true("mail/postfix/smtpd/restrictions/sender/reject_unknown
     for i, item in enumerate(recipient_restrictions):
         if "reject_unauth_destination" in item:
             if configRegistry.is_true('mail/postfix/smtpd/restrictions/sender/reject_unknown_reverse_client_hostname'):
-                recipient_restrictions.insert(i + 1, 'reject_unknown_reverse_client_hostname')
+                recipient_restrictions.insert(i + 1, 'reject_unknown_reverse_client_hostname')  # noqa: B909
             if configRegistry.is_true('mail/postfix/smtpd/restrictions/sender/reject_unknown_client_hostname'):
                 recipient_restrictions.insert(i + 1, 'reject_unknown_client_hostname')
             break

@@ -118,7 +118,7 @@ class ConditionalResource:
         safe_request = self.request.method in ('GET', 'HEAD', 'OPTIONS')
 
         def wheak(x):
-            return x[2:] if x.startswith('W/') else x
+            return x.removeprefix('W/')
         etag_matches = re.compile(r'\*|(?:W/)?"[^"]*"')
 
         def check_conditional_request_if_none_match():

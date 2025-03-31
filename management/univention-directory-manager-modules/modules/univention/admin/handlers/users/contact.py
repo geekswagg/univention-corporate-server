@@ -471,7 +471,7 @@ lookup_filter = object.lookup_filter
 
 def identify(dn, attr, canonical=False):
     # type: (str, univention.admin.handlers._Attributes, bool) -> bool
-    # FIXME is this if block needed? copy pasted from users/user
+    # FIXME: is this if block needed? copy pasted from users/user
     if b'0' in attr.get('uidNumber', []) or b'$' in attr.get('uid', [b''])[0] or b'univentionHost' in attr.get('objectClass', []) or b'functional' in attr.get('univentionObjectFlag', []):
         return False
 

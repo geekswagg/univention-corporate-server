@@ -23,6 +23,7 @@ from univention.testing import utils
 from univention.testing.strings import random_string, random_username
 from univention.testing.ucr import UCSTestConfigRegistry
 from univention.testing.udm import UCSTestUDM, UCSTestUDM_CreateUDMObjectFailed
+# ruff: noqa: A004
 from univention.udm import (
     UDM, ApiVersionMustNotChange, ApiVersionNotSupported, ConnectionError, NoApiVersionSet, WrongObjectType,
 )
@@ -680,7 +681,7 @@ class TestEncoders(TestCase):
         assert [o.dn for o in obj.props.secretary.objs] == [obj2.dn]
 
 
-@pytest.fixture()
+@pytest.fixture
 def simple_udm(ucr) -> UDM:
     account = utils.UCSTestDomainAdminCredentials()
     return UDM.credentials(
@@ -692,7 +693,7 @@ def simple_udm(ucr) -> UDM:
     ).version(1)
 
 
-@pytest.fixture()
+@pytest.fixture
 def schedule_delete_udm_obj(simple_udm):
     objs: list[tuple[str, str]] = []
 

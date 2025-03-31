@@ -401,7 +401,7 @@ lo: uldap.access | None = None
 position: uldap.position | None = None
 lo = position = co = parser = None
 zone_name = ""
-zone: None | forward_zone.object | reverse_zone.object = None
+zone: forward_zone.object | reverse_zone.object | None = None
 
 
 def main() -> None:
@@ -413,8 +413,7 @@ def main() -> None:
     typ = options.typ
     args = options.args
 
-    global lo
-    global position
+    global lo, position
     lo, position = bind()
 
     univention.admin.modules.update()

@@ -159,9 +159,9 @@ class Sanitizer:
     """
 
     def __init__(self, **kwargs):
-        self.further_arguments = kwargs.get('further_arguments', None)
+        self.further_arguments = kwargs.get('further_arguments')
         self.required = kwargs.get('required', False)
-        self.default = kwargs.get('default', None)
+        self.default = kwargs.get('default')
         self.may_change_value = kwargs.get('may_change_value', True)
         self.allow_none = kwargs.get('allow_none', False)
 
@@ -458,7 +458,7 @@ class SearchSanitizer(Sanitizer):
             self.max_number_of_asterisks = kwargs.get('max_number_of_asterisks', 5)
         else:
             self.add_asterisks = kwargs.get('add_asterisks', False)
-            self.max_number_of_asterisks = kwargs.get('max_number_of_asterisks', None)
+            self.max_number_of_asterisks = kwargs.get('max_number_of_asterisks')
         super().__init__(**kwargs)
 
     def _escape_and_return(self, value: str) -> str:
@@ -575,7 +575,7 @@ class StringSanitizer(Sanitizer):
     :type regex_pattern: str or re._pattern_type
     """
 
-    def __init__(self, regex_pattern: None | Pattern[str] | str = None, re_flags: int = 0, minimum: int | None = None, maximum: int | None = None, **kwargs: Any) -> None:
+    def __init__(self, regex_pattern: Pattern[str] | str | None = None, re_flags: int = 0, minimum: int | None = None, maximum: int | None = None, **kwargs: Any) -> None:
         super().__init__(**kwargs)
         if isinstance(regex_pattern, str):
             regex_pattern = re.compile(regex_pattern, flags=re_flags)

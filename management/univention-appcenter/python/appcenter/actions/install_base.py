@@ -262,9 +262,7 @@ class InstallRemoveUpgrade(Register):
             return True
         if os.path.exists(app.get_cache_file('attributes')) or app.generic_user_activation:
             return True
-        if app.docker and app.docker_script_setup:
-            return True
-        return False
+        return bool(app.docker and app.docker_script_setup)
 
     def _handle_errors(self, args, errors, fatal):
         can_continue = True

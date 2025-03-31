@@ -36,7 +36,7 @@ from collections.abc import Hashable
 import pytest
 
 
-@pytest.fixture()
+@pytest.fixture
 def v(ucs):
     return ucs.UCS_Version("2.3-4")
 

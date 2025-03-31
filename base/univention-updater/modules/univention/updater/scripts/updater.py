@@ -142,8 +142,7 @@ def update_status(**kwargs: str) -> None:
     fn = '%s.new' % FN_STATUS
     try:
         with open(fn, 'w+') as fd:
-            for key, val in updater_status.items():
-                fd.write('%s=%s\n' % (key, val))
+            fd.writelines('%s=%s\n' % (key, val) for key, val in updater_status.items())
         os.rename(fn, FN_STATUS)
     except OSError as ex:
         dprint('Warning: cannot update status: %s' % (ex,))

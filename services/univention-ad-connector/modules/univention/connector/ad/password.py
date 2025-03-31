@@ -453,7 +453,7 @@ def password_sync_kinit(connector, key, ucs_object):
     ucs_result = connector.lo.search(base=ucs_object['dn'], attr=attr.keys())
 
     modlist = []
-    for attribute in attr.keys():
+    for attribute in attr.keys():  # noqa: PLC0206
         expected_value = attr[attribute]
         if attribute in ucs_result[0][1]:
             userPassword = ucs_result[0][1][attribute][0]
@@ -647,7 +647,7 @@ def password_sync(connector, key, ucs_object):
             else:
                 ud.debug(ud.LDAP, ud.INFO, "password_sync: shadowMax in modlist (set): 0")
                 modlist.append(('shadowMax', b'', b'0'))
-            two_days_ago = int(time.time()) - (86400 * 2)  # FIXME -1day should be enough
+            two_days_ago = int(time.time()) - (86400 * 2)  # FIXME: -1day should be enough
             new_shadowLastChange = str(two_days_ago // 3600 // 24).encode('ASCII')
             if old_shadowLastChange:
                 ud.debug(ud.LDAP, ud.INFO, "password_sync: shadowLastChange in modlist (replace): %s" % new_shadowLastChange)

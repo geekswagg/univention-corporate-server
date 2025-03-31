@@ -97,8 +97,7 @@ class Lint:
                     lib = lib.replace("$TESTLIBPATH/", self.D_LIB)
                     lib = lib.strip('"')
                     libs.add(lib)
-                    for sublib in self.dependencies.get(lib, ()):
-                        libs.add(sublib)
+                    libs.update(self.dependencies.get(lib, ()))
                     continue
 
                 match = self.regexp.search(line)

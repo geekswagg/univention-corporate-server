@@ -154,30 +154,30 @@ class UniventionPackageCheck(uub.UniventionPackageCheckDebian):
             '0015-2': (uub.RESULT_WARN, 'file contains "univention" incorrectly written'),
         }
 
-    RE_WHITEWORD = re.compile(r'|'.join(r"""
-        [0-9][0-9]univention
-        Xunivention
-        punivention
-        fBunivention
-        invention
-        [Kk]uhnivention
-        onvention
-        unintention
-        univention
-        Univention
-        UNIVENTION
-        _univention
-        univention_
-    """.split()))
+    RE_WHITEWORD = re.compile(r'|'.join([  # noqa: FLY002
+        r"[0-9][0-9]univention",
+        r"Xunivention",
+        r"punivention",
+        r"fBunivention",
+        r"invention",
+        r"[Kk]uhnivention",
+        r"onvention",
+        r"unintention",
+        r"univention",
+        r"Univention",
+        r"UNIVENTION",
+        r"_univention",
+        r"univention_",
+    ]))
 
-    RE_WHITELINE = re.compile(r'|'.join(r"""
-        \\[tnr]univention
-        -.univention
-        [SK]?[0-9][0-9]univention
-        univention[0-9]
-        univentionr\._baseconfig
-        /var/lib/univentions-client-boot/
-    """.split()))
+    RE_WHITELINE = re.compile(r'|'.join([  # noqa: FLY002
+        r"\\[tnr]univention",
+        r"-.univention",
+        r"[SK]?[0-9][0-9]univention",
+        r"univention[0-9]",
+        r"univentionr\._baseconfig",
+        r"/var/lib/univentions-client-boot/",
+    ]))
 
     def check(self, path: Path) -> None:
         super().check(path)

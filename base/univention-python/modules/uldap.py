@@ -958,7 +958,7 @@ class access:
         if isLDAPUrl(ldap_url):
             conn_str = LDAPUrl(ldap_url).initializeUrl()
 
-            # FIXME?: this upgrades a access(reconnect=False) connection to a reconnect=True connection
+            # FIXME: ? this upgrades a access(reconnect=False) connection to a reconnect=True connection
             lo_ref = ldap.ldapobject.ReconnectLDAPObject(conn_str, trace_stack_limit=None)
 
             if self.ca_certfile:

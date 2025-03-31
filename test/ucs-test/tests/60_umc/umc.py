@@ -5,7 +5,7 @@ from time import sleep
 
 from univention.config_registry import ConfigRegistry
 from univention.lib.misc import custom_groupname
-from univention.lib.umc import ConnectionError, HTTPError
+from univention.lib.umc import ConnectionError, HTTPError  # noqa: A004
 from univention.testing import utils
 from univention.testing.codes import Reason
 from univention.testing.umc import Client

@@ -114,7 +114,7 @@ class object(univention.admin.handlers.simpleLdap, PKIIntegration):
         super().open()
         self.pki_open()
 
-        self.options = ['samba']  # FIXME/TODO
+        self.options = ['samba']  # FIXME/TODO:
         self.modifypassword = 1
         if self.exists():
             self['password'] = '********'

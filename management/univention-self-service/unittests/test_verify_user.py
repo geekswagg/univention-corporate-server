@@ -41,7 +41,7 @@ from univention.management.console.modules import UMC_Error
 selfservice = import_umc_module('passwordreset')
 
 
-@pytest.fixture()
+@pytest.fixture
 def verify_ucr(selfservice_ucr):
     selfservice_ucr['umc/self-service/passwordreset/email/enabled'] = 'yes'
     selfservice_ucr['umc/self-service/passwordreset/sms/enabled'] = 'yes'
@@ -50,12 +50,12 @@ def verify_ucr(selfservice_ucr):
     return selfservice_ucr
 
 
-@pytest.fixture()
+@pytest.fixture
 def ldap_database_file():
     return 'unittests/verify.ldif'
 
 
-@pytest.fixture()
+@pytest.fixture
 def jobst(ldap_database):
     return ldap_database.objs["uid=jobst,cn=self registered users,dc=intranet,dc=example,dc=de"]
 

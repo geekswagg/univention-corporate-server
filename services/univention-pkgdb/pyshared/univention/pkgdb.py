@@ -55,9 +55,9 @@ import univention.uldap
 
 assert pgdb.paramstyle == 'pyformat'
 
-# TODO use FQDN or DN as system identifier instead of hostname?
-# TODO add <limit> parameter to sql_get* functions
-# TODO add <order> parameter to sql_get* functions to change/disable sort
+# TODO: use FQDN or DN as system identifier instead of hostname?
+# TODO: add <limit> parameter to sql_get* functions
+# TODO: add <order> parameter to sql_get* functions to change/disable sort
 # TODO: pkgdbu should not be able to create roles, instead do it as postgres from listener script as root
 
 
@@ -346,7 +346,7 @@ def sql_getall_packages_in_systems(cursor):
 def sql_get_systems_by_query(cursor, query):
     if not query:
         return []
-    sqlcmd = "SELECT sysname, sysversion, sysrole, to_char(scandate,'YYYY-MM-DD HH24:MI:SS'), ldaphostdn FROM systems WHERE " + query + " ORDER BY sysname"  # FIXME  # noqa: S608
+    sqlcmd = "SELECT sysname, sysversion, sysrole, to_char(scandate,'YYYY-MM-DD HH24:MI:SS'), ldaphostdn FROM systems WHERE " + query + " ORDER BY sysname"  # FIXME:  # noqa: S608
     return sql_select(cursor, sqlcmd)
 
 
@@ -354,9 +354,9 @@ def sql_get_packages_in_systems_by_query(cursor, query, join_systems, limit=None
     if not query:
         return []
     if join_systems:
-        sqlcmd = "SELECT sysname, pkgname, vername, to_char(packages_on_systems.scandate, 'YYYY-MM-DD HH24:MI:SS'), inststatus, selectedstate, inststate, currentstate FROM packages_on_systems JOIN systems USING(sysname) WHERE " + query  # FIXME  # noqa: S608
+        sqlcmd = "SELECT sysname, pkgname, vername, to_char(packages_on_systems.scandate, 'YYYY-MM-DD HH24:MI:SS'), inststatus, selectedstate, inststate, currentstate FROM packages_on_systems JOIN systems USING(sysname) WHERE " + query  # FIXME:  # noqa: S608
     else:
-        sqlcmd = "SELECT sysname, pkgname, vername, to_char(packages_on_systems.scandate, 'YYYY-MM-DD HH24:MI:SS'), inststatus, selectedstate, inststate, currentstate FROM packages_on_systems WHERE " + query  # FIXME  # noqa: S608
+        sqlcmd = "SELECT sysname, pkgname, vername, to_char(packages_on_systems.scandate, 'YYYY-MM-DD HH24:MI:SS'), inststatus, selectedstate, inststate, currentstate FROM packages_on_systems WHERE " + query  # FIXME:  # noqa: S608,
 
     if orderby:
         sqlcmd += " ORDER BY %s" % (orderby)

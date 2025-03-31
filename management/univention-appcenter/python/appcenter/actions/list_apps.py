@@ -126,9 +126,7 @@ class List(UniventionAppAction):
             return True
         if app.name.lower() in the_list:
             return True
-        if any(category.lower() in the_list for category in app.categories):
-            return True
-        return False
+        return bool(any(category.lower() in the_list for category in app.categories))
 
     def _list(self, pattern):
         ret = []

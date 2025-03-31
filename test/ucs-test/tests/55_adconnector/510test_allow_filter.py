@@ -64,7 +64,7 @@ def create_objects_in_ucs(
 
     objects = []
 
-    name = username if username else random_string()
+    name = username or random_string()
     dn, _ = udm.create_user('users/user', username=name)
     objects.append(
         DomObject(
@@ -76,7 +76,7 @@ def create_objects_in_ucs(
             ad_dn=f'cn={name},cn=users,{AD.adldapbase}',
         ),
     )
-    name = groupname if groupname else random_string()
+    name = groupname or random_string()
     dn = udm.create_object('groups/group', name=name)
     objects.append(
         DomObject(
@@ -88,7 +88,7 @@ def create_objects_in_ucs(
             ad_dn=f'cn={name},{AD.adldapbase}',
         ),
     )
-    name = containername if containername else random_string()
+    name = containername or random_string()
     dn = udm.create_object('container/cn', name=name)
     objects.append(
         DomObject(
@@ -100,7 +100,7 @@ def create_objects_in_ucs(
             ad_dn=f'cn={name},{AD.adldapbase}',
         ),
     )
-    name = ouname if ouname else random_string()
+    name = ouname or random_string()
     dn = udm.create_object('container/ou', name=name)
     objects.append(
         DomObject(
@@ -423,7 +423,7 @@ def test_filter_no_longer_matches(sync_mode: str) -> None:
             AD.verify_object(ad_dn, {'name': username})
             udm.modify_object('users/user', dn=udm_dn, description='nosync')
             wait_for_sync()
-            # TODO is this OK?
+            # TODO: is this OK?
             # Problem: the allowed attribute has been removed from the object,
             # this change is not synced to the other side
             AD.verify_object(ad_dn, {'name': username, 'description': 'sync'})
@@ -438,7 +438,7 @@ def test_filter_no_longer_matches(sync_mode: str) -> None:
                 udm.verify_ldap_object(udm_dn)
                 AD.set_attribute(ad_dn, 'description', b'nosync')
                 wait_for_sync()
-                # TODO is this OK?
+                # TODO: is this OK?
                 udm.verify_ldap_object(udm_dn, expected_attr={'description': ['sync']})
             finally:
                 AD.delete(ad_dn)

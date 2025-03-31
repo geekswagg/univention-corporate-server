@@ -146,7 +146,7 @@ class _NoRelation(Exception):
     pass
 
 
-class Response:
+class Response:  # noqa: B903
 
     __slots__ = ('data', 'response', 'uri')
 
@@ -318,7 +318,7 @@ class Session:
             raise _NoRelation(relation)
 
 
-class Client:
+class Client:  # noqa: B903
 
     __slots__ = ('client',)
 

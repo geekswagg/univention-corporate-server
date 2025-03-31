@@ -19,19 +19,19 @@ import univention.testing.udm as udm_test
 from essential.mail import random_email
 
 
-@pytest.fixture()
+@pytest.fixture
 def udm():
     with udm_test.UCSTestUDM() as udm:
         yield udm
 
 
-@pytest.fixture()
+@pytest.fixture
 def ucr():
     with ucr_test.UCSTestConfigRegistry() as ucr:
         yield ucr
 
 
-@pytest.fixture()
+@pytest.fixture
 def fqdn():
     with ucr_test.UCSTestConfigRegistry() as ucr:
         return '%(hostname)s.%(domainname)s' % ucr

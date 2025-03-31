@@ -4,7 +4,7 @@
 # Like what you see? Join us!
 # https://www.univention.com/about-us/careers/vacancies/
 
-from abc import ABCMeta
+from abc import ABCMeta, abstractmethod
 from argparse import Namespace
 from pathlib import Path
 
@@ -67,6 +67,7 @@ class Target(metaclass=ABCMeta):
             machine_name += ' ' + self.options.version
         return machine_name
 
+    @abstractmethod
     def create(self, image: Raw) -> None:
         raise NotImplementedError()
 

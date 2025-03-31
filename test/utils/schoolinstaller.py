@@ -45,7 +45,7 @@ except ImportError:
     ucr = ConfigRegistry()
     ucr.load()
 
-from univention.lib.umc import Client, ConnectionError, HTTPError
+from univention.lib.umc import Client, ConnectionError, HTTPError  # noqa: A004
 
 
 # we need python2.7 compatibility as this is also

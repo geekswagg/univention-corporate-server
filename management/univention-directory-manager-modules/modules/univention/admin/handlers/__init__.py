@@ -882,7 +882,7 @@ class simpleLdap:
                     subobject.move(subolddn)
                 raise
 
-        return None  # FIXME
+        return None  # FIXME:
 
     def remove(self, remove_childs: bool = False) -> None:
         """
@@ -1656,7 +1656,7 @@ class simpleLdap:
             if univention.admin.modules.recognize(policy_module, dn, self.lo.get(dn)) and self.policyObjects.get(policy_type, None) and self.policyObjects[policy_type].cloned == dn and not reset:
                 return self.policyObjects[policy_type]
 
-        for dn in self.policies:
+        for dn in self.policies[:]:
             modules = univention.admin.modules.identify(dn, self.lo.get(dn))
             for module in modules:
                 if univention.admin.modules.name(module) == policy_type:

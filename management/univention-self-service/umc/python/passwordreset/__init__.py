@@ -55,7 +55,7 @@ import univention.admin.syntax
 import univention.admin.uexceptions as udm_errors
 from univention.admin.uldap import getMachineConnection
 from univention.lib.i18n import Translation
-from univention.lib.umc import Client, ConnectionError, HTTPError, Unauthorized
+from univention.lib.umc import Client, ConnectionError, HTTPError, Unauthorized  # noqa: A004
 from univention.management.console.config import ucr
 from univention.management.console.ldap import (
     get_admin_connection, get_machine_connection, get_user_connection, machine_connection,
@@ -385,7 +385,7 @@ class Instance(Base):
             dict(wd, value=properties.get(wd['id'])) for wd in self._get_user_attributes_descriptions()
             if user.has_property(wd['id'])
         ]
-        # TODO make layout configurable via ucr ?
+        # TODO: make layout configurable via ucr ?
         layout = [wd['id'] for wd in widget_descriptions]
 
         return {
@@ -615,7 +615,7 @@ class Instance(Base):
                     'message': _('The username is already taken'),
                 }
         invalid = {k: v for (k, v) in res.items() if not (all(v['isValid']) if isinstance(v['isValid'], list) else v['isValid'])}
-        if len(invalid):
+        if invalid:
             return {
                 'success': False,
                 'failType': 'INVALID_ATTRIBUTES',
@@ -692,7 +692,7 @@ class Instance(Base):
                 'data': (_('The account could not be created:\n%s\n%s') % (UDM_Error(exc), password_complexity_message)).rstrip(),
             }
         finally:
-            # TODO cleanup
+            # TODO: cleanup
             # reinit user module without template.
             # This has to be done since the modules are singletons?
             univention.admin.modules.update()

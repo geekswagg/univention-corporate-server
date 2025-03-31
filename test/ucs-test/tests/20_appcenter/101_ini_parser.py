@@ -18,7 +18,7 @@ log_to_logfile()
 log_to_stream()
 
 
-@pytest.fixture()
+@pytest.fixture
 def valid_ini_file():
     content = '''[A section]
 AKey = A Value
@@ -46,7 +46,7 @@ ABool = Something else'''
     os.unlink(fname)
 
 
-@pytest.fixture()
+@pytest.fixture
 def missing_ini_file():
     fname = '/tmp/missing.ini'
     try:
@@ -56,7 +56,7 @@ def missing_ini_file():
     return fname
 
 
-@pytest.fixture()
+@pytest.fixture
 def invalid_ini_file(valid_ini_file):
     with open(valid_ini_file) as fd:
         content = fd.read()
@@ -65,7 +65,7 @@ def invalid_ini_file(valid_ini_file):
     return valid_ini_file
 
 
-@pytest.fixture()
+@pytest.fixture
 def list_ini_file(valid_ini_file):
     content = '''[A section]
 AList = v1, v2, v3\\, or something else
@@ -82,7 +82,7 @@ AnotherList = X'''
     return valid_ini_file
 
 
-@pytest.fixture()
+@pytest.fixture
 def typed_ini_file(valid_ini_file):
     content = '''[first/item]
 Type = TypedObject1
@@ -101,7 +101,7 @@ MyKey = 4th Value'''
     return valid_ini_file
 
 
-@pytest.fixture()
+@pytest.fixture
 def typed_ini_file2(valid_ini_file):
     content = '''[first/item]
 Klass = TypedObjectWithDefault1

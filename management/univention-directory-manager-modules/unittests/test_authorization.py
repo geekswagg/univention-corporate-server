@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2014-2025 Univention GmbH
+# SPDX-License-Identifier: AGPL-3.0-only
 import json
 import os
 import sys
@@ -56,7 +58,7 @@ class TestUDMPermission:
             if method in skip_methods:
                 continue
             if type(getattr(auth, method)) is function_type:
-                method = method[1:] if method.startswith("_") else method
+                method = method.removeprefix("_")
                 if not hasattr(self, f"test_{method}"):
                     not_tested.append(method)
         assert not not_tested, f"Following methods are not tested: {not_tested}"

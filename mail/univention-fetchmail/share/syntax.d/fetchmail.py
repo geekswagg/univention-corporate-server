@@ -30,7 +30,7 @@
 # <https://www.gnu.org/licenses/>.
 
 import univention.admin.localization
-from univention.admin.syntax import IMAP_POP3, boolean, complex, select, string, userPasswd
+from univention.admin.syntax import IMAP_POP3, boolean, complex, select, string, userPasswd  # noqa: A004
 
 
 _ = univention.admin.localization.translation("univention.admin.fetchmail").translate

@@ -49,7 +49,6 @@ from typing import IO, Literal, NoReturn, Self, TypeVar, overload
 from univention.config_registry.handler import run_filter
 
 
-_T = TypeVar('_T', bound='ReadOnlyConfigRegistry')
 _VT = TypeVar('_VT')
 
 __all__ = ['SCOPE', 'ConfigRegistry', 'StrictModeException', 'exception_occured']
@@ -191,7 +190,7 @@ class ReadOnlyConfigRegistry(_M, BooleanConfigRegistry):
         self._registry: dict[int, _ConfigRegistry] = {}
         for reg in self.LAYER_PRIORITIES:
             if reg == self.CUSTOM:
-                self._registry[reg] = _ConfigRegistry(custom if custom else os.devnull)
+                self._registry[reg] = _ConfigRegistry(custom or os.devnull)
             else:
                 self._registry[reg] = _ConfigRegistry(os.devnull if custom else os.path.join(self.PREFIX, self.BASES[reg]))
 
@@ -208,7 +207,7 @@ class ReadOnlyConfigRegistry(_M, BooleanConfigRegistry):
             registry = self._registry[reg]
             yield (reg, registry)
 
-    def load(self: _T, autoload: Load = Load.MANUAL) -> Self:
+    def load(self, autoload: Load = Load.MANUAL) -> Self:
         """
         Load registry from file.
 

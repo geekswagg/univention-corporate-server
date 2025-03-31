@@ -74,7 +74,7 @@ CATEGORY = [
 ]
 
 
-@pytest.fixture()
+@pytest.fixture
 def parse() -> Iterator[Callable[[str], Iterator[tuple[str, dict[str, str]]]]]:
     """Setup parser."""
     now = datetime.now()

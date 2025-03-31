@@ -173,7 +173,7 @@ def load(nr, extended=False):
     :rtype: AtJob
     """
     result = [p for p in list(extended) if p.nr == nr]
-    if len(result):
+    if result:
         return result[0]
     return None
 

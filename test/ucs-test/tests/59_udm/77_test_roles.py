@@ -16,7 +16,7 @@ from univention.admin import modules
 from univention.admin.rest.client import UDM as UDM_REST
 
 
-@pytest.fixture()
+@pytest.fixture
 def udm_rest_client(ucr, account):
     udm_rest = UDM_REST(
         uri='https://%(hostname)s.%(domainname)s/univention/udm/' % ucr,
@@ -26,7 +26,7 @@ def udm_rest_client(ucr, account):
     return udm_rest.get('users/user')
 
 
-@pytest.fixture()
+@pytest.fixture
 def user_with_roles(udm, random_string):
     role = random_string()
     g_roles = [f'app:group:{role}{i}' for i in range(3)]
@@ -41,7 +41,7 @@ def user_with_roles(udm, random_string):
     )
 
 
-@pytest.fixture()
+@pytest.fixture
 def REST_get(account, ucr):
     s = requests.Session()
     s.auth = (account.username, account.bindpw)
@@ -229,7 +229,7 @@ def test_role_attributes_on_modules():
     }
     modules.update()
     for mod_name, mod in modules.modules.items():
-        for prop in expected:
+        for prop in expected:  # noqa: PLC0206
             if prop in mod.property_descriptions:
                 assert mod_name in expected[prop], f'{mod_name} should not have {prop}'
             else:

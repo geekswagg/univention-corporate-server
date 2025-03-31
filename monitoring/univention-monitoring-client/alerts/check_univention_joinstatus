@@ -36,6 +36,7 @@
 import os.path
 import re
 import shlex
+import string
 import subprocess
 from enum import IntEnum
 from os import listdir
@@ -153,7 +154,7 @@ class JoinStatusCheck(Alert):
         join_error_count = 0
         for install_file in install_files:
             with open(install_file) as fd:
-                service = os.path.splitext(os.path.basename(install_file))[0].lstrip('0123456789')
+                service = os.path.splitext(os.path.basename(install_file))[0].lstrip(string.digits)
                 version = ""
                 for line in fd.readlines():
                     match = re.match('^VERSION=[^0-9]*([0-9]+).*?$', line)

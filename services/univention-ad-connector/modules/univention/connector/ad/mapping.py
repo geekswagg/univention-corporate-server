@@ -523,7 +523,7 @@ def create_mapping(configbasename='connector'):
     }
 
     # allow filter
-    for obj_type in ad_mapping.keys():
+    for obj_type in ad_mapping.keys():  # noqa: PLC0206
         allow_filter = configRegistry.get(connector(f'%s/ad/mapping/{obj_type}/allowfilter'), '')
         if allow_filter:
             if not allow_filter.startswith('('):

@@ -268,8 +268,7 @@ def call_process(args: Sequence[str], logger: Logger | None = None, env: Mapping
         def _handle_output(out, handler):
             for line in iter(out.readline, b''):
                 line = line.decode('utf-8')
-                if line.endswith('\n'):
-                    line = line[:-1]
+                line = line.removesuffix('\n')
                 line = remove_ansi_escape_sequence_regex.sub(' ', line)
                 handler(line)
             out.close()

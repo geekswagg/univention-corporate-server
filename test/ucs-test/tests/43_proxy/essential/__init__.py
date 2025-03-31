@@ -1,7 +1,4 @@
 __all__ = [
-    'check',
-    'internetrule',
-    'klasse',
-    'randomdomain',
-    'simplecurl',
-    'workgroup']
+    'simplecurl',  # noqa: F822
+    'simplesquid',  # noqa: F822
+]

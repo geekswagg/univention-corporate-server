@@ -17,7 +17,7 @@ import univention.lib.umc
 from univention.testing.strings import random_string, random_username
 
 
-@pytest.fixture()
+@pytest.fixture
 def close_all_processes():
     """force all module processes to close"""
     yield
@@ -25,7 +25,7 @@ def close_all_processes():
     time.sleep(3)
 
 
-@pytest.fixture()
+@pytest.fixture
 def selfservice_container_dn(ucr, udm, close_all_processes):
     """force all module processes to close"""
     ldap_base = ucr.get('ldap/base')

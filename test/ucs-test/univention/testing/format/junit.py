@@ -62,8 +62,7 @@ class Junit(TestFormatInterface):
         else:
             errors = 1
         classname = result.case.uid.replace("/", ".")
-        if classname.endswith('.py'):
-            classname = classname[:-3]
+        classname = classname.removesuffix('.py')
 
         filename = os.path.join(self.outdir, f'{result.case.uid}.xml')
         if result.case.is_pytest and os.path.exists(filename):

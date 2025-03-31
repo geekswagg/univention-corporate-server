@@ -7,7 +7,7 @@
 ##   - univention-appcenter-dev
 ## tags: [appcenter]
 
-from univention.lib.umc import ConnectionError, HTTPError
+from univention.lib.umc import ConnectionError, HTTPError  # noqa: A004
 
 import appcentertest as app_test
 

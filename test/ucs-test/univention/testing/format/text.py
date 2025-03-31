@@ -25,7 +25,7 @@ __all__ = ['Raw', 'Text']
 class _Term:  # pylint: disable-msg=R0903
     """Handle terminal formatting."""
 
-    __ANSICOLORS = "BLACK RED GREEN YELLOW BLUE MAGENTA CYAN WHITE".split()
+    __ANSICOLORS = ["BLACK", "RED", "GREEN", "YELLOW", "BLUE", "MAGENTA", "CYAN", "WHITE"]
     # vt100.sgr0 contains a delay in the form of '$<2>'
     __RE_DELAY = re.compile(br'\$<\d+>[/*]?')
 

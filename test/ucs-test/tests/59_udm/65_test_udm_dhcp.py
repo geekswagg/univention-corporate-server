@@ -567,7 +567,7 @@ class Test_DHCPSharedsubnet:
         """Create dhcp/sharedsubnet with wrong superordinate"""
         # bugs: [31519]
         dhcpService = udm.create_object('dhcp/service', service=uts.random_name())
-        with pytest.raises(udm_test.UCSTestUDM_CreateUDMObjectFailed, match='.*is not a superordinate for dhcp/sharedsubnet.*'):
+        with pytest.raises(udm_test.UCSTestUDM_CreateUDMObjectFailed, match=r'.*is not a superordinate for dhcp/sharedsubnet.*'):
             udm.create_object('dhcp/sharedsubnet', subnet=SUBNET_IP4, subnetmask=SUBNET_MASK_IP4, superordinate=dhcpService)
 
 

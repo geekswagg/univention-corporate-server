@@ -27,7 +27,7 @@ dir_name = Path(__file__).parent
 core_edition_license_path = Path(dir_name, 'FreeForPersonalUseTest.license')
 
 
-@pytest.fixture()
+@pytest.fixture
 def license_file_path(side_menu_license: SideMenuLicense, ucr, ldap_base):
     ucr.save()
 

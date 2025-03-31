@@ -135,7 +135,7 @@ class NetworkRedirector:
         self.cleanup_rules: list[tuple[Literal["loop"], str, str] | tuple[Literal["redirection"], str, int, int, str]] = []
         # [ ('loop', 'addr1', 'addr2'), ('redirection', 'remoteaddr', remoteport, localport), ... ]
 
-    def __enter__(self) -> NetworkRedirector:  # FIXME Py3.9: Self
+    def __enter__(self) -> NetworkRedirector:  # FIXME: Py3.9: Self
         print('*** Entering with-statement of NetworkRedirector()')
         self.used_by_with_statement = True
         return self

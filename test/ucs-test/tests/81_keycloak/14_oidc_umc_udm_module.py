@@ -32,7 +32,7 @@ class ExtractFormAction(HTMLParser):
             self.form_action = attrs.get('action', '')
 
 
-@pytest.fixture()
+@pytest.fixture
 def disable_sasl_oauthbearer_grace(ucr_proper):
     ucrv = 'ldap/server/sasl/oauthbearer/grace-time'
     original = ucr_proper.get(ucrv, None)
@@ -53,12 +53,12 @@ def disable_sasl_oauthbearer_grace(ucr_proper):
     time.sleep(30)
 
 
-@pytest.fixture()
+@pytest.fixture
 def umc_base_url(portal_config):
     return f'https://{portal_config.fqdn}/univention'
 
 
-@pytest.fixture()
+@pytest.fixture
 def client():
     return requests.Session()
 

@@ -173,7 +173,7 @@ class UPCMessage:
 
         :returns: test case.
         """
-        tc = TestCase(self.id, stdout=self.msg, file=self.filename, line=self.row)  # FIXME
+        tc = TestCase(self.id, stdout=self.msg, file=self.filename, line=self.row)  # FIXME:
         return tc
 
 
