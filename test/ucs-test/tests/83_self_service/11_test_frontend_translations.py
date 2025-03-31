@@ -66,6 +66,7 @@ def check_labels(page: Page, labels: dict[str, str], retries=4):
                 time.sleep(3)
 
 
+@pytest.mark.close_browser()
 @pytest.mark.parametrize(
     'lang, hash, labels',
     [
@@ -102,6 +103,7 @@ def test_frontend_translations(self_service: SelfService, lang: UCSLanguage, has
     check_labels(page, labels)
 
 
+@pytest.mark.close_browser()
 @pytest.mark.parametrize(
     'lang, hash, labels',
     [

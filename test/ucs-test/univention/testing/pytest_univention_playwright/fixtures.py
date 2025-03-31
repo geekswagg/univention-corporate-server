@@ -245,6 +245,11 @@ def teardown_umc_browser_test(
             context.tracing.stop()
     finally:
         context.close()
+        # close browser instance if requested,
+        # useful for parameterized test
+        markers = list(request.node.iter_markers('close_browser'))
+        if len(markers) == 1:
+            browser.close()
 
 
 @pytest.fixture()
