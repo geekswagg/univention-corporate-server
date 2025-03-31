@@ -6,7 +6,7 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 
 from errno import EEXIST, ENOENT
-from os import O_CREAT, O_WRONLY, _exit, fork, getpid, open, wait
+from os import O_CREAT, O_WRONLY, _exit, fork, getpid, open, wait  # noqa: A004
 
 import pytest
 

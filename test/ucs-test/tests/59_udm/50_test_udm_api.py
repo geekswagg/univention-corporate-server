@@ -23,6 +23,7 @@ from univention.testing import utils
 from univention.testing.strings import random_string, random_username
 from univention.testing.ucr import UCSTestConfigRegistry
 from univention.testing.udm import UCSTestUDM, UCSTestUDM_CreateUDMObjectFailed
+# ruff: noqa: A004
 from univention.udm import (
     UDM, ApiVersionMustNotChange, ApiVersionNotSupported, ConnectionError, NoApiVersionSet, WrongObjectType,
 )

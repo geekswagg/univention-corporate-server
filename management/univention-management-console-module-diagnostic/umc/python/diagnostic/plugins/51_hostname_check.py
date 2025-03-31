@@ -35,7 +35,7 @@ from collections.abc import Iterator
 
 import univention.uldap
 from univention.lib.i18n import Translation
-from univention.management.console.modules.diagnostic import MODULE, Instance, Warning
+from univention.management.console.modules.diagnostic import MODULE, Instance, Warning  # noqa: A004
 
 
 _ = Translation('univention-management-console-module-diagnostic').translate

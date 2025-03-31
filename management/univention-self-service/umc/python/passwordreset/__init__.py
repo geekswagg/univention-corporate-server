@@ -55,7 +55,7 @@ import univention.admin.syntax
 import univention.admin.uexceptions as udm_errors
 from univention.admin.uldap import getMachineConnection
 from univention.lib.i18n import Translation
-from univention.lib.umc import Client, ConnectionError, HTTPError, Unauthorized
+from univention.lib.umc import Client, ConnectionError, HTTPError, Unauthorized  # noqa: A004
 from univention.management.console.config import ucr
 from univention.management.console.ldap import (
     get_admin_connection, get_machine_connection, get_user_connection, machine_connection,

@@ -1,4 +1,4 @@
-from univention.admin import option, property
+from univention.admin import option, property  # noqa: A004
 from univention.admin.filter import conjunction, expression
 from univention.admin.handlers import simpleLdap
 from univention.admin.layout import Group, Tab

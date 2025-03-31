@@ -43,7 +43,7 @@ from argparse import ArgumentParser, FileType, Namespace  # noqa: F401
 from datetime import datetime
 from getpass import getpass
 
-from univention.lib.umc import Client, ConnectionError, HTTPError, Unauthorized
+from univention.lib.umc import Client, ConnectionError, HTTPError, Unauthorized  # noqa: A004
 
 
 try:

@@ -39,7 +39,7 @@ from univention.admin import modules, uldap
 from univention.lib.i18n import Translation
 from univention.management.console.config import ucr
 from univention.management.console.log import MODULE
-from univention.management.console.modules.diagnostic import Critical, Instance, Warning
+from univention.management.console.modules.diagnostic import Critical, Instance, Warning  # noqa: A004
 
 
 _ = Translation('univention-management-console-module-diagnostic').translate

@@ -42,7 +42,7 @@ from univention.admin.handlers import simpleLdap
 from univention.config_registry import ucr_live as configRegistry
 from univention.lib.i18n import Translation
 from univention.lib.misc import custom_username
-from univention.management.console.modules.diagnostic import MODULE, Instance, Warning, util
+from univention.management.console.modules.diagnostic import MODULE, Instance, Warning, util  # noqa: A004
 
 
 _ = Translation('univention-management-console-module-diagnostic').translate

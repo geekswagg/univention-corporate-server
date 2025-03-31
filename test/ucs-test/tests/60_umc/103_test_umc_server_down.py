@@ -8,7 +8,7 @@ import subprocess
 
 import pytest
 
-from univention.lib.umc import ConnectionError, ServiceUnavailable
+from univention.lib.umc import ConnectionError, ServiceUnavailable  # noqa: A004
 
 
 class Test_ServerDown_Messages:

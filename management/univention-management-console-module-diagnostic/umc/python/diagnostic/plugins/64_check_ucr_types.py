@@ -40,7 +40,7 @@ import univention.config_registry_info as cri
 from univention.config_registry import ucr_live as ucr
 from univention.config_registry.validation import Type
 from univention.lib.i18n import Translation
-from univention.management.console.modules.diagnostic import MODULE, Instance, Warning, main
+from univention.management.console.modules.diagnostic import MODULE, Instance, Warning, main  # noqa: A004
 
 
 _ = Translation('univention-management-console-module-diagnostic').translate

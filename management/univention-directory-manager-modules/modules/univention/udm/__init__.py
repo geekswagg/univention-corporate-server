@@ -104,6 +104,7 @@ The LDAP connection to use must be supplies as an argument to the UDM module fac
 """
 
 
+# ruff: noqa: A004
 from .exceptions import (
     ApiVersionMustNotChange, ApiVersionNotSupported, ConnectionError, CreateError, DeletedError, DeleteError,
     ModifyError, MoveError, MultipleObjects, NoApiVersionSet, NoObject, NoSuperordinate, NotYetSavedError, UdmError,

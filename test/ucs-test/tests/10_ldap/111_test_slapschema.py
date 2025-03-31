@@ -14,7 +14,7 @@ from subprocess import check_call
 
 import pytest
 
-from univention.management.console.modules.diagnostic import Warning
+from univention.management.console.modules.diagnostic import Warning  # noqa: A004
 
 
 loader = importlib.machinery.SourceFileLoader('62_check_slapschema', '/usr/lib/python3/dist-packages/univention/management/console/modules/diagnostic/plugins/62_check_slapschema.py')

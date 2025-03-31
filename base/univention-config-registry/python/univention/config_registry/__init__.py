@@ -43,6 +43,7 @@ from univention.config_registry.frontend import (  # noqa: F401
     REPLOG_FILE, UnknownKeyException, handler_commit, handler_dump, handler_filter, handler_get, handler_register,
     handler_search, handler_set, handler_unregister, handler_unset, handler_update, main,
 )
+# ruff: noqa: A004
 from univention.config_registry.handler import ConfigHandlers as configHandlers, run_filter as filter  # noqa: F401
 from univention.config_registry.misc import (  # noqa: F401
     INVALID_KEY_CHARS as invalid_key_chars, key_shell_escape, validate_key,

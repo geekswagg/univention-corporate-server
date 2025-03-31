@@ -59,7 +59,7 @@ from univention.appcenter.utils import (
     resolve_dependencies, send_information,
 )
 from univention.lib.package_manager import LockError, PackageManager
-from univention.lib.umc import Client, ConnectionError, HTTPError
+from univention.lib.umc import Client, ConnectionError, HTTPError  # noqa: A004
 from univention.management.console.log import MODULE
 from univention.management.console.modules.decorators import (
     SimpleThread, multi_response, require_password, sanitize, sanitize_list, simple_response, threaded,

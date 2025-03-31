@@ -47,7 +47,7 @@ else:
     SAMBA_AVAILABLE = True
 
 from univention.lib.i18n import Translation
-from univention.management.console.modules.diagnostic import Instance, Warning, util
+from univention.management.console.modules.diagnostic import Instance, Warning, util  # noqa: A004
 
 
 _ = Translation('univention-management-console-module-diagnostic').translate

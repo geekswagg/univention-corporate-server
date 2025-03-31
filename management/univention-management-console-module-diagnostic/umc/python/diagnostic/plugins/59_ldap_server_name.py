@@ -35,7 +35,7 @@ from pathlib import Path
 import univention.uldap
 from univention.config_registry import handler_set as ucr_set, ucr_live as ucr
 from univention.lib.i18n import Translation
-from univention.management.console.modules.diagnostic import Critical, Instance, Warning
+from univention.management.console.modules.diagnostic import Critical, Instance, Warning  # noqa: A004
 
 
 _ = Translation('univention-management-console-module-diagnostic').translate
