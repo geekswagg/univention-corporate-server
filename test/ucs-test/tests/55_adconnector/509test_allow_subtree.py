@@ -355,7 +355,7 @@ def test_move_out_of_allowed_subtree(sync_mode: str) -> None:
 @pytest.mark.parametrize("sync_mode", ["sync"])
 @pytest.mark.skipif(not connector_running_on_this_host(), reason="Univention AD Connector not configured.")
 def test_ignored_object_is_not_moved(sync_mode: str, ucr) -> None:
-    with allow_subtree_setup(sync_mode, pre_create_objects=True) as (allowed, denied, udm):  # noqa: F841
+    with allow_subtree_setup(sync_mode, pre_create_objects=True) as (allowed, _denied, udm):  # noqa: F841
         username = allowed[0].objects[0].name
         udm_dn = allowed[0].objects[0].udm_dn
         ad_dn = allowed[0].objects[0].ad_dn
@@ -375,7 +375,7 @@ def test_ignored_object_is_not_moved(sync_mode: str, ucr) -> None:
 @pytest.mark.parametrize("sync_mode", ["sync"])
 @pytest.mark.skipif(not connector_running_on_this_host(), reason="Univention AD Connector not configured.")
 def test_ignored_object_is_not_removed(sync_mode: str, ucr) -> None:
-    with allow_subtree_setup(sync_mode, pre_create_objects=True) as (allowed, denied, udm):  # noqa: F841
+    with allow_subtree_setup(sync_mode, pre_create_objects=True) as (allowed, _denied, udm):  # noqa: F841
         username = allowed[0].objects[0].name
         udm_dn = allowed[0].objects[0].udm_dn
         ad_dn = allowed[0].objects[0].ad_dn
