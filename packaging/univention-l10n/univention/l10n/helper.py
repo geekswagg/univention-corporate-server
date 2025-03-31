@@ -71,7 +71,7 @@ def call(*argv, **kwargs):
     """
     errmsg = kwargs.pop('errmsg', 'Gettext failed {0.cmd}')
 
-    verbose = os.environ.get('DH_VERBOSE', False)
+    verbose = os.environ.get('DH_VERBOSE')
     if verbose:
         print('\t%s' % ' '.join(argv))
     try:

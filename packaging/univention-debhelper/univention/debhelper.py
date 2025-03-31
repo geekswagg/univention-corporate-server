@@ -47,7 +47,7 @@ def doIt(*argv):
     >>> doIt('true')
     0
     """
-    if os.environ.get('DH_VERBOSE', False):
+    if os.environ.get('DH_VERBOSE'):
         print('\t%s' % ' '.join(argv))
     return subprocess.check_call(argv)
 
