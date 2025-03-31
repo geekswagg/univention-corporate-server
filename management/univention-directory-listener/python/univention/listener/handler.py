@@ -242,7 +242,7 @@ class ListenerModuleHandler(metaclass=HandlerMetaClass):
         :param BaseException exc_value: exception object
         :param traceback exc_traceback: traceback object
         """
-        self.logger.exception('dn=%r command=%r\n    old=%r\n    new=%r', dn, command, old, new)
+        self.logger.exception('dn=%r command=%r\n    old=%r\n    new=%r', dn, command, old, new)  # noqa: LOG004
         raise exc_value.with_traceback(exc_traceback)
 
     @property
