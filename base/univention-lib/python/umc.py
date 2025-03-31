@@ -75,7 +75,7 @@ class _HTTPType(type):
             HTTPError.codes[mcs.code] = mcs
         except (NameError, AttributeError):
             pass
-        return type.__init__(mcs, name, bases, dict)
+        type.__init__(mcs, name, bases, dict)
 
 
 class ConnectionError(Exception):
