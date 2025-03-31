@@ -145,7 +145,7 @@ def is_system_joined() -> bool:
 
 def load_values(lang: str | None = None) -> dict[str, str]:
     ucr.load()
-    values = {ikey: ucr[ikey] if ucr[ikey] else ucr[ikey] for ikey in UCR_VARIABLES}
+    values = {ikey: ucr[ikey] for ikey in UCR_VARIABLES}
 
     # net
     from univention.management.console.modules.setup.network import Interfaces
