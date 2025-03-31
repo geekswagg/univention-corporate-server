@@ -45,7 +45,7 @@ if configRegistry.is_true('cups/access/limit', True):
     # append All limit if not configured (The last Limit subsection in any
     # policy uses the special operation name All)
 
-    for policy in policies:
+    for policy in policies:  # noqa: PLC0206
         all = False
         print('<Policy %s>' % policy)
         if 'settings' in policies[policy]:
