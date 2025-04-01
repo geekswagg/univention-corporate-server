@@ -1,3 +1,9 @@
+univention-web (6.0.9-3) unstable; urgency=medium
+
+  * Bug #58122: CSS adjustment for MultiInput widget
+
+ -- Christian Castens <castens@univention.de>  Mon, 01 Apr 2025 09:45:33 +0100
+
 univention-web (6.0.9-2) unstable; urgency=medium
 
   * Bug #58130: Fix for MultiInput not evaluating CheckBox subwidgets to false
