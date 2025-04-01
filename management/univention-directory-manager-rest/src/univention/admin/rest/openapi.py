@@ -252,18 +252,18 @@ class _OpenAPIBase:
                 "description": "**Experimental**: HTML response where developer can interactively navigate through objects. This will be replaced with a real frontend in the future.",
                 "deprecated": True,
                 "type": "string",
-                        "format": "html",
-                        "example": "<html/>",
-                        "readOnly": True,
+                "format": "html",
+                "example": "<html/>",
+                "readOnly": True,
             },
             "dn": {
                 "description": "The LDAP Distinguished Name (DN).",
                 "type": "string",
-                        "format": "dn",
-                        "pattern": "^.+=.+$",
-                        "minLength": 3,
-                        "example": ldap_base,
-                        "readOnly": True,
+                "format": "dn",
+                "pattern": "^.+=.+$",
+                "minLength": 3,
+                "example": ldap_base,
+                "readOnly": True,
             },
             # "id": {
             #    "description": "The (not unique!) relative LDAP Distinguished Name (RDN).",
@@ -273,60 +273,60 @@ class _OpenAPIBase:
             "uuid": {
                 "description": "The LDAP Entry-UUID.",
                 "type": "string",
-                        "format": "uuid",
-                        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
-                        "minLength": 36,
-                        "maxLength": 36,
-                        "readOnly": True,
+                "format": "uuid",
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                "minLength": 36,
+                "maxLength": 36,
+                "readOnly": True,
             },
             "objectType": {
                 "description": "The UDM Object-Type.",
                 "type": "string",
-                        "example": "users/user",
-                        "readOnly": True,
-                        "pattern": "^.+/.+$",
-                        "minLength": 3,
+                "example": "users/user",
+                "readOnly": True,
+                "pattern": "^.+/.+$",
+                "minLength": 3,
             },
             "_links": {
                 "description": "Hypertext Application Language (HAL) links.",
                 "type": "object",
-                        "properties": {
-                            "self": {
-                                "type": "array",
-                                "minItems": 0,
-                                "items": {
-                                        "type": "object",
-                                        "properties": {
-                                                "href": {
-                                                    "type": "string",
-                                                    "description": "The URL.",
-                                                },
-                                        },
-                                    "additionalProperties": True,
+                "properties": {
+                    "self": {
+                        "type": "array",
+                        "minItems": 0,
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "href": {
+                                    "type": "string",
+                                    "description": "The URL.",
                                 },
                             },
+                            "additionalProperties": True,
                         },
+                    },
+                },
                 "readOnly": True,
                 "additionalProperties": True,
             },
             "_embedded": {
                 "description": "Hypertext Application Language (HAL) embedded resources.",
                 "type": "object",
-                        "properties": {},
-                        "readOnly": True,
-                        "additionalProperties": True,
+                "properties": {},
+                "readOnly": True,
+                "additionalProperties": True,
             },
             "position": {
                 "description": "DN of LDAP node below which the object is located. Changing this causes a move of the object. When changing no other changes are applied.",
                 "type": "string",
-                        "format": "dn",
-                        "example": f"cn=position,{ldap_base}",
+                "format": "dn",
+                "example": f"cn=position,{ldap_base}",
             },
             "superordinate": {
                 "description": "The superordinate DN of the object.",
                 "type": "string",
-                        "format": "dn",
-                        "example": ldap_base,
+                "format": "dn",
+                "example": ldap_base,
             },
             'embedded-error': {
                 "type": "object",
@@ -334,23 +334,23 @@ class _OpenAPIBase:
                 "properties": {
                     "_embedded": {
                         "type": "object",
-                                "additionalProperties": True,
-                                "properties": {
-                                    "udm:error": {
-                                        'description': 'Additional error information.',
-                                        "type": "array",
-                                                "minItems": 0,
-                                                "items": {
-                                                    "type": "object",
-                                                            "additionalProperties": True,
-                                                    "properties": {
-                                                        'location': {'type': 'array', 'minItems': 1, 'items': {'type': 'string'}},
-                                                        'message': {'type': 'string'},
-                                                        'type': {'type': 'string'},
-                                                    },
-                                                },
+                        "additionalProperties": True,
+                        "properties": {
+                            "udm:error": {
+                                'description': 'Additional error information.',
+                                "type": "array",
+                                "minItems": 0,
+                                "items": {
+                                    "type": "object",
+                                    "additionalProperties": True,
+                                    "properties": {
+                                        'location': {'type': 'array', 'minItems': 1, 'items': {'type': 'string'}},
+                                        'message': {'type': 'string'},
+                                        'type': {'type': 'string'},
                                     },
                                 },
+                            },
+                        },
                     },
                     'code': {'type': 'integer', 'minimum': 400, 'maximum': 599, 'description': 'HTTP status code equivalent.'},
                     'message': {'type': 'string', 'description': 'A human readable error message.'},
@@ -364,10 +364,10 @@ class _OpenAPIBase:
                 "description": "The (urlencoded) LDAP Distinguished Name (DN).",
                 "in": "path",
                 "name": "dn",
-                        "required": True,
-                        "schema": {
-                            '$ref': '#/components/schemas/dn',
-                        },
+                "required": True,
+                "schema": {
+                    '$ref': '#/components/schemas/dn',
+                },
             },
             'template.get.query.position': {
             },
@@ -408,61 +408,61 @@ class _OpenAPIBase:
             'user-agent': {
                 "in": "header",
                 "name": "User-Agent",
-                        "schema": {"type": "string"},
-                        "description": "The user agent.",
-                        "examples": {
-                            "none": {"value": "", "summary": "none"},
-                            "UCS version": {"value": "UCS 5.0-2-errata339", "summary": "UCS 5.0-2-errata339"},
-                        },
+                "schema": {"type": "string"},
+                "description": "The user agent.",
+                "examples": {
+                    "none": {"value": "", "summary": "none"},
+                    "UCS version": {"value": "UCS 5.0-2-errata339", "summary": "UCS 5.0-2-errata339"},
+                },
             },
             'accept-language': {
                 "in": "header",
                 "name": "Accept-Language",
-                        "schema": {"type": "string"},
-                        "description": "The accepted response languages.",
-                        "examples": {
-                            "none": {"value": "", "summary": "Let server decide"},
-                            "english": {"value": "en-US; q=1.0", "summary": "english"},
-                            "german": {"value": "de-DE; q=1.0, en-US; q=0.9", "summary": "Prefer german"},
-                        },
+                "schema": {"type": "string"},
+                "description": "The accepted response languages.",
+                "examples": {
+                    "none": {"value": "", "summary": "Let server decide"},
+                    "english": {"value": "en-US; q=1.0", "summary": "english"},
+                    "german": {"value": "de-DE; q=1.0, en-US; q=0.9", "summary": "Prefer german"},
+                },
             },
             "if-match": {
                 "in": "header",
                 "name": "If-Match",
-                        "schema": {"type": "string"},
-                        "description": "Provide entity tag to make a conditional request to not overwrite any values in a race condition.",
-                        "example": "",
+                "schema": {"type": "string"},
+                "description": "Provide entity tag to make a conditional request to not overwrite any values in a race condition.",
+                "example": "",
             },
             "if-none-match": {
                 "in": "header",
                 "name": "If-None-Match",
-                        "schema": {"type": "string", "format": "etag"},
-                        "description": "Use request from cache by using the Etag entity tag if it matches.",
-                        "example": "",
+                "schema": {"type": "string", "format": "etag"},
+                "description": "Use request from cache by using the Etag entity tag if it matches.",
+                "example": "",
             },
             "if-unmodified-since": {
                 "in": "header",
                 "name": "If-Unmodified-Since",
-                        "schema": {"type": "string", "format": "last-modified-date"},
-                        "description": "Provide last modified time to make a conditional request to not overwrite any values in a race condition.",
-                        # "example": "Wed, 21 Oct 2015 07:28:00 GMT",
+                "schema": {"type": "string", "format": "last-modified-date"},
+                "description": "Provide last modified time to make a conditional request to not overwrite any values in a race condition.",
+                # "example": "Wed, 21 Oct 2015 07:28:00 GMT",
             },
             "if-modified-since": {
                 "in": "header",
                 "name": "If-Modified-Since",
-                        "schema": {"type": "string"},
-                        "description": "Use request from cache by using the Last-Modified date if it matches.",
-                        "example": "",
+                "schema": {"type": "string"},
+                "description": "Use request from cache by using the Last-Modified date if it matches.",
+                "example": "",
             },
             'request-id': {
                 "in": "header",
                 "name": "X-Request-Id",
-                        "schema": {"type": "string", "format": "uuid"},
-                        "description": "A request-ID used for logging and tracing.",
-                        "examples": {
-                            'unset': {'value': ''},
-                            'uuid4': {'value': "218d9124-c0dc-415e-8417-a0fa197ee099"},
-                        },
+                "schema": {"type": "string", "format": "uuid"},
+                "description": "A request-ID used for logging and tracing.",
+                "examples": {
+                    'unset': {'value': ''},
+                    'uuid4': {'value': "218d9124-c0dc-415e-8417-a0fa197ee099"},
+                },
             },
         }
         openapi_responses = {
@@ -500,10 +500,10 @@ class _OpenAPIBase:
                 "description": "Object created",
                 "content": content_schema({
                     "type": "object",
-                                "properties": {
-                                    "dn": {'$ref': '#/components/schemas/dn'},
-                                    "uuid": {'$ref': '#/components/schemas/uuid'},
-                                },
+                    "properties": {
+                        "dn": {'$ref': '#/components/schemas/dn'},
+                        "uuid": {'$ref': '#/components/schemas/uuid'},
+                    },
                 }),
                 "headers": global_response_headers({
                     'Etag': {'$ref': '#/components/headers/Etag'},
@@ -514,10 +514,10 @@ class _OpenAPIBase:
                 "description": "Created: The object did not exist and has been created.",
                 "content": content_schema({
                     "type": "object",
-                            "properties": {
-                                "dn": {'$ref': '#/components/schemas/dn'},
-                                "uuid": {'$ref': '#/components/schemas/uuid'},
-                            },
+                    "properties": {
+                        "dn": {'$ref': '#/components/schemas/dn'},
+                        "uuid": {'$ref': '#/components/schemas/uuid'},
+                    },
                 }),
                 "headers": global_response_headers({
                     'Etag': {'$ref': '#/components/headers/Etag'},
@@ -562,7 +562,7 @@ class _OpenAPIBase:
                 'headers': global_response_headers({'Location': {'$ref': '#/components/headers/Location'}}),
                 "content": content_schema({
                     "type": "object",
-                            "additionalProperties": True,
+                    "additionalProperties": True,
                 }),
             },
             "BadRequest": {  # 400
@@ -570,15 +570,15 @@ class _OpenAPIBase:
                 'headers': global_response_headers({}),
                 "content": content_schema({
                     "type": "object",
-                            "additionalProperties": True,
+                    "additionalProperties": True,
                 }),
             },
             "Forbidden": {  # 403, e.g. unsupported operation, or GET users/self/$wrong_dn
                 "description": 'Forbidden (e.g. unsupported operation)',
                 'headers': global_response_headers({}),
                 "content": content_schema({
-                            "type": "object",
-                            "additionalProperties": True,
+                    "type": "object",
+                    "additionalProperties": True,
                 }),
             },
             "ObjectNotFound": {  # 404
@@ -586,7 +586,7 @@ class _OpenAPIBase:
                 'headers': global_response_headers({}),
                 "content": content_schema({
                     "type": "object",
-                            "additionalProperties": True,
+                    "additionalProperties": True,
                 }),
             },
             "ObjectGone": {  # 410
@@ -594,7 +594,7 @@ class _OpenAPIBase:
                 'headers': global_response_headers({}),
                 "content": content_schema({
                     "type": "object",
-                            "additionalProperties": True,
+                    "additionalProperties": True,
                 }),
             },
             "Unauthorized": {  # 401
@@ -602,7 +602,7 @@ class _OpenAPIBase:
                 'headers': global_response_headers({}),
                 "content": content_schema({
                     "type": "object",
-                            "additionalProperties": True,
+                    "additionalProperties": True,
                 }),
             },
             "UnprocessableEntity": {  # 422
@@ -913,9 +913,9 @@ class _OpenAPIBase:
                     # must not be a reference as it breaks udm-rest-api-client
                     # which relies on implementation details of openapitools/openapi-generator-cli:v5.0.0!
                     'type': 'object',
-                            "description": "Object type specific `UDM` properties.",
-                            'properties': properties_schema,
-                            "additionalProperties": True,  # not yet installed extended attributes
+                    "description": "Object type specific `UDM` properties.",
+                    'properties': properties_schema,
+                    "additionalProperties": True,  # not yet installed extended attributes
                 },
                 "options": {
                     "$ref": f'#/components/schemas/{_openapi_quote(model_name + ".options")}',
@@ -981,10 +981,10 @@ class _OpenAPIBase:
                 "description": "Object type specific `UDM` options.",
                 "type": "object",
                 "properties": {oname: {
-                        "description": opt.short_description,
+                    "description": opt.short_description,
                     "type": "boolean",
-                            "default": bool(opt.default),
-                            "example": bool(opt.default),
+                    "default": bool(opt.default),
+                    "example": bool(opt.default),
                 } for oname, opt in module.options.items()},
                 "additionalProperties": True,  # not yet installed extended options
             }
@@ -992,13 +992,13 @@ class _OpenAPIBase:
                 "description": "Policies which apply for this object.",
                 "type": "object",
                 "properties": {pol['objectType']: {
-                        "type": "array",
+                    "type": "array",
                     "minItems": 0,
                     "maxItems": 1,
                     "items": {
-                                "type": "string",
-                                "format": "dn",
-                                "example": ldap_base,
+                        "type": "string",
+                        "format": "dn",
+                        "example": ldap_base,
                     },
                     "description": pol['label'],
                 } for pol in module.policies},
@@ -1016,18 +1016,18 @@ class _OpenAPIBase:
             openapi_schemas[f'{model_name}.list'] = {
                 "type": "object",
                 "properties": {
-                        "_embedded": {
-                            "type": "object",
-                            "properties": {
-                                    "udm:object": {
-                                        "type": "array",
-                                        "minItems": 0,
-                                        "items": {
-                                                "$ref": schema_definition,
-                                        },
-                                    },
+                    "_embedded": {
+                        "type": "object",
+                        "properties": {
+                            "udm:object": {
+                                "type": "array",
+                                "minItems": 0,
+                                "items": {
+                                    "$ref": schema_definition,
+                                },
                             },
                         },
+                    },
                 },
             }
 
