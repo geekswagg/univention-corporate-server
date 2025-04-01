@@ -197,12 +197,12 @@ def _check_permissions_modify(obj: object, caps: list[dict]) -> bool:
     caps.sort(key=_get_cap_priority(position))
     for cap in caps:
         if _check_condition(position, cap['condition']):
-            writable_attrs, not_writabple_attrs = _get_writable_attrs_from_permissions(module_name, cap['permissions'])
+            writable_attrs, not_writable_attrs = _get_writable_attrs_from_permissions(module_name, cap['permissions'])
             if writable_attrs:
                 modified_attrs = obj.diff()
                 if "*" in writable_attrs:
-                    if not_writabple_attrs:
-                        if any(attr in not_writabple_attrs for attr, _, _ in modified_attrs):
+                    if not_writable_attrs:
+                        if any(attr in not_writable_attrs for attr, _, _ in modified_attrs):
                             return False
                     return True
                 else:
@@ -261,7 +261,7 @@ def _get_capabilities(actor_roles: dict) -> list[dict]:
         roles_caps = copy.deepcopy(ROLES.get(role, []))
         for role_cap in roles_caps:
             position = role_cap['condition']['position']
-            role_cap['condition']['position'] = position if position in ['*', '$CONTEXT'] else f"{position},{ldap_base}".lower()
+            role_cap['condition']['position'] = position if position in ['*', '$CONTEXT'] else f"{position},{ldap_base}".lower() if position else ldap_base.lower()
             role_cap['condition']['contexts'] = [f'{context},{ldap_base}'.lower() for context in contexts]
         cap += roles_caps
     return cap

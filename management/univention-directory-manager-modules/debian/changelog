@@ -1,3 +1,10 @@
+univention-directory-manager-modules (17.0.33) unstable; urgency=medium
+
+  * Issue univention/ucs#2781: Improvements for the experimental delegative
+    administation feature.
+
+ -- Ivan Barbecho Delgado <ivan.delgado@univention.de>  Wed, 2 Apr 2025 13:33:01 +0100
+
 univention-directory-manager-modules (17.0.32) unstable; urgency=medium
 
   * Issue univention/ucs#2742: implement new incremental feature for delegated

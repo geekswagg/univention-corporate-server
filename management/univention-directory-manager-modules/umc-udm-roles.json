@@ -53,7 +53,9 @@
       },
       "permissions": {
         "mail/domain": {
-          "create": true
+          "attributes": {
+            "*": "read"
+          }
         }
       }
     },

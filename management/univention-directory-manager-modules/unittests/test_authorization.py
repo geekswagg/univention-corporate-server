@@ -306,6 +306,11 @@ class TestUDMPermission:
         obj = mock_obj({"id": "cn=test,dc=example,dc=com", "module_name": module_name, "diff": [("description", None, "new_description")]})
         assert _check_permissions_modify(obj, caps) == expected
 
+    def test_check_permissions_modify_not_allowed(self):
+        caps = [{"condition": {"position": "*"}, "permissions": {"users/user": {"attributes": {"*": "write", "guardianRoles": "read"}}}}]
+        obj = mock_obj({"id": "cn=test,dc=example,dc=com", "module_name": "users/user", "diff": [("guardianRoles", None, "new_role")]})
+        assert not _check_permissions_modify(obj, caps)
+
     @pytest.mark.parametrize("module_name, expected", [
         ("users/user", True),
         ("groups/group", False),
@@ -444,7 +449,7 @@ class TestUDMPermission:
         assert _check_permissions_create({'position': 'ou=ou1,dc=test', 'module_name': 'whatever'}, caps)
         assert _check_permissions_create({'position': 'ou=ou2,dc=test', 'module_name': 'users/user'}, caps)
         assert not _check_permissions_create({'position': 'ou=ou3,dc=test', 'module_name': 'users/user'}, caps)
-        assert _check_permissions_create({'position': 'cn=domain,cn=mail,dc=test', 'module_name': 'mail/domain'}, caps)
+        assert not _check_permissions_create({'position': 'cn=domain,cn=mail,dc=test', 'module_name': 'mail/domain'}, caps)
         assert not _check_permissions_create({'position': 'dc=bla', 'module_name': 'whatever'}, caps)
         assert _check_permissions_create({'position': 'cn=users,ou=ou2,dc=test', 'module_name': 'users/user'}, caps)
 
