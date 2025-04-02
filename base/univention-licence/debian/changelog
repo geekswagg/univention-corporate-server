@@ -1,4 +1,4 @@
-univention-licence (13.0.3) unstable; urgency=medium
+univention-licence (13.1.0) unstable; urgency=medium
 
   [ Florian Best ]
   * Bug #52575: The allowed machine password length has been increased
