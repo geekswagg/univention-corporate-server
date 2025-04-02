@@ -9,3 +9,6 @@ desc: |
  * The usage of "chown" has been made future proof to prevent a misleading
    error message in the join logfile.
 bug: [58033]
+erratum: 59
+announced: 2025-04-02
+support: core
