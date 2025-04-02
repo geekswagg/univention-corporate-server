@@ -18,3 +18,6 @@ cve:
 - CVE-2025-27830
 - CVE-2025-27833
 - CVE-2025-27834
+erratum: 58
+announced: 2025-04-02
+support: core
