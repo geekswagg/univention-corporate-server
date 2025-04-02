@@ -255,7 +255,6 @@ class Instance(Base):
         ]
         if IS_SELFSERVICE_MASTER:
             self.db = TokenDB(MODULE)
-            self.conn = self.db.conn
             atexit.register(self.db.close_db)
             if not self.db.table_exists():
                 self.db.create_table()

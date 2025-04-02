@@ -1,3 +1,10 @@
+univention-self-service (7.1.1) unstable; urgency=medium
+
+  * Bug #58159: reconnect automatically to postgresql in case of
+    connection loss
+
+ -- Florian Best <best@univention.de>  Wed, 02 Apr 2025 15:06:19 +0200
+
 univention-self-service (7.1.0) unstable; urgency=medium
 
   [ Florian Best ]
