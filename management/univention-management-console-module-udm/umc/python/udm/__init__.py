@@ -247,6 +247,9 @@ class Instance(Base, ProgressMixin, metaclass=UDMModuleMeta):
         lo.requireLicense()
 
     def get_ldap_connection(self):
+        if ucr.is_true("umc/udm/delegation"):
+            from univention.management.console.ldap import get_admin_connection as ldap_get_admin_connection
+            return ldap_get_admin_connection()
         try:
             lo, _po = get_user_connection(bind=self.bind_user_connection, write=True, bindhash=calculate_bind_hash(self._current_request))
         except (LDAPError, udm_errors.ldapError):
