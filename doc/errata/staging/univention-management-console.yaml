@@ -3,7 +3,7 @@ release: "5.2"
 version: [1]
 scope: ucs_5.2-0-errata5.2-1
 src: univention-management-console
-fix: 14.0.47
+fix: 14.1.1
 desc: |
  This update addresses the following issues:
  * Logging of failure reasons when retrieving the OIDC access token has been
