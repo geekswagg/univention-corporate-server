@@ -9,3 +9,6 @@ desc: |
  * The allowed machine password length has been increased from 27 to 256
    characters.
 bug: [52575]
+erratum: 62
+announced: 2025-04-02
+support: core
