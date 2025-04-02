@@ -25,7 +25,7 @@ def bremen_ou(udm, random_username):
     ouadmin_username = random_username()
     normal_user_username = random_username()
     dn_admin = udm.create_object('users/user', username=ouadmin_username, guardianRoles=['umc:udm:ouadmin&umc:udm:ou=bremen'], lastname='bremen_admin', password='univention')
-    dn_user = udm.create_object('users/user', username=normal_user_username, position=dn_ou, lastname='lastname', password='univention')
+    dn_user = udm.create_object('users/user', username=normal_user_username, guardianRoles=['umc:udm:dummyrole'], position=dn_ou, lastname='lastname', password='univention')
     # set user default container
     udm.modify_object('container/ou', dn=dn_ou, userPath='1')
     udm.modify_object('container/ou', dn=dn_ou, groupPath='1')
@@ -225,15 +225,15 @@ def test_move(ldap_base, bremen_ou, login_user, user_dn, target_position, expect
 
 
 @check_delegation
-@pytest.mark.parametrize('login_user, user_dn, expected', [
-    ('admin', 'uid=Administrator,cn=users,{ldap_base}', True),
-    ('ou_admin', 'uid=Administrator,cn=users,{ldap_base}', False),
-    ('admin', '{admin_ou}', True),
-    ('ou_admin', '{admin_ou}', False),
-    ('admin', '{normal_user}', True),
-    ('ou_admin', '{normal_user}', True),
+@pytest.mark.parametrize('login_user, user_dn, attribute, expected', [
+    ('admin', 'uid=Administrator,cn=users,{ldap_base}', 'guardianInheritedRoles', True),
+    ('ou_admin', 'uid=Administrator,cn=users,{ldap_base}', None, False),
+    ('admin', '{admin_ou}', 'guardianRoles', True),
+    ('ou_admin', '{admin_ou}', None, False),
+    ('admin', '{normal_user}', 'guardianRoles', True),
+    ('ou_admin', '{normal_user}', 'guardianRoles', True),
 ])
-def test_read(ldap_base, bremen_ou, login_user, user_dn, expected):
+def test_read(ldap_base, bremen_ou, login_user, user_dn, attribute, expected):
     if login_user == "admin":
         client = Client.get_test_connection()
     elif login_user == "ou_admin":
@@ -249,6 +249,9 @@ def test_read(ldap_base, bremen_ou, login_user, user_dn, expected):
         res = client.umc_command('udm/get', options, 'users/user').result
         assert res
         assert res[0]['$dn$'] == user_dn.format(admin_ou=bremen_ou.ouadmin_dn, normal_user=bremen_ou.user_dn, ldap_base=ldap_base)
+        if attribute:
+            assert attribute in res[0]
+            assert res[0][attribute]
 
 
 @check_delegation

@@ -1,3 +1,9 @@
+ucs-test (12.1.9) unstable; urgency=medium
+
+  * Issue univention/ucs#2742: update 60_umc.25_authorization.py
+
+ -- Ivan Barbecho Delgado <ivan.delgado@univention.de>  Mon, 14 Apr 2025 16:41:15 +0200
+
 ucs-test (12.1.8) unstable; urgency=medium
 
   * Bug #58183: fix browser tests for keycloak 26
