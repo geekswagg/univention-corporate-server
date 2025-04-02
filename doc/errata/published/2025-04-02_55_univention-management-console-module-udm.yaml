@@ -9,3 +9,6 @@ desc: |
  * First incremental release for new experimental feature delegative
    administration.
 bug: [58113]
+erratum: 55
+announced: 2025-04-02
+support: core
