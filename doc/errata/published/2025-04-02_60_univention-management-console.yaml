@@ -11,3 +11,6 @@ desc: |
  * Logging of stack traces is now done with `ERROR` facility and they are
    additionally logged to the log files of the modules.
 bug: [58114, 46057]
+erratum: 60
+announced: 2025-04-02
+support: core
