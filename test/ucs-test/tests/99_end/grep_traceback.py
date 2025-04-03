@@ -240,6 +240,8 @@ COMMON_EXCEPTIONS = (
     E('MyTestException: .*'),
     E('univention.management.console.modules.ucstest.ThreadedError'),  # 60_umc/17_traceback_handling.py
     # # various test cases:
+    E('psycopg2.OperationalError: connection to server at "localhost".* failed: Connection refused', ['passwordreset/tokendb.py']),  # 83_self_service/13_test_postgresql_connection_loss.py
+    E('psycopg2.OperationalError: SSL connection has been closed unexpectedly', ['passwordreset/tokendb.py']),  # 83_self_service/13_test_postgresql_connection_loss.py
     # E('AssertionError: .*contain.*traceback.*', ['01_var_log_tracebacks']),
     E('^(univention.management.console.modules.ucstest.)?NonThreadedError$'),
     E(r'^(ldap\.)?INVALID_SYNTAX: .*ABCDEFGHIJKLMNOPQRSTUVWXYZ.*', ['sync_from_ucs']),
