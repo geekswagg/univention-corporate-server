@@ -33,10 +33,12 @@
 
 from __future__ import annotations
 
+import inspect
 import os
 import sys
 import warnings
 from logging import getLogger
+from types import SimpleNamespace
 from typing import TYPE_CHECKING, Any
 
 from univention.admin import localization
@@ -64,7 +66,14 @@ def import_hook_files() -> None:
             for fn in hooks_files:
                 try:
                     with open(fn, 'rb') as fd:
-                        exec(fd.read(), sys.modules[__name__].__dict__)  # noqa: S102
+                        env = {
+                            'simpleHook': simpleHook,
+                            'AttributeHook': AttributeHook,
+                        }
+                        exec(fd.read(), env)  # noqa: S102
+                        sys.modules[__name__].__dict__.update(
+                            dict(inspect.getmembers(SimpleNamespace(**env), lambda m: inspect.isclass(m) and issubclass(m, (simpleHook, AttributeHook)) and m not in (simpleHook, AttributeHook))),
+                        )
                     log.debug('admin.hook.import_hook_files: importing %r', fn)
                 except Exception:
                     log.exception('admin.hook.import_hook_files: loading %r failed', fn)
