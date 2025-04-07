@@ -213,7 +213,7 @@ class VNCInstallation:
         try:
             self.wait_for_text(text, timeout, wait)
             return True
-        except VNCDoException:
+        except (VNCDoException, TimeoutError):
             return False
 
     def wait_for_text(self, text: str, timeout: int = 0, wait: bool = True) -> None:
