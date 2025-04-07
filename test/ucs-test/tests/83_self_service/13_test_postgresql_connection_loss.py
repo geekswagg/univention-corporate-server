@@ -38,7 +38,7 @@ def test_reset_via_email(ucr):
         user.send_token('email')
 
         subprocess.call(['systemctl', 'stop', 'postgresql'])
-        with pytest.raises(univention.lib.umc.HTTPError, match=r'psycopg2.OperationalError: connection to server at .* failed: Connection refused'):
+        with pytest.raises(univention.lib.umc.HTTPError, match=r'psycopg2.OperationalError: (connection to server at .* failed: Connection refused|Verbindung zum Server .* fehlgeschlagen: Verbindungsaufbau abgelehnt)'):
             user.send_token('email')
 
         subprocess.call(['systemctl', 'start', 'postgresql'])
