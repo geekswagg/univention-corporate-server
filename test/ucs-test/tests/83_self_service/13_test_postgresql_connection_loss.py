@@ -8,6 +8,7 @@
 ##   - univention-self-service-passwordreset-umc
 
 import subprocess
+import time
 
 import pytest
 from test_self_service import self_service_user
@@ -38,8 +39,11 @@ def test_reset_via_email(ucr):
         user.send_token('email')
 
         subprocess.call(['systemctl', 'stop', 'postgresql'])
-        with pytest.raises(univention.lib.umc.HTTPError, match=r'psycopg2.OperationalError: (connection to server at .* failed: Connection refused|Verbindung zum Server .* fehlgeschlagen: Verbindungsaufbau abgelehnt)'):
+        time.sleep(0.5)
+        with pytest.raises(univention.lib.umc.HTTPError, match=r'psycopg2.OperationalError: (connection to server at .* failed|Verbindung zum Server .* fehlgeschlagen)'):
+            # "Connection refused" / "Verbindungsaufbau abgelehnt" and "das Datenbanksystem fährt herunter"
             user.send_token('email')
 
         subprocess.call(['systemctl', 'start', 'postgresql'])
+        time.sleep(0.5)
         user.send_token('email')

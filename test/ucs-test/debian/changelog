@@ -1,3 +1,9 @@
+ucs-test (12.1.2) unstable; urgency=medium
+
+  * Bug #58159: catch more exception reasons in 83_self_service/13_test_postgresql_connection_loss.py
+
+ -- Florian Best <best@univention.de>  Tue, 08 Apr 2025 14:41:57 +0200
+
 ucs-test (12.1.1) unstable; urgency=medium
 
   * Bug #58159: add support for german locale in 83_self_service/13_test_postgresql_connection_loss.py
