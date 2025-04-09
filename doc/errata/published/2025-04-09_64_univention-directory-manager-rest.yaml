@@ -9,3 +9,6 @@ desc: |
  * The OpenAPI schema has been adjusted to allow the specification of multiple
    policies for UCR policies.
 bug: [57988]
+erratum: 64
+announced: 2025-04-09
+support: core
