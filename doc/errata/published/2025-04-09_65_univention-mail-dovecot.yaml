@@ -10,3 +10,6 @@ desc: |
    reset during IMAP authentication in the PAM stack of dovecot. This is now
    prevented.
 bug: [58127]
+erratum: 65
+announced: 2025-04-09
+support: core
