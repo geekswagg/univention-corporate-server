@@ -1,3 +1,9 @@
+ucs-test (12.1.3) unstable; urgency=medium
+
+  * Bug #58183: fix tests for keycloak 26
+
+ -- Felix Botner <botner@univention.de>  Wed, 09 Apr 2025 14:54:29 +0200
+
 ucs-test (12.1.2) unstable; urgency=medium
 
   * Bug #58159: catch more exception reasons in 83_self_service/13_test_postgresql_connection_loss.py
