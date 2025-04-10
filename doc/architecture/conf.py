@@ -81,6 +81,7 @@ extensions = [
     "sphinxcontrib.bibtex",
     "sphinx.ext.intersphinx",
     "sphinx_inline_tabs",
+    'sphinx_sitemap',
 ]
 
 intersphinx_mapping = {
@@ -172,3 +173,5 @@ latex_elements = {
 univention_feedback = True
 # Information about the license statement for the source files
 univention_pdf_show_source_license = True
+html_baseurl = 'https://docs.software-univention.de/architecture/'
+sitemap_url_scheme = '{version}{lang}{link}'
