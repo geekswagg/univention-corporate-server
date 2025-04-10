@@ -83,6 +83,7 @@ extensions = [
     "sphinxcontrib.spelling",
     "sphinx_last_updated_by_git",
     "sphinx.ext.intersphinx",
+    'sphinx_sitemap',
 ]
 
 # Warnings may come up by sphinx-last-updated-by-git. Suppress such warnings for all jobs.
@@ -163,6 +164,7 @@ intersphinx_mapping = {
 univention_feedback = True
 # Information about the license statement for the source files
 univention_pdf_show_source_license = True
+univention_use_doc_base = True
 
 
 def fix_title_translation(app, config):
