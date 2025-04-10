@@ -59,8 +59,8 @@ def ref(name: str, *, lang: str = "en", ver: str = "") -> tuple[str, tuple[str |
 # -- Project information -----------------------------------------------------
 
 version = "5.2"
-release = "5.2-1"
 project = f"UCS {version} for Debian and Ubuntu Administrators"
+release = version
 copyright = f'2023-{date.today().year}, Univention GmbH'
 author = 'Univention GmbH'
 language = 'en'
@@ -78,6 +78,7 @@ extensions = [
     "sphinx_last_updated_by_git",
     "sphinxcontrib.bibtex",
     "sphinx.ext.intersphinx",
+    'sphinx_sitemap',
 ]
 
 intersphinx_mapping = {
@@ -159,3 +160,4 @@ latex_elements = {
 univention_feedback = True
 # Information about the license statement for the source files
 univention_pdf_show_source_license = True
+univention_use_doc_base = True
