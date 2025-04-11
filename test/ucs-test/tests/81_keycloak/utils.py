@@ -198,7 +198,7 @@ def keycloak_login(
     try:
         name = page.get_by_label(_("Username or email"))
         expect(name, "login form username input not visible").to_be_visible()
-        pw = page.get_by_label(_("password"))
+        pw = page.get_by_label(_("Password"), exact=True)
         expect(pw, "password form input not visible").to_be_visible()
         if no_login:
             return
