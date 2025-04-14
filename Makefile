@@ -1,8 +1,7 @@
 # SPDX-FileCopyrightText: 2025 Univention GmbH
 # SPDX-License-Identifier: AGPL-3.0-only
 
-.PHONY: help format format-all lint lint-all setup_devel_env ucr ruff isort autopep8 ruff-statistics
-
+.PHONY: help format format-all lint lint-all setup_devel_env ucr ruff isort autopep8 ruff-statistics reuse copyright
 .DEFAULT_GOAL := help
 
 define PRINT_HELP_PYSCRIPT
@@ -32,13 +31,19 @@ ucr:  ## This formats all UCR templates correctly
 ruff:  ## This runs ruff fixes on Python files
 	-{ git diff --name-only; git ls-files --others --exclude-standard; git diff --cached --name-only; } | xargs pre-commit run --hook-stage manual ruff-fix --files
 
+ruff-statistics:
+	pre-commit run -a --hook-stage manual ruff-statistics
+
 isort:  ## This runs isort on Python files
 	-{ git diff --name-only; git ls-files --others --exclude-standard; git diff --cached --name-only; } | xargs pre-commit run --hook-stage manual isort-fix --files
 
 autopep8:  ## this runs isort on Python files
 	-{ git diff --name-only; git ls-files --others --exclude-standard; git diff --cached --name-only; } | xargs pre-commit run --hook-stage manual autopep8-fix --files
 
-format: ucr ruff isort autopep8  ## This formats all changed python files.
+reuse:
+	-{ git diff --name-only; git ls-files --others --exclude-standard; git diff --cached --name-only; } | xargs pre-commit run --hook-stage manual reuse-annotate --files
+
+format: ucr ruff isort autopep8 reuse  ## This formats all changed python files.
 	-
 
 format-all: ## This formats all python files in the repository
@@ -47,6 +52,9 @@ format-all: ## This formats all python files in the repository
 	-pre-commit run -a --hook-stage manual ruff-fix
 	-pre-commit run -a --hook-stage manual isort-fix
 	-pre-commit run -a --hook-stage manual autopep8-fix
+	-pre-commit run -a --hook-stage manual reuse-annotate
 
-ruff-statistics:
-	pre-commit run -a --hook-stage manual ruff-statistics
+copyright:
+	-python3 update-reuse-toml.py
+	-pre-commit run -a --hook-stage manual reuse-annotate
+	-pre-commit run -a --hook-stage manual reuse-lint

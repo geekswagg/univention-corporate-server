@@ -1,0 +1,6 @@
+The copyright of the LDAP schema `solaris.schema` is unknown and the sources provide no copyright information.
+See the following resources:
+https://www.openldap.org/lists/openldap-software/200110/msg00190.html
+https://forge.univention.org/bugzilla/show_bug.cgi?id=26440
+http://web.singnet.com.sg/~garyttt/solaris.schema.txt
+https://web.archive.org/web/20121005092227/http://web.singnet.com.sg/~garyttt/solaris.schema.txt

@@ -1,0 +1,1382 @@
+version = 1
+SPDX-PackageName = "Univention Corporate Server"
+SPDX-PackageSupplier = "Univention GmbH <info@univention.de>"
+SPDX-PackageDownloadLocation = "https://www.univention.com/"
+[[annotations]]
+path = [ "**.gitignore", ".git-blame-ignore-revs", ".gitlab/issue_templates/default.md", ".gitlab/merge_request_templates/Default.md", "CODE_OF_CONDUCT.md", "CONTRIBUTING.md", "PULL_REQUEST_TEMPLATE.md", "doc/errata/**.yaml", "doc/errata/erratum.schema.json", "doc/extended-docs/ucr-deprecated.schema.json", "pyproject.toml", "test/**.cfg", "test/utils/id-broker/keycloak_ProxyPass.conf.example", "test/utils/id-broker/univention-test-app.conf", "test/utils/id-broker/univention-vhosts.conf.example",]
+SPDX-FileCopyrightText = "2025 Univention GmbH"
+SPDX-License-Identifier = "AGPL-3.0-only"
+
+[[annotations]]
+path = [ "doc/**.ai", "doc/**.drawio", "doc/**.graphml", "doc/**.png", "doc/**.svg", "doc/**.txt", "test/product-tests/ucsschool/largeenv-installation.csv", "test/scenarios/veyon/veyon.json", "test/ucs-gui-tests/installation/vminstall/expected_welcome_screen_with_kde.png",]
+SPDX-FileCopyrightText = "2025 Univention GmbH"
+SPDX-License-Identifier = "LicenseRef-Univention-Proprietary"
+
+[[annotations]]
+path = "monitoring/univention-monitoring-client/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2022-2025 Univention GmbH"
+
+[[annotations]]
+path = "monitoring/univention-nagios-servicechecks/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2009-2025 Univention GmbH"
+
+[[annotations]]
+path = "monitoring/univention-nagios-ad-connector/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2011-2025 Univention GmbH"
+
+[[annotations]]
+path = "monitoring/univention-nagios-samba/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2011-2025 Univention GmbH"
+
+[[annotations]]
+path = "monitoring/univention-nagios-s4-connector/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2011-2025 Univention GmbH"
+
+[[annotations]]
+path = "monitoring/univention-nagios/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2002-2025 Univention GmbH"
+
+[[annotations]]
+path = "monitoring/univention-nagios-raid/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2010-2025 Univention GmbH"
+
+[[annotations]]
+path = "monitoring/univention-nagios-smart/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2010-2025 Univention GmbH"
+
+[[annotations]]
+path = "packaging/univention-debhelper/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2020-2025 Univention GmbH"
+
+[[annotations]]
+path = "packaging/ucslint/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2008-2025 Univention GmbH"
+
+[[annotations]]
+path = "packaging/ucslint/testframework/0009-11/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2020-2025 Univention GmbH"
+
+[[annotations]]
+path = "packaging/ucslint/testframework/0011-20c/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2008-2025 Univention GmbH"
+
+[[annotations]]
+path = "packaging/ucslint/testframework/0001-23/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2012-2025 Univention GmbH"
+
+[[annotations]]
+path = "packaging/ucslint/testframework/0010-2/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2008-2010 Univention GmbH"
+
+[[annotations]]
+path = "packaging/ucslint/testframework/0007-3/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2008-2025 Univention GmbH"
+
+[[annotations]]
+path = "packaging/ucslint/testframework/0011-20b/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2008-2025 Univention GmbH"
+
+[[annotations]]
+path = "packaging/ucslint/testframework/0001-22/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2012-2025 Univention GmbH"
+
+[[annotations]]
+path = "packaging/ucslint/testframework/0011-20a/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2008-2025 Univention GmbH"
+
+[[annotations]]
+path = "packaging/ucslint/testframework/0017-5-6-7-8-9/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2008-2025 Univention GmbH"
+
+[[annotations]]
+path = "packaging/ucslint/testframework/0001-6-7/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2012-2025 Univention GmbH"
+
+[[annotations]]
+path = "packaging/ucslint/testframework/0007-4/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2008-2025 Univention GmbH"
+
+[[annotations]]
+path = "packaging/univention-directory-manager-module-example/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2005-2025 Univention GmbH"
+
+[[annotations]]
+path = "packaging/univention-l10n/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2013-2025 Univention GmbH"
+
+[[annotations]]
+path = "packaging/univention-package-template-python/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2011-2025 Univention GmbH"
+
+[[annotations]]
+path = "packaging/univention-unittests/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2011-2025 Univention GmbH"
+
+[[annotations]]
+path = "packaging/univention-package-template/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2010-2025 Univention GmbH"
+
+[[annotations]]
+path = "container/univention-docker-container-mode/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2015-2025 Univention GmbH"
+
+[[annotations]]
+path = "container/univention-appliance-docker-container/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2015-2025 Univention GmbH"
+
+[[annotations]]
+path = "container/univention-docker/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2015-2025 Univention GmbH"
+
+[[annotations]]
+path = [ "oidc/crudeoauth/src/Makefile.in", "oidc/crudeoauth/src/aclocal.m4", "oidc/crudeoauth/src/compile", "oidc/crudeoauth/src/config.guess", "oidc/crudeoauth/src/config.sub", "oidc/crudeoauth/src/depcomp", "oidc/crudeoauth/src/ltmain.sh", "oidc/crudeoauth/src/missing", "oidc/crudeoauth/src/config.h.in",]
+precedence = "override"
+SPDX-License-Identifier = "GPL-2.0-only"
+SPDX-FileCopyrightText = "1992-2018 Free Software Foundation, Inc."
+
+[[annotations]]
+path = [ "oidc/crudeoauth/src/oauthbearer.h", "oidc/crudeoauth/src/pam_oauthbearer.c", "oidc/crudeoauth/src/plugin_common.c", "oidc/crudeoauth/src/plugin_common.h", "oidc/crudeoauth/src/sasl_oauthbearer.c",]
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "2009-2015 Emmanuel Dreyfus <manu@netbsd.org>"
+
+[[annotations]]
+path = [ "oidc/crudeoauth/debian/**", "oidc/crudeoauth/src/oauthbearer.c", "oidc/crudeoauth/src/pam_oauthbearer.5", "oidc/crudeoauth/src/sasl_oauthbearer.5", "oidc/crudeoauth/README.md",]
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2022-2025 Univention GmbH"
+
+[[annotations]]
+path = "doc/developer-reference/listener/printusers/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2014-2025 Univention GmbH"
+
+[[annotations]]
+path = "doc/developer-reference/packaging/testdeb/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2013-2025 Univention GmbH"
+
+[[annotations]]
+path = "doc/developer-reference/ucr/papersize/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2013-2025 Univention GmbH"
+
+[[annotations]]
+path = "doc/developer-reference/ucr/service/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2013-2025 Univention GmbH"
+
+[[annotations]]
+path = "doc/developer-reference/ucr/hosts/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2013-2025 Univention GmbH"
+
+[[annotations]]
+path = "doc/developer-reference/udm/ea/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2014-2025 Univention GmbH"
+
+[[annotations]]
+path = "doc/developer-reference/umc/ucr/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2014-2025 Univention GmbH"
+
+[[annotations]]
+path = "doc/developer-reference/join/join-template/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2013-2025 Univention GmbH"
+
+[[annotations]]
+path = "management/univention-directory-manager-modules/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2001-2025 Univention GmbH"
+
+[[annotations]]
+path = "management/univention-ldap/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2001-2025 Univention GmbH"
+
+[[annotations]]
+path = "management/univention-ldap/schema/solaris.schema"
+precedence = "override"
+SPDX-License-Identifier = "LicenseRef-unknown-solaris-ldap-schema"
+SPDX-FileCopyrightText = "2001 Igor Brezac <igor@ipass.net>\n Marc Bourget <bourget@up2.com>"
+
+[[annotations]]
+path = "management/univention-ldap/dh_2048.pem"
+precedence = "override"
+SPDX-License-Identifier = "LicenseRef-RFC-Document"
+SPDX-FileCopyrightText = "2003 The Internet Society"
+
+[[annotations]]
+path = "management/univention-management-console-module-reboot/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2011-2025 Univention GmbH"
+
+[[annotations]]
+path = "management/univention-directory-manager-rest/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2019-2025 Univention GmbH"
+
+[[annotations]]
+path = "management/univention-directory-manager-rest/var/www/univention/udm/swaggerui/**"
+precedence = "override"
+SPDX-License-Identifier = "Apache-2.0"
+SPDX-FileCopyrightText = "2020 SmartBear Software Inc."
+
+[[annotations]]
+path = [ "management/univention-directory-manager-rest/var/www/univention/udm/js/htmx**.js", "management/univention-directory-manager-rest/var/www/univention/udm/js/response-targets.js",]
+precedence = "override"
+SPDX-License-Identifier = "BSD-2-Clause"
+SPDX-FileCopyrightText = "2020 Big Sky Software"
+
+[[annotations]]
+path = "management/univention-directory-listener/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2002-2025 Univention GmbH"
+
+[[annotations]]
+path = "management/univention-directory-listener/src/base64.c"
+precedence = "override"
+SPDX-License-Identifier = "ISC OR LicenseRef-IBM"
+SPDX-FileCopyrightText = "1996, 1998 by Internet Software Consortium\n  Portions Copyright (c) 1995 by International Business Machines, Inc."
+
+[[annotations]]
+path = "management/univention-directory-listener/debian/tests/lxc-ucs"
+precedence = "override"
+SPDX-License-Identifier = "LGPL-2.1-or-later"
+SPDX-FileCopyrightText = "Daniel Lezcano <daniel.lezcano@free.fr>\n 2002-2019 Univention GmbH"
+
+[[annotations]]
+path = "management/univention-directory-reports/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2002-2025 Univention GmbH"
+
+[[annotations]]
+path = "management/univention-directory-reports/univention_logo.png"
+precedence = "override"
+SPDX-License-Identifier = "LicenseRef-Univention-Proprietary"
+SPDX-FileCopyrightText = "2024-2025 Univention GmbH"
+
+[[annotations]]
+path = "management/univention-management-console-module-ipchange/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2012-2025 Univention GmbH"
+
+[[annotations]]
+path = "management/univention-directory-notifier/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only AND LicenseRef-OpenSSL-exception"
+SPDX-FileCopyrightText = "2002-2025 Univention GmbH"
+
+[[annotations]]
+path = "management/univention-management-console-module-ucr/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2002-2025 Univention GmbH"
+
+[[annotations]]
+path = "management/univention-directory-replication/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2001-2025 Univention GmbH"
+
+[[annotations]]
+path = "management/univention-management-console-module-top/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2011-2025 Univention GmbH"
+
+[[annotations]]
+path = "management/univention-management-console-module-join/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2001-2025 Univention GmbH"
+
+[[annotations]]
+path = "management/univention-server-overview/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2017-2025 Univention GmbH"
+
+[[annotations]]
+path = "management/univention-management-console-module-services/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2011-2025 Univention GmbH"
+
+[[annotations]]
+path = [ "management/univention-dojo/debian/**", "management/univention-dojo/Makefile", "management/univention-dojo/**.patch",]
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2008-2025 Univention GmbH"
+
+[[annotations]]
+path = "management/univention-dojo/**.tar.gz"
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause or AFL-2.1"
+SPDX-FileCopyrightText = "2005-2008, The Dojo Foundation"
+
+[[annotations]]
+path = "management/univention-management-console-module-passwordchange/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2014-2025 Univention GmbH"
+
+[[annotations]]
+path = "management/univention-system-info/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2002-2025 Univention GmbH"
+
+[[annotations]]
+path = "management/univention-management-console-module-udm/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2002-2025 Univention GmbH"
+
+[[annotations]]
+path = "management/univention-web/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2014-2025 Univention GmbH"
+
+[[annotations]]
+path = [ "management/univention-web/icons/univention-management-console.svg", "management/univention-web/icons/univention.svg", "management/univention-web/css/images/login_logo.png", "management/univention-web/css/images/login_logo.svg", "management/univention-web/css/images/ucs_logo_gray.svg", "management/univention-web/css/images/univention.svg", "management/univention-web/css/images/univention_u.svg",]
+precedence = "override"
+SPDX-License-Identifier = "LicenseRef-Univention-Proprietary"
+SPDX-FileCopyrightText = "2024-2025 Univention GmbH"
+
+[[annotations]]
+path = "management/univention-web/Open_Sans.zip"
+precedence = "override"
+SPDX-License-Identifier = "Apache-2.0"
+SPDX-FileCopyrightText = "Digitized data copyright (c) 2010-2011, Google Corporation."
+
+[[annotations]]
+path = "management/univention-web/css/document.styl"
+precedence = "override"
+SPDX-License-Identifier = "Apache-2.0"
+SPDX-FileCopyrightText = "2011 Google Inc."
+
+[[annotations]]
+path = "management/univention-web/dompurify/**"
+precedence = "override"
+SPDX-License-Identifier = "Apache-2.0"
+SPDX-FileCopyrightText = "2015 Mario Heiderich"
+
+[[annotations]]
+path = "management/univention-management-console-module-lib/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2012-2025 Univention GmbH"
+
+[[annotations]]
+path = "management/univention-admingrp-user-passwordreset/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2010-2025 Univention GmbH"
+
+[[annotations]]
+path = "management/univention-appcenter/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2011-2025 Univention GmbH"
+
+[[annotations]]
+path = [ "management/univention-appcenter/umc/js/appcenter/badges/**.svg", "management/univention-appcenter/umc/js/appcenter/icons/shopping_bag.svg",]
+precedence = "override"
+SPDX-License-Identifier = "LicenseRef-Univention-Proprietary"
+SPDX-FileCopyrightText = "2024-2025 Univention GmbH"
+
+[[annotations]]
+path = "management/univention-directory-policy/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2001-2025 Univention GmbH"
+
+[[annotations]]
+path = "management/univention-management-console-module-welcome/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2021-2025 Univention GmbH"
+
+[[annotations]]
+path = "management/univention-management-console-module-adtakeover/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2014-2025 Univention GmbH"
+
+[[annotations]]
+path = "management/univention-management-console/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2012-2025 Univention GmbH"
+
+[[annotations]]
+path = [ "management/univention-management-console/data/categories/icon/**.svg", "management/univention-management-console/www/management/widgets/**.svg",]
+precedence = "override"
+SPDX-License-Identifier = "LicenseRef-Univention-Proprietary"
+SPDX-FileCopyrightText = "2024-2025 Univention GmbH"
+
+[[annotations]]
+path = "management/univention-management-console/umc-module-templates/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "YEAR Univention GmbH"
+
+[[annotations]]
+path = "management/univention-portal/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2016-2025 Univention GmbH"
+
+[[annotations]]
+path = [ "management/univention-portal/univention-blog.png", "management/univention-portal/univention-management-console.svg", "management/univention-portal/frontend/tests/e2e/fixtures/images/logo.svg",]
+precedence = "override"
+SPDX-License-Identifier = "LicenseRef-Univention-Proprietary"
+SPDX-FileCopyrightText = "2024-2025 Univention GmbH"
+
+[[annotations]]
+path = [ "management/univention-portal/frontend/public/feather-sprite.svg", "management/univention-portal/key.svg", "management/univention-portal/login.svg",]
+precedence = "override"
+SPDX-License-Identifier = "MIT"
+SPDX-FileCopyrightText = "2013-2023 Cole Bemis"
+
+[[annotations]]
+path = "management/univention-portal/frontend/public/fonts/OpenSans/**"
+precedence = "override"
+SPDX-License-Identifier = "SIL Open Font License"
+SPDX-FileCopyrightText = "Google LLC"
+
+[[annotations]]
+path = "management/univention-management-console-module-diagnostic/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2014-2025 Univention GmbH"
+
+[[annotations]]
+path = "management/univention-join/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2001-2025 Univention GmbH"
+
+[[annotations]]
+path = "management/univention-ldap-overlay-memberof/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2008-2025 Univention GmbH"
+
+[[annotations]]
+path = "management/univention-directory-logger/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2002-2025 Univention GmbH"
+
+[[annotations]]
+path = "management/univention-self-service/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2015-2025 Univention GmbH"
+
+[[annotations]]
+path = "test/ucs-test-tools/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2010-2025 Univention GmbH"
+
+[[annotations]]
+path = "test/univention-demo-configuration/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2012-2025 Univention GmbH"
+
+[[annotations]]
+path = "test/univention-demo-configuration/data/images/**.jpg"
+precedence = "override"
+SPDX-License-Identifier = "LicenseRef-FreeDigitalPhotos"
+SPDX-FileCopyrightText = "FreeDigitalPhotos.net"
+
+[[annotations]]
+path = "test/generate-appliance/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2014-2025 Univention GmbH"
+
+[[annotations]]
+path = "test/ucs-test/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2002-2025 Univention GmbH"
+
+[[annotations]]
+path = "services/univention-squid/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2002-2025 Univention GmbH"
+
+[[annotations]]
+path = "services/univention-keycloak/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2022-2025 Univention GmbH"
+
+[[annotations]]
+path = "services/univention-admin-diary/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2018-2025 Univention GmbH"
+
+[[annotations]]
+path = "services/univention-ad-connector/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2002-2025 Univention GmbH"
+
+[[annotations]]
+path = "services/univention-ad-connector/umc/icons/scalable/ad-connector.svg"
+precedence = "override"
+SPDX-License-Identifier = "CC0-1.0 AND LicenseRef-Univention-Proprietary"
+SPDX-FileCopyrightText = "2024-2025 Univention GmbH"
+
+[[annotations]]
+path = "services/univention-mariadb/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2017-2025 Univention GmbH"
+
+[[annotations]]
+path = "services/univention-net-installer/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2004-2025 Univention GmbH"
+
+[[annotations]]
+path = "services/univention-squid-kerberos/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2002-2025 Univention GmbH"
+
+[[annotations]]
+path = "services/univention-tftp/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2002-2025 Univention GmbH"
+
+[[annotations]]
+path = "services/univention-samba4/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2004-2025 Univention GmbH"
+
+[[annotations]]
+path = "services/univention-printserver/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2001-2025 Univention GmbH"
+
+[[annotations]]
+path = "services/univention-printserver/conffiles/etc/cupsd.conf"
+precedence = "override"
+SPDX-License-Identifier = "GPL-2.0-only"
+SPDX-FileCopyrightText = "1997-2002 by Easy Software Products\n 2001-2019 Univention GmbH"
+
+[[annotations]]
+path = "services/univention-ldb-modules/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2002-2025 Univention GmbH"
+
+[[annotations]]
+path = "services/univention-ldb-modules/buildtools/**"
+precedence = "override"
+SPDX-License-Identifier = "LGPL-3.0-or-later"
+SPDX-FileCopyrightText = "2004-2010 Andrew Tridgell <tridge@samba.org>\n 2004-2010 Simo Sorce <idra@samba.org>\n 2005-2010 Andrew Bartlett <abartlet@samba.org>\n 2005,2006 Tim Potter <tpot@samba.org>\n 2007-2010 Jelmer Vernooij <jelmer@samba.org>\n 2009-2010 Matthias Dieter Wallnöfer\n 2005-2006 Brad Hards <bradh@frogmouth.net>\n 2006 Martin Kuehl <mkhl@samba.org>\n 2004 Stefan Metzmacher\n 2004-2005 Derrell Lipman"
+
+[[annotations]]
+path = "services/univention-ldb-modules/src/base64.c"
+precedence = "override"
+SPDX-License-Identifier = "ISC OR LicenseRef-IBM"
+SPDX-FileCopyrightText = "1996, 1998 by Internet Software Consortium\n  Portions Copyright (c) 1995 by International Business Machines, Inc."
+
+[[annotations]]
+path = [ "services/univention-ldb-modules/buildtools/bin/waf", "services/univention-ldb-modules/buildtools/wafsamba/stale_files.py", "services/univention-ldb-modules/third_party/waf/**",]
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Scott Newton, 2005 (scottn)\n  Copyright Thomas Nagy, 2005-2018 (ita)"
+
+[[annotations]]
+path = [ "services/univention-ldb-modules/third_party/waf/waflib/extras/bjam.py", "services/univention-ldb-modules/third_party/waf/waflib/extras/proc.py", "services/univention-ldb-modules/third_party/waf/waflib/extras/softlink_libs.py",]
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright rosengren 2011"
+
+[[annotations]]
+path = "services/univention-ldb-modules/third_party/waf/waflib/extras/blender.py"
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Michal Proszek, 2014 (poxip)"
+
+[[annotations]]
+path = "services/univention-ldb-modules/third_party/waf/waflib/extras/boo.py"
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Yannick LM 2011"
+
+[[annotations]]
+path = "services/univention-ldb-modules/third_party/waf/waflib/extras/boost.py"
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Gernot Vormayr\n  Copyright Ruediger Sonderfeld <ruediger@c-plusplus.de>, 2008\n  Copyright Bjoern Michaelsen, 2008\n  Copyright Luca Fossati, 2008\n  Copyright Thomas Nagy, 2008\n  Copyright Sylvain Rouquette, 2011"
+
+[[annotations]]
+path = "services/univention-ldb-modules/third_party/waf/waflib/extras/buildcopy.py"
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Calle Rosenquist, 2017 (xbreak)"
+
+[[annotations]]
+path = "services/univention-ldb-modules/third_party/waf/waflib/extras/cabal.py"
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Anton Feldmann, 2012"
+
+[[annotations]]
+path = [ "services/univention-ldb-modules/third_party/waf/waflib/extras/c_bgxlc.py", "services/univention-ldb-modules/third_party/waf/waflib/extras/c_nec.py", "services/univention-ldb-modules/third_party/waf/waflib/extras/fc_bgxlf.py", "services/univention-ldb-modules/third_party/waf/waflib/extras/fc_cray.py", "services/univention-ldb-modules/third_party/waf/waflib/extras/fc_nag.py", "services/univention-ldb-modules/third_party/waf/waflib/extras/fc_nec.py", "services/univention-ldb-modules/third_party/waf/waflib/extras/fc_open64.py", "services/univention-ldb-modules/third_party/waf/waflib/extras/fc_solstudio.py", "services/univention-ldb-modules/third_party/waf/waflib/extras/fc_xlf.py",]
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright harald at klimachs.de"
+
+[[annotations]]
+path = "services/univention-ldb-modules/third_party/waf/waflib/extras/clang_compilation_database.py"
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Christoph Koke, 2013"
+
+[[annotations]]
+path = "services/univention-ldb-modules/third_party/waf/waflib/extras/codelite.py"
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Christian Klein (chrikle@berlios.de)"
+
+[[annotations]]
+path = [ "services/univention-ldb-modules/third_party/waf/waflib/extras/color_gcc.py", "services/univention-ldb-modules/third_party/waf/waflib/extras/color_rvct.py", "services/univention-ldb-modules/third_party/waf/waflib/extras/cross_gnu.py", "services/univention-ldb-modules/third_party/waf/waflib/extras/dcc.py", "services/univention-ldb-modules/third_party/waf/waflib/extras/halide.py", "services/univention-ldb-modules/third_party/waf/waflib/extras/qnxnto.py", "services/univention-ldb-modules/third_party/waf/waflib/extras/remote.py", "services/univention-ldb-modules/third_party/waf/waflib/extras/rst.py", "services/univention-ldb-modules/third_party/waf/waflib/extras/ticgt.py",]
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Jérôme Carretero, 2011-2014"
+
+[[annotations]]
+path = "services/univention-ldb-modules/third_party/waf/waflib/extras/cppcheck.py"
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Michel Mooij, michel.mooij7@gmail.com"
+
+[[annotations]]
+path = [ "services/univention-ldb-modules/third_party/waf/waflib/extras/cpplint.py", "services/univention-ldb-modules/third_party/waf/waflib/extras/freeimage.py", "services/univention-ldb-modules/third_party/waf/waflib/extras/pep8.py",]
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Sylvain Rouquette, 2011-2014"
+
+[[annotations]]
+path = "services/univention-ldb-modules/third_party/waf/waflib/extras/dpapi.py"
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Matt Clarkson, 2012"
+
+[[annotations]]
+path = "services/univention-ldb-modules/third_party/waf/waflib/extras/eclipse.py"
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Richard Quirk 2009-1011"
+
+[[annotations]]
+path = "services/univention-ldb-modules/third_party/waf/waflib/extras/erlang.py"
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Thomas Nagy, 2010 (ita)\n  Copyright Przemyslaw Rzepecki, 2016"
+
+[[annotations]]
+path = [ "services/univention-ldb-modules/third_party/waf/waflib/extras/fluid.py", "services/univention-ldb-modules/third_party/waf/waflib/extras/objcopy.py",]
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Grygoriy Fuchedzhy 2009-2010"
+
+[[annotations]]
+path = [ "services/univention-ldb-modules/third_party/waf/waflib/extras/gdbus.py", "services/univention-ldb-modules/third_party/waf/waflib/extras/msvcdeps.py",]
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Copyright Garmin International or its subsidiaries, 2012-2018"
+
+[[annotations]]
+path = [ "services/univention-ldb-modules/third_party/waf/waflib/extras/gob2.py", "services/univention-ldb-modules/third_party/waf/waflib/Tools/dbus.py", "services/univention-ldb-modules/third_party/waf/waflib/Tools/gnu_dirs.py",]
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Ali Sabil, 2007"
+
+[[annotations]]
+path = [ "services/univention-ldb-modules/third_party/waf/waflib/extras/javatest.py", "services/univention-ldb-modules/third_party/waf/waflib/extras/pyqt5.py",]
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Federico Pellegrin, 2016-2018 (fedepell)"
+
+[[annotations]]
+path = "services/univention-ldb-modules/third_party/waf/waflib/extras/midl.py"
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright ultrix gmail com"
+
+[[annotations]]
+path = "services/univention-ldb-modules/third_party/waf/waflib/extras/msvs.py"
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Avalanche Studios 2009-2011\n  Copyright Thomas Nagy 2011"
+
+[[annotations]]
+path = "services/univention-ldb-modules/third_party/waf/waflib/extras/pch.py"
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Alexander Afanasyev (UCLA), 2014"
+
+[[annotations]]
+path = [ "services/univention-ldb-modules/third_party/waf/waflib/extras/pgicc.py", "services/univention-ldb-modules/third_party/waf/waflib/extras/pgicxx.py",]
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Antoine Dechaume 2011"
+
+[[annotations]]
+path = "services/univention-ldb-modules/third_party/waf/waflib/extras/protoc.py"
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Philipp Bender, 2012\n  Copyright Matt Clarkson, 2012"
+
+[[annotations]]
+path = "services/univention-ldb-modules/third_party/waf/waflib/extras/pytest.py"
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Calle Rosenquist, 2016-2018 (xbreak)"
+
+[[annotations]]
+path = "services/univention-ldb-modules/third_party/waf/waflib/extras/review.py"
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Laurent Birtz, 2011"
+
+[[annotations]]
+path = [ "services/univention-ldb-modules/third_party/waf/waflib/extras/run_do_script.py", "services/univention-ldb-modules/third_party/waf/waflib/extras/run_m_script.py", "services/univention-ldb-modules/third_party/waf/waflib/extras/run_py_script.py", "services/univention-ldb-modules/third_party/waf/waflib/extras/run_r_script.py",]
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Hans-Martin von Gaudecker, 2012"
+
+[[annotations]]
+path = "services/univention-ldb-modules/third_party/waf/waflib/extras/sas.py"
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Mark Coggeshall, 2010"
+
+[[annotations]]
+path = "services/univention-ldb-modules/third_party/waf/waflib/extras/swig.py"
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Petar Forai\n  Copyright Thomas Nagy 2008-2010 (ita)"
+
+[[annotations]]
+path = "services/univention-ldb-modules/third_party/waf/waflib/extras/use_config.py"
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Mathieu Courtois - EDF R&D, 2013 - http://www.code-aster.org"
+
+[[annotations]]
+path = "services/univention-ldb-modules/third_party/waf/waflib/extras/valadoc.py"
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Nicolas Joseph 2009"
+
+[[annotations]]
+path = "services/univention-ldb-modules/third_party/waf/waflib/extras/xcode6.py"
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Nicolas Mercier 2011\n  Copyright Simon Warg 2015, https://github.com/mimom"
+
+[[annotations]]
+path = "services/univention-ldb-modules/third_party/waf/waflib/Tools/ar.py"
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Thomas Nagy, 2006-2018 (ita)\n  Copyright Ralf Habacker, 2006 (rh)"
+
+[[annotations]]
+path = "services/univention-ldb-modules/third_party/waf/waflib/Tools/bison.py"
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright John O'Meara, 2006\n  Copyright Thomas Nagy 2009-2018 (ita)"
+
+[[annotations]]
+path = "services/univention-ldb-modules/third_party/waf/waflib/Tools/clang.py"
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Krzysztof Kosiński 2014"
+
+[[annotations]]
+path = [ "services/univention-ldb-modules/third_party/waf/waflib/Tools/compiler_c.py", "services/univention-ldb-modules/third_party/waf/waflib/Tools/compiler_cxx.py",]
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Matthias Jahn jahn dôt matthias ât freenet dôt de, 2007 (pmarat)"
+
+[[annotations]]
+path = [ "services/univention-ldb-modules/third_party/waf/waflib/Tools/compiler_d.py", "services/univention-ldb-modules/third_party/waf/waflib/Tools/dmd.py", "services/univention-ldb-modules/third_party/waf/waflib/Tools/d.py", "services/univention-ldb-modules/third_party/waf/waflib/Tools/gdc.py", "services/univention-ldb-modules/third_party/waf/waflib/Tools/waf_unit_test.py",]
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Carlos Rafael Giani, 2006-2007 (dv)\n  Copyright Thomas Nagy, 2008-2018 (ita)"
+
+[[annotations]]
+path = "services/univention-ldb-modules/third_party/waf/waflib/Tools/flex.py"
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright John O'Meara, 2006\n  Thomas Nagy, 2006-2018 (ita)"
+
+[[annotations]]
+path = "services/univention-ldb-modules/third_party/waf/waflib/Tools/g95.py"
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright KWS 2010\n  Copyright Thomas Nagy 2016-2018 (ita)"
+
+[[annotations]]
+path = [ "services/univention-ldb-modules/third_party/waf/waflib/Tools/gcc.py", "services/univention-ldb-modules/third_party/waf/waflib/Tools/gxx.py",]
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Thomas Nagy, 2006-2018 (ita)\n  Copyright Ralf Habacker, 2006 (rh)\n  Copyright Yinon Ehrlich, 2009"
+
+[[annotations]]
+path = "services/univention-ldb-modules/third_party/waf/waflib/Tools/icc.py"
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Stian Selnes 2008\n  Copyright Thomas Nagy 2009-2018 (ita)"
+
+[[annotations]]
+path = "services/univention-ldb-modules/third_party/waf/waflib/Tools/ldc2.py"
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Alex Rønne Petersen, 2012 (alexrp/Zor)"
+
+[[annotations]]
+path = "services/univention-ldb-modules/third_party/waf/waflib/Tools/lua.py"
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Sebastian Schlingmann, 2008\n  Copyright Thomas Nagy, 2008-2018 (ita)"
+
+[[annotations]]
+path = "services/univention-ldb-modules/third_party/waf/waflib/Tools/msvc.py"
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Carlos Rafael Giani, 2006 (dv)\n  Copyright Tamas Pal, 2007 (folti)\n  Copyright Nicolas Mercier, 2009\n  Copyright Matt Clarkson, 2012"
+
+[[annotations]]
+path = "services/univention-ldb-modules/third_party/waf/waflib/Tools/perl.py"
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright andersg at 0x63.nu 2007\n  Copyright Thomas Nagy 2016-2018 (ita)"
+
+[[annotations]]
+path = "services/univention-ldb-modules/third_party/waf/waflib/Tools/python.py"
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Thomas Nagy, 2007-2015 (ita)\n  Copyright Gustavo Carneiro (gjc), 2007"
+
+[[annotations]]
+path = "services/univention-ldb-modules/third_party/waf/waflib/Tools/ruby.py"
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright daniel.svensson at purplescout.se 2008\n  Copyright Thomas Nagy 2016-2018 (ita)"
+
+[[annotations]]
+path = [ "services/univention-ldb-modules/third_party/waf/waflib/Tools/suncc.py", "services/univention-ldb-modules/third_party/waf/waflib/Tools/suncxx.py",]
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Thomas Nagy, 2006-2018 (ita)\n  Copyright Ralf Habacker, 2006 (rh)"
+
+[[annotations]]
+path = "services/univention-ldb-modules/third_party/waf/waflib/Tools/vala.py"
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Ali Sabil, 2007\n  Copyright Radosław Szkodziński, 2010"
+
+[[annotations]]
+path = "services/univention-ldb-modules/third_party/waf/waflib/Tools/winres.py"
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Brant Young, 2007"
+
+[[annotations]]
+path = [ "services/univention-ldb-modules/third_party/waf/waflib/Tools/xlc.py", "services/univention-ldb-modules/third_party/waf/waflib/Tools/xlcxx.py",]
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "Copyright Thomas Nagy, 2006-2018 (ita)\n  Copyright Ralf Habacker, 2006 (rh)\n  Copyright Yinon Ehrlich, 2009\n  Copyright Michael Kuhn, 2009"
+
+[[annotations]]
+path = "services/univention-apache/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2001-2025 Univention GmbH"
+
+[[annotations]]
+path = "services/univention-sasl/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2011-2025 Univention GmbH"
+
+[[annotations]]
+path = "services/univention-postgresql/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2001-2025 Univention GmbH"
+
+[[annotations]]
+path = "services/univention-radius/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2011-2025 Univention GmbH"
+
+[[annotations]]
+path = "services/univention-pkgdb/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2001-2025 Univention GmbH"
+
+[[annotations]]
+path = "services/univention-bind/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2001-2025 Univention GmbH"
+
+[[annotations]]
+path = "services/univention-dhcp/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2002-2025 Univention GmbH"
+
+[[annotations]]
+path = "services/univention-nfs/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2001-2025 Univention GmbH"
+
+[[annotations]]
+path = "services/univention-samba/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2001-2025 Univention GmbH"
+
+[[annotations]]
+path = "services/univention-s4-connector/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2002-2025 Univention GmbH"
+
+[[annotations]]
+path = "mail/univention-mail-dovecot/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2005-2025 Univention GmbH"
+
+[[annotations]]
+path = "mail/univention-postgrey/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2010-2025 Univention GmbH"
+
+[[annotations]]
+path = "mail/univention-antivir-mail/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2001-2025 Univention GmbH"
+
+[[annotations]]
+path = "mail/univention-antivir-mail/**.cvd"
+precedence = "override"
+SPDX-License-Identifier = "GPL-2.0-only"
+SPDX-FileCopyrightText = "1998-2015, Sourcefire, Inc.\n 2002-2007, Tomasz Kojm <tkojm@clamav.net>\n 2006, Sensory Networks, Inc\n 2007-2015, Cisco Systems, Inc\n 2014, Cisco and/or its affiliates"
+
+[[annotations]]
+path = "mail/univention-spamassassin/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2002-2025 Univention GmbH"
+
+[[annotations]]
+path = "mail/univention-mail-canonical-maps/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2011-2025 Univention GmbH"
+
+[[annotations]]
+path = "mail/univention-fetchmail/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2002-2025 Univention GmbH"
+
+[[annotations]]
+path = "mail/univention-mail-postfix/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2005-2025 Univention GmbH"
+
+[[annotations]]
+path = [ "mail/univention-mail-postfix/dh_2048.pem", "mail/univention-mail-postfix/dh_512.pem",]
+precedence = "override"
+SPDX-License-Identifier = "LicenseRef-RFC-Document"
+SPDX-FileCopyrightText = "2003 The Internet Society"
+
+[[annotations]]
+path = "saml/crudesaml/**"
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause"
+SPDX-FileCopyrightText = "2009-2015 Emmanuel Dreyfus <manu@netbsd.org>"
+
+[[annotations]]
+path = [ "saml/crudesaml/debian/**", "saml/crudesaml/patches/**",]
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2015-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/univention-maintenance-mode/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2018-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/univention-config-registry/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2002-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/univention-home-mounter/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2002-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/univention-ipcalc/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2001-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/univention-sudo/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2015-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/univention-debmirror/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2002-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/univention-debug-python/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2002-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/univention-base-files/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2002-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/univention-skel/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2002-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/univention-dvd/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2014-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/pam-univentionmailcyrus/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2005-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/univention-server/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2003-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/univention-server/etc/bootsplash/themes/**"
+precedence = "override"
+SPDX-License-Identifier = "LicenseRef-Univention-Proprietary"
+SPDX-FileCopyrightText = "2003-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/univention-newsid/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2001-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/univention-newsid/src/**"
+precedence = "override"
+SPDX-License-Identifier = "GPL-2.0-or-later"
+SPDX-FileCopyrightText = "1992-1998 Andrew Tridgell\n   2001 Simo Sorce\n   1998-1999 Luke Kenneth Caseson Leighton\n   1996-2001 Jeremy Allison\n   2000 Gerald (Jerry) Carter\n   2002 Andrew Bartlett"
+
+[[annotations]]
+path = "base/univention-group-membership-cache/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2002-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/pam-runasroot/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2001-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/univention-errata-level/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2012-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/univention-updater/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2002-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/univention-firewall/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2007-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/univention-quota/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2004-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/univention-system-setup/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2002-2025 Univention GmbH"
+
+[[annotations]]
+path = [ "base/univention-system-setup/usr/share/univention-system-setup/www/welcome.svg", "base/univention-system-setup/usr/share/univention-system-setup/www/software.svg",]
+precedence = "override"
+SPDX-License-Identifier = "LicenseRef-Univention-Proprietary"
+SPDX-FileCopyrightText = "2024-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/univention-grub/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2007-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/univention-lib/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2002-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/univention-archive-key/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2007-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/univention-python-heimdal/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2003-2025 Univention GmbH"
+
+[[annotations]]
+path = [ "base/univention-python-heimdal/keytab.c", "base/univention-python-heimdal/keytab.h",]
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause and AGPL-3.0-only"
+SPDX-FileCopyrightText = "2003-2025 Univention GmbH\n 1996-2001 Kungliga Tekniska Högskolan (Royal Institute of Technology, Stockholm, Sweden)"
+
+[[annotations]]
+path = "base/univention-ssl/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2002-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/univention-l10n-fr/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2016-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/univention-pam/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2001-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/univention-python/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2002-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/univention-licence-python/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only AND LicenseRef-OpenSSL-exception"
+SPDX-FileCopyrightText = "2001-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/univention-policy/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only AND LicenseRef-OpenSSL-exception AND LicenseRef-CyrusSASL-exception"
+SPDX-FileCopyrightText = "2003-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/univention-maintenance/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2002-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/univention-bootsplash/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2001-2025 Univention GmbH"
+
+[[annotations]]
+path = [ "base/univention-bootsplash/sprites/dark/bootsplash-logo.svg", "base/univention-bootsplash/sprites/dark/logo-step3.svg", "base/univention-bootsplash/sprites/dark/powered-by-univention.svg", "base/univention-bootsplash/sprites/light/bootsplash-logo.svg", "base/univention-bootsplash/sprites/light/logo-step3.svg", "base/univention-bootsplash/sprites/light/powered-by-univention.svg", "base/univention-bootsplash/ucs/**.png", "base/univention-bootsplash/ucs-light/**.png",]
+precedence = "override"
+SPDX-License-Identifier = "LicenseRef-Univention-Proprietary"
+SPDX-FileCopyrightText = "2024-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/univention-network-manager/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2003-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/univention-licence/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only AND LicenseRef-OpenSSL-exception"
+SPDX-FileCopyrightText = "2001-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/univention-printclient/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2001-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/univention-heimdal/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2002-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/univention-system-activation/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2015-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/univention-debug/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2002-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/univention-initrd/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2001-2025 Univention GmbH"
+
+[[annotations]]
+path = "base/univention-ssh/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2002-2025 Univention GmbH"
+

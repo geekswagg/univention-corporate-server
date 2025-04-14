@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2025 Univention GmbH
+# SPDX-License-Identifier: AGPL-3.0-only
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
 exclude: "^packaging/ucslint/testframework/\
@@ -174,3 +176,77 @@ repos:
                   |^services/univention-ldb-modules/third_party/\
                   |^packaging/ucslint/testframework/\
                   "
+  - repo: https://github.com/fsfe/reuse-tool
+    rev: v5.0.2
+    hooks:
+      - id: reuse
+        alias: reuse-annotate
+        name: "reuse annotate"
+        args: ["annotate", "-c", "Univention GmbH", "-l", "AGPL-3.0-only", "--skip-unrecognised", "--skip-existing", "--template", "univention"]
+        pass_filenames: true
+        description: "Make the changed files compliant with the REUSE Specification."
+        stages: [ manual ]
+        # we have to specify everything covered by REUSE.toml again due to https://github.com/fsfe/reuse-tool/issues/1190
+        # ignoring __init__.py due to https://github.com/fsfe/reuse-tool/issues/1179
+        <<: &common
+          exclude: "^.*[.]1$\
+                    |^.*[.]5$\
+                    |^.*[.]8$\
+                    |^.*[.]acl$\
+                    |^.*[.]ai$\
+                    |^base/univention-dvd/data/\
+                    |^base/univention-dvd/tasks/\
+                    |^base/univention-dvd/tools/boot/.*/parse_isolinux$\
+                    |^base/univention-dvd/ucs.*[.]conf$\
+                    |^.*[.]cfg$\
+                    |^.*[.]conf$\
+                    |^.*/conffiles/.*/.*$\
+                    |^.*[.]css$\
+                    |^.*[.]csv$\
+                    |^.*[.]cvd$\
+                    |^.*/debian/.*$\
+                    |^doc/errata/.*[.]yaml$\
+                    |^.*[.]gitignore$\
+                    |^.*[.]gpg$\
+                    |^.*[.]gz$\
+                    |^.*[.]html$\
+                    |^.*[.]ico$\
+                    |^.*[.]ini$\
+                    |^.*__init__.py$\
+                    |^.*[.]jpg$\
+                    |^.*[.]json$\
+                    |^.*[.]ldif$\
+                    |^management/univention-directory-manager-rest/var/www/univention/udm/js/.*.js$\
+                    |^.*[.]md$\
+                    |^.*[.]mo$\
+                    |^packaging/ucslint/testframework/\
+                    |^packaging/ucslint/univention/ucslint/0010-Copyright.py\
+                    |^.*[.]patch$\
+                    |^.*[.]png$\
+                    |^.*[.]po$\
+                    |^.*[.]pot$\
+                    |[.]reuse/templates/univention.jinja2$
+                    |^.*[.]jinja2$\
+                    |^.*[.]rml$\
+                    |^.*[.]schema$\
+                    |^services/univention-ldb-modules/buildtools/\
+                    |^services/univention-ldb-modules/third_party/\
+                    |^.*[.]short$\
+                    |^.*[.]styl$\
+                    |^.*[.]svg$\
+                    |^.*[.]svgz$\
+                    |^test/scenarios/.*[.]cfg$\
+                    |^test/ucs-test/[0-9].*/.*$\
+                    |^.*/test/.*$\
+                    |^.*/tests/.*$\
+                    |^.*[.]tmpl$\
+                    |^.*[.]toml$\
+                    |^.*[.]txt$\
+                    |^.*/unittests/.*$\
+                    |^.*[.]zip$\
+                    "
+      - id: reuse
+        alias: reuse-lint
+        stages: [ manual ]
+      - id: reuse-lint-file
+        <<: *common
