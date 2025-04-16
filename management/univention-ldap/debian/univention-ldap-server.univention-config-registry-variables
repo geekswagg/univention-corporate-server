@@ -347,9 +347,9 @@ Type=str
 Default=EXTERNAL gssapi DIGEST-MD5 CRAM-MD5 LOGIN SAML OAUTHBEARER PLAIN
 Categories=service-ldap
 
-[ldap/server/sasl/oauthbearer/(trusted-audience|trusted-issuer|required-scopes|trusted-jwks|trusted-authorized-party|grace-time)/.*]
-Description[de]=Definiert die Konfiguration des SASL-Mechanismus OAUTHBEARER. Experimentell: Diese Funktion wird derzeit nicht unterstützt.
-Description[en]=Defines the configuration of the SASL mechanism OAUTHBEARER. Experimental: This feature is currently not supported.
+[ldap/server/sasl/oauthbearer/(trusted-audience|trusted-issuer|required-scopes|trusted-jwks|trusted-authorized-party|grace-time|no-tls)/.*]
+Description[de]=Definiert die Konfiguration des SASL-Mechanismus OAUTHBEARER.
+Description[en]=Defines the configuration of the SASL mechanism OAUTHBEARER.
 Type=str
 
 [ldap/syncprov]
