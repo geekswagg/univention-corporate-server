@@ -1564,3 +1564,7 @@ msgstr "Der %(name)s Listener-Converter hat %(length)d unverarbeitete Dateien."
 #, python-format
 msgid "The %(name)s Listener has %(length)d unprocessed files."
 msgstr "Der %(name)s Listener hat %(length)d unverarbeitete Dateien."
+
+#: plugins/70_lmdb_fragmentation.py:80
+msgid "LMDB fragmentation above threshold."
+msgstr "LMDB Fragmentierung über Schwellenwert."

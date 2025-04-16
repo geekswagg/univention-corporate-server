@@ -1,8 +1,9 @@
-univention-management-console-module-diagnostic (8.0.20-1) UNRELEASED; urgency=medium
+univention-management-console-module-diagnostic (8.0.20) unstable; urgency=medium
 
+  * Bug #58047: Diagnostic plugin for LMDB fragmentation
   * Bug #58015 UCS 5.2-1 version bump
 
- -- Christian Castens <castens@univention.de>  Mon, 03 Mar 2025 10:45:33 +0100
+ -- Arvid Requate <requate@univention.de>  Wed, 16 Apr 2025 17:20:30 +0200
 
 univention-management-console-module-diagnostic (8.0.19) unstable; urgency=medium
 

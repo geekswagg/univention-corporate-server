@@ -23,6 +23,7 @@ Depends:
  python3-pyasn1,
  python3-pycurl,
  python3-requests,
+ univention-base-files (>=11.0.10),
  univention-management-console-server (>= 11.0.4-37),
  ${misc:Depends},
  ${python3:Depends},

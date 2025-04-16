@@ -1,3 +1,9 @@
+univention-base-files (11.0.10) unstable; urgency=medium
+
+  * Bug # 58047: New script univention-lmdb-fragmentation
+
+ -- Arvid Requate <requate@univention.de>  Wed, 16 Apr 2025 17:10:29 +0200
+
 univention-base-files (11.0.9-1) unstable; urgency=low
 
   * Bug #58061: add dependency to net-tools
