@@ -243,6 +243,8 @@ fi
 # Save STDOUT to fd3, redirect to logfile
 exec 3>&1 >>/var/log/univention/join.log 2>&1
 
+umask 0022  # prevent join from failing if umask is modified (Bug #56634)
+
 joinscript_create_credentialfiles "$binddn" "$DCPWD" "$DCACCOUNT"
 
 echo

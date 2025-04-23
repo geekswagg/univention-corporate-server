@@ -310,6 +310,8 @@ reset_status_file () {
 # log univention-join call
 echo "$(LC_ALL=C date): starting $0 $*" >>/var/log/univention/join.log 2>&1
 
+umask 0022  # prevent join from failing if umask is modified (Bug #56634)
+
 while [ $# -gt 0 ]
 do
 	case "$1" in
