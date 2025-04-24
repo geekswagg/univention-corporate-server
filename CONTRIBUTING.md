@@ -45,7 +45,7 @@ You have influence on the time we take:
 
 For Python code we are aligning on [PEP8](https://www.python.org/dev/peps/pep-0008/) with the following exceptions:
 
-* Indentation must use tabulators instead of spaces.
+* Use four spaces for indentation.
 * The maximum line length is not specified, but we suggest to keep it below 120.
 * Code Cleanups should be within own commits so that the fix for the real problem is easy distinguishable.
 
