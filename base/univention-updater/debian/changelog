@@ -1,4 +1,4 @@
-univention-updater (17.0.34-4) unstable; urgency=medium
+univention-updater (17.0.35) unstable; urgency=medium
 
   * Issue univention/dev/internal/dev-issues/dev-incidents#140:
     Raise minimal free space limit for /boot to 300 MB in check.sh
