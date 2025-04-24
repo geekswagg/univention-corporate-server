@@ -181,7 +181,7 @@ prematurely. After successful joining a small window appears with the message
 :guilabel:`OK`. The computer must then be restarted for the changes to take
 effect.
 
-Domain names must be limited to 13 characters as they are otherwise truncated at
+Domain names must be limited to 15 characters as they are otherwise truncated at
 the Windows client and this can lead to sign in errors.
 
 For a domain join against a domain controller based on Samba/AD, the DNS

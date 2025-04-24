@@ -411,8 +411,8 @@ class Instance(Base, ProgressMixin):
         appliance_str = _('the UCS system')
         if ucr['umc/web/appliance/name']:
             appliance_str = _('the %s appliance') % (ucr['umc/web/appliance/name'],)
-        hostname_length_message = _('A valid NetBIOS name can not be longer than 13 characters. If Samba is installed, the hostname should be shortened.') if hostname_length_critical else _('The hostname %s is longer than 13 characters. It will not be possible to install an Active Directory compatible Domaincontroller (Samba 4) or UCS@school. The hostname cannot be changed after the installation of %s. It is recommended to shorten the hostname to maximal 13 characters.') % (values.get('hostname', ''), appliance_str)
-        _check('hostname', lambda x: len(x) <= 13, hostname_length_message, critical=hostname_length_critical)
+        hostname_length_message = _('A valid NetBIOS name can not be longer than 15 characters. If Samba is installed, the hostname should be shortened.') if hostname_length_critical else _('The hostname %s is longer than 15 characters. It will not be possible to install an Active Directory compatible Domaincontroller (Samba 4) or UCS@school. The hostname cannot be changed after the installation of %s. It is recommended to shorten the hostname to maximal 15 characters.') % (values.get('hostname', ''), appliance_str)
+        _check('hostname', lambda x: len(x) <= 15, hostname_length_message, critical=hostname_length_critical)
 
         _check('domainname', util.is_domainname, _("Please enter a valid fully qualified domain name (e.g. host.example.com)."))
         hostname = allValues.get('hostname', '')

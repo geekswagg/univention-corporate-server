@@ -2983,12 +2983,12 @@ define([
 				deferred.resolve(nextPage);
 
 				var hostname = this.getValues().hostname || '';
-				if (hostname.length > 13) {
+				if (hostname.length > 15) {
 					var applianceName = _('the UCS system');
 					if (this.ucr['umc/web/appliance/name']) {
 						applianceName = _('the %s Appliance', this.ucr['umc/web/appliance/name']);
 					}
-					var msg = _('<p>The hostname <i>%s</i> is longer than 13 characters.</p><p>It will not be possible to install an Active Directory compatible Domaincontroller (Samba 4) or UCS@school. The hostname cannot be changed after the installation of %s. It is recommended to shorten the hostname to maximal 13 characters.</p>', hostname, applianceName);
+					var msg = _('<p>The hostname <i>%s</i> is longer than 15 characters.</p><p>It will not be possible to install an Active Directory compatible Domaincontroller (Samba 4) or UCS@school. The hostname cannot be changed after the installation of %s. It is recommended to shorten the hostname to maximal 15 characters.</p>', hostname, applianceName);
 					deferred = deferred.then(function(selectedNextPage) {
 						return dialog.confirm(msg, [{
 							label: _('Adjust hostname'),

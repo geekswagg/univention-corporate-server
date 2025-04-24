@@ -819,10 +819,10 @@ msgstr ""
 
 #: ../../domain-ldap/domain-join.rst:184
 msgid ""
-"Domain names must be limited to 13 characters as they are otherwise "
+"Domain names must be limited to 15 characters as they are otherwise "
 "truncated at the Windows client and this can lead to sign in errors."
 msgstr ""
-"Domänennamen sollten auf 13 Zeichen beschränkt werden, da diese auf Seite"
+"Domänennamen sollten auf 15 Zeichen beschränkt werden, da diese auf Seite"
 " der Windows-Clients ansonsten verkürzt dargestellt werden, was zu "
 "Anmeldefehlern führen kann."
 

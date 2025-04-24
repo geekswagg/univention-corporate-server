@@ -87,8 +87,8 @@ Computer management module - General tab
        not appear as part of the computer name. Computer names must begin with a
        letter.
 
-       Microsoft Windows accepts computer names with a maximum of 13 characters,
-       so as a rule computer names should be limited to 13 characters if there
+       Microsoft Windows accepts computer names with a maximum of 15 characters,
+       so as a rule computer names should be limited to 15 characters if there
        is any chance that Microsoft Windows will be used.
 
        After creation, the computer name can only be changed for the system

@@ -20,10 +20,10 @@ msgstr "Vous devez indiquer un serveur de nom de domaine."
 
 #: umc/python/setup/__init__.py:407
 msgid ""
-"A valid NetBIOS name can not be longer than 13 characters. If Samba is "
+"A valid NetBIOS name can not be longer than 15 characters. If Samba is "
 "installed, the hostname should be shortened."
 msgstr ""
-"Un nom NetBIOS valide ne peut pas comporter plus de 13 caractères. Si Samba "
+"Un nom NetBIOS valide ne peut pas comporter plus de 15 caractères. Si Samba "
 "est installé, le nom d'hôte doit être raccourci."
 
 #: umc/python/setup/__init__.py:508
@@ -292,16 +292,16 @@ msgstr ""
 #: umc/python/setup/__init__.py:407
 #, python-format
 msgid ""
-"The hostname %s is longer than 13 characters. It will not be possible to "
+"The hostname %s is longer than 15 characters. It will not be possible to "
 "install an Active Directory compatible Domaincontroller (Samba 4) or "
 "UCS@school. The hostname cannot be changed after the installation of %s. It "
-"is recommended to shorten the hostname to maximal 13 characters."
+"is recommended to shorten the hostname to maximal 15 characters."
 msgstr ""
-"Le nom d’hôte %s contient plus de 13 caractères. Il sera impossible "
+"Le nom d’hôte %s contient plus de 15 caractères. Il sera impossible "
 "d’installer un contrôleur de domaine compatible avec Active Directory (Samba "
 "4) ou UCS@school. Le nom d’hôte ne peut pas être modifié après "
 "l’installation de %s. Il est recommandé de raccourcir le nom d’hôte à un "
-"maximum de 13 caractères."
+"maximum de 15 caractères."
 
 #: umc/python/setup/__init__.py:401
 msgid ""

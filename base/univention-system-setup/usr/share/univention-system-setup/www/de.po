@@ -134,16 +134,16 @@ msgstr ""
 #: usr/share/univention-system-setup/www/ApplianceWizard.js:2967
 #, javascript-format
 msgid ""
-"<p>The hostname <i>%s</i> is longer than 13 characters.</p><p>It will not be"
+"<p>The hostname <i>%s</i> is longer than 15 characters.</p><p>It will not be"
 " possible to install an Active Directory compatible Domaincontroller (Samba "
 "4) or UCS@school. The hostname cannot be changed after the installation of "
-"%s. It is recommended to shorten the hostname to maximal 13 characters.</p>"
+"%s. It is recommended to shorten the hostname to maximal 15 characters.</p>"
 msgstr ""
-"<p>Der Rechnername <i>%s</i> ist länger als 13 Zeichen.</p><p>Es wird nicht "
+"<p>Der Rechnername <i>%s</i> ist länger als 15 Zeichen.</p><p>Es wird nicht "
 "möglich sein, diese Domäne als Active Directory-kompatiblen "
 "Domänencontroller oder UCS@school zu betreiben. Der Rechnername kann nach "
 "der Installation %s nicht mehr geändert werden. Es wird empfohlen, den "
-"Rechnernamen auf maximal 13 Zeichen zu kürzen.</p>"
+"Rechnernamen auf maximal 15 Zeichen zu kürzen.</p>"
 
 #: usr/share/univention-system-setup/www/ApplianceWizard.js:2021
 msgid ""

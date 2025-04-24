@@ -3085,12 +3085,12 @@ msgstr ""
 
 #: ../../computers/umc.rst:90
 msgid ""
-"Microsoft Windows accepts computer names with a maximum of 13 characters,"
-" so as a rule computer names should be limited to 13 characters if there "
+"Microsoft Windows accepts computer names with a maximum of 15 characters,"
+" so as a rule computer names should be limited to 15 characters if there "
 "is any chance that Microsoft Windows will be used."
 msgstr ""
-"Microsoft Windows akzeptiert nur Rechnernamen mit maximal 13 Zeichen, so "
-"dass man sich bei Rechnernamen grundsätzlich auf 13 Zeichen beschränken "
+"Microsoft Windows akzeptiert nur Rechnernamen mit maximal 15 Zeichen, so "
+"dass man sich bei Rechnernamen grundsätzlich auf 15 Zeichen beschränken "
 "sollte, sofern nicht ausgeschlossen ist, dass Microsoft Windows zum "
 "Einsatz kommen wird."
 
