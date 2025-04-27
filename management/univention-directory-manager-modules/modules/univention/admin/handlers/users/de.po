@@ -262,19 +262,9 @@ msgstr ""
 msgid "Immutable Identifier of the source IAM"
 msgstr "Unveränderlicher Identifikator der IAM-Quelle"
 
-#: modules/univention/admin/handlers/users/user.py:590
-msgid "Immutable Object Identifier"
-msgstr "Unveränderlicher Objekt-Identifikator"
-
 #: modules/univention/admin/handlers/users/user.py:598
 msgid "Immutable attribute to identfy source IAM"
 msgstr "Unveränderliches Attribut zur Identifizierung der IAM-Quelle"
-
-#: modules/univention/admin/handlers/users/user.py:591
-msgid "Immutable attribute to track the identity of an object in UDM"
-msgstr ""
-"Unveränderliches Attribut, um die Identität eines Objekts in UDM zu "
-"verfolgen"
 
 #: modules/univention/admin/handlers/users/user.py:506
 msgid ""

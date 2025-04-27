@@ -49,6 +49,16 @@ msgstr "DNS-Alias ist bereits verwendet."
 msgid "Destination object can't have sub objects."
 msgstr "Zielobjekt kann keine Unterobjekte haben."
 
+#: modules/univention/admin/handlers/__init__.py:1210
+msgid "Immutable Object Identifier"
+msgstr "Unveränderlicher Objekt-Identifikator"
+
+#: modules/univention/admin/handlers/__init__.py:1211
+msgid "Immutable attribute to track the identity of an object in UDM"
+msgstr ""
+"Unveränderliches Attribut, um die Identität eines Objekts in UDM zu "
+"verfolgen"
+
 #: modules/univention/admin/handlers/__init__.py:732
 msgid "Moving into one's own sub container not allowed."
 msgstr ""

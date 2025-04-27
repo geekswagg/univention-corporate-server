@@ -1,3 +1,11 @@
+univention-directory-manager-modules (17.0.36) unstable; urgency=medium
+
+  * Bug #58252: Add the univentionObjectIdentifier property to all UDM Objects
+    and autogenerate values for it when creating new objects if configured via UCR
+    and the value is not explicitly specified by the client.
+
+ -- Johannes Lohmer <lohmer@univention.de>  Tue, 13 May 2025 11:30:42 +0200
+
 univention-directory-manager-modules (17.0.35) unstable; urgency=medium
 
   * Bug #57630: First only restrict namespace of hook extension modules,

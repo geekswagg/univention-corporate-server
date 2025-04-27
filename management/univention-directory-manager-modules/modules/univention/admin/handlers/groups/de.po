@@ -32,7 +32,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: univention-directory-manager-modules\n"
 "Report-Msgid-Bugs-To: packages@univention.de\n"
-"POT-Creation-Date: 2022-10-06 13:27+0200\n"
+"POT-Creation-Date: 2025-05-02 20:09+0200\n"
 "PO-Revision-Date: 2011-10-09 19:21+0200\n"
 "Last-Translator: Univention GmbH <packages@univention.de>\n"
 "Language-Team: German <packages@univention.de>\n"
@@ -104,21 +104,12 @@ msgstr "ID dieser Gruppe"
 msgid "Immutable Identifier of the source IAM"
 msgstr "Unveränderlicher Identifikator der IAM-Quelle"
 
-#: modules/univention/admin/handlers/groups/group.py:208
-msgid "Immutable Object Identifier"
-msgstr "Unveränderlicher Objekt-Identifikator"
+#: modules/univention/admin/handlers/groups/group.py:211
+msgid ""
+"Immutable attribute referencing the name of the source IAM"
+msgstr "Unveränderlicher Identifikator der den Namen der IAM-Quelle referenziert"
 
-#: modules/univention/admin/handlers/groups/group.py:216
-msgid "Immutable attribute to identfy source IAM"
-msgstr "Unveränderliches Attribut zur Identifizierung der IAM-Quelle"
-
-#: modules/univention/admin/handlers/groups/group.py:209
-msgid "Immutable attribute to track the identity of an object in UDM"
-msgstr ""
-"Unveränderliches Attribut, um die Identität eines Objekts in UDM zu "
-"verfolgen"
-
-#: modules/univention/admin/handlers/groups/group.py:602
+#: modules/univention/admin/handlers/groups/group.py:614
 #, python-format
 msgid "It is used as %s."
 msgstr "Sie wird als %s genutzt."
