@@ -146,7 +146,6 @@ rotate_logfiles () {
 }
 
 prepare_domain_for_ucs52_preup_checks() {
-	univention-prune-kernels
 	postgres_update '11' '15'
 
 	/usr/share/univention-directory-manager-tools/udm-remap-country-from-st-to-c || return $?
