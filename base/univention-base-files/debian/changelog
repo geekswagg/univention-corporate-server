@@ -1,12 +1,18 @@
+univention-base-files (11.0.12) unstable; urgency=medium
+
+  * Bug #58047: Wording
+
+ -- Dirk Wiesenthal <wiesenthal@univention.de>  Wed, 30 Apr 2025 12:30:42 +0200
+
 univention-base-files (11.0.11) unstable; urgency=medium
 
-  * Bug # 58047: Minor typo in texts
+  * Bug #58047: Minor typo in texts
 
  -- Dirk Wiesenthal <wiesenthal@univention.de>  Wed, 30 Apr 2025 06:33:58 +0200
 
 univention-base-files (11.0.10) unstable; urgency=medium
 
-  * Bug # 58047: New script univention-lmdb-fragmentation
+  * Bug #58047: New script univention-lmdb-fragmentation
 
  -- Arvid Requate <requate@univention.de>  Wed, 16 Apr 2025 17:10:29 +0200
 

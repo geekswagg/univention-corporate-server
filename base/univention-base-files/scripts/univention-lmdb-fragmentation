@@ -68,9 +68,9 @@ def parse_mdb_stat(mdb_stat_output: str) -> tuple[int, int]:
 def main():
     parser = argparse.ArgumentParser(description='Check fragmentation of LMDB databases')
     parser.add_argument('-d', '--db', default=DB_DIRS, nargs='*', dest='db_dirs', help=f'List of database directories to check. Default is: {" ".join(DB_DIRS)}')
-    parser.add_argument('-m', '--min', type=int, default=100000, dest='used_but_free_pages_min', help='Threshold of used but free pages to still treat as Ok. Default is: %(default)d')
-    parser.add_argument('-M', '--max', type=int, default=1000000, dest='used_but_free_pages_max', help='Threshold of used but free pages to always treat as too much. Default is: %(default)d')
-    parser.add_argument('-p', '--percent', type=int, default=70, dest='fragementation_threshold', help='Threshold of fragmentation percentage to treat as error. Default is: %(default)d')
+    parser.add_argument('-m', '--min', type=int, default=100000, dest='used_but_free_pages_min', help='Threshold of allocated but free pages up to which the result is always treated as okay. Default is: %(default)d')
+    parser.add_argument('-M', '--max', type=int, default=1000000, dest='used_but_free_pages_max', help='Threshold of allocated but free pages from which on the result is always treated as too much. Default is: %(default)d')
+    parser.add_argument('-p', '--percent', type=int, default=70, dest='fragmentation_threshold', help='Threshold of fragmentation percentage from which on the result is treated as too much (if the absolute number of allocated but free pages is between --min and --max). Default is: %(default)d')
     args = parser.parse_args()
 
     rc = 0
@@ -86,11 +86,11 @@ def main():
         if free_pages < args.used_but_free_pages_min:
             continue
         if free_pages >= args.used_but_free_pages_max:
-            print(f"WARNING: High number of used but free pages on {db_dir} ({free_pages})")
+            print(f"WARNING: High number of allocated but free pages on {db_dir} ({free_pages})")
             rc = 1
             continue
         fragmentation_percent = 100 * free_pages / used_pages
-        if fragmentation_percent >= args.fragementation_threshold:
+        if fragmentation_percent >= args.fragmentation_threshold:
             print(f"WARNING: High fragementation on {db_dir} ({fragmentation_percent:.1f}%)")
             rc = 1
     sys.exit(rc)
