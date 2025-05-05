@@ -1,3 +1,9 @@
+univention-management-console-module-udm (12.0.10) unstable; urgency=medium
+
+  * Bug #58278: speed up get_properties by removing recursion
+
+ -- Florian Best <best@univention.de>  Fri, 16 May 2025 12:33:37 +0200
+
 univention-management-console-module-udm (12.0.9) unstable; urgency=medium
 
   * Bug #49001: Fix XSS in UDM grid view
