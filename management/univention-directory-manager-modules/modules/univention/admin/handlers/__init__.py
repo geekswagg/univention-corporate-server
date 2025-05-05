@@ -242,8 +242,6 @@ class simpleLdap:
         if not hasattr(self, 'mapping'):
             self.mapping: univention.admin.mapping.mapping | None = getattr(m, 'mapping', None)
 
-        self.__add_univention_object_identifier_property()
-
         self.oldattr: _Attributes = {}
         if attributes:
             self.oldattr = attributes
@@ -268,6 +266,27 @@ class simpleLdap:
         self.save()
 
         self._validate_superordinate(False)
+
+    def __init_subclass__(cls, **kwargs):
+        super().__init_subclass__(**kwargs)
+        module = sys.modules.get(cls.__module__)
+        if not module:
+            return
+
+        prop = {
+            'univentionObjectIdentifier': univention.admin.property(
+                short_description=_('Immutable Object Identifier'),
+                long_description=_('Immutable attribute to track the identity of an object in UDM'),
+                syntax=univention.admin.syntax.UUID4,
+                may_change=False,
+                dontsearch=True,
+            ),
+        }
+        if hasattr(module, 'property_descriptions') and 'univentionObjectIdentifier' not in module.property_descriptions:
+            module.mapping.register('univentionObjectIdentifier', 'univentionObjectIdentifier', None, univention.admin.mapping.ListToString)
+            module.property_descriptions.update(prop)
+        if hasattr(module, 'default_property_descriptions') and 'univentionObjectIdentifier' not in module.default_property_descriptions:
+            module.default_property_descriptions.update(copy.deepcopy(prop))
 
     def set_lo_machine_primary(self, lo: univention.admin.uldap.access) -> None:
         self._lo_machine_primary = lo
@@ -1199,21 +1218,6 @@ class simpleLdap:
         if option.is_app_option:
             return all(self[pname] in ('TRUE', '1', 'OK') for pname, prop in self.descriptions.items() if name in prop.options and prop.syntax.name in ('AppActivatedBoolean', 'AppActivatedTrue', 'AppActivatedOK'))
         return True
-
-    def __add_univention_object_identifier_property(self):
-        if self.has_property('univentionObjectIdentifier'):
-            return
-
-        self.mapping.register('univentionObjectIdentifier', 'univentionObjectIdentifier', None, univention.admin.mapping.ListToString)
-        self.descriptions.update({
-            'univentionObjectIdentifier': univention.admin.property(
-                short_description=_('Immutable Object Identifier'),
-                long_description=_('Immutable attribute to track the identity of an object in UDM'),
-                syntax=univention.admin.syntax.UUID4,
-                may_change=False,
-                dontsearch=True,
-            ),
-        })
 
     def description(self) -> str:
         """
