@@ -24,15 +24,17 @@ LIMIT_TOTAL_DAY = 'umc/self-service/passwordreset/limit/total/day'
 LIMIT_USER_MINUTE = 'umc/self-service/passwordreset/limit/per_user/minute'
 LIMIT_USER_HOUR = 'umc/self-service/passwordreset/limit/per_user/hour'
 LIMIT_USER_DAY = 'umc/self-service/passwordreset/limit/per_user/day'
+TRUSTED_HOSTS_UCR = 'umc/self-service/rate-limit/trusted-hosts'
 
 
 class Main:
 
     def __init__(self):
-        handler_unset([LIMIT_TOTAL_MINUTE, LIMIT_TOTAL_HOUR, LIMIT_TOTAL_DAY, LIMIT_USER_MINUTE, LIMIT_USER_HOUR, LIMIT_USER_DAY])
+        handler_unset([LIMIT_TOTAL_MINUTE, LIMIT_TOTAL_HOUR, LIMIT_TOTAL_DAY, LIMIT_USER_MINUTE, LIMIT_USER_HOUR, LIMIT_USER_DAY, TRUSTED_HOSTS_UCR])
         with capture_mails():
             self.test_total_limits()
             self.test_user_limits()
+            self.test_trusted_hosts_in_ucr_config()
 
     def test_total_limits(self):
         print('########################### test_total_limits ##############################')
@@ -53,6 +55,24 @@ class Main:
             wait(minutes=1)
             dont_fail(user2)
 
+    def test_trusted_hosts_in_ucr_config(self):
+        print('##### test_trusted_hosts_in_ucr_config #####')
+        email1 = "multi_host1@localhost"
+        email2 = "multi_host2@localhost"  # Untrusted
+        hostname = UCR().get('hostname', 'master')  # Add host itself to the trusted hosts
+        domain = UCR().get('domainname', 'ucs.test')
+        with set_trust_configs(trusted_hosts_list=[f"{hostname}.{domain}", " proxy2.com ", "proxy3.com"]):  # Note spaces for robustness
+            user1_ctx = self_service_user(email=email1)
+            with user1_ctx as user1:
+                make_requests_without_fail(user1, 2)
+
+        with set_trust_configs():  # This should fail on the second call.
+            user2_ctx = self_service_user(email=email2)
+            with user2_ctx as user2:
+                assert fail_after(user2, 1, 'one minute')
+                wait(minutes=1)
+                dont_fail(user2)
+
 
 @contextlib.contextmanager
 def set_limits(total_minute=None, total_hour=None, total_day=None, user_minute=None, user_hour=None, user_day=None):
@@ -70,6 +90,50 @@ def set_limits(total_minute=None, total_hour=None, total_day=None, user_minute=N
         yield
 
 
+@contextlib.contextmanager
+def set_trust_configs(trusted_hosts_list=None):
+    # Ensure UCR is in a context if not already handled by an outer scope
+    # For these tests, set_limits already establishes a UCR context.
+    print(f'Setting trust configs: trusted_hosts_list={trusted_hosts_list}')
+    with UCR():
+        original_trusted_hosts = UCR().get(TRUSTED_HOSTS_UCR, None)
+
+        ucr_to_set = []
+        ucr_to_unset = []
+
+        if trusted_hosts_list is not None:
+            ucr_to_set.append(f'{TRUSTED_HOSTS_UCR}={",".join(trusted_hosts_list)}')
+        else:
+            ucr_to_unset.append(TRUSTED_HOSTS_UCR)
+
+        ucr_to_set.append(f'{LIMIT_TOTAL_MINUTE}={1}')
+        if ucr_to_set:
+            handler_set(ucr_to_set)
+        if ucr_to_unset:
+            handler_unset(ucr_to_unset)
+
+        reset_server_limits()  # Restart UMC server to pick up new trust UCR values
+
+        try:
+            yield
+        finally:
+            print('Restoring original trust configs')
+            ucr_to_set_restore = []
+            ucr_to_unset_restore = []
+
+            if original_trusted_hosts is not None:
+                ucr_to_set_restore.append(f'{TRUSTED_HOSTS_UCR}={original_trusted_hosts}')
+            else:
+                ucr_to_unset_restore.append(TRUSTED_HOSTS_UCR)
+
+            if ucr_to_set_restore:
+                handler_set(ucr_to_set_restore)
+            if ucr_to_unset_restore:
+                handler_unset(ucr_to_unset_restore)
+
+            reset_server_limits()  # Restart again to restore original state
+
+
 def fail_after(user, x, retry_after):
     print('We should fail after', x)
     for i in range(x):
@@ -85,6 +149,14 @@ def fail_after(user, x, retry_after):
         print('Yippie, failed!')
         return True
     raise AssertionError('limit not evaluated')
+
+
+def make_requests_without_fail(user, count):
+    print(f'Attempting {count} successful requests (bypass expected) for user {user.email_addr if hasattr(user, "email_addr") else user.username}')
+    for i in range(count):
+        print(f'Attempt (should succeed due to bypass) {i + 1}')
+        user.send_token('email')
+    print(f'Successfully made {count} requests without rate limiting.')
 
 
 def dont_fail(user):

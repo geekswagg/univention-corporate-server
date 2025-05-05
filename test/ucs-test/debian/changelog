@@ -1,3 +1,9 @@
+ucs-test (12.1.17) unstable; urgency=medium
+
+  * Bug #58214: Test allow trusting hosts for UMC self-service rate limit
+
+ -- Juan Pedro Torres Munoz <juan.torres-munoz@univention.de>  Tue, 27 May 2025 10:14:22 +0200
+
 ucs-test (12.1.16) unstable; urgency=medium
 
   * Issue #2295: revert "do not make the tests fail that grep for
