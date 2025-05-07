@@ -10,3 +10,6 @@ desc: |
    now set the umask to 0022 so that customized more restricted
    settings don't cause problems in joinscripts and listener modules.
 bug: [56634]
+erratum: 75
+announced: 2025-05-07
+support: core
