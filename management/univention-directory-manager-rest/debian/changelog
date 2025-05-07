@@ -1,3 +1,11 @@
+univention-directory-manager-rest (12.1.1) unstable; urgency=medium
+
+  * Bug #58252: Improved openapi.json generation
+    by only ading a .request and .request-patch section
+    for modules that implement them.
+
+ -- Johannes Lohmer <lohmer@univention.de>  Fri, 09 May 2025 09:40:16 +0200
+
 univention-directory-manager-rest (12.1.0) unstable; urgency=medium
 
   [ Florian Best ]
