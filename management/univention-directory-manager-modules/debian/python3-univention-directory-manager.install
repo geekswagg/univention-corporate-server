@@ -1,4 +1,5 @@
 modules/univention/admin/*.py	usr/lib/python3/dist-packages/univention/admin/
+modules/univention/admin/authorization/*.py	usr/lib/python3/dist-packages/univention/admin/authorization/
 modules/univention/admin/handlers/*.py	usr/lib/python3/dist-packages/univention/admin/handlers/
 modules/univention/admin/handlers/blocklists/*.py	usr/lib/python3/dist-packages/univention/admin/handlers/blocklists/
 modules/univention/admin/handlers/computers/*.py	usr/lib/python3/dist-packages/univention/admin/handlers/computers/
@@ -18,4 +19,3 @@ modules/univention/admin/hooks.d/*.py	usr/lib/python3/dist-packages/univention/a
 modules/univention/admin/syntax.d/*.py	usr/lib/python3/dist-packages/univention/admin/syntax.d/
 modules/univention/udm	usr/lib/python3/dist-packages/univention/
 python-lib/*.py	usr/lib/python3/dist-packages/univention/lib/
-umc-udm-roles.json /usr/share/univention-directory-manager-modules/

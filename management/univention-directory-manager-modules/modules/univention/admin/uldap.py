@@ -18,6 +18,7 @@ import univention.admin.license
 import univention.uldap
 from univention.admin import localization
 from univention.admin._ucr import configRegistry
+from univention.dn import DN  # noqa: F401
 
 
 udm_log = getLogger('ADMIN')
@@ -27,83 +28,6 @@ translation = localization.translation('univention/admin')
 _ = translation.translate
 
 explodeDn = univention.uldap.explodeDn
-
-
-class DN:
-    """A |LDAP| Distinguished Name."""
-
-    def __init__(self, dn):
-        # type: (str) -> None
-        self.dn = dn
-        self._hash = None
-        self._str = None
-        try:
-            self._dn = ldap.dn.str2dn(self.dn)
-        except ldap.DECODING_ERROR:
-            raise ValueError('Malformed DN syntax: %r' % (self.dn,))
-
-    def __str__(self):
-        # compute string only once since the object is static
-        if self._str is None:
-            self._str = ldap.dn.dn2str(self._dn)
-        return self._str
-
-    def __unicode__(self):  # noqa: PLW3201
-        return unicode(str(self))  # noqa: F821
-
-    def __repr__(self):
-        return '<%s %r>' % (type(self).__name__, str(self))
-
-    def __eq__(self, other):
-        """
-        >>> DN('foo=1') == DN('foo=1')
-        True
-        >>> DN('foo=1') == DN('foo=2')
-        False
-        >>> DN('Foo=1') == DN('foo=1')
-        True
-        >>> DN('Foo=1') == DN('foo=2')
-        False
-        >>> DN('foo=1,bar=2') == DN('foo=1,bar=2')
-        True
-        >>> DN('bar=2,foo=1') == DN('foo=1,bar=2')
-        False
-        >>> DN('foo=1+bar=2') == DN('foo=1+bar=2')
-        True
-        >>> DN('bar=2+foo=1') == DN('foo=1+bar=2')
-        True
-        >>> DN('bar=2+Foo=1') == DN('foo=1+Bar=2')
-        True
-        >>> DN(r'foo=%s31' % chr(92)) == DN(r'foo=1')
-        True
-        """
-        return hash(self) == hash(other)
-
-    def __ne__(self, other):
-        return not self == other
-
-    def __hash__(self):
-        # compute hash only once - object is static
-        # TODO: attributes which's values are case insensitive should be respected
-        if self._hash is None:
-            self._hash = hash(tuple(tuple(sorted((x.lower(), y, z) for x, y, z in rdn)) for rdn in self._dn))
-        return self._hash
-
-    @classmethod
-    def set(cls, values):
-        """
-        >>> len(DN.set(['CN=computers,dc=foo', 'cn=computers,dc=foo', 'cn = computers,dc=foo']))
-        1
-        """
-        return set(map(cls, values))
-
-    @classmethod
-    def values(cls, values):
-        """
-        >>> DN.values(DN.set(['cn=foo', 'cn=bar']) - DN.set(['cn = foo'])) == {'cn=bar'}
-        True
-        """
-        return set(map(str, values))
 
 
 def getBaseDN(host='localhost', port=None, uri=None):
@@ -881,7 +805,7 @@ class access:
         """
         return self.lo.explodeDn(dn, notypes)
 
-    def filter_lookup_results(self, results, context):
+    def filter_lookup_results(self, results, context=None):
         """Evaluate access control rules for filtering of results"""
         # TODO: check if we are allowed at all to search in the base, with the scope and the given filter for the attrs
         return self.authz.filter_search_results(self, results)

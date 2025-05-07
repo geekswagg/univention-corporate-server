@@ -11,6 +11,17 @@ from univention.udm import UDM
 from univention.udm.exceptions import CreateError, NoObject
 
 
+# create permissions and privileges
+check_call(
+    ['bash', '-c', '''
+set -eux
+date
+/usr/share/univention-directory-manager-tools/univention-configure-udm-authorization --store-local prune
+/usr/share/univention-directory-manager-tools/univention-configure-udm-authorization --store-local create-permissions
+/usr/share/univention-directory-manager-tools/univention-configure-udm-authorization --store-local create-default-roles
+date
+'''])
+
 # activate autorization in UMC and UDM-REST
 handler_set(['directory/manager/web/delegative-administration/enabled=true', 'directory/manager/rest/delegative-administration/enabled=true'])
 # TODO: how long do we need this? Do we need documentation?
@@ -64,9 +75,23 @@ if list(policies.search('name=organizational-unit-amdins')) == []:
 else:
     policy = next(policies.search('name=organizational-unit-amdins'))
 
+# domain-user role for Domain Users group
+r = groups.search('name=Domain Users')
+group = next(iter(r))
+
+admin_role = 'udm:default-roles:domain-user'
+if admin_role not in group.props.guardianMemberRoles:
+    group.props.guardianMemberRoles.append(admin_role)
+    group.save()
+
 # domainadmins role for Domain Admins group
 r = groups.search('name=Domain Admins')
 group = next(iter(r))
+
+admin_role = 'udm:default-roles:domain-administrator'
+if admin_role not in group.props.guardianMemberRoles:
+    group.props.guardianMemberRoles.append(admin_role)
+    group.save()
 
 # api access group
 if api_access_grouplist := list(groups.search('name=test-api-access')):
@@ -75,11 +100,6 @@ else:
     api_access_group = groups.new()
     api_access_group.props.name = 'test-api-access'
     api_access_group.save()
-
-admin_role = 'umc:udm:domainadmin'
-if admin_role not in group.props.guardianMemberRoles:
-    group.props.guardianMemberRoles.append(admin_role)
-    group.save()
 
 # ou's and users
 number_of_ous = 10
@@ -167,7 +187,7 @@ for i in range(1, number_of_ous + 1):
     user.props.lastname = f'ou{i}admin'
     user.props.password = 'univention'
     user.props.overridePWHistory = '1'
-    user.props.guardianRoles = [f'umc:udm:ouadmin&umc:udm:ou=ou{i}']
+    user.props.guardianRoles = [f'udm:default-roles:organizational-unit-admin&udm:contexts:position=ou=ou{i}']
     user.policies['policies/umc'].append(policy.dn)
     if user.props.groups:
         user.props.groups.append(api_access_group.dn)
@@ -188,7 +208,7 @@ for i in range(1, number_of_ous + 1):
     user.props.lastname = f'ou{i}helpdesk-operator'
     user.props.password = 'univention'
     user.props.overridePWHistory = '1'
-    user.props.guardianRoles = [f'umc:udm:helpdesk-operator&umc:udm:ou=ou{i}']
+    user.props.guardianRoles = [f'udm:default-roles:helpdesk-operator&udm:contexts:position=ou=ou{i}']
     user.policies['policies/umc'].append(policy.dn)
     if user.props.groups:
         user.props.groups.append(api_access_group.dn)
@@ -209,7 +229,7 @@ for i in range(1, number_of_ous + 1):
     user.props.lastname = f'ou{i}clientmanager'
     user.props.password = 'univention'
     user.props.overridePWHistory = '1'
-    user.props.guardianRoles = [f'umc:udm:linux-client-manager&umc:udm:ou=ou{i}']
+    user.props.guardianRoles = [f'udm:default-roles:linux-ou-client-manager&udm:contexts:position=ou=ou{i}']
     user.policies['policies/umc'].append(policy.dn)
     if user.props.groups:
         user.props.groups.append(api_access_group.dn)

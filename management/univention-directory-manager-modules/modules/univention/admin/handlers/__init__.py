@@ -46,9 +46,9 @@ import univention.admin.syntax
 import univention.admin.uexceptions
 import univention.admin.uldap
 from univention.admin import configRegistry
-from univention.admin.uldap import DN
 from univention.admindiary.client import write_event
 from univention.admindiary.events import DiaryEvent
+from univention.dn import DN
 
 
 if TYPE_CHECKING:
