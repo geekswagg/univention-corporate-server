@@ -11,3 +11,6 @@ desc: |
    regards to user data like names, mail addresses, passwords, ... Use case is
    a file that could be used in test environments to analyze e.g. performance.
 bug: [58247]
+erratum: 76
+announced: 2025-05-07
+support: core
