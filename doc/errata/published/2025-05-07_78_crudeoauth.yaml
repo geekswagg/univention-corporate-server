@@ -12,3 +12,6 @@ desc: |
  * A segmentation fault is prevented if the JWKS file for the OpenID provider
    is larger than 8192 bytes.
 bug: [58210, 57508]
+erratum: 78
+announced: 2025-05-07
+support: core
