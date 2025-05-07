@@ -242,6 +242,23 @@
   "ouadmin": [
     {
       "condition": {
+        "position": "",
+        "scope": "base"
+      },
+      "permissions": {
+        "container/dc": {
+          "attributes": {
+            "*": {
+              "access": "read"
+            }
+          },
+          "create": false,
+          "delete": false
+        }
+      }
+    },
+    {
+      "condition": {
         "position": "$CONTEXT",
         "scope": "subtree"
       },
@@ -266,7 +283,7 @@
     {
       "condition": {
         "position": "cn=groups",
-        "scope": "base"
+        "scope": "one"
       },
       "permissions": {
         "groups/group": {
@@ -281,7 +298,7 @@
     {
       "condition": {
         "position": "cn=domain,cn=mail",
-        "scope": "base"
+        "scope": "one"
       },
       "permissions": {
         "mail/domain": {
@@ -296,7 +313,7 @@
     {
       "condition": {
         "position": "*",
-        "scope": "base"
+        "scope": "one"
       },
       "permissions": {
         "policies/desktop": {
@@ -327,7 +344,7 @@
             }
           }
         },
-        "settings/directory": {
+        "settings/default": {
           "attributes": {
             "*": {
               "access": "read"

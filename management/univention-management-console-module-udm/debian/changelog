@@ -1,3 +1,10 @@
+univention-management-console-module-udm (12.2.5) unstable; urgency=medium
+
+  * Bug #58432: implement ABAC (attribute-based access control)
+    authorization in UDM
+
+ -- Florian Best <best@univention.de>  Tue, 01 Jul 2025 21:25:00 +0200
+
 univention-management-console-module-udm (12.2.4) unstable; urgency=medium
 
   * Bug #58418: always select latest license when fetching license

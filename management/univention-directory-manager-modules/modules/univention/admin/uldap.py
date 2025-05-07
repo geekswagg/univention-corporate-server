@@ -449,6 +449,18 @@ class access:
         self.allow_modify = True
         self.licensetypes = ['UCS']
 
+        from univention.admin.authorization import Authorization
+        self.authz = Authorization()
+
+    @property
+    def authz_connection(self):
+        """
+        A LDAP connection running with cn=admin priviledges (in case authorization engine is enabled, otherwise just self)
+
+        .. warning :: use carefully: only in combination with manual access control checks to prevent information leak or priviledge escalation
+        """
+        return self.authz.get_authz_connection(self)
+
     def bind(self, binddn, bindpw):
         # type: (str, str) -> None
         """
@@ -840,7 +852,7 @@ class access:
             log.debug('del dn=%s err=%s', dn, msg)
             raise univention.admin.uexceptions.noObject(dn)
         except ldap.INSUFFICIENT_ACCESS as msg:
-            log.debug('del dn=%s err=%s', dn, msg)
+            log.debug('del dn=%s err=%s binddn=%s', dn, msg, self.binddn)
             raise univention.admin.uexceptions.permissionDenied()
         except ldap.INVALID_DN_SYNTAX as msg:
             raise univention.admin.uexceptions.ldapError('%s: %s' % (_err2str(msg), dn), original_exception=msg)
@@ -868,3 +880,39 @@ class access:
         :return: A list of relative distinguished names.
         """
         return self.lo.explodeDn(dn, notypes)
+
+    def filter_lookup_results(self, results, context):
+        """Evaluate access control rules for filtering of results"""
+        # TODO: check if we are allowed at all to search in the base, with the scope and the given filter for the attrs
+        return self.authz.filter_search_results(self, results)
+
+    def search_filtered(self, context, filter='(objectClass=*)', base='', *args, **kwargs):
+        if not self._verify_search_base(base) or not self._verify_search_filter(filter):
+            return []
+        results = self.authz_connection.search(filter, base, *args, **kwargs)
+        return self._filter_ldap_search_results(results, dict(kwargs, **(context or {})))
+
+    def search_dn_filtered(self, context, filter='(objectClass=*)', base='', *args, **kwargs):
+        if not self._verify_search_base(base) or not self._verify_search_filter(filter):
+            return []
+        results = self.authz_connection.searchDn(filter, base, *args, **kwargs)
+        return self._filter_ldap_search_dns(results, dict(kwargs, **(context or {})))
+
+    def _filter_ldap_search_results(self, results, options=None):
+        """Evaluate access control rules for filtering of results"""
+        return self.authz.filter_search_results_attrs(self, results)
+
+    def _filter_ldap_search_dns(self, results, context=None):
+        """Evaluate access control rules for filtering of results"""
+        return self.authz.filter_search_results_dn(self, results)
+
+    def _verify_search_base(self, base):
+        # mimic ldapsearch behavior
+        base = base or configRegistry['ldap/base']
+        if not self._filter_ldap_search_dns([base]):
+            raise univention.admin.uexceptions.noObject(base)
+        return True
+
+    def _verify_search_filter(self, filter_s):
+        # TODO: parse search filter and disallow certain filters for UDM property names where no "search" or "read" permission exists
+        return True

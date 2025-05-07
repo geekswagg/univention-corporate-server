@@ -1,3 +1,10 @@
+univention-directory-manager-modules (17.2.9) unstable; urgency=medium
+
+  * Bug #58432: implement ABAC (attribute-based access control)
+    authorization in UDM
+
+ -- Florian Best <best@univention.de>  Tue, 01 Jul 2025 21:23:23 +0200
+
 univention-directory-manager-modules (17.2.8) unstable; urgency=medium
 
   * Bug #58356: don't depend on number of computer containers

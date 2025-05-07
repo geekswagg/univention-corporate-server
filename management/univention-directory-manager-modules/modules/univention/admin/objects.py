@@ -48,16 +48,16 @@ def get_superordinate(module, co, lo, dn):
             modules = {univention.admin.modules.name(x) for x in univention.admin.modules.identify(dn, attr)} & super_modules
             if modules:
                 super_module = univention.admin.modules._get(list(modules)[0])  # noqa: RUF015
-                return get(super_module, co, lo, None, dn)
+                return get(super_module, co, lo, None, dn, authz='settings/cn' != super_module)
             dn = lo.parentDn(dn)
 
     return None
 
 
-def get(module, co, lo, position, dn='', attr=None, superordinate=None, attributes=None):
-    # type: (univention.admin.modules.UdmModule, None, univention.admin.uldap.access, univention.admin.uldap.position, str, dict[str, list[Any]] | None, Any | None, Any | None) -> univention.admin.handlers.simpleLdap | None
+def get(module, co, lo, position, dn='', attr=None, superordinate=None, attributes=None, authz=True):
+    # type: (univention.admin.modules.UdmModule, None, univention.admin.uldap.access, univention.admin.uldap.position, str, dict[str, list[Any]] | None, Any | None, Any | None, bool) -> univention.admin.handlers.simpleLdap | None
     """
-    Return object of module while trying to create objects of
+    Return object of module while trying to identify objects of
     superordinate modules as well.
 
     :param module: |UDM| handler.
@@ -74,7 +74,7 @@ def get(module, co, lo, position, dn='', attr=None, superordinate=None, attribut
 
     if dn:
         try:
-            obj = univention.admin.modules.lookup(module.module, co, lo, base=dn, superordinate=superordinate, scope='base', unique=True, required=True)[0]
+            obj = univention.admin.modules.lookup(module.module, co, lo, base=dn, superordinate=superordinate, scope='base', unique=True, required=True, authz=authz)[0]
             obj.position.setDn(position.getDn() if position else dn)
             return obj
         except (ldap.NO_SUCH_OBJECT, univention.admin.uexceptions.noObject):
@@ -84,6 +84,22 @@ def get(module, co, lo, position, dn='', attr=None, superordinate=None, attribut
                 raise univention.admin.uexceptions.wrongObjectType('The object %s is not a %s.' % (dn, module.module))
 
     return module.object(co, lo, position, dn, superordinate=superordinate, attributes=attributes)
+
+
+def get_object(lo, dn):
+    # type: (univention.admin.uldap.access, str) -> univention.admin.handlers.simpleLdap
+    """
+    Get a |UDM| object for the specified LDAP DN by automatically detecting the object type.
+    Returns `None` if the object doesn't exists or no |UDM| handler exists for it.
+
+    :param lo: |LDAP| connection.
+    :param dn: |DN| of the object.
+    """
+    attr = lo.authz_connection.get(dn, ['*', '+'])
+    for modname in univention.admin.modules.objectType(None, lo, dn, attr):
+        module = univention.admin.modules.get(modname)
+        if module:
+            return module.object(None, lo, None, dn, None, attr)
 
 
 def open(object):
