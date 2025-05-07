@@ -10,3 +10,6 @@ desc: |
    been added to support using the SASL mechanism OAUTHBEARER in Kubernetes
    environments.
 bug: [58210]
+erratum: 77
+announced: 2025-05-07
+support: core
