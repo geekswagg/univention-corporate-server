@@ -11,3 +11,6 @@ desc: |
    to detect excessive fragmentation in the LMDB databases
    used in UCS.
 bug: [58047]
+erratum: 82
+announced: 2025-05-07
+support: core
