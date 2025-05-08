@@ -181,7 +181,7 @@ define([
 		},
 
 		_administratorLink: function() {
-			var username = tools.status('administrator') || 'Administrator';
+			var username = 'Administrator';
 			return '<b><a href="javascript:void();" onclick=\'_fillUsernameField(' + json.stringify(username) + ')\'>' + entities.encode(username) + '</a></b>';
 		},
 
