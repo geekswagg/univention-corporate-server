@@ -1,3 +1,9 @@
+ucs-test (12.1.12) unstable; urgency=medium
+
+  * Bug #58252: Add univentionObjectIdentifier tests
+
+ -- Johannes Lohmer <lohmer@univention.de>  Tue, 13 May 2025 11:32:35 +0200
+
 ucs-test (12.1.11) unstable; urgency=medium
 
   * Issue univention/dev/internal/team-nubus#1043 add adhoc provisioning tests
