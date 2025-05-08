@@ -14,7 +14,7 @@ import pytest
 
 from univention.admin import modules
 from univention.admin.blocklist import hash_blocklist_value
-from univention.admin.rest.client import UDM as UDM_REST, UnprocessableEntity
+from univention.admin.rest.client import UnprocessableEntity
 from univention.admin.uexceptions import noObject
 from univention.admin.uldap import getMachineConnection, position as uldap_position
 from univention.udm import UDM
@@ -87,13 +87,8 @@ def add_ldap_blocklistentries(blocklist_position, random_string):
 
 
 @pytest.fixture
-def udm_rest_client(ucr, account):
-    udm_rest = UDM_REST(
-        uri='https://%(hostname)s.%(domainname)s/univention/udm/' % ucr,
-        username=account.username,
-        password=account.bindpw,
-    )
-    return udm_rest.get('blocklists/entry')
+def udm_rest_client_blocklists(udm_rest_client):
+    return udm_rest_client.get('blocklists/entry')
 
 
 def test_udm_cli_list(add_ldap_blocklistentries, random_string, udm):
@@ -239,31 +234,31 @@ def test_udm_python_create_with_position(blocklist_list, random_string):
 
 
 @pytest.mark.roles('domaincontroller_master', 'domaincontroller_backup')
-def test_udm_rest_list_delete(add_ldap_blocklistentries, random_string, udm_rest_client):
+def test_udm_rest_list_delete(add_ldap_blocklistentries, random_string, udm_rest_client_blocklists):
     name = random_string()
     blocklist_entries = [f'{name}1', f'{name}2', f'{name}3']
     dns = add_ldap_blocklistentries(blocklist_entries)
 
     # list all
-    blocklistentries = [i.dn for i in udm_rest_client.search()]
+    blocklistentries = [i.dn for i in udm_rest_client_blocklists.search()]
     for dn in dns:
         assert dn in blocklistentries
 
     # get and delete
     for dn in dns:
-        obj = udm_rest_client.get(dn)
+        obj = udm_rest_client_blocklists.get(dn)
         assert obj.dn == dn
         assert obj.position.endswith(BASE)
         assert obj.properties['value'].startswith(name)
         obj.delete()
         with pytest.raises(UnprocessableEntity):
-            udm_rest_client.get(dn)
+            udm_rest_client_blocklists.get(dn)
 
 
 @pytest.mark.roles('domaincontroller_master', 'domaincontroller_backup')
-def test_udm_rest_create_without_position(random_string, udm_rest_client, blocklist_list):
+def test_udm_rest_create_without_position(random_string, udm_rest_client_blocklists, blocklist_list):
     value = random_string()
-    new = udm_rest_client.new()
+    new = udm_rest_client_blocklists.new()
     new.properties['value'] = value
     new.properties['blockedUntil'] = '99331212000000Z'
     new.superordinate = blocklist_list.dn
@@ -271,31 +266,31 @@ def test_udm_rest_create_without_position(random_string, udm_rest_client, blockl
     new.properties['originUniventionObjectIdentifier'] = my_uuid
     new.position = None
     new.save()
-    obj = udm_rest_client.get(new.dn)
+    obj = udm_rest_client_blocklists.get(new.dn)
     assert obj.properties['value'] == hash_blocklist_value(value.encode('UTF-8'))
     assert obj.properties['blockedUntil'] == '99331212000000Z'
     assert obj.properties['originUniventionObjectIdentifier'] == my_uuid
     assert obj.dn == f'cn={hash_blocklist_value(value.encode("UTF-8"))},{blocklist_list.dn}'
     obj.delete()
     with pytest.raises(UnprocessableEntity):
-        udm_rest_client.get(obj.dn)
+        udm_rest_client_blocklists.get(obj.dn)
 
 
 @pytest.mark.roles('domaincontroller_master', 'domaincontroller_backup')
-def test_udm_rest_create_with_position(blocklist_list, random_string, udm_rest_client):
+def test_udm_rest_create_with_position(blocklist_list, random_string, udm_rest_client_blocklists):
     value = random_string()
-    new = udm_rest_client.new()
+    new = udm_rest_client_blocklists.new()
     new.properties['value'] = value
     new.properties['blockedUntil'] = '99331212000000Z'
     my_uuid = get_uuid()
     new.properties['originUniventionObjectIdentifier'] = my_uuid
     new.position = blocklist_list.dn
     new.save()
-    obj = udm_rest_client.get(new.dn)
+    obj = udm_rest_client_blocklists.get(new.dn)
     assert obj.properties['value'] == hash_blocklist_value(value.encode('UTF-8'))
     assert obj.properties['blockedUntil'] == '99331212000000Z'
     assert obj.properties['originUniventionObjectIdentifier'] == my_uuid
     assert obj.dn == f'cn={hash_blocklist_value(value.encode("UTF-8"))},{blocklist_list.dn}'
     obj.delete()
     with pytest.raises(UnprocessableEntity):
-        udm_rest_client.get(obj.dn)
+        udm_rest_client_blocklists.get(obj.dn)

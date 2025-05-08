@@ -12,6 +12,7 @@ from typing import TYPE_CHECKING
 
 import pytest
 
+from univention.admin.rest.client import UDM as UDM_REST
 from univention.appcenter.actions import get_action
 from univention.appcenter.app_cache import Apps
 from univention.testing import selenium as _sel, strings, ucr as _ucr, udm as _udm, umc, utils
@@ -75,6 +76,22 @@ def ldap_base(ucr_session) -> str:
 def ldap_master(ucr_session) -> str:
     """LDAP primary name from UCR."""
     return ucr_session.get('ldap/master')
+
+
+@pytest.fixture(scope="session")
+def udm_rest_base_url(ucr_session):
+    return 'https://%(hostname)s.%(domainname)s/univention/udm/' % ucr_session
+
+
+@pytest.fixture(scope="session")
+def udm_rest_client(ucr_session, account, udm_rest_base_url):
+    udm_rest = UDM_REST(
+        uri=udm_rest_base_url,
+        username=account.username,
+        password=account.bindpw,
+    )
+    assert udm_rest.get_ldap_base()
+    return udm_rest
 
 
 @pytest.fixture

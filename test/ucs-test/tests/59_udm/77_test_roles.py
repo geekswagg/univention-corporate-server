@@ -13,17 +13,11 @@ import pytest
 import requests
 
 from univention.admin import modules
-from univention.admin.rest.client import UDM as UDM_REST
 
 
 @pytest.fixture
-def udm_rest_client(ucr, account):
-    udm_rest = UDM_REST(
-        uri='https://%(hostname)s.%(domainname)s/univention/udm/' % ucr,
-        username=account.username,
-        password=account.bindpw,
-    )
-    return udm_rest.get('users/user')
+def udm_rest_client_users(udm_rest_client):
+    return udm_rest_client.get('users/user')
 
 
 @pytest.fixture
@@ -102,7 +96,7 @@ def test_CLI_list_roles(udm, user_with_roles):
 
 @pytest.mark.roles('domaincontroller_master', 'domaincontroller_backup')
 @pytest.mark.parametrize('opened', [True, False], ids=lambda d: f'opened={d}')
-def test_REST_search_with_guardianInheritedRoles(udm, udm_rest_client, random_string, opened):
+def test_REST_search_with_guardianInheritedRoles(udm, udm_rest_client_users, random_string, opened):
     roles = ['qwe:asd:zxc', 'poi:lkj:mnb&rty:fgh:vbn', 'qwe:asd:mnbvcxz', 'poi:lkj:qwerty&rty:fgh:vbn']
     group_name = random_string()
     groups = [
@@ -112,7 +106,7 @@ def test_REST_search_with_guardianInheritedRoles(udm, udm_rest_client, random_st
     user = udm.create_user()
     udm.modify_object('groups/group', dn=groups[0][0], users=user[0])
     udm.modify_object('groups/group', dn=groups[1][0], users=user[0])
-    for user in udm_rest_client.search('uid=%s' % user[1], opened=opened, properties=['*', 'guardianInheritedRoles']):
+    for user in udm_rest_client_users.search('uid=%s' % user[1], opened=opened, properties=['*', 'guardianInheritedRoles']):
         if not opened:
             user = user.open()
         gIR = user.properties.get('guardianInheritedRoles')
@@ -128,7 +122,7 @@ def test_REST_search_with_guardianInheritedRoles(udm, udm_rest_client, random_st
 
 @pytest.mark.roles('domaincontroller_master', 'domaincontroller_backup')
 @pytest.mark.parametrize('opened', [True, False], ids=lambda d: f'opened={d}')
-def test_REST_search_without_guardianInheritedRoles(udm, udm_rest_client, random_string, opened):
+def test_REST_search_without_guardianInheritedRoles(udm, udm_rest_client_users, random_string, opened):
     roles = ['qwe:asd:zxc', 'poi:lkj:mnb&rty:fgh:vbn', 'qwe:asd:mnbvcxz', 'poi:lkj:qwerty&rty:fgh:vbn']
     group_name = random_string()
     groups = [
@@ -138,29 +132,29 @@ def test_REST_search_without_guardianInheritedRoles(udm, udm_rest_client, random
     user = udm.create_user()
     udm.modify_object('groups/group', dn=groups[0][0], users=user[0])
     udm.modify_object('groups/group', dn=groups[1][0], users=user[0])
-    for user in udm_rest_client.search('uid=%s' % user[1], opened=opened, properties=['*']):
+    for user in udm_rest_client_users.search('uid=%s' % user[1], opened=opened, properties=['*']):
         if not opened:
             user = user.open()
         assert not user.properties.get('guardianInheritedRoles')
 
 
 @pytest.mark.roles('domaincontroller_master', 'domaincontroller_backup')
-def test_REST_get_roles(udm_rest_client, user_with_roles):
+def test_REST_get_roles(udm_rest_client_users, user_with_roles):
     # with
-    user = udm_rest_client.get(user_with_roles.dn, properties=['*', 'guardianInheritedRoles'])
+    user = udm_rest_client_users.get(user_with_roles.dn, properties=['*', 'guardianInheritedRoles'])
     assert user.properties['username'] == user_with_roles.username
     assert set(user.properties['guardianInheritedRoles']) == set(user_with_roles.guardianInheritedRoles)
     assert set(user.properties['guardianRoles']) == set(user_with_roles.guardianRoles)
-    user = udm_rest_client.get(user_with_roles.dn, properties=['guardianInheritedRoles'])
+    user = udm_rest_client_users.get(user_with_roles.dn, properties=['guardianInheritedRoles'])
     assert 'username' not in user.properties
     assert 'guardianRoles' not in user.properties
     assert set(user.properties['guardianInheritedRoles']) == set(user_with_roles.guardianInheritedRoles)
     # without
-    user = udm_rest_client.get(user_with_roles.dn, properties=['*'])
+    user = udm_rest_client_users.get(user_with_roles.dn, properties=['*'])
     assert user.properties['username'] == user_with_roles.username
     assert set(user.properties['guardianRoles']) == set(user_with_roles.guardianRoles)
     assert not user.properties['guardianInheritedRoles']
-    user = udm_rest_client.get(user_with_roles.dn)
+    user = udm_rest_client_users.get(user_with_roles.dn)
     assert set(user.properties['guardianRoles']) == set(user_with_roles.guardianRoles)
     assert user.properties['username'] == user_with_roles.username
     assert not user.properties['guardianInheritedRoles']
