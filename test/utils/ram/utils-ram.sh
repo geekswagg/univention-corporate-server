@@ -206,8 +206,8 @@ install_frontend_app () {
 install_frontend_apps () {
 	echo -n univention > /tmp/univention
 
-	install_frontend_app "ucsschool-bff-users" "gitregistry.knut.univention.de/univention/ucsschool-components/ui-users:latest" "$UCS_ENV_RANKINE_USERS_IMAGE"
-	install_frontend_app "ucsschool-bff-groups" "gitregistry.knut.univention.de/univention/ucsschool-components/ui-groups:latest" "$UCS_ENV_RANKINE_GROUPS_IMAGE"
+	install_frontend_app "ucsschool-bff-users" "gitregistry.knut.univention.de/univention/dev/ucsschool-components/ui-users:latest" "$UCS_ENV_RANKINE_USERS_IMAGE"
+	install_frontend_app "ucsschool-bff-groups" "gitregistry.knut.univention.de/univention/dev/ucsschool-components/ui-groups:latest" "$UCS_ENV_RANKINE_GROUPS_IMAGE"
 
 	docker images
 	docker ps -a
@@ -544,7 +544,7 @@ end_system_stats_collection () {
 }
 
 umc_saml_session_workaround () {
-	# see https://git.knut.univention.de/univention/ucsschool-components/ui-users/-/issues/248
+	# see https://git.knut.univention.de/univention/dev/ucsschool-components/ui-users/-/issues/248
 	ucr set umc/saml/assertion-lifetime="$((8 * 60 * 60))"ucr set umc/saml/assertion-lifetime="$((8 * 60 * 60))"
 	/usr/share/univention-management-console/saml/update_metadata
 }

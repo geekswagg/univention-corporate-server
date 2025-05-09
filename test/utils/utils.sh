@@ -1890,7 +1890,7 @@ openldap_bdb_to_mdb () {
 	local check_file
 	if [ -x "/usr/sbin/slapd" ] && [ "bdb" = "$(ucr get ldap/database/type)" ]; then
 		check_file="$(mktemp)"
-		curl https://git.knut.univention.de/univention/ucs/-/raw/preview/5.1-0/base/univention-updater/script/check.sh > "$check_file"
+		curl https://git.knut.univention.de/univention/dev/ucs/-/raw/preview/5.1-0/base/univention-updater/script/check.sh > "$check_file"
 		bash -x "$check_file" migrate_openldap_bdb
 	fi
 }
