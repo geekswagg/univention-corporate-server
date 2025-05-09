@@ -48,6 +48,7 @@ import zlib
 from collections.abc import Callable, Iterator, Sequence  # noqa: F401
 from io import BytesIO
 from logging import getLogger
+from types import SimpleNamespace
 from typing import TYPE_CHECKING
 
 import ldap
@@ -94,7 +95,11 @@ def import_syntax_files():
             for fn in syntax_files:
                 try:
                     with open(fn, 'rb') as fd:
-                        exec(fd.read(), sys.modules[__name__].__dict__)  # noqa: S102
+                        env = {}
+                        exec(fd.read(), env)  # noqa: S102
+                        sys.modules[__name__].__dict__.update(
+                            dict(inspect.getmembers(SimpleNamespace(**env), lambda m: inspect.isclass(m) and issubclass(m, ISyntax) and not hasattr(sys.modules[__name__], m.__name__))),
+                        )
                     log.debug('admin.syntax.import_syntax_files: importing %r', fn)
                 except Exception:
                     log.exception('admin.syntax.import_syntax_files: loading %r failed', fn)
