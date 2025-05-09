@@ -26,13 +26,13 @@ univention-updater (17.0.34-1) unstable; urgency=medium
 
 univention-updater (17.0.33) unstable; urgency=medium
 
-  * Issue univention/ucs#2672: fix link to 5.2-0 changelog
+  * Issue univention/dev/ucs#2672: fix link to 5.2-0 changelog
 
  -- Marius Meschter <marius.meschter@univention.de>  Mon, 17 Feb 2025 14:02:02 +0100
 
 univention-updater (17.0.32) unstable; urgency=medium
 
-  * Issue univention/ucs#2663: add upgrade check for pam_tally references in the PAM
+  * Issue univention/dev/ucs#2663: add upgrade check for pam_tally references in the PAM
     configuration that prevent system upgrades to 5.2
 
  -- Christian Castens <castens@univention.de>  Tue, 11 Feb 2025 15:11:20 +0100
@@ -51,31 +51,31 @@ univention-updater (17.0.30) unstable; urgency=medium
 
 univention-updater (17.0.29) unstable; urgency=medium
 
-  * Issue univention/ucs#2636: fix samba deleted objects in postup
+  * Issue univention/dev/ucs#2636: fix samba deleted objects in postup
 
  -- Felix Botner <botner@univention.de>  Mon, 27 Jan 2025 16:52:49 +0100
 
 univention-updater (17.0.28) unstable; urgency=medium
 
-  * Issue univention/ucs#2636: fix samba deleted objects in postup
+  * Issue univention/dev/ucs#2636: fix samba deleted objects in postup
 
  -- Felix Botner <botner@univention.de>  Mon, 27 Jan 2025 16:39:48 +0100
 
 univention-updater (17.0.27) unstable; urgency=medium
 
-  * Issue univention/ucs#2549: remove python2
+  * Issue univention/dev/ucs#2549: remove python2
 
  -- Felix Botner <botner@univention.de>  Thu, 23 Jan 2025 17:17:40 +0100
 
 univention-updater (17.0.26) unstable; urgency=medium
 
-  * Issue univention/ucs#2549: remove python2
+  * Issue univention/dev/ucs#2549: remove python2
 
  -- Felix Botner <botner@univention.de>  Thu, 23 Jan 2025 12:31:10 +0100
 
 univention-updater (17.0.25) unstable; urgency=medium
 
-  * Issue univention/ucs#2551: update min version of system to 1204
+  * Issue univention/dev/ucs#2551: update min version of system to 1204
 
  -- Felix Botner <botner@univention.de>  Wed, 22 Jan 2025 17:19:25 +0100
 
@@ -93,43 +93,43 @@ univention-updater (17.0.22) unstable; urgency=medium
 
 univention-updater (17.0.21) unstable; urgency=medium
 
-  * Issue univention/ucs#2550: remove sources.list backups after update
+  * Issue univention/dev/ucs#2550: remove sources.list backups after update
 
  -- Felix Botner <botner@univention.de>  Wed, 15 Jan 2025 21:12:21 +0100
 
 univention-updater (17.0.20) unstable; urgency=medium
 
-  * Issue univention/ucs#2550: remove sources.list backups after update
+  * Issue univention/dev/ucs#2550: remove sources.list backups after update
 
  -- Felix Botner <botner@univention.de>  Thu, 09 Jan 2025 16:31:16 +0100
 
 univention-updater (17.0.19) unstable; urgency=medium
 
-  * Issue univention/ucs#1709: set ucrv ros with correct type
+  * Issue univention/dev/ucs#1709: set ucrv ros with correct type
 
  -- Felix Botner <botner@univention.de>  Tue, 07 Jan 2025 15:22:19 +0100
 
 univention-updater (17.0.18) unstable; urgency=medium
 
-  * Issue univention/ucs#1709: set ucrv ros with correct type
+  * Issue univention/dev/ucs#1709: set ucrv ros with correct type
 
  -- Felix Botner <botner@univention.de>  Tue, 07 Jan 2025 15:05:59 +0100
 
 univention-updater (17.0.17) unstable; urgency=medium
 
-  * Issue univention/ucs#2573: Block update for postgresql-9.6
+  * Issue univention/dev/ucs#2573: Block update for postgresql-9.6
 
  -- Arvid <requate@univention.de>  Mon, 06 Jan 2025 13:52:50 +0100
 
 univention-updater (17.0.16) unstable; urgency=medium
 
-  * Issue univention/ucs#2570: check docker storage driver
+  * Issue univention/dev/ucs#2570: check docker storage driver
 
  -- Arvid <requate@univention.de>  Thu, 02 Jan 2025 13:06:10 +0100
 
 univention-updater (17.0.15) unstable; urgency=medium
 
-  * Issue univention/ucs#2551: update min version of system to 1195
+  * Issue univention/dev/ucs#2551: update min version of system to 1195
 
  -- Felix Botner <botner@univention.de>  Wed, 18 Dec 2024 15:16:14 +0100
 
@@ -148,13 +148,13 @@ univention-updater (17.0.13) unstable; urgency=medium
 
 univention-updater (17.0.12) unstable; urgency=medium
 
-  * Issue univention/ucs#2551: check min version of system
+  * Issue univention/dev/ucs#2551: check min version of system
 
  -- Felix Botner <botner@univention.de>  Wed, 11 Dec 2024 10:28:00 +0100
 
 univention-updater (17.0.11) unstable; urgency=medium
 
-  * Issue univention/ucs#2551: check for blocking apps
+  * Issue univention/dev/ucs#2551: check for blocking apps
 
  -- Felix Botner <botner@univention.de>  Tue, 10 Dec 2024 17:18:46 +0100
 
@@ -166,13 +166,13 @@ univention-updater (17.0.10) unstable; urgency=medium
 
 univention-updater (17.0.9) unstable; urgency=medium
 
-  * Issue univention/ucs#1945: Disable php7.0 for Apache
+  * Issue univention/dev/ucs#1945: Disable php7.0 for Apache
 
  -- Dirk Wiesenthal <wiesenthal@univention.de>  Fri, 15 Nov 2024 13:49:23 +0100
 
 univention-updater (17.0.8) unstable; urgency=medium
 
-  * Issue univention/ucs#2244: Pin runc package in 5.2: the upstream debian version
+  * Issue univention/dev/ucs#2244: Pin runc package in 5.2: the upstream debian version
     is slightly lower than the one we imported from ubuntu in 5.0
 
  -- Julia Bremer <bremer@univention.de>  Tue, 28 May 2024 17:19:21 +0200
@@ -185,7 +185,7 @@ univention-updater (17.0.6) unstable; urgency=medium
 
 univention-updater (17.0.5) unstable; urgency=medium
 
-  * univention/ucs#2026: Remove simpleSAMLphp kerberos user on upgrade to 5.2
+  * univention/dev/ucs#2026: Remove simpleSAMLphp kerberos user on upgrade to 5.2
 
  -- Marius Meschter <marius.meschter@univention.de>  Tue, 28 May 2024 09:18:52 +0200
 

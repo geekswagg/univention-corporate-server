@@ -265,7 +265,7 @@ update_check_role_package_removed () {
 
 # Bug #56134 Bug #56651 Bug #56367 Bug #52048 Bug #56765
 # Admin must agree to remove these:
-# Issue univention/ucs#1885
+# Issue univention/dev/ucs#1885
 #  we removed univentionSAMLServiceProvider, univentionSAMLIdpConfig and
 #  univentionOIDCService, we remove these objects in check_keycloak_migration
 #  but as we support mixed environments (5.0/5.2) we have to support these

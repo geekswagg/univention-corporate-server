@@ -20,13 +20,13 @@ univention-ad-connector (16.0.14-1) UNRELEASED; urgency=medium
 
 univention-ad-connector (16.0.13) unstable; urgency=medium
 
-  * Issue univention/ucs#2495: Remove unused icons
+  * Issue univention/dev/ucs#2495: Remove unused icons
 
  -- Dirk Wiesenthal <wiesenthal@univention.de>  Thu, 28 Nov 2024 12:57:09 +0100
 
 univention-ad-connector (16.0.12) unstable; urgency=medium
 
-  * Issue univention/ucs#2495: Update copyright
+  * Issue univention/dev/ucs#2495: Update copyright
 
  -- Dirk Wiesenthal <wiesenthal@univention.de>  Wed, 27 Nov 2024 17:17:55 +0100
 

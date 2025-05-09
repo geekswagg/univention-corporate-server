@@ -37,7 +37,7 @@ univention-management-console (14.0.44) unstable; urgency=medium
 
 univention-management-console (14.0.43) unstable; urgency=medium
 
-  *  Issue univention/ucs#2528: Fix changelog timestamp
+  *  Issue univention/dev/ucs#2528: Fix changelog timestamp
 
  -- Marius Meschter <marius.meschter@univention.de>  Thu, 05 Dec 2024 15:19:31 +0100
 
@@ -49,7 +49,7 @@ univention-management-console (14.0.42) unstable; urgency=medium
 
 univention-management-console (14.0.41) unstable; urgency=medium
 
-  * Issue univention/ucs#2519: Remove code for advocating the Univention
+  * Issue univention/dev/ucs#2519: Remove code for advocating the Univention
     Summit and the ambassador program
 
  -- Dirk Wiesenthal <wiesenthal@univention.de>  Tue, 26 Nov 2024 00:05:23 +0100
@@ -110,7 +110,7 @@ univention-management-console (14.0.31) unstable; urgency=medium
 
 univention-management-console (14.0.30) unstable; urgency=medium
 
-  * univention/ucs#2388 close http client after getting access token
+  * univention/dev/ucs#2388 close http client after getting access token
 
  -- Felix Botner <botner@univention.de>  Thu, 29 Aug 2024 20:18:43 +0200
 
@@ -134,7 +134,7 @@ univention-management-console (14.0.26) unstable; urgency=medium
 
 univention-management-console (14.0.25) unstable; urgency=medium
 
-  * univention/ucs#2388 don't verify refresh token for getting expiry
+  * univention/dev/ucs#2388 don't verify refresh token for getting expiry
 
  -- Marius Meschter <marius.meschter@univention.de>  Tue, 13 Aug 2024 11:24:43 +0200
 

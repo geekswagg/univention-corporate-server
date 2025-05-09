@@ -340,7 +340,7 @@ class OIDCResource(OAuth2Mixin, Resource):
             )
         except HTTPClientError:
             raise  # handled in get()
-        # TODO: why do we need that, see univention/ucs#2388
+        # TODO: why do we need that, see univention/dev/ucs#2388
         http_client.close()
         return escape.json_decode(response.body)
 

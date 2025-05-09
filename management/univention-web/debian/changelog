@@ -24,13 +24,13 @@ univention-web (6.0.8) unstable; urgency=medium
 
 univention-web (6.0.7) unstable; urgency=medium
 
-  * univention/ucs#2562: improve app logo on preview page
+  * univention/dev/ucs#2562: improve app logo on preview page
 
  -- Christian Castens <castens@univention.de>  Tue, 17 Dec 2024 15:49:11 +0100
 
 univention-web (6.0.6) unstable; urgency=medium
 
-  * Issue univention/ucs#2495: Adjust license information
+  * Issue univention/dev/ucs#2495: Adjust license information
 
  -- Dirk Wiesenthal <wiesenthal@univention.de>  Mon, 25 Nov 2024 22:39:11 +0100
 

@@ -16,7 +16,7 @@ univention-join (14.1.0) unstable; urgency=medium
 
 univention-join (14.0.6-1) unstable; urgency=medium
 
-  * Issue univention/ucs#2533: increase univention-ssh timeout in univention-join
+  * Issue univention/dev/ucs#2533: increase univention-ssh timeout in univention-join
 
  -- Felix Botner <botner@univention.de>  Tue, 17 Dec 2024 10:23:36 +0100
 

@@ -1,13 +1,13 @@
 univention-directory-manager-modules (17.0.33) unstable; urgency=medium
 
-  * Issue univention/ucs#2781: Improvements for the experimental delegative
+  * Issue univention/dev/ucs#2781: Improvements for the experimental delegative
     administation feature.
 
  -- Ivan Barbecho Delgado <ivan.delgado@univention.de>  Wed, 2 Apr 2025 13:33:01 +0100
 
 univention-directory-manager-modules (17.0.32) unstable; urgency=medium
 
-  * Issue univention/ucs#2742: implement new incremental feature for delegated
+  * Issue univention/dev/ucs#2742: implement new incremental feature for delegated
     administration, readable/writeable attributes in authorization
 
  -- Ivan Barbecho Delgado <ivan.delgado@univention.de>  Mon, 31 Mar 2025 13:33:01 +0100
@@ -22,9 +22,9 @@ univention-directory-manager-modules (17.0.31) unstable; urgency=medium
 
 univention-directory-manager-modules (17.0.30-1) unstable; urgency=medium
 
-  * Issue univention/ucs#2727: relax GuardianRole syntax pattern to at least
+  * Issue univention/dev/ucs#2727: relax GuardianRole syntax pattern to at least
     allow some characters found in a DN in the context.
-  * Issue univention/ucs#2727: add authorization.py for delegative administration.
+  * Issue univention/dev/ucs#2727: add authorization.py for delegative administration.
 
  -- Arvid Requate <requate@univention.de>  Tue, 18 Mar 2025 13:33:01 +0100
 
@@ -50,7 +50,7 @@ univention-directory-manager-modules (17.0.29-1) UNRELEASED; urgency=medium
 
 univention-directory-manager-modules (17.0.28) unstable; urgency=low
 
-  * univention/ucs#2653: improve performance of _ldap_modlist() in
+  * univention/dev/ucs#2653: improve performance of _ldap_modlist() in
     groups/group handler to speed up modifications of very large groups
 
  -- Sönke Schwardt-Krummrich <schwardt@univention.de>  Thu, 20 Feb 2025 11:15:36 +0100
@@ -147,7 +147,7 @@ univention-directory-manager-modules (17.0.12) unstable; urgency=medium
 
 univention-directory-manager-modules (17.0.11) unstable; urgency=medium
 
-  * univention/ucs#2026: Replace ucs-sso with krbkeycloak account in license
+  * univention/dev/ucs#2026: Replace ucs-sso with krbkeycloak account in license
     system account list
 
  -- Marius Meschter <marius.meschter@univention.de>  Mon, 27 May 2024 11:37:49 +0200

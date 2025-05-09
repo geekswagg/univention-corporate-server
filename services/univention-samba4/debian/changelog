@@ -12,7 +12,7 @@ univention-samba4 (11.0.10) unstable; urgency=medium
 
 univention-samba4 (11.0.9) unstable; urgency=medium
 
-  * Issue univention/ucs#2528: fix changelog timestamps
+  * Issue univention/dev/ucs#2528: fix changelog timestamps
 
  -- Marius Meschter <marius.meschter@univention.de>  Thu, 05 Dec 2024 15:20:03 +0100
 

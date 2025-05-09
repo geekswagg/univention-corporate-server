@@ -6,7 +6,7 @@ univention-debmirror (13.0.3-1) UNRELEASED; urgency=medium
 
 univention-debmirror (13.0.2) unstable; urgency=medium
 
-  * Issue univention/ucs#1709: set ucrv ros with correct type
+  * Issue univention/dev/ucs#1709: set ucrv ros with correct type
 
  -- Felix Botner <botner@univention.de>  Tue, 07 Jan 2025 15:02:21 +0100
 

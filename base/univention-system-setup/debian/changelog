@@ -7,7 +7,7 @@ univention-system-setup (15.0.15) unstable; urgency=medium
 
 univention-system-setup (15.0.14) unstable; urgency=medium
 
-  * Issue univention/ucs#2561: update logos
+  * Issue univention/dev/ucs#2561: update logos
 
  -- Felix Botner <botner@univention.de>  Mon, 27 Jan 2025 16:00:34 +0100
 
@@ -19,13 +19,13 @@ univention-system-setup (15.0.13) unstable; urgency=medium
 
 univention-system-setup (15.0.12) unstable; urgency=medium
 
-  * Issue univention/ucs#2560: set system/setup/boot/start to false after setup
+  * Issue univention/dev/ucs#2560: set system/setup/boot/start to false after setup
 
  -- Felix Botner <botner@univention.de>  Fri, 13 Dec 2024 14:24:18 +0100
 
 univention-system-setup (15.0.11) unstable; urgency=medium
 
-  * Issue univention/ucs#2560: don't stop during upgrade
+  * Issue univention/dev/ucs#2560: don't stop during upgrade
 
     to not stop a running setup process, and replace
     ifconfig down with ifdown
@@ -40,19 +40,19 @@ univention-system-setup (15.0.10) unstable; urgency=medium
 
 univention-system-setup (15.0.9) unstable; urgency=medium
 
-  * Issue univention/ucs#2524: start firefox in kiosk mode during system setup
+  * Issue univention/dev/ucs#2524: start firefox in kiosk mode during system setup
 
  -- Felix Botner <botner@univention.de>  Fri, 29 Nov 2024 13:42:13 +0100
 
 univention-system-setup (15.0.8) unstable; urgency=medium
 
-  * Issue univention/ucs#2495: Update copyright
+  * Issue univention/dev/ucs#2495: Update copyright
 
  -- Dirk Wiesenthal <wiesenthal@univention.de>  Wed, 27 Nov 2024 17:17:37 +0100
 
 univention-system-setup (15.0.7) unstable; urgency=medium
 
-  * Issue univention/ucs#2488: Remove automated keycloak installation during
+  * Issue univention/dev/ucs#2488: Remove automated keycloak installation during
     system-setup
 
  -- Dirk Wiesenthal <wiesenthal@univention.de>  Mon, 04 Nov 2024 17:02:35 +0100

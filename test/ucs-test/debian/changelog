@@ -6,7 +6,7 @@ ucs-test (12.1.10) unstable; urgency=medium
 
 ucs-test (12.1.9) unstable; urgency=medium
 
-  * Issue univention/ucs#2742: update 60_umc.25_authorization.py
+  * Issue univention/dev/ucs#2742: update 60_umc.25_authorization.py
 
  -- Ivan Barbecho Delgado <ivan.delgado@univention.de>  Mon, 14 Apr 2025 16:41:15 +0200
 
@@ -66,13 +66,13 @@ ucs-test (12.1.0) unstable; urgency=medium
 
 ucs-test (12.0.250) unstable; urgency=medium
 
-  * Issue univention/ucs#2742: new test in 60_umc.25_authorization.py
+  * Issue univention/dev/ucs#2742: new test in 60_umc.25_authorization.py
 
  -- Ivan Barbecho Delgado <ivan.delgado@univention.de>  Mon, 31 Mar 2025 16:43:28 +0200
 
 ucs-test (12.0.249-12) unstable; urgency=medium
 
-  * Issue univention/ucs#2338: fix
+  * Issue univention/dev/ucs#2338: fix
     83_self_service/11_test_frontend_translations.py
     by closing the browser instance
 
@@ -80,7 +80,7 @@ ucs-test (12.0.249-12) unstable; urgency=medium
 
 ucs-test (12.0.249-11) unstable; urgency=medium
 
-  * Issue univention/ucs#2338: fix performance tests
+  * Issue univention/dev/ucs#2338: fix performance tests
 
  -- Felix Botner <botner@univention.de>  Thu, 27 Mar 2025 19:27:42 +0100
 
@@ -98,7 +98,7 @@ ucs-test (12.0.249-9) unstable; urgency=medium
 
 ucs-test (12.0.249-8) unstable; urgency=medium
 
-  * Issue univention/ucs#2338: convert
+  * Issue univention/dev/ucs#2338: convert
       83_self_service/07_test_frontend_links.py
       83_self_service/08_service_specific_passwords.py
     to playwright
@@ -107,19 +107,19 @@ ucs-test (12.0.249-8) unstable; urgency=medium
 
 ucs-test (12.0.249-7) unstable; urgency=low
 
-  * Issue univention/ucs#2733: add 01_base/72interfaces_additional_route
+  * Issue univention/dev/ucs#2733: add 01_base/72interfaces_additional_route
 
  -- Sönke Schwardt-Krummrich <schwardt@univention.de>  Tue, 25 Mar 2025 13:55:53 +0100
 
 ucs-test (12.0.249-6) unstable; urgency=medium
 
-  * Issue univention/ucs#2657: added 60_umc.25_authorization.py
+  * Issue univention/dev/ucs#2657: added 60_umc.25_authorization.py
 
  -- Felix Botner <botner@univention.de>  Tue, 18 Mar 2025 08:04:56 +0100
 
 ucs-test (12.0.249-5) unstable; urgency=medium
 
-  * Issue univention/ucs#2317: external_junit -> external-junit
+  * Issue univention/dev/ucs#2317: external_junit -> external-junit
 
  -- Jürn Brodersen <brodersen@univention.de>  Thu, 13 Mar 2025 18:45:51 +0100
 
@@ -147,7 +147,7 @@ ucs-test (12.0.249-2) unstable; urgency=medium
 
 ucs-test (12.0.249-1) unstable; urgency=medium
 
-  * Issue univention/ucs#2317: JENKINS_HOME is not passed through
+  * Issue univention/dev/ucs#2317: JENKINS_HOME is not passed through
 
  -- Jürn Brodersen <brodersen@univention.de>  Fri, 07 Mar 2025 10:37:05 +0100
 
@@ -182,7 +182,7 @@ ucs-test (12.0.248-1) unstable; urgency=medium
 
 ucs-test (12.0.248) unstable; urgency=medium
 
-  * Issue univention/ucs#2317: let jenkins check the junit file
+  * Issue univention/dev/ucs#2317: let jenkins check the junit file
 
  -- Jürn Brodersen <brodersen@univention.de>  Thu, 06 Mar 2025 17:49:14 +0100
 
@@ -200,13 +200,13 @@ ucs-test (12.0.246) unstable; urgency=medium
 
 ucs-test (12.0.245) unstable; urgency=medium
 
-  * Issue univention/ucs#2317: reactivate 73_udm-rest/04_python_udm_api_client_compatibility
+  * Issue univention/dev/ucs#2317: reactivate 73_udm-rest/04_python_udm_api_client_compatibility
 
  -- Jürn Brodersen <brodersen@univention.de>  Thu, 20 Feb 2025 12:43:04 +0100
 
 ucs-test (12.0.244) unstable; urgency=medium
 
-  * Issue univention/ucs#2653: added test
+  * Issue univention/dev/ucs#2653: added test
 
  -- Felix Botner <botner@univention.de>  Thu, 20 Feb 2025 11:16:34 +0100
 
@@ -240,56 +240,56 @@ ucs-test (12.0.240) unstable; urgency=medium
 
 ucs-test (12.0.239) unstable; urgency=medium
 
-  * Issue univention/ucs#2338: fix 86_browser/191_app_suggestions_category.py
+  * Issue univention/dev/ucs#2338: fix 86_browser/191_app_suggestions_category.py
 
  -- Felix Botner <botner@univention.de>  Mon, 03 Feb 2025 15:21:33 +0100
 
 ucs-test (12.0.238) unstable; urgency=medium
 
-  * Issue univention/ucs#2533: skip some more tests for ad member
+  * Issue univention/dev/ucs#2533: skip some more tests for ad member
 
  -- Felix Botner <botner@univention.de>  Fri, 17 Jan 2025 16:23:26 +0100
 
 ucs-test (12.0.237) unstable; urgency=medium
 
-  * Issue univention/ucs#1701: cleanup ucs-test-import-performance
+  * Issue univention/dev/ucs#1701: cleanup ucs-test-import-performance
 
  -- Ivan Barbecho Delgado <ivan.delgado@univention.de>  Fri, 17 Jan 2025 07:50:51 +0100
 
 ucs-test (12.0.236) unstable; urgency=medium
 
-  * Issue univention/ucs#1701: Reduce number of classes on 65000 users scenario
+  * Issue univention/dev/ucs#1701: Reduce number of classes on 65000 users scenario
 
  -- Ivan Barbecho Delgado <ivan.delgado@univention.de>  Thu, 16 Jan 2025 20:18:58 +0100
 
 ucs-test (12.0.235) unstable; urgency=medium
 
-  * Issue univention/ucs#1701: fix Invalid DN syntax: on remove OU's
+  * Issue univention/dev/ucs#1701: fix Invalid DN syntax: on remove OU's
 
  -- Ivan Barbecho Delgado <ivan.delgado@univention.de>  Thu, 16 Jan 2025 14:33:43 +0100
 
 ucs-test (12.0.234) unstable; urgency=medium
 
-  * Issue univention/ucs#1701: fix Invalid DN syntax: on remove OU's
+  * Issue univention/dev/ucs#1701: fix Invalid DN syntax: on remove OU's
     add new scenarios 65000 users and 30000 users
 
  -- Ivan Barbecho Delgado <ivan.delgado@univention.de>  Thu, 16 Jan 2025 11:56:32 +0100
 
 ucs-test (12.0.233) unstable; urgency=medium
 
-  * Issue univention/ucs#1701: new import 500 ucs-test-import-performance
+  * Issue univention/dev/ucs#1701: new import 500 ucs-test-import-performance
 
  -- Ivan Barbecho Delgado <ivan.delgado@univention.de>  Thu, 16 Jan 2025 08:26:14 +0100
 
 ucs-test (12.0.232) unstable; urgency=medium
 
-  * fixup! Issue univention/ucs#1701: partial revert ucs-test-import-performance
+  * fixup! Issue univention/dev/ucs#1701: partial revert ucs-test-import-performance
 
  -- Ivan Barbecho Delgado <ivan.delgado@univention.de>  Thu, 16 Jan 2025 08:12:51 +0100
 
 ucs-test (12.0.231) unstable; urgency=medium
 
-  * Issue univention/ucs#1701: partial revert ucs-test-import-performance
+  * Issue univention/dev/ucs#1701: partial revert ucs-test-import-performance
 
  -- Ivan Barbecho Delgado <ivan.delgado@univention.de>  Wed, 15 Jan 2025 17:38:48 +0200
 
@@ -302,7 +302,7 @@ ucs-test (12.0.230) unstable; urgency=medium
 
 ucs-test (12.0.229) unstable; urgency=medium
 
-  * Issue univention/ucs#2533: skip keycloak tests for ad member
+  * Issue univention/dev/ucs#2533: skip keycloak tests for ad member
 
  -- Felix Botner <botner@univention.de>  Thu, 09 Jan 2025 18:06:41 +0100
 
@@ -315,7 +315,7 @@ ucs-test (12.0.228) unstable; urgency=medium
 
 ucs-test (12.0.227) unstable; urgency=medium
 
-  * univention/ucs#2533: increase timeout for checking checkbox in table
+  * univention/dev/ucs#2533: increase timeout for checking checkbox in table
     function for browser tests
 
  -- Marius Meschter <marius.meschter@univention.de>  Wed, 08 Jan 2025 10:48:24 +0100
@@ -335,13 +335,13 @@ ucs-test (12.0.225) unstable; urgency=medium
 
 ucs-test (12.0.223) unstable; urgency=medium
 
-  * Issue univention/ucs#2533: fix 86_browser/16_umc_memory_leaks.py
+  * Issue univention/dev/ucs#2533: fix 86_browser/16_umc_memory_leaks.py
 
  -- Marius Meschter <marius.meschter@univention.de>  Thu, 12 Dec 2024 13:49:56 +0100
 
 ucs-test (12.0.222) unstable; urgency=medium
 
-  * Issue univention/ucs#2533: fix
+  * Issue univention/dev/ucs#2533: fix
     14_oidc_umc_udm_module.test_udm_module_with_new_access_token in with
     multiple UMC processes
 
@@ -349,13 +349,13 @@ ucs-test (12.0.222) unstable; urgency=medium
 
 ucs-test (12.0.221) unstable; urgency=medium
 
-  * Issue univention/ucs#2533: fix some more tests
+  * Issue univention/dev/ucs#2533: fix some more tests
 
  -- Felix Botner <botner@univention.de>  Tue, 10 Dec 2024 17:46:03 +0100
 
 ucs-test (12.0.220) unstable; urgency=medium
 
-  * Issue univention/ucs#2533: fix 20_mail_delivery_via_submission_port.py
+  * Issue univention/dev/ucs#2533: fix 20_mail_delivery_via_submission_port.py
 
     Deactivate spam scanner for this test.
 
@@ -363,7 +363,7 @@ ucs-test (12.0.220) unstable; urgency=medium
 
 ucs-test (12.0.219) unstable; urgency=medium
 
-  * Issue univention/ucs#2533: fix 52_s4connector/dnstests.py::match
+  * Issue univention/dev/ucs#2533: fix 52_s4connector/dnstests.py::match
 
     In case not output from dig and object should not exist the
     test is successfull.
@@ -372,13 +372,13 @@ ucs-test (12.0.219) unstable; urgency=medium
 
 ucs-test (12.0.218) unstable; urgency=medium
 
-  * Issue univention/ucs#2533: increase timeout after restarting UMC in 14_oidc_umc_udm_module.py
+  * Issue univention/dev/ucs#2533: increase timeout after restarting UMC in 14_oidc_umc_udm_module.py
 
  -- Marius Meschter <marius.meschter@univention.de>  Thu, 05 Dec 2024 16:01:51 +0100
 
 ucs-test (12.0.217) unstable; urgency=medium
 
-  * Issue univention/ucs#2533: fix debian/changelog
+  * Issue univention/dev/ucs#2533: fix debian/changelog
 
  -- Felix Botner <botner@univention.de>  Thu, 05 Dec 2024 15:08:57 +0100
 
@@ -396,19 +396,19 @@ ucs-test (12.0.215) unstable; urgency=medium
 
 ucs-test (12.0.214) unstable; urgency=medium
 
-  * Issue univention/ucs#2533: add -p repeat to bin/playwright
+  * Issue univention/dev/ucs#2533: add -p repeat to bin/playwright
 
  -- Marius Meschter <marius.meschter@univention.de>  Thu, 05 Dec 2024 10:51:42 +0100
 
 ucs-test (12.0.213) unstable; urgency=medium
 
-  * Issue univention/ucs#2533: fixed 33_change_expired_password.py
+  * Issue univention/dev/ucs#2533: fixed 33_change_expired_password.py
 
  -- Felix Botner <botner@univention.de>  Wed, 04 Dec 2024 17:44:35 +0100
 
 ucs-test (12.0.212) unstable; urgency=medium
 
-  * Issue univention/ucs#2533: skip 04_python_udm_api_client_compatibility for now
+  * Issue univention/dev/ucs#2533: skip 04_python_udm_api_client_compatibility for now
 
  -- Felix Botner <botner@univention.de>  Wed, 04 Dec 2024 16:39:19 +0100
 
@@ -420,45 +420,45 @@ ucs-test (12.0.211) unstable; urgency=medium
 
 ucs-test (12.0.210) unstable; urgency=medium
 
-  * Issue univention/ucs#2375: wait for S4 connector
+  * Issue univention/dev/ucs#2375: wait for S4 connector
     (better performance openstack instances)
 
  -- Felix Botner <botner@univention.de>  Mon, 02 Dec 2024 10:14:12 +0100
 
 ucs-test (12.0.209) unstable; urgency=medium
 
-  * Issue univention/ucs#2338: remove debug code as we have tracing now
+  * Issue univention/dev/ucs#2338: remove debug code as we have tracing now
 
  -- Felix Botner <botner@univention.de>  Fri, 29 Nov 2024 12:52:26 +0100
 
 ucs-test (12.0.208) unstable; urgency=medium
 
-  * Issue univention/ucs#2338: Fix samltest.py
+  * Issue univention/dev/ucs#2338: Fix samltest.py
 
  -- Felix Botner <botner@univention.de>  Fri, 29 Nov 2024 12:45:12 +0100
 
 ucs-test (12.0.207) unstable; urgency=medium
 
-  * Issue univention/ucs#2338: add tracing to keycloak playwright tests
+  * Issue univention/dev/ucs#2338: add tracing to keycloak playwright tests
 
  -- Marius Meschter <marius.meschter@univention.de>  Wed, 27 Nov 2024 17:47:04 +0100
 
 ucs-test (12.0.206) unstable; urgency=medium
 
-  * Issue univention/ucs#2338: Fix
+  * Issue univention/dev/ucs#2338: Fix
     82_saml.33_change_expired_password.test_change_expired_password
 
  -- Marius Meschter <marius.meschter@univention.de>  Wed, 27 Nov 2024 16:44:36 +0100
 
 ucs-test (12.0.205) unstable; urgency=medium
 
-  * Issue univention/ucs#2338: Remove ucs-sso from locust scripts
+  * Issue univention/dev/ucs#2338: Remove ucs-sso from locust scripts
 
  -- Felix Botner <botner@univention.de>  Mon, 18 Nov 2024 09:22:33 +0100
 
 ucs-test (12.0.204) unstable; urgency=medium
 
-  * Issue univention/ucs#2338: Remove unused get_keycloak_version fixture
+  * Issue univention/dev/ucs#2338: Remove unused get_keycloak_version fixture
 
  -- Dirk Wiesenthal <wiesenthal@univention.de>  Thu, 14 Nov 2024 12:13:11 +0100
 
@@ -471,13 +471,13 @@ ucs-test (12.0.203) unstable; urgency=medium
 
 ucs-test (12.0.202) unstable; urgency=medium
 
-  * Issue univention/ucs#2440: Cherry-pick locust changes from 5.0
+  * Issue univention/dev/ucs#2440: Cherry-pick locust changes from 5.0
 
  -- Felix Botner <botner@univention.de>  Thu, 14 Nov 2024 11:17:12 +0100
 
 ucs-test (12.0.201) unstable; urgency=medium
 
-  * Issue univention/ucs#2440: Cherry-pick locust changes from 5.0
+  * Issue univention/dev/ucs#2440: Cherry-pick locust changes from 5.0
 
  -- Dirk Wiesenthal <wiesenthal@univention.de>  Wed, 13 Nov 2024 17:06:59 +0100
 
@@ -489,7 +489,7 @@ ucs-test (12.0.200) unstable; urgency=medium
 
 ucs-test (12.0.199) unstable; urgency=medium
 
-  * Issue univention/ucs#2488: The CLI ucs-test now handles tags mentioned
+  * Issue univention/dev/ucs#2488: The CLI ucs-test now handles tags mentioned
     multiple times in `-g`, `-p` or `-r` so that the last occurrence of a tag
     "wins"
 
@@ -503,7 +503,7 @@ ucs-test (12.0.198) unstable; urgency=medium
 
 ucs-test (12.0.197) unstable; urgency=medium
 
-  * Issue univention/ucs#2338: Fix shadow tests for openstack
+  * Issue univention/dev/ucs#2338: Fix shadow tests for openstack
 
  -- Julia Bremer <bremer@univention.de>  Tue, 29 Oct 2024 13:45:34 +0100
 
@@ -527,7 +527,7 @@ ucs-test (12.0.194) unstable; urgency=medium
 
 ucs-test (12.0.193) unstable; urgency=medium
 
-  * Issue univention/ucs#2472: ignore example link in 18_check_app_links.py
+  * Issue univention/dev/ucs#2472: ignore example link in 18_check_app_links.py
     for admin-dashboard app
 
  -- Felix Botner <botner@univention.de>  Tue, 22 Oct 2024 11:57:17 +0200
@@ -596,7 +596,7 @@ ucs-test (12.0.182) unstable; urgency=medium
 
 ucs-test (12.0.181) unstable; urgency=medium
 
-  * Issue univention/ucs#2375: wait for S4 connector to be inactive
+  * Issue univention/dev/ucs#2375: wait for S4 connector to be inactive
 
  -- Felix Botner <botner@univention.de>  Mon, 30 Sep 2024 13:16:00 +0200
 
@@ -614,7 +614,7 @@ ucs-test (12.0.179) unstable; urgency=medium
 
 ucs-test (12.0.178) unstable; urgency=medium
 
-  * Issue univention/ucs#2388: make sure we are keycloak with is_keycloak
+  * Issue univention/dev/ucs#2388: make sure we are keycloak with is_keycloak
 
  -- Felix Botner <botner@univention.de>  Wed, 18 Sep 2024 19:07:11 +0200
 
@@ -627,7 +627,7 @@ ucs-test (12.0.177) unstable; urgency=medium
 
 ucs-test (12.0.175) unstable; urgency=medium
 
-  * Issue univention/ucs#2412: fix locale string
+  * Issue univention/dev/ucs#2412: fix locale string
 
  -- Marius Meschter <marius.meschter@univention.de>  Tue, 10 Sep 2024 10:29:18 +0200
 
@@ -639,14 +639,14 @@ ucs-test (12.0.174) unstable; urgency=medium
 
 ucs-test (12.0.173) unstable; urgency=medium
 
-  * Issue univention/ucs#2412: set locale using the python locale module for
+  * Issue univention/dev/ucs#2412: set locale using the python locale module for
     browser tests
 
  -- Marius Meschter <marius.meschter@univention.de>  Mon, 09 Sep 2024 10:54:27 +0200
 
 ucs-test (12.0.172) unstable; urgency=medium
 
-  * Issue univention/ucs#2412: add portal_logout_url to portal navigate
+  * Issue univention/dev/ucs#2412: add portal_logout_url to portal navigate
     function
 
  -- Marius Meschter <marius.meschter@univention.de>  Mon, 09 Sep 2024 10:17:08 +0200
@@ -659,14 +659,14 @@ ucs-test (12.0.171) unstable; urgency=medium
 
 ucs-test (12.0.170) unstable; urgency=medium
 
-  * Issue univention/ucs#2388: delete deprecated test
+  * Issue univention/dev/ucs#2388: delete deprecated test
 
  -- Felix Botner <botner@univention.de>  Thu, 05 Sep 2024 11:23:29 +0200
 
 ucs-test (12.0.169) unstable; urgency=medium
 
   * Bug #57482: wait for login page in admin console tests
-  * Issue univention/ucs#2388: remove shadowMax test
+  * Issue univention/dev/ucs#2388: remove shadowMax test
 
  -- Felix Botner <botner@univention.de>  Tue, 03 Sep 2024 15:17:36 +0200
 
@@ -695,7 +695,7 @@ ucs-test (12.0.164) unstable; urgency=medium
 
 ucs-test (12.0.163) unstable; urgency=medium
 
-  * Issue univention/ucs#2388: keycloak tests for 5.2
+  * Issue univention/dev/ucs#2388: keycloak tests for 5.2
 
  -- Felix Botner <botner@univention.de>  Tue, 03 Sep 2024 10:53:38 +0200
 
@@ -713,19 +713,19 @@ ucs-test (12.0.161) unstable; urgency=medium
 
 ucs-test (12.0.160) unstable; urgency=medium
 
-  * Issue univention/ucs#2388: keycloak tests for 5.2
+  * Issue univention/dev/ucs#2388: keycloak tests for 5.2
 
  -- Felix Botner <botner@univention.de>  Mon, 02 Sep 2024 18:32:59 +0200
 
 ucs-test (12.0.159) unstable; urgency=medium
 
-  * Issue univention/ucs#2375: Increase timeouts for openstack
+  * Issue univention/dev/ucs#2375: Increase timeouts for openstack
 
  -- Felix Botner <botner@univention.de>  Mon, 02 Sep 2024 14:18:14 +0200
 
 ucs-test (12.0.152) unstable; urgency=medium
 
-  * Issue univention/ucs#2412: Update tests for 5.2
+  * Issue univention/dev/ucs#2412: Update tests for 5.2
 
  -- Julia Bremer <bremer@univention.de>  Fri, 30 Aug 2024 13:45:09 +0200
 
@@ -737,7 +737,7 @@ ucs-test (12.0.148) unstable; urgency=medium
 
 ucs-test (12.0.147) unstable; urgency=medium
 
-  * univention/ucs#2338: skip check_release_signature if local repo is used
+  * univention/dev/ucs#2338: skip check_release_signature if local repo is used
 
  -- Felix Botner <botner@univention.de>  Tue, 27 Aug 2024 20:16:10 +0200
 
@@ -793,7 +793,7 @@ ucs-test (12.0.139) unstable; urgency=medium
 
 ucs-test (12.0.137) unstable; urgency=medium
 
-  * Issue univention/ucs#2338: longer timeout in browser tests
+  * Issue univention/dev/ucs#2338: longer timeout in browser tests
 
  -- Felix Botner <botner@univention.de>  Mon, 12 Aug 2024 10:59:36 +0200
 
@@ -807,13 +807,13 @@ ucs-test (12.0.136) unstable; urgency=medium
 
 ucs-test (12.0.135) unstable; urgency=medium
 
-  * Issue univention/ucs#2357: support UMC OIDC in keycloak tests
+  * Issue univention/dev/ucs#2357: support UMC OIDC in keycloak tests
 
  -- Felix Botner <botner@univention.de>  Fri, 09 Aug 2024 10:52:32 +0200
 
 ucs-test (12.0.134) unstable; urgency=medium
 
-  * Issue univention/ucs#2357: support UMC OIDC in keycloak tests
+  * Issue univention/dev/ucs#2357: support UMC OIDC in keycloak tests
 
  -- Felix Botner <botner@univention.de>  Fri, 09 Aug 2024 10:01:59 +0200
 
@@ -862,7 +862,7 @@ ucs-test (12.0.126) unstable; urgency=medium
 
 ucs-test (12.0.125) unstable; urgency=medium
 
-  * Issue univention/ucs#2279: Fix adconnector and ad member tests
+  * Issue univention/dev/ucs#2279: Fix adconnector and ad member tests
 
  -- Julia Bremer <bremer@univention.de>  Mon, 29 Jul 2024 09:04:56 +0200
 
@@ -953,7 +953,7 @@ ucs-test (12.0.111) unstable; urgency=medium
 
 ucs-test (12.0.110) unstable; urgency=medium
 
-  *Issue univention/ucs#2285: Fix browser tests for admember mode
+  *Issue univention/dev/ucs#2285: Fix browser tests for admember mode
 
  -- Julia Bremer <bremer@univention.de>  Fri, 21 Jun 2024 17:43:55 +0200
 
@@ -992,7 +992,7 @@ ucs-test (12.0.104) unstable; urgency=medium
 
 ucs-test (12.0.103) unstable; urgency=medium
 
-  * Issue univention/ucs#2285: Use admember domain admin password in tests
+  * Issue univention/dev/ucs#2285: Use admember domain admin password in tests
 
  -- Julia Bremer <bremer@univention.de>  Thu, 13 Jun 2024 17:12:29 +0200
 
@@ -1094,7 +1094,7 @@ ucs-test (12.0.87) unstable; urgency=low
 
 ucs-test (12.0.86) unstable; urgency=medium
 
-  * Issue univention/ucs#2279: Fix ad connector tests
+  * Issue univention/dev/ucs#2279: Fix ad connector tests
 
  -- Julia Bremer <bremer@univention.de>  Tue, 21 May 2024 17:14:02 +0200
 

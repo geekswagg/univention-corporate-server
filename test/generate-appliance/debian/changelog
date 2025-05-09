@@ -6,20 +6,20 @@ generate-appliance (8.0.6-1) UNRELEASED; urgency=medium
 
 generate-appliance (8.0.5) unstable; urgency=medium
 
-  * Issue univention/ucs#1711: add ubformat=streamOptimized for ec2
+  * Issue univention/dev/ucs#1711: add ubformat=streamOptimized for ec2
 
  -- Felix Botner <botner@univention.de>  Thu, 30 Jan 2025 09:43:52 +0100
 
 generate-appliance (8.0.4) unstable; urgency=medium
 
-  * Issue univention/ucs#1711: remove subformat=streamOptimized option from
+  * Issue univention/dev/ucs#1711: remove subformat=streamOptimized option from
     vmdk (not supported by wmware player)
 
  -- Felix Botner <botner@univention.de>  Fri, 17 Jan 2025 12:28:04 +0100
 
 generate-appliance (8.0.3) unstable; urgency=medium
 
-  * Issue univention/ucs#2309: ignore missing status info in response
+  * Issue univention/dev/ucs#2309: ignore missing status info in response
 
  -- Felix Botner <botner@univention.de>  Thu, 12 Dec 2024 10:00:45 +0100
 

@@ -12,7 +12,7 @@ univention-portal (6.0.15) unstable; urgency=medium
 
 univention-portal (6.0.14) unstable; urgency=medium
 
-  * Issue univention/ucs#2495: Update copyright
+  * Issue univention/dev/ucs#2495: Update copyright
 
  -- Dirk Wiesenthal <wiesenthal@univention.de>  Wed, 27 Nov 2024 17:23:49 +0100
 

@@ -6,7 +6,7 @@ univention-mail-postfix (16.0.8-1) UNRELEASED; urgency=medium
 
 univention-mail-postfix (16.0.7) unstable; urgency=medium
 
-  * univention/ucs#2330: Default to TLSv1.2
+  * univention/dev/ucs#2330: Default to TLSv1.2
 
  -- Marius Meschter <marius.meschter@univention.de>  Tue, 03 Dec 2024 10:31:37 +0100
 

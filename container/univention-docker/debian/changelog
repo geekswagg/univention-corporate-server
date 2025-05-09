@@ -6,7 +6,7 @@ univention-docker (7.0.6-1) UNRELEASED; urgency=medium
 
 univention-docker (7.0.5) unstable; urgency=medium
 
-  * Issue univention/ucs#2542: remove docker/daemon/default/map
+  * Issue univention/dev/ucs#2542: remove docker/daemon/default/map
 
  -- Felix Botner <botner@univention.de>  Thu, 12 Dec 2024 15:51:22 +0100
 
