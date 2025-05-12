@@ -1328,7 +1328,7 @@ postgres_update () {
 	DEBIAN_FRONTEND='noninteractive' univention-install --yes "univention-postgresql-$new"
 	ucr commit "/etc/postgresql/$new/main/"*
 	chown -R postgres:postgres "/var/lib/postgresql/$new"
-	[ ! -e /etc/postgresql/11/main/conf.d/ ] && mkdir /etc/postgresql/11/main/conf.d/ && chown postgres:postgres /etc/postgresql/11/main/conf.d/
+	[ ! -e /etc/postgresql/${new}/main/conf.d/ ] && mkdir /etc/postgresql/${new}/main/conf.d/ && chown postgres:postgres /etc/postgresql/${new}/main/conf.d/
 	systemctl unmask postgresql.service
 	systemctl restart postgresql.service
 	[ -f /usr/sbin/univention-pkgdb-scan ] && chmod +x "/usr/sbin/univention-pkgdb-scan"
