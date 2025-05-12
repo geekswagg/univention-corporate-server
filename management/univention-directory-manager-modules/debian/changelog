@@ -1,6 +1,14 @@
+univention-directory-manager-modules (17.0.35) unstable; urgency=medium
+
+  * Bug #57630: First only restrict namespace of hook extension modules,
+    as syntax extensions may currently depend on implicit imports.
+
+ -- Arvid Requate <requate@univention.de>  Mon, 12 May 2025 15:56:56 +0200
+
 univention-directory-manager-modules (17.0.34) unstable; urgency=medium
 
-  * Bug #57630: restrict namespace of hook and syntax extension modules
+  * Bug #57630: Restrict namespace of hook and syntax extension modules
+    during import.
 
  -- Arvid Requate <requate@univention.de>  Mon, 12 May 2025 10:34:37 +0200
 
