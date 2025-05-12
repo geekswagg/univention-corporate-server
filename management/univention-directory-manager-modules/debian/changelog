@@ -1,3 +1,9 @@
+univention-directory-manager-modules (17.0.34) unstable; urgency=medium
+
+  * Bug #57630: restrict namespace of hook and syntax extension modules
+
+ -- Arvid Requate <requate@univention.de>  Mon, 12 May 2025 10:34:37 +0200
+
 univention-directory-manager-modules (17.0.33) unstable; urgency=medium
 
   * Issue univention/dev/ucs#2781: Improvements for the experimental delegative

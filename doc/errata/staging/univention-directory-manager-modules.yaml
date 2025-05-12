@@ -1,0 +1,15 @@
+product: ucs
+release: "5.2"
+version: [1]
+scope: ucs_5.2-0-errata5.2-1
+src: univention-directory-manager-modules
+fix: 17.0.34
+desc: |
+ This update addresses the following issues:
+ * UDM hook and syntax extension modules could overwrite
+   members of the global python namespace, possibly leading
+   to trivial conflicts between imported modules.
+   The import of these modules has been adjusted to sandbox
+   their global namespace and selectiveley import only the
+   intended subclass types.
+bug: [57630]
