@@ -1319,8 +1319,8 @@ postgres_update () {
 	systemctl stop postgresql.service
 	rm -rf "/etc/postgresql/$new"
 	apt-get install -y --reinstall "postgresql-$new"
-	ucr set postgres11/autostart='yes'
-	systemctl unmask postgresql@11-main.service
+	ucr set postgres${new}/autostart='yes'
+	systemctl unmask postgresql@${new}-main.service
 	pg_dropcluster "$new" main --stop
 	systemctl start postgresql.service
 	[ -e "/var/lib/postgresql/$new/main" ] && mv "/var/lib/postgresql/$new/main" "/var/lib/postgresql/$new/main.old"
@@ -1895,6 +1895,28 @@ openldap_bdb_to_mdb () {
 	fi
 }
 
+migrate_postgresql_11_to_15 () {
+  if dpkg -l univention-postgresql-11 | grep ^ii; then
+    [ -f /usr/sbin/univention-pkgdb-scan ] && chmod -x /usr/sbin/univention-pkgdb-scan
+    service postgresql stop
+    rm -rf /etc/postgresql/15
+    apt-get install --reinstall postgresql-15
+    ucr set postgres15/autostart='yes'
+    systemctl unmask postgresql@15-main.service
+    pg_dropcluster 15 main --stop
+    service postgresql start
+    [ -e /var/lib/postgresql/15/main ] && mv /var/lib/postgresql/15/main /var/lib/postgresql/15/main.old
+    pg_upgradecluster 11 main
+    univention-install --yes univention-postgresql-15
+    ucr commit /etc/postgresql/15/main/*
+    chown -R postgres:postgres /var/lib/postgresql/15
+    [ ! -e /etc/postgresql/15/main/conf.d/ ] && mkdir /etc/postgresql/15/main/conf.d/ && chown postgres:postgres /etc/postgresql/15/main/conf.d/
+    service postgresql restart
+    [ -f /usr/sbin/univention-pkgdb-scan ] && chmod +x /usr/sbin/univention-pkgdb-scan
+    else
+    echo "PostgreSQL 11 not installed. Nothing to migrate"
+  fi
+}
 ################################################################################
 # performance measurement to syslog
 #
