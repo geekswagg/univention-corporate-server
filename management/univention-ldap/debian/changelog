@@ -1,3 +1,10 @@
+univention-ldap (18.2.4) unstable; urgency=medium
+
+  * Bug #58356: implement container specific default group settings with
+    hierarchical lookup
+
+ -- Florian Best <best@univention.de>  Mon, 23 Jun 2025 19:53:16 +0200
+
 univention-ldap (18.2.3) unstable; urgency=medium
 
   * Bug #58318: Activate slapo-unique on the primary (only)

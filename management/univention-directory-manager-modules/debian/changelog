@@ -1,3 +1,10 @@
+univention-directory-manager-modules (17.2.7) unstable; urgency=medium
+
+  * Bug #58356: implement container specific default group settings with
+    hierarchical lookup
+
+ -- Florian Best <best@univention.de>  Mon, 23 Jun 2025 19:53:05 +0200
+
 univention-directory-manager-modules (17.2.6) unstable; urgency=medium
 
   * Bug #58318: Re-add UCRV directory/manager/object-identifier/autogeneration
