@@ -1,3 +1,10 @@
+ucs-test (12.2.10) unstable; urgency=medium
+
+  * Bug #58356: implement container specific default group settings with
+    hierarchical lookup
+
+ -- Florian Best <best@univention.de>  Tue, 24 Jun 2025 16:21:56 +0200
+
 ucs-test (12.2.9) unstable; urgency=medium
 
   * Bug #53538: fix passing LDAP base in `uldap.access()`
