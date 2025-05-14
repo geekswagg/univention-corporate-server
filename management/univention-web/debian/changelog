@@ -1,3 +1,9 @@
+univention-web (6.0.10) unstable; urgency=medium
+
+  * Bug #58279: Fix html escaping of UCR keys in UMC syntax check popup
+
+ -- Arvid Requate <requate@univention.de>  Fri, 16 May 2025 15:45:19 +0200
+
 univention-web (6.0.9-4) unstable; urgency=medium
 
   * Bug #49001: Correctly encode container names in tree view

@@ -1,5 +1,6 @@
-univention-management-console-module-ucr (11.0.4-1) UNRELEASED; urgency=medium
+univention-management-console-module-ucr (11.1.1) unstable; urgency=medium
 
+  * Bug #58279: Fix html escaping of UCR keys injected into base.conf
   * Bug #58015 UCS 5.2-1 version bump
 
  -- Christian Castens <castens@univention.de>  Mon, 03 Mar 2025 10:45:31 +0100

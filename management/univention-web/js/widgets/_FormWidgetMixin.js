@@ -33,8 +33,9 @@
 
 define([
 	"dojo/_base/declare",
-	"dojo/dom-class"
-], function(declare, domClass) {
+	"dojo/dom-class",
+	"dojox/html/entities"
+], function(declare, domClass, entities) {
 	return declare("umc.widgets._FormWidgetMixin", null, {
 		// by default, set required to 'false'
 		required: false,
@@ -118,7 +119,7 @@ define([
 				// force invalid state
 				this.set('valid', false);
 				this.set('state', 'Error');
-				this.set('invalidMessage', message);
+				this.set('invalidMessage', entities.encode(message));
 				this._maskValidSubsetError = false;
 			}
 			return true;

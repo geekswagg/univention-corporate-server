@@ -433,7 +433,7 @@ define([
 
 		_keyFormatter: function(label, rowIndex) {
 			var widget = new Text({
-				content: label
+				content: entities.encode(label)
 			});
 			this.own(widget);
 
