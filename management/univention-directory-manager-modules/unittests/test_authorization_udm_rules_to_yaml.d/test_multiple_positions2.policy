@@ -1,0 +1,13 @@
+access by role="udm:default-roles:role" context="udm:contexts:position"
+
+  to objecttype="container/dc" position.base="ldap_base"
+    grant actions="search,read"
+    grant properties="*" permission="read"
+
+  to objecttype="container/dc" position.base="{context}"
+    grant actions="search,read,create,modify"
+    grant properties="*" permission="write"
+
+  to objecttype="container/dc" position.base="cn=internal"
+    grant actions="search,read"
+    grant properties="*" permission="read"

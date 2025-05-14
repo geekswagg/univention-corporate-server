@@ -1,0 +1,185 @@
+#!/usr/bin/python3
+#
+# SPDX-FileCopyrightText: 2025 Univention GmbH
+# SPDX-License-Identifier: AGPL-3.0-only
+
+import sys
+from unittest.mock import MagicMock, patch
+
+import pytest
+
+
+sys.modules['univention.config_registry'] = MagicMock()
+sys.modules['univention.logging'] = MagicMock()
+sys.modules['univention.admin._ucr'] = MagicMock()
+sys.modules['univention.license'] = MagicMock()
+sys.modules['univention.uldap'] = MagicMock()
+
+sys.modules['univention.admin.uldap'] = MagicMock()
+sys.modules['univention.admin.license'] = MagicMock()
+sys.modules['univention.admin.localization'] = MagicMock()
+sys.modules['univention.admin.hook'] = MagicMock()
+sys.modules['univention.admin.mapping'] = MagicMock()
+sys.modules['univention.admin.modules'] = MagicMock()
+sys.modules['univention.admin.objects'] = MagicMock()
+sys.modules['univention.admin.syntax'] = MagicMock()
+sys.modules['univention.admin.handlers'] = MagicMock()
+
+sys.modules['requests'] = MagicMock()
+
+
+from univention.authorization.authorization import LocalGuardianAuthorizationClient  # noqa: E402
+
+
+@pytest.mark.parametrize(
+    'targeted_permissions_to_check, actor_has_permissions', [
+        (['udm:users-user:create'], True),
+        (['udm2:users-user:create'], False),
+        (['udm:groups-group:create'], False),
+        (['udm:users-user:create', 'udm:users-user:modify'], True),
+        (['udm:users-user:create', 'udm:users-user:foobar'], False),
+    ],
+)
+def test_check_permissions(targeted_permissions_to_check, actor_has_permissions):
+    actor = {
+        'attributes': {'dn': 'uid=ou1admin,cn=users,dc=ucs,dc=test'},
+        'id': 'uid=ou1admin,cn=users,dc=ucs,dc=test',
+        'roles': {'udm:default-roles:organizational-unit-admin&udm:contexts:ou=ou=ou1'},
+    }
+    targets = [{
+        'new_target': {
+            'attributes': {
+                'dn': 'uid=test7,ou=ou1,dc=ucs,dc=test',
+                'objectType': 'users/user',
+                'position': 'dc=ucs,dc=test',
+            },
+            'id': 'uid=test7,ou=ou1,dc=ucs,dc=test',
+        },
+        'old_target': {'id': '', 'attributes': {}, 'roles': []},
+    }]
+    extra_request_data = {'ldap_base': 'dc=ucs,dc=test'}
+    caps = [{
+        'conditions': [
+            ('udm:conditions:target_object_type_equals', {'objectType': 'users/user'}),
+            ('udm:conditions:target_position_from_context', {'context': 'udm:contexts:ou', 'scope': 'subtree'}),
+        ],
+        'name': 'organizational-unit-admin-capability-organizational-unit-admin',
+        'permissions': [
+            'udm:users-user:create',
+            'udm:users-user:modify',
+            'udm:users-user:read',
+            'udm:users-user:rename',
+            'udm:users-user:search',
+            'udm:users-user:write-property-lastname',
+            'udm:users-user:none-property-guardianroles',
+            'udm:users-user:write-property-*',
+        ],
+        'relation': all,
+        'role': 'udm:default-roles:organizational-unit-admin',
+    }]
+    engine = LocalGuardianAuthorizationClient()
+    with patch.object(LocalGuardianAuthorizationClient, '_get_capabilities', return_value=caps):
+        permissions = engine.check_permissions(actor, targets, [], [], extra_request_data, targeted_permissions_to_check)
+        assert permissions['permissions_check_results'][0]['actor_has_permissions'] == actor_has_permissions, permissions
+
+
+def test_get_permissions():
+    actor = {
+        'attributes': {'dn': 'uid=ou1admin,cn=users,dc=ucs,dc=test'},
+        'id': 'uid=ou1admin,cn=users,dc=ucs,dc=test',
+        'roles': {'udm:default-roles:organizational-unit-admin&udm:contexts:ou=ou=ou1'},
+    }
+    targets = [{
+        'new_target': {
+            'attributes': {
+                'dn': 'uid=test7,ou=ou1,dc=ucs,dc=test',
+                'objectType': 'users/user',
+                'position': 'dc=ucs,dc=test',
+            },
+            'id': 'uid=test7,ou=ou1,dc=ucs,dc=test',
+        },
+        'old_target': {'id': ''},
+    }]
+    extra_request_data = {'ldap_base': 'dc=ucs,dc=test'}
+    caps = [{
+        'conditions': [
+            ('udm:conditions:target_object_type_equals', {'objectType': 'users/user'}),
+            ('udm:conditions:target_position_in', {'position': 'dc=ucs,dc=test', 'scope': 'subtree'}),
+        ],
+        'name': 'organizational-unit-admin-capability-organizational-unit-admin',
+        'permissions': [
+            'udm:users-user:create',
+            'udm:users-user:modify',
+            'udm:users-user:write-property-firstname',
+            'udm:users-user:none-property-guardianroles',
+            'udm:users-user:write-property-*',
+        ],
+        'relation': all,
+        'role': 'udm:default-roles:organizational-unit-admin',
+    }]
+    engine = LocalGuardianAuthorizationClient()
+    with patch.object(LocalGuardianAuthorizationClient, '_get_capabilities', return_value=caps):
+        general_permissions, target_permissions = engine.get_permissions(
+            actor,
+            targets,
+            [],
+            [],
+            extra_request_data,
+            include_general_permissions=True,
+        )
+        assert general_permissions == set()
+        assert target_permissions[0]['permissions'] == {
+            'udm:users-user:modify',
+            'udm:users-user:none-property-guardianroles',
+            'udm:users-user:write-property-*',
+            'udm:users-user:write-property-firstname',
+            'udm:users-user:create',
+        }
+
+
+def test_get_and_check_permissions():
+    actor = {
+        'attributes': {'dn': 'uid=ou1admin,cn=users,dc=ucs,dc=test'},
+        'id': 'uid=ou1admin,cn=users,dc=ucs,dc=test',
+        'roles': {'udm:default-roles:organizational-unit-admin&udm:contexts:ou=ou=ou1'},
+    }
+    targets = [{
+        'new_target': {
+            'attributes': {
+                'dn': 'uid=ou1admin,cn=users,dc=ucs,dc=test',
+                'objectType': 'users/user',
+                'position': 'cn=users,dc=ucs,dc=test',
+            },
+            'id': 'uid=ou1admin,cn=users,dc=ucs,dc=test',
+            'roles': [],
+        },
+        'old_target': {'id': ''},
+    }]
+    extra_request_data = {'ldap_base': 'dc=ucs,dc=test'}
+    caps = [{
+        'conditions': [
+            ('udm:conditions:target_object_type_equals', {'objectType': 'users/user'}),
+            ('udm:conditions:target_position_in', {'position': 'cn=users,dc=ucs,dc=test', 'scope': 'base'}),
+            ('guardian:builtin:target_is_self', {}),
+        ],
+        'name': 'organizational-unit-admin-capability-organizational-unit-admin',
+        'permissions': ['udm:users-user:modify'],
+        'relation': all,
+        'role': 'udm:default-roles:organizational-unit-admin',
+    }]
+    engine = LocalGuardianAuthorizationClient()
+    general_permissions_to_check = ['udm:users-user:modify']
+    targeted_permissions_to_check = ['udm:users-user:modify']
+    with patch.object(LocalGuardianAuthorizationClient, '_get_capabilities', return_value=caps):
+        permissions = engine.get_and_check_permissions(
+            actor,
+            targets,
+            [],
+            [],
+            extra_request_data,
+            targeted_permissions_to_check,
+            general_permissions_to_check,
+        )
+        assert permissions['permissions_check_results'][0]['actor_has_permissions']
+        assert not permissions['actor_has_all_general_permissions']
+        assert permissions['target_permissions'][0]['permissions'] == {'udm:users-user:modify'}

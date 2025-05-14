@@ -1,0 +1,17 @@
+access by role="udm:default-roles:role"
+
+  to objecttype="container/dc" position.base="ldap_base"
+    grant actions="search,read"
+    grant properties="*" permission="read"
+
+access by role="udm:default-roles:role"
+
+  to objecttype="con/dc" position.one="cn=bla,ldap_base"
+    grant actions="search,read"
+    grant properties="*" permission="read"
+
+access by role="udm:default-roles:role"
+
+  to objecttype="con/dc" position.subtree="ou=bla,ldap_base"
+    grant actions="search,read"
+    grant properties="*" permission="read"

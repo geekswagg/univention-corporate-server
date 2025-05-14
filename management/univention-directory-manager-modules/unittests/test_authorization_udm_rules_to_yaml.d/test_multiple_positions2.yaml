@@ -1,0 +1,75 @@
+capabilities:
+  udm:container/dc:
+    role:
+      conditions:
+        AND:
+        - object-type-is-container-dc
+        - position-1431802d
+      displayname: ''
+      grants-permissions:
+      - container-dc-role-all
+    role-1:
+      conditions:
+        AND:
+        - object-type-is-container-dc
+        - position-from-context-fd6d4e7a
+      displayname: ''
+      grants-permissions:
+      - container-dc-role-1-all
+    role-2:
+      conditions:
+        AND:
+        - object-type-is-container-dc
+        - position-b3fa80ec
+      displayname: ''
+      grants-permissions:
+      - container-dc-role-2-all
+capability-bundles:
+  udm:default-roles:
+    role:
+    - udm:container/dc:role
+    - udm:container/dc:role-1
+    - udm:container/dc:role-2
+conditions:
+  object-type-is-container-dc:
+    udm:conditions:target_object_type_equals:
+      objectType: container/dc
+  position-1431802d:
+    udm:conditions:target_position_in:
+      position: ldap_base
+      scope: base
+  position-b3fa80ec:
+    udm:conditions:target_position_in:
+      position: cn=internal
+      scope: base
+  position-from-context-fd6d4e7a:
+    udm:conditions:target_position_from_context:
+      context: udm:contexts:position
+      scope: base
+permission-sets:
+  container-dc-role-1-all:
+  - udm:container/dc:create
+  - udm:container/dc:modify
+  - udm:container/dc:read
+  - udm:container/dc:read-property-*
+  - udm:container/dc:search
+  - udm:container/dc:search-property-*
+  - udm:container/dc:write-property-*
+  container-dc-role-2-all:
+  - udm:container/dc:read
+  - udm:container/dc:read-property-*
+  - udm:container/dc:search
+  - udm:container/dc:search-property-*
+  container-dc-role-all:
+  - udm:container/dc:read
+  - udm:container/dc:read-property-*
+  - udm:container/dc:search
+  - udm:container/dc:search-property-*
+role-capability-mapping:
+  udm:default-roles:
+    role:
+      capabilities: []
+      capability-bundles:
+      - udm:default-roles:role
+      displayname: ''
+      permissions: []
