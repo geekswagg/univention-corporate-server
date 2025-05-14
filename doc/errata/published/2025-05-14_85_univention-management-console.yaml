@@ -8,3 +8,6 @@ desc: |
  This update addresses the following issues:
  * Remove unnecessary information from the meta.json
 bug: [54257]
+erratum: 85
+announced: 2025-05-14
+support: core
