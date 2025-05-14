@@ -928,23 +928,22 @@ class _OpenAPIBase:
                 request_model_patch['superordinate'] = {
                     "$ref": '#/components/schemas/superordinate',
                 }
-            if set(module.operations) & {'add', 'edit', 'move', 'move_subtree'}:
-                openapi_schemas[f'{model_name}.request-patch'] = {
-                    "type": "object",
-                    "properties": request_model_patch,
-                }
-                openapi_schemas[f'{model_name}.request'] = {
-                    "allOf": [{
-                        '$ref': f'#/components/schemas/{_openapi_quote(model_name + ".request-patch")}',
-                    }, {
-                        'type': 'object',
-                        'properties': {
-                            "position": {
-                                "$ref": '#/components/schemas/position',
-                            },
+            openapi_schemas[f'{model_name}.request-patch'] = {
+                "type": "object",
+                "properties": request_model_patch,
+            }
+            openapi_schemas[f'{model_name}.request'] = {
+                "allOf": [{
+                    '$ref': f'#/components/schemas/{_openapi_quote(model_name + ".request-patch")}',
+                }, {
+                    'type': 'object',
+                    'properties': {
+                        "position": {
+                            "$ref": '#/components/schemas/position',
                         },
-                    }],
-                }
+                    },
+                }],
+            }
             openapi_schemas[f'{model_name}.response-mixin'] = {
                 "type": "object",
                 "properties": {

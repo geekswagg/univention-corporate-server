@@ -1,3 +1,9 @@
+univention-directory-manager-rest (12.1.2) unstable; urgency=medium
+
+  * Bug #58252: Revert openapi.json generation improvement because of test failures
+
+ -- Johannes Lohmer <lohmer@univention.de>  Wed, 14 May 2025 13:52:13 +0200
+
 univention-directory-manager-rest (12.1.1) unstable; urgency=medium
 
   * Bug #58252: Improved openapi.json generation
