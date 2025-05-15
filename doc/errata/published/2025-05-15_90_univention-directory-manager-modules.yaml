@@ -17,3 +17,6 @@ desc: |
    request, set the new UCR variable:
    `directory/manager/object-identifier/autogeneration=true`
 bug: [58252, 57630]
+erratum: 90
+announced: 2025-05-15
+support: core
