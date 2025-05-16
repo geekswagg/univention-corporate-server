@@ -1,3 +1,10 @@
+ucs-test (12.2.14) unstable; urgency=medium
+
+  * Bug #58432: move existing authorization tests into new test section
+    42_authorization
+
+ -- Florian Best <best@univention.de>  Tue, 01 Jul 2025 18:34:54 +0200
+
 ucs-test (12.2.13) unstable; urgency=medium
 
   * Issue univention/dev/internal/team-nubus#1038: Add changelog
