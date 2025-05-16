@@ -988,12 +988,7 @@ class UDM_Module:
                 stack.append(current_item['layout'])
 
         # only return properties that are in the layout
-        properties = []
-        for iprop in self.properties(ldap_dn):
-            if iprop['id'] in inLayout:
-                properties.append(iprop)
-
-        return properties
+        return [iprop for iprop in self.properties(ldap_dn) if iprop['id'] in inLayout]
 
     def properties(self, position_dn):
         """All properties of the UDM module"""
@@ -1199,8 +1194,15 @@ class UDM_Module:
                 dns = obj[key]
                 if not isinstance(dns, list | tuple):
                     dns = [dns]
-                for dn in dns:
-                    references.append({'module': 'udm', 'property': key, 'flavor': 'navigation', 'objectType': object_type, 'id': dn, 'label': '%s: %s: %s' % (key, object_type, dn), 'icon': 'udm-%s' % object_type.replace('/', '-')})
+                references.extend({
+                    'module': 'udm',
+                    'property': key,
+                    'flavor': 'navigation',
+                    'objectType': object_type,
+                    'id': dn,
+                    'label': '%s: %s: %s' % (key, object_type, dn),
+                    'icon': 'udm-%s' % object_type.replace('/', '-'),
+                } for dn in dns)
         return references + [dict(ref, property='__policies') for ref in self.get_policy_references(obj.dn)]
 
     @property
