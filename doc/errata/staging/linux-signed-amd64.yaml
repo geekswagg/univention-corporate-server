@@ -1,0 +1,18 @@
+product: ucs
+release: "5.2"
+version: [0, 1]
+scope: ucs_5.2-0-errata5.2-1
+src: linux-signed-amd64
+fix: 6.1.137+1
+desc: |
+ This update addresses the following issues:
+ * CVSS score 5.5 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H).
+   (CVE-2025-37797, CVE-2025-23144, CVE-2024-26739)
+ * CVSS score 4.4 (CVSS:3.1/AV:L/AC:L/PR:H/UI:N/S:U/C:N/I:N/A:H).
+   (CVE-2024-38541)
+bug: [58282]
+cve:
+- CVE-2025-23144
+- CVE-2025-37797
+- CVE-2024-38541
+- CVE-2024-26739
