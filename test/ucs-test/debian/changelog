@@ -1,3 +1,9 @@
+ucs-test (12.1.13) unstable; urgency=medium
+
+  * Issue univention/dev/ucs#2338: Make ldap_backup_test resistent to being run at midnight
+
+ -- Julia Bremer <bremer@univention.de>  Wed, 21 May 2025 08:57:47 +0200
+
 ucs-test (12.1.12) unstable; urgency=medium
 
   * Bug #58252: Add univentionObjectIdentifier tests
