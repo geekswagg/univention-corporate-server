@@ -201,3 +201,10 @@ Description[de]=Definiert den FQDN des Relying Party Eintrags für die UMC. Wenn
 Description[en]=Defines the fqdn of the relying party for UMC. If the variable is unset, the fqdn of the UCS system and all IP addresses are used.
 Type=str
 Categories=management-umc,oidc
+
+[umc/web/meta/hide-sensitive-data]
+Description[en]=Removes sensitive data from the file meta.json. This option is disabled by default. The following entries will be removed when enabled: fqdn
+Description[de]=Entfernt sensible Daten aus der Datei meta.json. Diese Option ist standardmäßig deaktiviert. Die folgenden Einträge werden bei Aktivierung entfernt: fqdn
+Type=bool
+Categories=management-umc
+Default=false

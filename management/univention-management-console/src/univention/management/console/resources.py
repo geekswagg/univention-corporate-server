@@ -843,6 +843,13 @@ class Meta(Resource):
         def _has_free_license():
             return ucr.get('license/base') in ('UCS Core Edition', 'Free for personal use edition')
 
+        def _get_fqdn():
+            try:
+                return f'{ucr["hostname"]}.{ucr["domainname"]}'
+            except KeyError as err:
+                CORE.error('Unset variable: %s', err)
+            return 'unknown'
+
         try:
             with open(self.META_JSON_PATH) as fd:
                 meta_data = json.load(fd)
@@ -856,6 +863,7 @@ class Meta(Resource):
 
         ucr.load()
         meta_data.update({
+            "fqdn": _get_fqdn(),
             "ucsVersion": _get_ucs_version(),
             "ucs_version": _get_ucs_version(),
             "has_system_uuid": _has_system_uuid(),

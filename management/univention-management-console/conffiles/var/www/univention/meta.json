@@ -170,15 +170,19 @@ def get_cookie_banner():
 
 
 data = {
-    "serveraddress": get_ec2_address(),
     "piwikDisabled": is_piwik_disabled(),
     "sessionTimeout": get_session_timeout(),
-    "fqdn": get_fqdn(),
     "has_certificates": has_certificates(),
     "login_links": get_login_links(),
     "login_texts": get_login_texts(),
     "cookieBanner": get_cookie_banner(),
 }
+
+if configRegistry.is_true('system/setup/boot/start'):
+    data['serveraddress'] = get_ec2_address()
+
+if configRegistry.is_false('umc/web/meta/hide-sensitive-data'):
+    data['fqdn'] = get_fqdn()
 
 
 def get_ucr_entry(ucrKey, key=None, defaultValue=None):
