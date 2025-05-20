@@ -125,7 +125,7 @@ class Server:
         # signal handers (after forking)
         signal.signal(signal.SIGTERM, partial(self.signal_handler_stop, server))
         signal.signal(signal.SIGINT, partial(self.signal_handler_stop, server))
-        signal.signal(signal.SIGHUP, self.signal_handler_reload)
+        signal.signal(signal.SIGHUP, partial(self.signal_handler_reload, application))
 
         init_request_id_logging(request_id_context)
 
@@ -168,8 +168,9 @@ class Server:
 
         io_loop.add_callback_from_signal(shutdown)
 
-    def signal_handler_reload(self, signal, frame):
+    def signal_handler_reload(self, application, signal, frame):
         log.debug('Reloading service.')
+        application.reload()
         if self.child_id is None:
             for pid in shared_memory.children.values():
                 self.safe_kill(pid, signal)

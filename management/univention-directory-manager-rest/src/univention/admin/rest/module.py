@@ -44,6 +44,7 @@ from tornado.concurrent import run_on_executor
 from tornado.web import Finish, HTTPError, RequestHandler
 
 import univention
+import univention.admin.authorization as udm_auth
 import univention.admin.modules as udm_modules
 import univention.admin.objects as udm_objects
 import univention.admin.types as udm_types
@@ -53,7 +54,8 @@ from univention.admin.rest.hal import HAL
 from univention.admin.rest.html_ui import HTML
 from univention.admin.rest.http_conditional import ConditionalResource, last_modified
 from univention.admin.rest.ldap_connection import (
-    get_machine_ldap_read_connection, get_user_ldap_read_connection, get_user_ldap_write_connection, reset_cache,
+    get_admin_ldap_write_connection, get_machine_ldap_read_connection, get_user_ldap_read_connection,
+    get_user_ldap_write_connection, reset_cache,
 )
 from univention.admin.rest.openapi import OpenAPIBase, RelationsBase, _OpenAPIBase
 from univention.admin.rest.sanitizer import (
@@ -175,6 +177,7 @@ class ResourceBase(SanitizerBase, HAL, HTML):
             if already_authenticated and not self.ldap_connection.whoami():  # the ldap connection is not bound anymore
                 reset_cache(self.ldap_connection)
                 self.ldap_connection, self.ldap_position = get_user_ldap_read_connection(auth_type, userdn, password)
+            self.ldap_connection = self._authz_ldap_connection(userdn, self.ldap_connection)
             if auth_type == 'Bearer':
                 userdn = self.ldap_connection.whoami()
                 username = '+'.join(explode_rdn(userdn, True))
@@ -196,13 +199,21 @@ class ResourceBase(SanitizerBase, HAL, HTML):
     @property
     def ldap_write_connection(self):
         auth_type, _username, userdn, password = shared_memory.authenticated[self.request.headers.get('Authorization')]
-        return get_user_ldap_write_connection(auth_type, userdn, password)[0]
+        conn = get_user_ldap_write_connection(auth_type, userdn, password)[0]
+        conn = self._authz_ldap_connection(userdn, conn)
+        return conn
+
+    def _authz_ldap_connection(self, userdn, conn):
+        non_authz_users = {value for key, value in ucr.items() if key.startswith('directory/manager/rest/delegative-administration/excluded-users/')} | {'cn=admin,%(ldap/base)s' % ucr}
+        if userdn in non_authz_users:
+            return conn
+        return udm_auth.Authorization.inject_ldap_connection(conn)
 
     def _auth_check_allowed_groups(self):
         if self.request.username in ('cn=admin',):
             return
         allowed_groups = [value for key, value in ucr.items() if key.startswith('directory/manager/rest/authorized-groups/')]
-        memberof = self.ldap_connection.getAttr(self.request.user_dn, 'memberOf')
+        memberof = self.ldap_connection.authz_connection.getAttr(self.request.user_dn, 'memberOf')
         if not set(_map_normalized_dn(memberof)) & set(_map_normalized_dn(allowed_groups)):
             raise HTTPError(403, 'Not in allowed groups.')
 
@@ -798,7 +809,7 @@ class ObjectLink(Resource):
 
     def get(self, dn):
         dn = unquote_dn(dn)
-        attrs = self.ldap_connection.get(dn)
+        attrs = self.ldap_connection.authz_connection.get(dn)  # FIXME: information disclosure!
         modules = udm_modules.objectType(None, self.ldap_connection, dn, attrs) or []
         if not modules:
             raise NotFound(None, dn)
@@ -823,7 +834,7 @@ class ObjectByUiid(ObjectLink):
 
     def get(self, uuid):
         try:
-            dn = self.ldap_connection.searchDn(filter_format('entryUUID=%s', [uuid]))[0]
+            dn = self.ldap_connection.authz_connection.searchDn(filter_format('entryUUID=%s', [uuid]))[0]  # FIXME: information disclosure!
         except IndexError:
             raise NotFound()
         return super().get(dn)
@@ -1723,7 +1734,7 @@ class Object(ConditionalResource, FormBase, _OpenAPIBase, Resource):
             module, obj = await self.pool_submit(self.get_module_object, object_type, dn)
         except NotFound:
             # FIXME: return HTTP 410 Gone for removed objects
-            # if self.ldap_connection.searchDn(filter_format('(&(reqDN=%s)(reqType=d))', [dn]), base='cn=translog'):
+            # if self.ldap_connection.authz_connection.searchDn(filter_format('(&(reqDN=%s)(reqType=d))', [dn]), base='cn=translog'):
             #     raise Gone(object_type, dn)
             raise
         if object_type not in ('users/self', 'users/passwd') and not univention.admin.modules.recognize(object_type, obj.dn, obj.oldattr):
@@ -1825,10 +1836,18 @@ class Object(ConditionalResource, FormBase, _OpenAPIBase, Resource):
                 if key in properties and obj.has_property(key) and obj.descriptions[key].lazy_loading_fn:
                     obj.descriptions[key].lazy_load(obj)
 
+            # be very cautious here! we need to strip out only the properties where read-access is denied.
+            # the later could will set the default values for all unset (due to read restrictions or unset-ness) properties
+            visible_properties = set(obj.descriptions)
+            if not add and obj.dn and obj.authz.enabled:
+                all_set_properties = set(obj.info)
+                obj.authz.filter_object_properties(obj)
+                visible_properties -= (all_set_properties - set(obj.info))
+
             if '*' not in properties:
                 values = {key: value for (key, value) in obj.info.items() if (key in properties) and obj.descriptions[key].show_in_lists}
             else:
-                values = {key: obj[key] for key in obj.descriptions if (add or obj.has_property(key)) and obj.descriptions[key].show_in_lists}
+                values = {key: obj[key] for key in obj.descriptions if key in visible_properties and (add or obj.has_property(key)) and obj.descriptions[key].show_in_lists}
 
             for passwd in module.password_properties:
                 if passwd in values:
@@ -2036,7 +2055,10 @@ class Object(ConditionalResource, FormBase, _OpenAPIBase, Resource):
             exists_msg = None
             error = None
             try:
-                return action(*args, **kwargs)
+                try:
+                    return action(*args, **kwargs)
+                except UDM_Error as udm_exc:
+                    raise udm_exc.exc
             except udm_errors.objectExists as exc:
                 exists_msg = f'dn: {exc.args[0]}'
                 error = exc
@@ -2356,7 +2378,7 @@ class UserPhoto(ConditionalResource, Resource):
             raise NotFound(object_type, dn)
 
         data = base64.b64decode(obj.info.get('jpegPhoto', '').encode('ASCII'))
-        modified = self.modified_from_timestamp(self.ldap_connection.getAttr(obj.dn, 'modifyTimestamp')[0].decode('utf-8'))
+        modified = self.modified_from_timestamp(self.ldap_connection.authz_connection.getAttr(obj.dn, 'modifyTimestamp')[0].decode('utf-8'))
         if modified:
             self.add_header('Last-Modified', last_modified(modified))
         self.set_header('Content-Type', 'image/jpeg')
@@ -3057,7 +3079,7 @@ univentionObjectType: settings/license
             # check license and write it to LDAP
             importer = LicenseImporter(fd)
             importer.check(ucr.get('ldap/base', ''))
-            importer.write(self.ldap_write_connection)
+            importer.write(self.ldap_write_connection.authz_connection)
         except ldap.LDAPError as exc:
             # LDAPError e.g. LDIF contained non existing attributes
             raise HTTPError(400, _('Importing the license failed: LDAP error: %s.') % exc.args[0].get('info'))
@@ -3108,6 +3130,9 @@ class Application(tornado.web.Application):
         object_type = '([A-Za-z0-9_-]+/[A-Za-z0-9_-]+)'
         policies_object_type = '(policies/[A-Za-z0-9_-]+)'
         dn = '((?:[^/]+%s.+%s)?(?:%s|%s))' % (self.multi_regex('='), self.multi_regex(','), self.multi_regex(ucr['ldap/base']), self.multi_regex('cn=internal'))
+
+        if ucr.is_true('directory/manager/rest/delegative-administration/enabled'):
+            udm_auth.Authorization.enable(lambda: get_admin_ldap_write_connection()[0])
 
         # FIXME: with that dn regex, it is not possible to have urls like (/udm/$dn/foo/$dn/) because ldap-base at the end matches the last dn
         # Note: the ldap base is part of the url to support "/" as part of the DN. otherwise we can use: '([^/]+(?:=|%3d|%3D)[^/]+)'
@@ -3162,3 +3187,7 @@ class Application(tornado.web.Application):
     def multi_regex(self, chars):
         # Bug in tornado: requests go against the raw url; https://github.com/tornadoweb/tornado/issues/2548, therefore we must match =, %3d, %3D
         return ''.join(f'(?:{re.escape(c)}|{re.escape(quote(c).lower())}|{re.escape(quote(c).upper())})' if c in '=,' else re.escape(c) for c in chars)
+
+    def reload(self):
+        ucr.load()
+        udm_auth.Authorization.clear_caches()
