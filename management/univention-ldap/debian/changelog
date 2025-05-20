@@ -1,8 +1,12 @@
-univention-ldap (18.0.14-1) UNRELEASED; urgency=medium
+univention-ldap (18.1.0) unstable; urgency=medium
 
+  [ Johannes Lohmer ]
+  * Bug #58310: Generate univentionObjectIdentifier values in the base.ldif UCR template
+
+  [ Christian Castens ]
   * Bug #58015 UCS 5.2-1 version bump
 
- -- Christian Castens <castens@univention.de>  Mon, 03 Mar 2025 10:45:34 +0100
+ -- Johannes Lohmer <lohmer@univention.de>  Wed, 21 May 2025 12:14:58 +0200
 
 univention-ldap (18.0.13) unstable; urgency=medium
 
