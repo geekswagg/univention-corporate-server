@@ -11,3 +11,6 @@ desc: |
 bug: [58298]
 cve:
 - CVE-2025-43859
+erratum: 100
+announced: 2025-05-21
+support: core
