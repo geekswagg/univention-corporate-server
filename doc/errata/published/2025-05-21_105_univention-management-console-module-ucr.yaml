@@ -9,3 +9,6 @@ desc: |
  * The UMC module did not properly escape HTML code forcefully injected
    from the server side in XSS attempts on UCR keys.
 bug: [58279]
+erratum: 105
+announced: 2025-05-21
+support: core
