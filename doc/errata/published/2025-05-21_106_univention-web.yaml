@@ -9,3 +9,6 @@ desc: |
  * A syntax check error message did not properly escape HTML code
    in XSS attempts on UCR keys.
 bug: [58279]
+erratum: 106
+announced: 2025-05-21
+support: core
