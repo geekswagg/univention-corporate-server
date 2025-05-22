@@ -1,8 +1,13 @@
-univention-management-console-module-udm (12.2.0) UNRELEASED; urgency=medium
+univention-management-console-module-udm (12.2.1) unstable; urgency=medium
 
+  [ Ivan Barbecho Delgado ]
   * Bug #58344 UCS 5.2-2 version bump
 
- -- Ivan Barbecho Delgado <ivan.delgado@univention.de>  Wed, 28 May 2025 16:49:48 +0200
+  [ Florian Best ]
+  * Bug #58356: implement container specific default group settings with
+    hierarchical lookup
+
+ -- Florian Best <best@univention.de>  Mon, 23 Jun 2025 19:53:23 +0200
 
 univention-management-console-module-udm (12.0.10) unstable; urgency=medium
 
