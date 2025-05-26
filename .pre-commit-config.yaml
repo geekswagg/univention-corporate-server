@@ -87,7 +87,7 @@ repos:
       - id: missing-executable-flag-for-python-file
       - id: missing-executable-flag-for-shell-file
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.28.0
+    rev: 0.33.0
     hooks:
       - id: check-gitlab-ci
       - id: check-jsonschema
