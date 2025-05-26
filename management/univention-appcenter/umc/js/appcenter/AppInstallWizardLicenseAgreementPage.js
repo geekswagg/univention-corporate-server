@@ -33,10 +33,11 @@
 
 define([
 	"dojo/_base/declare",
+	"dojox/html/entities",
 	"umc/widgets/Text",
 	"./AppText",
 	"umc/i18n!umc/modules/appcenter"
-], function(declare, Text, AppText, _) {
+], function(declare, entities, Text, AppText, _) {
 	return {
 		getPageConf: function(app) {
 			if (!app.licenseAgreement) {
@@ -55,7 +56,7 @@ define([
 					type: Text,
 					'class': 'appInstallDialog__readme',
 					name: `licenseAgreement_licenseAgreement_${app.id}`,
-					content: app.licenseAgreement
+					content: entities.encode(app.licenseAgreement)
 				}]
 			};
 		}

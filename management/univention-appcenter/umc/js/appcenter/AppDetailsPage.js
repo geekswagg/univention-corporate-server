@@ -45,6 +45,7 @@ define([
 	"dojo/store/Memory",
 	"dojo/store/Observable",
 	"dojox/html/entities",
+	"dompurify/purify",
 	"umc/app",
 	"umc/tools",
 	"umc/dialog",
@@ -62,7 +63,7 @@ define([
 	"umc/modules/appcenter/App",
 	"umc/modules/appcenter/ImageGallery",
 	"umc/i18n!umc/modules/appcenter"
-], function(declare, lang, kernel, array, when, ioQuery, topic, Deferred, domConstruct, domClass, Memory, Observable, entities, UMCApplication, tools, dialog, ContainerWidget, ProgressBar, Page, Text, Button, Grid, AppInfo, AppMoreInfo, Buy, Badges, Vote, App, ImageGallery, _) {
+], function(declare, lang, kernel, array, when, ioQuery, topic, Deferred, domConstruct, domClass, Memory, Observable, entities, purify, UMCApplication, tools, dialog, ContainerWidget, ProgressBar, Page, Text, Button, Grid, AppInfo, AppMoreInfo, Buy, Badges, Vote, App, ImageGallery, _) {
 
 	return declare("umc.modules.appcenter.AppDetailsPage", [ Page ], {
 		appLoadingDeferred: null,
@@ -462,7 +463,7 @@ define([
 			}
 			var descriptionContainer = new ContainerWidget({});
 			domClass.add(domConstruct.create('div', {
-				innerHTML: this.app.longDescription  // no HTML escape!
+				innerHTML: purify.sanitize(this.app.longDescription)
 			}, descriptionContainer.domNode));
 			parentContainer.addChild(descriptionContainer);
 
@@ -512,9 +513,9 @@ define([
 			}
 			var info = new AppInfo({
 				bgc: this.app.backgroundColor || "",
-				logo: '/univention/js/dijit/themes/umc/icons/scalable/' + this.app.logoName,
-				name: this.app.name,
-				description: this.app.description,
+				logo: '/univention/js/dijit/themes/umc/icons/scalable/' + encodeURIcomponent(this.app.logoName.replace(/(\.\.|\/|\\)/g, '')),
+				name: entities.encode(this.app.name),
+				description: purify.sanitize(this.app.description),
 				buttonLabel: buttonLabel,
 				callback: callback,
 				'class': 'umcAppDetailsPage__content__callToAction'
@@ -603,13 +604,13 @@ define([
 			domConstruct.create('span', {
 				'class': 'appDetailsSidebarText',
 				innerHTML: _('Buy %(appName)s to install version %(candidateVersion)s.',
-						{appName: this.app.name, candidateVersion: this.app.candidateVersion || this.app.version})
+						{appName: entities.encode(this.app.name), candidateVersion: entities.encode(this.app.candidateVersion) || entities.encode(this.app.version)})
 			}, parentContainer.domNode);
 
 			if (this.app.candidateInstallPermissionMessage) {
 				domConstruct.create('span', {
 					'class': 'appDetailsSidebarText',
-					innerHTML: this.app.candidateInstallPermissionMessage
+					innerHTML: entities.encode(this.app.candidateInstallPermissionMessage)
 				}, parentContainer.domNode);
 			}
 		},
@@ -706,7 +707,7 @@ define([
 					}];
 				}
 				var content = '<div style="max-height:250px; overflow:auto;">' +
-						readme +  // no HTML escape!
+						purify.sanitize(readme) +
 					'</div>';
 				dialog.confirm(content, buttons, title).then(function(response) {
 					if (response == 'yes') {
@@ -783,14 +784,14 @@ define([
 			if (license) {
 				license = entities.encode(license);
 				if (licenseAgreement) {
-					license += lang.replace(' (<a href="javascript:void(0)" onclick="require(\'dijit/registry\').byId(\'{id}\').showLicenseAgreement();">' + _('Read license agreement') + '</a>)', {
-						id: this.id
+					license += lang.replace(' (<a href="javascript:void(0)" onclick="require(\'dijit/registry\').byId({id}).showLicenseAgreement();">' + _('Read license agreement') + '</a>)', {
+						id: entities.encode(JSON.stringify(this.id))
 					});
 				}
 			} else {
 				if (licenseAgreement) {
-					license = lang.replace('<a href="javascript:void(0)" onclick="require(\'dijit/registry\').byId(\'{id}\').showLicenseAgreement();">' + _('Read license agreement') + '</a>', {
-						id: this.id
+					license = lang.replace('<a href="javascript:void(0)" onclick="require(\'dijit/registry\').byId({id}).showLicenseAgreement();">' + _('Read license agreement') + '</a>', {
+						id: entities.encode(JSON.stringify(this.id))
 					});
 				} else if (license === null) {
 					license = _('The App does not provide any information about the license. Please contact the App provider for further details.');

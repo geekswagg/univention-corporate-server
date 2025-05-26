@@ -39,13 +39,15 @@ define([
 	"dojo/Deferred",
 	"dojo/dom-construct",
 	"dojo/regexp",
+	"dojox/html/entities",
+	"dompurify/purify",
 	"umc/tools",
 	"umc/widgets/CheckBox",
 	"umc/widgets/ContainerWidget",
 	"umc/widgets/Form",
 	"umc/widgets/SearchBox",
 	"umc/i18n!umc/modules/appcenter"
-], function(declare, lang, array, has, Deferred, domConstruct, regexp, tools, CheckBox, ContainerWidget, Form, SearchBox, _) {
+], function(declare, lang, array, has, Deferred, domConstruct, regexp, entities, purify, tools, CheckBox, ContainerWidget, Form, SearchBox, _) {
 	return declare("umc.modules.appcenter.AppLiveSearchSidebar", [ContainerWidget], {
 		// summary:
 		//		Offers a side bar for live searching, a set of categories can be defined.
@@ -164,7 +166,7 @@ define([
 			formContainer = this._filterForms[id] = new ContainerWidget({'class': 'appLiveSearchSidebarElement'});
 			if (title) {
 				domConstruct.create('span', {
-					innerHTML: title,
+					innerHTML: entities.encode(title),
 					'class': 'mainHeader'
 				}, formContainer.domNode);
 			}
@@ -175,7 +177,7 @@ define([
 			array.forEach(choices, lang.hitch(this, function(choice) {
 				var label = choice.description;
 				if (!title && choices.length === 1) {
-					label = '<span class="searchFilterSingle">' + choice.description + '</span>';
+					label = '<span class="searchFilterSingle">' + purify.sanitize(choice.description) + '</span>';
 				}
 				widgets.push({
 					type: CheckBox,

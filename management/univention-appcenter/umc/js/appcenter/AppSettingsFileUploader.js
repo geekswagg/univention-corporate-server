@@ -85,7 +85,7 @@ define([
 					lengthContent += _('After saving, the file will be deleted.');
 				}
 			}
-			this._content.set('content', _('File will be uploaded to %s.', '<em>' + this.fileName + '</em>') + ' ' + lengthContent);
+			this._content.set('content', _('File will be uploaded to %s.', '<em>' + entities.encode(this.fileName) + '</em>') + ' ' + lengthContent);
 		}
 	});
 });

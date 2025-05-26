@@ -37,13 +37,18 @@ define([
 	"dojo/_base/event",
 	"dijit/Tooltip",
 	"dojo/on",
+	"dojox/html/entities",
 	"dijit/_WidgetBase",
 	"dijit/_TemplatedMixin",
 	"dijit/_WidgetsInTemplateMixin",
 	"umc/widgets/Icon"
-], function(declare, kernel, dojoEvent, Tooltip, on, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin) {
+], function(declare, kernel, dojoEvent, Tooltip, on, entities, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin) {
 	return declare("umc.modules.appcenter.Badge", [_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
 		baseClass: 'umcAppBadge',
+		postMixInProperties: function() {
+			this.inherited(arguments);
+			this.name = entities.encode(this.name);
+		},
 		templateString: `
 			<div class="umcAppRatingHelp umcAppRatingIcon umcAppRating\${name}" data-dojo-attach-event="onmouseenter:_onMouseEnter">
 				<svg data-dojo-type="umc/widgets/Icon" data-dojo-props="iconName: 'star'"></svg>
@@ -51,7 +56,7 @@ define([
 		`,
 		_onMouseEnter: function(evt) {
 			var node = evt.target;
-			Tooltip.show(this.description, node);  // TODO: html encode?
+			Tooltip.show(entities.encode(this.description), node);
 			if (evt) {
 				dojoEvent.stop(evt);
 			}

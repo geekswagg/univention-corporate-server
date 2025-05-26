@@ -33,10 +33,11 @@
 
 define([
 	"dojo/_base/declare",
+	"dompurify/purify",
 	"umc/widgets/Text",
 	"./AppText",
 	"umc/i18n!umc/modules/appcenter"
-], function(declare, Text, AppText, _) {
+], function(declare, purify, Text, AppText, _) {
 	return {
 		getPageConf: function(app, readme) {
 			if (!app[readme]) {
@@ -55,14 +56,9 @@ define([
 					type: Text,
 					'class': 'appInstallDialog__readme',
 					name: `readmeInstall_readme_${app.id}`,
-					content: app[readme]
+					content: purify.sanitize(app[readme])
 				}]
 			};
 		}
 	};
 });
-
-
-
-
-

@@ -1,6 +1,7 @@
-univention-appcenter (11.0.20-1) UNRELEASED; urgency=medium
+univention-appcenter (11.1.1) unstable; urgency=medium
 
-  * Bug #58015 UCS 5.2-1 version bump
+  * Bug #58327: add sanitization / escaping in different components
+  * Bug #58015: UCS 5.2-1 version bump
 
  -- Christian Castens <castens@univention.de>  Mon, 03 Mar 2025 10:45:33 +0100
 

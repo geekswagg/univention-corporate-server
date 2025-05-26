@@ -4,6 +4,7 @@ define([
 	"dojo/_base/declare",
 	"dojo/_base/lang",
 	"dojo/_base/array",
+	"dojox/html/entities",
 	"umc/tools",
 	"umc/widgets/Text",
 	"umc/widgets/TextBox",
@@ -14,7 +15,7 @@ define([
 	"./AppSettingsFileUploader",
 	"./AppSettingsForm",
 	"umc/i18n!umc/modules/appcenter"
-], function(declare, lang, array, tools, Text, TextBox, NumberSpinner, PasswordInputBox, CheckBox, ComboBox, AppSettingsFileUploader, AppSettingsForm, _) {
+], function(declare, lang, array, entities, tools, Text, TextBox, NumberSpinner, PasswordInputBox, CheckBox, ComboBox, AppSettingsFileUploader, AppSettingsForm, _) {
 	return {
 		getWidgets: function(app, values, phase) {
 			var ret = [];
@@ -134,9 +135,9 @@ define([
 					return null;
 				}
 				var groupName = '_group' + i;
-				var content = '<h2>' + group.label + '</h2>';
+				var content = '<h2>' + entities.encode(group.label) + '</h2>';
 				if (smallHeaders) {
-					content = '<h3>' + group.label + '</h2>';
+					content = '<h3>' + entities.encode(group.label) + '</h2>';
 				}
 				widgets.push({
 					type: Text,
