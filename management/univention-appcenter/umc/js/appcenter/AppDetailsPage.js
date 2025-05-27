@@ -513,7 +513,7 @@ define([
 			}
 			var info = new AppInfo({
 				bgc: this.app.backgroundColor || "",
-				logo: '/univention/js/dijit/themes/umc/icons/scalable/' + encodeURIcomponent(this.app.logoName.replace(/(\.\.|\/|\\)/g, '')),
+				logo: '/univention/js/dijit/themes/umc/icons/scalable/' + encodeURIComponent(this.app.logoName.replace(/(\.\.|\/|\\)/g, '')),
 				name: entities.encode(this.app.name),
 				description: purify.sanitize(this.app.description),
 				buttonLabel: buttonLabel,
