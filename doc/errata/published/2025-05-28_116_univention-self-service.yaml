@@ -10,3 +10,6 @@ desc: |
    rate limit. This can be done by adding the hosts to the UCR variable
    `umc/self-service/rate-limit/trusted-hosts`.
 bug: [58214]
+erratum: 116
+announced: 2025-05-28
+support: core
