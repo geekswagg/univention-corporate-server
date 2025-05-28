@@ -9,3 +9,6 @@ desc: |
  * The performance of receiving object representations in UDM REST API and the
    UMC module has been improved.
 bug: [58278]
+erratum: 115
+announced: 2025-05-28
+support: core
