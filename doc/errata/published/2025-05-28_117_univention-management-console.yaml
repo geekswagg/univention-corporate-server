@@ -9,3 +9,6 @@ desc: |
  * The server's address is no longer included in the meta.json file by
    default and is now only visible during system setup.
 bug: [58280]
+erratum: 117
+announced: 2025-05-28
+support: core
