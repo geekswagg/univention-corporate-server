@@ -9,3 +9,6 @@ desc: |
  * Applied stricter content sanitization in the App Center to prevent
    exploitation via Cross-Site Scripting (XSS) and related attack vectors.
 bug: [58327]
+erratum: 112
+announced: 2025-05-28
+support: core
