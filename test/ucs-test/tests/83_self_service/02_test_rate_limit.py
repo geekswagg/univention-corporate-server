@@ -59,13 +59,16 @@ class Main:
         print('##### test_trusted_hosts_in_ucr_config #####')
         email1 = "multi_host1@localhost"
         email2 = "multi_host2@localhost"  # Untrusted
-        hostname = UCR().get('hostname', 'master')  # Add host itself to the trusted hosts
-        domain = UCR().get('domainname', 'ucs.test')
+        ucr_test = UCR()
+        ucr_test.load()
+        hostname = ucr_test['hostname']  # Add host itself to the trusted hosts
+        domain = ucr_test['domainname']
         with set_trust_configs(trusted_hosts_list=[f"{hostname}.{domain}", " proxy2.com ", "proxy3.com"]):  # Note spaces for robustness
             user1_ctx = self_service_user(email=email1)
             with user1_ctx as user1:
                 make_requests_without_fail(user1, 2)
 
+        reset_server_limits()
         with set_trust_configs():  # This should fail on the second call.
             user2_ctx = self_service_user(email=email2)
             with user2_ctx as user2:
