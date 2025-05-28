@@ -14,7 +14,7 @@ Publication date of UCS |release|: 2025-03-11
 Release highlights
 ******************
 
-With |UCSUCS| 5.2-1, the first patch level release for |UCSUCS| 5.2 is available.
+With |UCSUCS| 5.2-2, the first patch level release for |UCSUCS| 5.2 is available.
 It provides several feature improvements and extensions, properties, as well as, bug fixes.
 Here is an overview of the most important changes:
 
@@ -22,11 +22,11 @@ Here is an overview of the most important changes:
 
 * :program:`Squid` cache settings can now be manually configured for improved efficiency and performance.
 
-* |UCSUCS| 5.2-1 includes various security updates, for example for :program:`openssh`, :program:`BIND9`,
+* |UCSUCS| 5.2-2 includes various security updates, for example for :program:`openssh`, :program:`BIND9`,
   :program:`intel-microcode`, :program:`Python 3.11`, :program:`rsync`, :program:`setuptools`, and the
   :program:`Linux-6.1` kernel.
 
-* |UCSUCS| 5.2-1 fixes various bugs across multiple packages, including ``univention-directory-manager-modules``,
+* |UCSUCS| 5.2-2 fixes various bugs across multiple packages, including ``univention-directory-manager-modules``,
   ``univention-appcenter``, ``univention-keycloak``, ``univention-updater``, and ``univention-self-service``, enhancing
   stability and reliability.
 
@@ -120,10 +120,10 @@ and run it on the UCS system.
 .. code-block:: console
 
    # download
-   $ curl -OOf https://updates.software-univention.de/download/univention-update-checks/pre-update-checks-5.2-1{.gpg,}
+   $ curl -OOf https://updates.software-univention.de/download/univention-update-checks/pre-update-checks-5.2-2{.gpg,}
 
    # verify and run script
-   $ apt-key verify pre-update-checks-5.2-1{.gpg,} && bash pre-update-checks-5.2-1
+   $ apt-key verify pre-update-checks-5.2-2{.gpg,} && bash pre-update-checks-5.2-2
 
    ...
 
@@ -213,7 +213,7 @@ Changelog
 *********
 
 You find the changes since UCS 5.2-0 in
-:external+uv-changelog-5.2-1:doc:`index`.
+:external+uv-changelog-5.2-2:doc:`index`.
 
 .. _biblio:
 
