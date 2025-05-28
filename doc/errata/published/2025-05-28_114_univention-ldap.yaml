@@ -9,3 +9,6 @@ desc: |
  * The initial objects during the LDAP bootstrapping of new installations
    now set automatically generated values for `univenitonObjectIdentifier`.
 bug: [58310]
+erratum: 114
+announced: 2025-05-28
+support: core
