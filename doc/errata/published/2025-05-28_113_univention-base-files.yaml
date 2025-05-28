@@ -11,3 +11,6 @@ desc: |
    The UCR template for /etc/bash.bashrc has been adjusted to enable
    command line completion by default for interactive shells.
 bug: [54717]
+erratum: 113
+announced: 2025-05-28
+support: core
