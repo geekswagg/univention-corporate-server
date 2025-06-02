@@ -39,11 +39,11 @@ Comment:
  Solaris and LDAP Naming Service, Deploying LDAP in the Enterprise.
  Tom Bialanski and Michael Haines, Sun Microsystems Press,
  A Prentice Hall Title, 2001, ISBN 0-13-030678-9
-License: Unknown
+License: LicenseRef-unknown-solaris-ldap-schema
 
 Files: dh_2048.pem
 Copyright: 2003 The Internet Society
-License: RFC-Reference
+License: LicenseRef-RFC-Document
  dh_2048.pem merely cites and references RFC3526. This is believed to be fair
  use; but if not, it's covered by the source document's license under
  the 'comment on' clause. The license statement follows.

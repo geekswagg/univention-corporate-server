@@ -36,7 +36,7 @@ Copyright:
  2007-2015, Cisco Systems, Inc
  2014, Cisco and/or its affiliates
 Comment: This is copied from the ClamAV project
-License: GPL-2
+License: GPL-2.0-only
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License version 2 as
  published by the Free Software Foundation.

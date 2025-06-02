@@ -3,9 +3,9 @@ Upstream-Name: Univention GmbH
 Upstream-Contact: <package@univention.de>
 Source: https://updates.software-univention.de/
 
-Files: src/Makefile.in src/aclocal.m4 src/compile src/config.guess src/config.sub src/depcomp src/ltmain.sh src/missing
+Files: src/Makefile.in src/aclocal.m4 src/compile src/config.guess src/config.sub src/depcomp src/ltmain.sh src/missing src/config.h.in
 Copyright: 1992-2018 Free Software Foundation, Inc.
-License: GNU General Public License (GPL), version 2.
+License: GPL-2.0-only
  This is free software; see the source for copying conditions.  There is NO
  warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  .
@@ -29,7 +29,7 @@ License: GNU General Public License (GPL), version 2.
 
 Files: src/oauthbearer.h src/pam_oauthbearer.c src/plugin_common.c src/plugin_common.h src/sasl_oauthbearer.c
 Copyright: 2009-2015 Emmanuel Dreyfus <manu@netbsd.org>
-License: BSD-3-clause
+License: BSD-3-Clause
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are
  met:
@@ -57,7 +57,7 @@ License: BSD-3-clause
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-Files: debian/* src/oauthbearer.c
+Files: debian/* src/oauthbearer.c src/pam_oauthbearer.5 src/sasl_oauthbearer.5 README.md
 Copyright: 2022-2025 Univention GmbH
 License: AGPL-3.0-only
  The source code of the software contained in this package

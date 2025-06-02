@@ -31,7 +31,7 @@ License: AGPL-3.0-only
 Files: conffiles/etc/cupsd.conf
 Copyright: 1997-2002 by Easy Software Products
  2001-2019 Univention GmbH
-License: GPL-2
+License: GPL-2.0-only
  This program is free software; you can redistribute it
  and/or modify it under the terms of the GNU General Public
  License as published by the Free Software Foundation; either

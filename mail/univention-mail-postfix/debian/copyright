@@ -31,7 +31,7 @@ License: AGPL-3.0-only
 Files: dh_2048.pem
   dh_512.pem
 Copyright: 2003 The Internet Society
-License: RFC-Reference
+License: LicenseRef-RFC-Document
  dh_2048.pem merely cites and references RFC3526. This is believed to be fair
  use; but if not, it's covered by the source document's license under
  the 'comment on' clause. The license statement follows.

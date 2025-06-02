@@ -36,7 +36,7 @@ Copyright: 1992-1998 Andrew Tridgell
    2000 Gerald (Jerry) Carter
    2002 Andrew Bartlett
 Source: http://www.samba.org/
-License: GPL-2+
+License: GPL-2.0-or-later
  This program is free software; you can redistribute it
  and/or modify it under the terms of the GNU General Public
  License as published by the Free Software Foundation; either
