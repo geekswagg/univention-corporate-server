@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: 2025 Univention GmbH
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
 seterrobj(KRB5KDC_ERR_NONE);
 seterrobj(KRB5KDC_ERR_NAME_EXP);
 seterrobj(KRB5KDC_ERR_SERVICE_EXP);

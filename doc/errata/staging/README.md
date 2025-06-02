@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText: 2025 Univention GmbH
+SPDX-License-Identifier: AGPL-3.0-only
+-->
+
 ## Advisory guide
 
 The advisory guide offers guiding questions to help software developers write

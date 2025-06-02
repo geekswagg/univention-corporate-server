@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2025 Univention GmbH
+# SPDX-License-Identifier: AGPL-3.0-only
+
 ## Process this file with automake to produce Makefile.in
 
 AM_CPPFLAGS = -I$(top_srcdir)/include

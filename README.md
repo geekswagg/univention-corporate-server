@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText: 2025 Univention GmbH
+SPDX-License-Identifier: AGPL-3.0-only
+-->
+
 # Univention Corporate Server
 
 Welcome to the git mirror of Univention Corporate Server (UCS). [UCS](https://www.univention.com/products/ucs/) is an open source platform for identity management and to integrate server and cloud based applications.

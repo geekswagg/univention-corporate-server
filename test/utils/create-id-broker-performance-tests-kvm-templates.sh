@@ -1,4 +1,8 @@
 #!/bin/sh
+
+# SPDX-FileCopyrightText: 2025 Univention GmbH
+# SPDX-License-Identifier: AGPL-3.0-only
+
 export UCS_TEST_RUN=false
 export UCS_ENV_IDBROKER_DOMAIN=broker.test
 export UCS_ENV_TRAEGER1_DOMAIN=traeger1.test

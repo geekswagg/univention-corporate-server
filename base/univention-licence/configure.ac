@@ -1,3 +1,6 @@
+dnl SPDX-FileCopyrightText: 2025 Univention GmbH
+dnl SPDX-License-Identifier: AGPL-3.0-only
+
 AC_INIT(lib/license.c)
 
 AM_INIT_AUTOMAKE(univentionlicense, 4.0)

@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2025 Univention GmbH
+// SPDX-License-Identifier: AGPL-3.0-only
+
 if (window.matchMedia) {
 	const stylesheet = document.querySelector('link[rel="stylesheet"][href="/univention/theme.css"]');
 	if (window.matchMedia('(prefers-color-scheme: dark)').matches) {

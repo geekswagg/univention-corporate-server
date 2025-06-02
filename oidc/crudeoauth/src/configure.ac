@@ -1,3 +1,6 @@
+dnl SPDX-FileCopyrightText: 2025 Univention GmbH
+dnl SPDX-License-Identifier: AGPL-3.0-only
+
 AC_PREREQ([2.63])
 AC_INIT([crudeoauth], [1.0.0], [packages@univention.de])
 AC_CONFIG_SRCDIR([oauthbearer.c])

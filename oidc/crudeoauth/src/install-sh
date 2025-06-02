@@ -8,6 +8,7 @@ scriptversion=2018-03-11.20; # UTC
 # following copyright and license.
 #
 # Copyright (C) 1994 X Consortium
+# SPDX-License-Identifier: MIT
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to

@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# SPDX-FileCopyrightText: 2025 Univention GmbH
+# SPDX-License-Identifier: AGPL-3.0-only
+
 # docker can't hanlde newline in env file, so replace
 # newline witch DELIM
 export UCS_ENV_LOCUST_VARS="${UCS_ENV_LOCUST_VARS//$'\n'/:DELIM:}"

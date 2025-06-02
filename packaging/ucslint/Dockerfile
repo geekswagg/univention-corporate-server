@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2025 Univention GmbH
+# SPDX-License-Identifier: AGPL-3.0-only
+
 ARG ucs=latest
 FROM docker-registry.knut.univention.de/phahn/ucs-minbase:$ucs
 ENV LANG C.UTF-8

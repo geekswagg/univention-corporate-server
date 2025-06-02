@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# SPDX-FileCopyrightText: 2025 Univention GmbH
+# SPDX-License-Identifier: AGPL-3.0-only
+
 # shellcheck shell=bash
 # Run commands on ldap/master
 eval "$(ucr shell ldap/master '^tests/domainadmin/.*')"

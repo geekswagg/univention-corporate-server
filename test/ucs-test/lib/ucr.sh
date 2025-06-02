@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# SPDX-FileCopyrightText: 2025 Univention GmbH
+# SPDX-License-Identifier: AGPL-3.0-only
+
 # shellcheck shell=bash
 # Wrapper around ucr which saves the original value and (manually) restores them on exit.
 

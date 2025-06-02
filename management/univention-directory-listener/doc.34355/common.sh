@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# SPDX-FileCopyrightText: 2025 Univention GmbH
+# SPDX-License-Identifier: AGPL-3.0-only
+
 # 1. Setup ACLs once:
 #    ssh root@master ". common.sh && HOSTNAME=test setup_slapd"
 # 2. Register Listener once:

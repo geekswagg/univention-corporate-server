@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+SPDX-FileCopyrightText: 2025 Univention GmbH
+SPDX-License-Identifier: AGPL-3.0-only
+-->
+
 <umc version="2.0">
 	<module id="setup" version="1.0">
 		<flavor priority="50" icon="language-settings" id="languages">

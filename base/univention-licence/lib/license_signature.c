@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: 2025 Univention GmbH
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
 #include "internal.h"
 /*! @file license_signature.c
         @brief functions for sign and verify license objects

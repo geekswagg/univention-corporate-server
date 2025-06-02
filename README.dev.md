@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText: 2025 Univention GmbH
+SPDX-License-Identifier: AGPL-3.0-only
+-->
+
 # Template for README.md files in packages / apps
 
 When working on a package in this repository, please consider adding a `README.md` file to the top of the package directory, for example `management/univention-directory-listener/README.md`.

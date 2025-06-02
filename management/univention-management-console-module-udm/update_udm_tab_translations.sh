@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# SPDX-FileCopyrightText: 2025 Univention GmbH
+# SPDX-License-Identifier: AGPL-3.0-only
+
 # get all labels for (not advanced) tabs
 labels=$(
 sed -n '/^\s*Tab.*/p' ../univention-directory-manager-modules/modules/univention/admin/handlers/*/*.py | \

@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2025 Univention GmbH
+# SPDX-License-Identifier: AGPL-3.0-only
+
 FROM docker-registry.knut.univention.de/phahn/ucs-debbase:520
 ENV LANG C.UTF-8
 ENV DEBIAN_FRONTEND noninteractive

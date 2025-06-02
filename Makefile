@@ -1,4 +1,8 @@
+# SPDX-FileCopyrightText: 2025 Univention GmbH
+# SPDX-License-Identifier: AGPL-3.0-only
+
 .PHONY: help format format-all lint lint-all setup_devel_env ucr ruff isort autopep8 ruff-statistics
+
 .DEFAULT_GOAL := help
 
 define PRINT_HELP_PYSCRIPT

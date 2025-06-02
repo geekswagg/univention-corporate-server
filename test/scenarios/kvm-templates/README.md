@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText: 2025 Univention GmbH
+SPDX-License-Identifier: AGPL-3.0-only
+-->
+
 # ucs-kt-get templates
 
 This directory holds files for creating ucs-kt-get (KVM) templates. With these

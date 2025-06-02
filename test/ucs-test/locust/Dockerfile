@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2025 Univention GmbH
+# SPDX-License-Identifier: AGPL-3.0-only
+
 FROM docker-registry.knut.univention.de/locustio/locust:master
 USER root
 RUN apt-get --quiet update && \

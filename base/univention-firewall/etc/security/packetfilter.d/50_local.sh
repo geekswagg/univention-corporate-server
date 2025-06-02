@@ -1,4 +1,7 @@
 #!/bin/sh
+# SPDX-FileCopyrightText: 2025 Univention GmbH
+# SPDX-License-Identifier: AGPL-3.0-only
+#
 # User defined iptables/ip6tables rules can be placed here and
 # will not be overwritten during system updates.
 # This file will be called automatically by /etc/init.d/univention-firewall

@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2025 Univention GmbH
+# SPDX-License-Identifier: AGPL-3.0-only
+
 # shellcheck shell=bash
 wait_for_umc () {  # <ip>
 	local i=60

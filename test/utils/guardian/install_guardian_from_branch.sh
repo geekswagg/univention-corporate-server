@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2025 Univention GmbH
+# SPDX-License-Identifier: AGPL-3.0-only
 
 install_guardian_management_api_from_branch () {
   local management_api_docker_image="$1"
