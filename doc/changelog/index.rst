@@ -16,7 +16,7 @@ General
 
 .. _security:
 
-* |UCSUCS| |release| includes all security updates issued for |UCS| 5.2-2:
+* |UCSUCS| |release| includes all security updates issued for |UCS| 5.2-1:
 
   * :program:`abseil` (:uv:cve:`2025-0838`) (:uv:bug:`58295`)
 
@@ -343,18 +343,18 @@ Changes to templates and modules
 
 * Bash shell command line completion was not available by default for
   interactive non-login shells, affecting screen and ``sudo`` sessions. The UCR
-  template for ``/etc/bash.bashrc`` has been adjusted to enable command line
+  template for :file:`/etc/bash.bashrc` has been adjusted to enable command line
   completion by default for interactive shells (:uv:bug:`54717`).
 
 * The :program:`route` tool from the package is used on some |UCS| systems for the
-  configuration of additional routes via |UCSUCRVs|. Due to a change in the
+  configuration of additional routes through |UCSUCRVs|. Due to a change in the
   package dependencies with |UCS| 5.2-0, the :program:`net-tools` package was no longer
   installed automatically, which meant that these additional routes were no
   longer set automatically when configuring the network interfaces. The package
   dependencies have been adjusted accordingly so that this package is now
   automatically installed again (:uv:bug:`58061`).
 
-* This update delivers a new command line tool :program:`univention-lmdb-fragmentation`
+* This update delivers the new command line tool :program:`univention-lmdb-fragmentation`
   that can be used to detect excessive fragmentation in the LMDB databases
   used in |UCS| (:uv:bug:`58047`).
 
@@ -378,10 +378,10 @@ OpenLDAP
 ========
 
 * When checking for password expiry the :program:`OpenLDAP` overlay module ``shdowbind``
-  looks at the LDAP attribute ``shadowMax``, which is stored at the accounts. It
-  treated a value of 0 specially as "no expiry check needed". We improved input
-  value validation for that, because a value of 0 was consider invalid before.
-  This update changes that and it treats it just as a normal value. This change
+  looks at the LDAP attribute ``shadowMax``, which is stored at the user accounts. It
+  treated a value of ``0`` specially as *"no expiry check needed"*.
+  Univention improved input value validation, because a value of ``0`` was consider invalid before.
+  This update changes that and it treats it as a normal value. This change
   became necessary to make the handling of password expiry more consistent on
   the day of expiry between ``pam_unix``, :program:`OpenLDAP` and :program:`Kerberos`
   (:uv:bug:`58048`).
@@ -400,41 +400,43 @@ LDAP Directory Manager
 * First incremental release for new experimental feature delegate
   administration (:uv:bug:`58113`).
 
-* Improved performance when removing computers in environments with many DNS
+* Improved performance when removing computer objects in environments with many DNS
   host records significantly (:uv:bug:`58119`).
 
 * Attributes containing distinguished names as values were normalized and thus
-  may have differed in string representation from the the distinguished names
-  of LDAP objects itself. This could lead to errors in the |UMC| not recognizing
-  the correct item in ComboBox widgets. This has been aligned, all data is now
+  may have differed in string representation from the distinguished names
+  of LDAP objects themselves. This could lead to errors in the |UMC| not recognizing
+  the correct item in ``combobox`` widgets. This has been aligned, all data is now
   written un-normalized (:uv:bug:`58261`).
 
-* In the experimental feature "delegate administration" one can now define
-  writable attributes for |UDM| objects (:uv:bug:`58201`).
+* In the experimental feature *"delegative administration"*,
+  administrators can now define writable attributes for |UDM| objects (:uv:bug:`58201`).
 
 * The PAM module ``pam_unix`` interprets ``(shadowLastChange + shadowMax)`` as a
-  date where the password is still valid. I.e. with ``shadowMax=1` this PAM
+  date where the password is still valid. For example, with ``shadowMax=1` this PAM
   module considers a password valid during the day after the change. That
-  causes inconsistent behavior when compared to :progra:`Kerberos`, where
-  ``krb5PasswordEnd` defines definite point in time, where the password is
-  considered invalid and |UDM| sets ``krb5PasswordEnd` to beginning of the day of
+  causes inconsistent behavior when compared to :program:`Kerberos`, where
+  ``krb5PasswordEnd`` defines a definite point in time, where the password is
+  considered invalid and |UDM| sets ``krb5PasswordEnd`` to the beginning of the day of
   expiry. ``shadowMax`` is an LDAP attribute that is added to user accounts
-  during password change and the value is determined by the |UDM| Password
-  History Policy applied to the user. |UDM| now sets ``shadowMax`` to
+  during password change and the value is determined by the |UDM| password
+  history policy applied to the user. |UDM| now sets ``shadowMax`` to
   ``(pwhistoryPolicy.expiryInterval -1)`` to compensate for the behavior of
   ``pam_unix`` and make it more consistent with the behavior of :program:`Kerberos`
   (:uv:bug:`58048`).
 
-* |UDM| hook extension modules could overwrite members of the global python
+* |UDM| hook extension modules could overwrite members of the global Python
   namespace, possibly leading to trivial conflicts between imported modules.
   The import of these modules has been adjusted to sandbox their global
   namespace and selectively import only the intended subclass types
-  (:uv:bug:`58252`).
+  (:uv:bug:`57630`).
 
 * The ``univentionObjectIdentifier`` |UDM| property has been added to all |UDM|
-  modules. To set an auto-generated value if none was specified in the create
-  request, set the new |UCSUCRV| :envvar:`directory/manager/object-
-  identifier/autogeneration=true` (:uv:bug:`57630`).
+  modules. It is set to an auto-generated value if none was specified in the
+  create request (:uv:bug:`58252`, :uv:bug:`58318`).
+
+* An LDAP equality index is now created for the attribute
+  ``univentionObjectIdentifier`` (:uv:bug:`57393`).
 
 * The OpenAPI schema has been adjusted to allow the specification of multiple
   policies for UCR policies (:uv:bug:`57988`).
@@ -450,17 +452,17 @@ Univention Management Console
 Univention Management Console web interface
 ===========================================
 
-* The Tree widget now correctly encodes its content, effectively removing an
-  XSS attack vector (:uv:bug:`49001`).
+* The *Tree* widget now correctly encodes its content, effectively removing an
+  cross-site scripting (XSS) attack vector (:uv:bug:`49001`).
 
-* A syntax check error message did not properly escape HTML code in XSS
+* A syntax check error message didn't properly escape HTML code in XSS
   attempts on UCR keys (:uv:bug:`58279`).
 
-* Certain widgets, e.g., in the ``Users Module``, were not considered as empty by
+* Certain widgets, for example, in the *Users Module*, weren't considered as empty by
   the frontend although they were. This led to values being sent to backend
   that should have been ignored. This has been fixed (:uv:bug:`58130`).
 
-* Improved the styling of the MultiInput widget when displaying more than two
+* Improved the styling of the *MultiInput* widget when displaying more than two
   input fields to enhance UI appearance in the |UMC| (:uv:bug:`58122`).
 
 .. _changelog-umc-portal:
@@ -468,21 +470,21 @@ Univention Management Console web interface
 Univention Portal
 =================
 
-* HTML content in tooltips and notifications within the Portal is now sanitized
-  to prevent XSS vulnerabilities (:uv:bug:`58311`).
+* The *Portal* now sanitizes HTML content in tooltips and notifications
+  to prevent cross-site scripting (XSS) vulnerabilities (:uv:bug:`58311`).
 
-* The server's address is no longer included in the ``meta.json`` file by default
-  and is now only visible during system setup (:uv:bug:`58280`).
+* The server's address is no longer included in the :file:`meta.json` file by default
+  and is now only visible during system setup to prevent information disclosure (:uv:bug:`58280`).
 
 .. _changelog-umc-server:
 
 Univention Management Console server
 ====================================
 
-* Remove unnecessary information from the ``meta.json`` (:uv:bug:`54257`).
+* Unused information for un-authenticate user has been removed from the :file:`meta.json` to prevent information disclosures (:uv:bug:`54257`).
 
-* The server's address is no longer included in the ``meta.json`` file by default
-  and is now only visible during system setup (:uv:bug:`58280`).
+* The server's address is no longer included in the :file:`meta.json` file by default
+  and is now only visible during system setup to prevent information disclosure (:uv:bug:`58280`).
 
 * Logging of failure reasons when retrieving the ``OIDC`` access token has been
   improved (:uv:bug:`58114`).
@@ -490,8 +492,9 @@ Univention Management Console server
 * Logging of stack traces is now done with ``ERROR`` facility and they are
   additionally logged to the log files of the modules (:uv:bug:`46057`).
 
-* A configuration option to disable checks for ``TLS`` encrypted connections has
-  been added to support using the ``SASL`` mechanism ``OAUTHBEARER`` in :program:`Kubernetes`
+* A configuration option to deactivate checks for ``TLS`` encrypted connections has
+  been added the *UMC Server*
+  to support using the ``SASL`` mechanism ``OAUTHBEARER`` in :program:`Kubernetes`
   environments (:uv:bug:`58210`).
 
 .. _changelog-umc-appcenter:
@@ -515,12 +518,12 @@ Modules for system settings / setup wizard
 Domain join module
 ==================
 
-* The scripts ``univention-join`` and ``univention-run-join-scripts`` now set the
-  ``umask`` to 0022 so that customized more restricted settings don't cause
-  problems in ``joinscripts`` and listener modules (:uv:bug:`56634`).
+* The scripts :command:`univention-join` and :command:`univention-run-join-scripts` now set the
+  ``umask`` to ``0022`` so that customized more restricted settings don't cause
+  problems in join scripts and listener modules (:uv:bug:`56634`).
 
 * The usage of ``chown`` has been made future proof to prevent a misleading error
-  message in the join logfile (:uv:bug:`58033`).
+  message in the join log file (:uv:bug:`58033`).
 
 .. _changelog-umc-user:
 
@@ -551,9 +554,9 @@ System diagnostic module
   (:uv:bug:`58047`).
 
 * A new script was added: ``univention-export-anonymized-ldap`` creates an
-  offline copy of the LDAP server. It will then anonymize the data with regards
-  to user data like names, mail addresses, passwords, ... Use case is a file
-  that could be used in test environments to analyze e.g. performance
+  offline copy of the LDAP server. It anonymizes the data with regards
+  to user data such as names, mail addresses, and passwords. Use case is a file
+  that could be used in testing environments, for example, to analyze performance
   (:uv:bug:`58247`).
 
 .. _changelog-umc-policy:
@@ -569,24 +572,24 @@ Policies
 Univention Configuration Registry module
 ========================================
 
-* The |UMC| module did not properly escape HTML code forcefully injected from the
-  server side in XSS attempts on UCR keys (:uv:bug:`58279`).
+* The |UMC| module didn't properly escape HTML code forcefully injected from the
+  server side in cross-site scripting (XSS) attempts on UCR keys (:uv:bug:`58279`).
 
 .. _changelog-umc-ldap:
 
 LDAP directory browser
 ======================
 
-* The |UDM| Grid widget now correctly encodes its content, effectively removing
-  an XSS attack vector (:uv:bug:`49001`).
+* The |UDM| *Grid* widget now correctly encodes its content, effectively removing
+  an cross-site scripting (XSS) attack vector (:uv:bug:`49001`).
 
 * First incremental release for new experimental feature delegate
   administration (:uv:bug:`58113`).
 
-* In the experimental feature "delegate administration" one can now define
+* In the experimental feature *"delegative administration"* one can now define
   writable attributes for |UDM| objects (:uv:bug:`58201`).
 
-* The performance of receiving object representations in |UDM| REST API and the
+* The performance of receiving object representations in |UDM| HTTP REST API and the
   |UMC| module has been improved (:uv:bug:`58278`).
 
 .. _changelog-lib:
@@ -596,7 +599,7 @@ Univention base libraries
 *************************
 
 * The initial objects during the LDAP bootstrapping of new installations now
-  set automatically generated values for ``univenitonObjectIdentifier``
+  automatically set generated values for ``univenitonObjectIdentifier``
   (:uv:bug:`58310`).
 
 .. _changelog-service:
@@ -611,8 +614,8 @@ SAML
 ====
 
 * The options ``startTls`` and ``connectionPooling`` are incompatible in :program:`Keycloak`
-  26. As of this version, ``connectionPooling`` will only be enabled if
-  ``startTls`` is disabled. This is due to underlying limitations with pooling
+  26. As of this version, ``connectionPooling`` will only be activated if
+  ``startTls`` is deactivated. This is due to underlying limitations with pooling
   secure (``TLS``) connections (:uv:bug:`58183`).
 
 * Add ``basic`` scope as default scope when creating ``OIDC`` relying party clients
@@ -644,14 +647,14 @@ Univention S4 Connector
 =======================
 
 * The PAM module ``pam_unix`` interprets ``(shadowLastChange + shadowMax)`` as a
-  date where the password is still valid. I.e. with ``shadowMax=1` this PAM
+  date where the password is still valid. For example, with ``shadowMax=1` this PAM
   module considers a password valid during the day after the change. That
   causes inconsistent behavior when compared to :program:`Kerberos`, where
-  ``krb5PasswordEnd`` defines definite point in time, where the password is
-  considered invalid and |UDM| sets ``krb5PasswordEnd`` to beginning of the day of
+  ``krb5PasswordEnd`` defines a definite point in time, where the password is
+  considered invalid and |UDM| sets ``krb5PasswordEnd`` to the beginning of the day of
   expiry. ``shadowMax`` is an LDAP attribute that is added to user accounts
-  during password change and the value is determined by the |UDM| Password
-  History Policy applied to the user. |UDM| now sets ``shadowMax`` to
+  during password change and the value is determined by the |UDM| password
+  history policy applied to the user. |UDM| now sets ``shadowMax`` to
   ``(pwhistoryPolicy.expiryInterval -1)`` to compensate for the behavior of
   ``pam_unix`` and make it more consistent with the behavior of :program:`Kerberos`
   (:uv:bug:`58048`).
@@ -662,14 +665,14 @@ Univention Active Directory Connection
 ======================================
 
 * The PAM module ``pam_unix`` interprets ``(shadowLastChange + shadowMax)`` as a
-  date where the password is still valid. I.e. with ``shadowMax=1`` this PAM
+  date where the password is still valid. For example, with ``shadowMax=1` this PAM
   module considers a password valid during the day after the change. That
   causes inconsistent behavior when compared to :program:`Kerberos`, where
-  ``krb5PasswordEnd`` defines definite point in time, where the password is
-  considered invalid and |UDM| sets ``krb5PasswordEnd`` to beginning of the day of
+  ``krb5PasswordEnd`` defines a definite point in time, where the password is
+  considered invalid and |UDM| sets ``krb5PasswordEnd`` to the beginning of the day of
   expiry. ``shadowMax`` is an LDAP attribute that is added to user accounts
-  during password change and the value is determined by the |UDM| Password
-  History Policy applied to the user. |UDM| now sets ``shadowMax`` to
+  during password change and the value is determined by the |UDM| password
+  history policy applied to the user. |UDM| now sets ``shadowMax`` to
   ``(pwhistoryPolicy.expiryInterval -1)`` to compensate for the behavior of
   ``pam_unix`` and make it more consistent with the behavior of :program:`Kerberos`. The
   :program:`AD-Connector` has been adjusted accordingly (:uv:bug:`58048`).
@@ -680,10 +683,10 @@ Univention Active Directory Connection
 Other changes
 *************
 
-* A configuration option to disable checks for ``TLS`` encrypted connections has
+* A configuration option to deactivate checks for ``TLS`` encrypted connections has
   been added to support using the ``SASL`` mechanism ``OAUTHBEARER`` in :program:`Kubernetes`
   environments (:uv:bug:`58210`).
 
-* A segmentation fault is prevented if the ``JWKS`` file for the ``OpenID`` provider is
+* A segmentation fault is prevented if the :file:`JWKS` file for the OpenID Connect provider is
   larger than 8192 bytes (:uv:bug:`57508`).
 
