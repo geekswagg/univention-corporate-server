@@ -1,3 +1,10 @@
+univention-ldap (18.2.2) unstable; urgency=medium
+
+  * Bug #58318: Use slapo-unique to ensure uniqueness of
+    univentionObjectIdentifier
+
+ -- Arvid Requate <requate@univention.de>  Wed, 04 Jun 2025 17:14:03 +0200
+
 univention-ldap (18.2.1) unstable; urgency=medium
 
   * Bug #58318: Add ACL to allow memberservers to write univentionObjectIdentifier
