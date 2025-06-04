@@ -1,3 +1,11 @@
+univention-directory-manager-modules (17.2.3) unstable; urgency=medium
+
+  * Bug #58318: Enable e.g. UCS@school teachers to create objects with
+    univentionObjectIdentifier, even though they cannot create temporary
+    lock objects.
+
+ -- Arvid Requate <requate@univention.de>  Wed, 04 Jun 2025 17:20:14 +0200
+
 univention-directory-manager-modules (17.2.2) unstable; urgency=medium
 
   * Bug #58318: Fix UDM for activated univentionObjectIdentifier
