@@ -6,7 +6,7 @@
 Release notes for the installation and update of Univention Corporate Server (UCS) |release|
 ############################################################################################
 
-Publication date of UCS |release|: 2025-03-11
+Publication date of UCS |release|: 2025-06-12
 
 .. _relnotes-highlights:
 
@@ -14,21 +14,31 @@ Publication date of UCS |release|: 2025-03-11
 Release highlights
 ******************
 
-With |UCSUCS| 5.2-2, the first patch level release for |UCSUCS| 5.2 is available.
+With |UCSUCS| 5.2-2, the second patch level release for |UCSUCS| 5.2 is available.
 It provides several feature improvements and extensions, properties, as well as, bug fixes.
 Here is an overview of the most important changes:
 
-* The performance of ``univention-directory-manager-modules`` has been improved, enabling faster modifications of very large groups.
+* |UCSUCS| 5.2-2 introduces the ``univentionObjectIdentifier``: a globally unique identifier
+  for all objects managed via |UCSUDM|.
+  It simplifies object mapping to external systems and ensures consistent tracking across logs.
+  The identifier is auto-generated for new objects; existing objects receive it during upgrade.
 
-* :program:`Squid` cache settings can now be manually configured for improved efficiency and performance.
+* :program:`Keycloak` *26* is now available in the App Center with enhanced security and new features.
+  It comes with a new ``Ad Hoc Provisioning`` plugin which automatically creates Nubus user accounts.
+  This enables seamless Single Sign-On access across connected applications
+  for identities logging in via trusted external *IdPs* (e.g., :program:`Active Directory`).
 
-* |UCSUCS| 5.2-2 includes various security updates, for example for :program:`openssh`, :program:`BIND9`,
-  :program:`intel-microcode`, :program:`Python 3.11`, :program:`rsync`, :program:`setuptools`, and the
-  :program:`Linux-6.1` kernel.
+* |UCSUCS| 5.2-2 delivers major performance gains in |UCSUDM|, notably for deleting computer objects and
+  editing groups in large environments.
+  A new diagnostic tool identifies LDAP database fragmentation — a key bottleneck in older,
+  large deployments — and provides remediation guidance.
 
-* |UCSUCS| 5.2-2 fixes various bugs across multiple packages, including ``univention-directory-manager-modules``,
-  ``univention-appcenter``, ``univention-keycloak``, ``univention-updater``, and ``univention-self-service``, enhancing
-  stability and reliability.
+* Various components of the |UCSUMC| and App Center were hardened against cross-site scripting (XSS) attacks
+  through stricter content sanitization and improved HTML encoding.
+
+* |UCSUCS| 5.2-2 includes numerous security updates for packages such as ``curl``, ``glibc``, ``intel-microcode``,
+  ``openssl``, ``firefox-esr``, ``Linux kernel``, and many others
+  to ensure protection against the latest vulnerabilities.
 
 .. _relnotes-update:
 
@@ -57,6 +67,21 @@ The authoritative version of the LDAP directory service operates on the |UCSPRIM
 and replicates to all the remaining LDAP servers of the UCS domain. As changes to the
 LDAP schema can occur during release updates, the |UCSPRIMARYDN| must always be the
 first system in the update order during a release update.
+
+.. _relnotes-univention-object-identifier:
+
+Initialization and indexing of the ``univentionObjectIdentifier``
+=================================================================
+
+During update an LDAP equality index is created for the ``univentionObjectIdentifier``
+and for each object of class ``univentionObject``  the value of ``entryUUID`` is used
+to initialize the attribute in case it is not yet present. Depending on the amount of
+objects in the LDAP directory and limiting I/O factors this may take some time.
+
+Please note that in Nubus environments with mixed UCS versions prior to |UCSUCS| 5.2-2, the
+UDM on the old systems will not know how to properly manage the attribute for all
+kinds of ``univentionObject``. |UCSUCS| 5.2-2 contains a plugin for UMC System Diagnostic
+to check if all objects have the attribute and to fix those that don't.
 
 .. _relnotes-bootloader:
 
