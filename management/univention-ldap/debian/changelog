@@ -1,3 +1,11 @@
+univention-ldap (18.2.3) unstable; urgency=medium
+
+  * Bug #58318: Activate slapo-unique on the primary (only)
+  * Re-index univentionObjectIdentifier only during this specific update
+  * Run the full "ldap_setup_index" only during new installations
+
+ -- Arvid Requate <requate@univention.de>  Thu, 05 Jun 2025 13:38:28 +0200
+
 univention-ldap (18.2.2) unstable; urgency=medium
 
   * Bug #58318: Use slapo-unique to ensure uniqueness of
