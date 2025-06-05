@@ -1,3 +1,9 @@
+univention-directory-manager-modules (17.2.5) unstable; urgency=medium
+
+  * Bug #58318: Remove UCRV directory/manager/object-identifier/autogeneration
+
+ -- Arvid Requate <requate@univention.de>  Thu, 05 Jun 2025 15:11:20 +0200
+
 univention-directory-manager-modules (17.2.4) unstable; urgency=medium
 
   * Bug #58318: Relax syntax UUID4 to UUID1_or_UUID4

@@ -115,8 +115,9 @@ class object(univention.admin.handlers.simpleLdap):
         return b'univentionBlocklist' in attr.get('objectClass', [])
 
     # do not set univentionObjectIdentifier on blocklist objects - they are saved in a different LDAP base
-    def _set_univentionObjectIdentifier(self, al):
-        return al
+    @classmethod
+    def _register_univention_object_identifier_property(cls, module):
+        return
 
 
 lookup_filter = object.lookup_filter

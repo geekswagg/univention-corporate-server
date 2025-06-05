@@ -475,12 +475,7 @@ class object(univention.admin.handlers.simpleLdap):
         # type: () -> None
         super()._ldap_pre_create()
 
-        if self['gidNumber']:
-            univention.admin.allocators.acquireUnique(self.lo, self.position, 'gidNumber', self['gidNumber'], 'gidNumber', scope='base')
-            self.alloc.append(('gidNumber', self['gidNumber'], False))
-        else:
-            self['gidNumber'] = self.request_lock('gidNumber')
-
+        self.request_unique('gidNumber')
         self.check_for_group_recursion()
         self._check_uid_gid_uniqueness()
 

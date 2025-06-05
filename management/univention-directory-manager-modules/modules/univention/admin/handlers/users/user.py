@@ -1403,13 +1403,7 @@ class object(univention.admin.handlers.simpleLdap, PKIIntegration, GuardianBase)
         log.debug('users/user: dn was set to %s', self.dn)
 
         # request a new uidNumber or get lock for manually set uidNumber
-        if self['uidNumber']:
-            univention.admin.allocators.acquireUnique(self.lo, self.position, 'uidNumber', self['uidNumber'], 'uidNumber', scope='base')
-            # "False" ==> do not update univentionLastUsedValue in LDAP if a specific value has been specified
-            self.alloc.append(('uidNumber', self['uidNumber'], False))
-        else:
-            self['uidNumber'] = self.request_lock('uidNumber')
-
+        self.request_unique('uidNumber')
         self._check_uid_gid_uniqueness()
 
     def _ldap_pre_ready(self):

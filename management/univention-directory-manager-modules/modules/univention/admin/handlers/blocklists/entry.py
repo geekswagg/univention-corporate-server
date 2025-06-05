@@ -121,9 +121,9 @@ class object(univention.admin.handlers.simpleLdap):
         self['value'] = univention.admin.blocklist.hash_blocklist_value(self['value'].encode('UTF-8'))
         super()._ldap_pre_create()
 
-    # do not set univentionObjectIdentifier on blocklist objects - they are saved in a different LDAP base
-    def _set_univentionObjectIdentifier(self, al):
-        return al
+    @classmethod
+    def _register_univention_object_identifier_property(cls, module):
+        return
 
 
 lookup_filter = object.lookup_filter
