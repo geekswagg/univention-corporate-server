@@ -1,3 +1,9 @@
+univention-updater (17.2.2) unstable; urgency=medium
+
+  * Bug #58344: disable functions in the check.sh
+
+ -- Ivan Barbecho Delgado <ivan.delgado@univention.de>  Thu, 05 Jun 2025 13:36:06 +0200
+
 univention-updater (17.2.1) unstable; urgency=medium
 
   * Bug #58344: update preup/postup updater scripts

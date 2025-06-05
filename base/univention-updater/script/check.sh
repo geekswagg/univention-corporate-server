@@ -168,7 +168,7 @@ update_check_ldap_connection () {
 
 # Bug #58045 Loading the database from the LDIF dump failed - could not parse entry (line=xxx)
 # Note: This check should be enabled only for major and minor updates
-disabled_update_check_verify_translog_schema () {
+_disabled_verify_translog_schema () {
   local var="update$VERSION/verify_translog_schema"
   ignore_check "$var" && return 100
   if [ "$server_role" != "domaincontroller_master" ] && [ "$server_role" != "domaincontroller_backup" ];
@@ -526,7 +526,7 @@ if blocking_computers or blocking_objects:
 
 
 # Bug 58164: Upgrade to UCS 5.2: LDAP Database is empty - Loading the domain database from the LDIF dump failed - attribute type undefined
-disabled_update_check_cool_solutions () {
+_disabled_cool_solutions () {
   ! is_ucr_true repository/online/component/cool-solutions && return 0
   if [ "$repository_online_component_cool_solutions_version" = "current" ]; then
     return 0
