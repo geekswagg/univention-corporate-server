@@ -49,9 +49,9 @@ from univention.management.console.modules.sanitizers import (
 
 from .tools import LicenseError, LicenseImport, check_license, dump_license, install_opener, urlopen
 from .udm_ldap import (
-    LDAP_AuthenticationFailed, LDAP_Connection, NoIpLeft, ObjectDoesNotExist, SuperordinateDoesNotExist, UDM_Error,
-    UDM_Module, UserWithoutDN, _get_syntax, calculate_bind_hash, container_modules, get_bind_hash, get_module,
-    get_obj_module, info_syntax_choices, ldap_dn2path, list_objects, read_syntax_choices, search_syntax_choices_by_key,
+    LDAP_AuthenticationFailed, NoIpLeft, ObjectDoesNotExist, SuperordinateDoesNotExist, UDM_Error, UDM_Module,
+    UserWithoutDN, _get_syntax, calculate_bind_hash, container_modules, get_bind_hash, get_module, get_obj_module,
+    info_syntax_choices, ldap_dn2path, list_objects, read_syntax_choices, search_syntax_choices_by_key,
     set_bind_function, set_bind_hash, set_user_roles,
 )
 
@@ -259,18 +259,16 @@ class Instance(Base, ProgressMixin, metaclass=UDMModuleMeta):
 
         return UDM_Module(module_name)
 
-    @LDAP_Connection
-    def license(self, request, ldap_connection=None, ldap_position=None):
+    def license(self, request):
         message = None
         try:
-            check_license(ldap_connection)
+            check_license(self.get_ldap_connection()[0])
         except LicenseError as exc:
             message = str(exc)
 
         self.finished(request.id, {'message': message})
 
-    @LDAP_Connection
-    def license_info(self, request, ldap_connection=None, ldap_position=None):
+    def license_info(self, request):
         license_data = {}
         try:
             import univention.admin.license as udm_license
@@ -324,8 +322,7 @@ class Instance(Base, ProgressMixin, metaclass=UDMModuleMeta):
         self.finished(request.id, license_data)
 
     @prevent_xsrf_check
-    @LDAP_Connection
-    def license_import(self, request, ldap_connection=None, ldap_position=None):
+    def license_import(self, request):
         filename = None
         if isinstance(request.options, list | tuple) and request.options:
             # file upload
@@ -354,7 +351,7 @@ class Instance(Base, ProgressMixin, metaclass=UDMModuleMeta):
                 # check license and write it to LDAP
                 importer = LicenseImport(fd)
                 importer.check(ucr.get('ldap/base', ''))
-                importer.write(ldap_connection)
+                importer.write(self.get_ldap_connection()[0])
         except (ValueError, AttributeError, LDAPError) as exc:
             MODULE.error('License import failed (malformed LDIF): %r' % (exc, ))
             # AttributeError: missing univentionLicenseBaseDN
@@ -663,7 +660,7 @@ class Instance(Base, ProgressMixin, metaclass=UDMModuleMeta):
 
     def reports_query(self, request):
         """Returns a list of reports for the given object type"""
-        # i18n: translattion for univention-directory-reports
+        # i18n: translation for univention-directory-reports
         _('PDF Document')
         self.finished(request.id, [{'id': name, 'label': _(name)} for name in sorted(self.reports_cfg.get_report_names(request.flavor))])
 
@@ -676,9 +673,9 @@ class Instance(Base, ProgressMixin, metaclass=UDMModuleMeta):
 
     @sanitize_func(sanitize_reports_create)
     @threaded
-    @LDAP_Connection
-    def reports_create(self, request, ldap_connection=None, ldap_position=None):
+    def reports_create(self, request):
         """Creates a report for the given LDAP DNs and returns the URL to access the file"""
+        ldap_connection = self.get_ldap_connection()[0]
         report = udr.Report(ldap_connection)
         try:
             report_file = report.create(request.flavor, request.options['report'], request.options['objects'])
@@ -792,8 +789,7 @@ class Instance(Base, ProgressMixin, metaclass=UDMModuleMeta):
 
         return result
 
-    @LDAP_Connection
-    def types(self, request, ldap_connection=None, ldap_position=None):
+    def types(self, request):
         """
         Returns the list of object types matching the given flavor or container.
 
@@ -829,7 +825,7 @@ class Instance(Base, ProgressMixin, metaclass=UDMModuleMeta):
 
         # the container may be a superordinate or have one as its parent
         # (or grandparent, ....)
-        superordinate = udm_modules.find_superordinate(container, None, ldap_connection)
+        superordinate = udm_modules.find_superordinate(container, None, self.get_ldap_connection()[0])
         if superordinate:
             # there is a superordinate... add its subtypes to the list of allowed modules
             MODULE.info('container has a superordinate: %s' % superordinate)
@@ -1000,8 +996,7 @@ class Instance(Base, ProgressMixin, metaclass=UDMModuleMeta):
         syntax=StringSanitizer(required=True),
     )
     @threaded
-    @LDAP_Connection
-    def syntax_choices(self, request, ldap_connection=None, ldap_position=None):
+    def syntax_choices(self, request):
         """
         Dynamically determine valid values for a given syntax class
 
@@ -1021,6 +1016,7 @@ class Instance(Base, ProgressMixin, metaclass=UDMModuleMeta):
         if options.get(dependency_name):
             options['dependencies'] = {dependency_name: options.pop(dependency_name)}
 
+        ldap_connection, ldap_position = self.get_ldap_connection()
         return read_syntax_choices(syntax, options, ldap_connection=ldap_connection, ldap_position=ldap_position)
 
     @sanitize(
@@ -1059,8 +1055,7 @@ class Instance(Base, ProgressMixin, metaclass=UDMModuleMeta):
             modules = [request.flavor]
         return self._container_query(request, container, modules, scope)
 
-    @LDAP_Connection
-    def _container_query(self, request, container, modules, scope, ldap_connection=None, ldap_position=None):
+    def _container_query(self, request, container, modules, scope):
         """Get a list of containers or child objects of the specified container."""
         if not container:
             container = ucr['ldap/base']
@@ -1088,7 +1083,7 @@ class Instance(Base, ProgressMixin, metaclass=UDMModuleMeta):
         result = []
         for xmodule in modules:
             xmodule = UDM_Module(xmodule)
-            superordinate = udm_objects.get_superordinate(xmodule.module, None, ldap_connection, container)
+            superordinate = udm_objects.get_superordinate(xmodule.module, None, self.get_ldap_connection()[0], container)
             try:
                 for item in xmodule.search(container, scope=scope, superordinate=superordinate):
                     module = UDM_Module(item.module)
@@ -1111,8 +1106,7 @@ class Instance(Base, ProgressMixin, metaclass=UDMModuleMeta):
     @sanitize(
         container=StringSanitizer(required=True),
     )
-    @LDAP_Connection
-    def nav_object_query(self, request, ldap_connection=None, ldap_position=None):
+    def nav_object_query(self, request):
         """
         Returns a list of objects in a LDAP container (scope: one)
 
@@ -1125,6 +1119,7 @@ class Instance(Base, ProgressMixin, metaclass=UDMModuleMeta):
         return: [ { '$dn$' : <LDAP DN>, 'objectType' : <UDM module name>, 'path' : <location of object> }, ... ]
         """
         object_type = request.options.get('objectType', '')
+        ldap_connection, ldap_position = self.get_ldap_connection()
         if object_type not in ('None', '$containers$'):
             # we need to search for a specific objectType, then we should call the standard query
             # we also need to get the correct superordinate
