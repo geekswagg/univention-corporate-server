@@ -1223,12 +1223,16 @@ class Report(ReportingBase, Resource):
         await self.create_report(object_type, report_type, dn)
 
     async def create_report(self, object_type, report_type, dns):
+        ldap_connection = self.ldap_connection
+        if not await self.pool_submit(ldap_connection.authz.is_report_create_allowed, ldap_connection, object_type, report_type, raise_exception=False):
+            raise HTTPError(403, None, report_type)
+
         try:
             assert report_type in self.reports_cfg.get_report_names(object_type)
         except (KeyError, AssertionError):
             raise NotFound(report_type)
 
-        report = udr.Report(self.ldap_connection)
+        report = udr.Report(ldap_connection)
         try:
             report_file = await self.pool_submit(report.create, object_type, report_type, dns or [])
         except udr.ReportError as exc:
