@@ -284,7 +284,7 @@ class simpleLdap:
                 syntax=univention.admin.syntax.UUID,
                 may_change=False,
                 dontsearch=True,
-                default=(lambda o, p: str(uuid.uuid4()), [], []),
+                default=(lambda o, p: str(uuid.uuid4()) if configRegistry.is_true('directory/manager/object-identifier/autogeneration') else None, [], []),
             ),
         }
         if hasattr(module, 'property_descriptions') and 'univentionObjectIdentifier' not in module.property_descriptions:
@@ -1796,7 +1796,8 @@ class simpleLdap:
             # "False" ==> do not update univentionLastUsedValue in LDAP if a specific value has been specified
             self.alloc.append((name, self[name], False))
         else:
-            self[name] = self.request_lock(name)
+            if name != "univentionObjectIdentifier" or configRegistry.is_true('directory/manager/object-identifier/autogeneration'):
+                self[name] = self.request_lock(name)
 
     def _call_checkLdap_on_all_property_syntaxes(self) -> None:
         """
