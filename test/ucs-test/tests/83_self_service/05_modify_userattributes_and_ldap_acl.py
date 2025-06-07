@@ -27,7 +27,7 @@ if __name__ == '__main__':
         user = udm.create_user(password='univention')[0]
         utils.verify_ldap_object(user)
 
-        lo = univention.admin.uldap.access(binddn=user, bindpw='univention')
+        lo = univention.admin.uldap.access(binddn=user, bindpw='univention', base=ucr['ldap/base'])
         lo.modify(user, [('l', '', [b'Bremen'])])
         utils.verify_ldap_object(user, {'l': ['Bremen']})
 

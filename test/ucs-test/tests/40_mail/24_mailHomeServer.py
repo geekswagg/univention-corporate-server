@@ -84,7 +84,7 @@ def main():
                     },
                 )
                 try:
-                    univention.admin.uldap.access(binddn=user_dn, bindpw=password, host=ucr['ldap/master'])
+                    univention.admin.uldap.access(binddn=user_dn, bindpw=password, host=ucr['ldap/master'], base=ucr['ldap/base'])
                     print('*** OK: user can bind to LDAP server.')
                 except authFail:
                     utils.fail('User cannot bind to LDAP server.')
