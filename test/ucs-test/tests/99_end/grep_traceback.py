@@ -81,7 +81,7 @@ def _readline(fd):
     return line
 
 
-def main(files, ignore_exceptions=[], out=sys.stdout):
+def main(files, ignore_exceptions=[], out=sys.stdout, err=sys.stderr):
     tracebacks = {}
     for file_ in files:
         with getfile(file_, 'rb') as (fd, filename):
@@ -124,10 +124,10 @@ def main(files, ignore_exceptions=[], out=sys.stdout):
         for e in ignore_exceptions:
             ignore = any(e.ignore_exception.search(exc) for exc in exceptions) and (not e.ignore_traceback or any(tb_pattern.search(traceback) for tb_pattern in e.ignore_traceback))
             if ignore:
-                print('', file=out)
+                print('', file=err)
                 for bug in e.bugs:
-                    print('https://forge.univention.org/bugzilla/show_bug.cgi?id=%d' % (bug,), file=out)
-                print('Ignoring %s ' % (e.ignore_exception.pattern,), file=out)
+                    print('https://forge.univention.org/bugzilla/show_bug.cgi?id=%d' % (bug,), file=err)
+                print('Ignoring %s ' % (e.ignore_exception.pattern,), file=err)
                 break
         if ignore:
             continue
@@ -400,7 +400,7 @@ def test_appcenter():
 """)
     fd.name = '/var/log/univention/appcenter.log'
     out = io.StringIO('w')
-    assert not main([fd], out=out)
+    assert not main([fd], out=out, err=out)
     assert '''Traceback (most recent call last):
   File "/usr/sbin/univention-pkgdb-scan", line 37, in <module>
     univention.pkgdb.main()
@@ -418,7 +418,7 @@ foo = bar
 Exception: foo
 bar""")
     out = io.StringIO('w')
-    assert not main([fd], out=out)
+    assert not main([fd], out=out, err=out)
     assert """Traceback (most recent call last):
   File "<stdin>", line 8, in <module>
   File "xyz", line 8, in bar
@@ -435,7 +435,7 @@ def test_journald_indented():
     Exception: foo
 bar""")
     out = io.StringIO('w')
-    assert not main([fd], out=out)
+    assert not main([fd], out=out, err=out)
     assert """Traceback (most recent call last):
   File "<stdin>", line 8, in <module>
   File "xyz", line 8, in bar
