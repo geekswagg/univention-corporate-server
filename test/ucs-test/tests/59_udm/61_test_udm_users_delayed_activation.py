@@ -62,7 +62,7 @@ def test_disabled_user_creation_activation(disabled_cronjob, udm, ucr):
 
     # verify that account can't bind
     with pytest.raises(univention.admin.uexceptions.authFail):
-        lo = univention.admin.uldap.access(binddn=userdn, bindpw="univention")
+        lo = univention.admin.uldap.access(binddn=userdn, bindpw="univention", base=ucr['ldap/base'])
         lo.lo.lo.whoami_s()
 
     handler_set(['%s=%s' % (ucrv, "*/1 *  * * *")])
@@ -77,7 +77,7 @@ def test_disabled_user_creation_activation(disabled_cronjob, udm, ucr):
 
 @pytest.mark.roles('domaincontroller_master')
 @pytest.mark.exposure('dangerous')
-def test_disabled_user_creation(disabled_cronjob, udm):
+def test_disabled_user_creation(disabled_cronjob, udm, ucr):
     """Create users/user with accountActivationDate"""
     now = datetime.now()
     with open("/etc/timezone") as tzfile:
@@ -94,7 +94,7 @@ def test_disabled_user_creation(disabled_cronjob, udm):
 
     # verify that account can't bind
     with pytest.raises(univention.admin.uexceptions.authFail):
-        univention.admin.uldap.access(binddn=userdn, bindpw="univention")
+        univention.admin.uldap.access(binddn=userdn, bindpw="univention", base=ucr['ldap/base'])
 
     # Now that the accountActivationDate is still in the future, run the script
     run_activation_script()
@@ -112,12 +112,12 @@ def test_disabled_user_creation(disabled_cronjob, udm):
         utils.fail("User is still disabled, after running univention-delayed-account-activation after accountActivationDate")
 
     # verify that account can bind
-    univention.admin.uldap.access(binddn=userdn, bindpw="univention")
+    univention.admin.uldap.access(binddn=userdn, bindpw="univention", base=ucr['ldap/base'])
 
 
 @pytest.mark.roles('domaincontroller_master')
 @pytest.mark.exposure('dangerous')
-def test_disabled_and_expired_user_creation(disabled_cronjob, udm):
+def test_disabled_and_expired_user_creation(disabled_cronjob, udm, ucr):
     """Create users/user with accountActivationDate and userexpiry"""
     now = datetime.now()
     with open("/etc/timezone") as tzfile:
@@ -153,7 +153,7 @@ def test_disabled_and_expired_user_creation(disabled_cronjob, udm):
 
     # verify that account can't bind
     with pytest.raises(univention.admin.uexceptions.authFail):
-        univention.admin.uldap.access(binddn=userdn, bindpw="univention")
+        univention.admin.uldap.access(binddn=userdn, bindpw="univention", base=ucr['ldap/base'])
 
     run_activation_script()
     try:
