@@ -209,23 +209,23 @@ class TestMachineConnection(TestCase):
 class TestAccess(TestCase):
 
     def testDefault(self):
-        access = uldap.access()
+        access = uldap.access(base=ucr['ldap/base'])
         assert isinstance(access, uldap.access)
 
     def testIPv6(self):
-        access = uldap.access(host='ip6-localhost', start_tls=0)
+        access = uldap.access(host='ip6-localhost', base=ucr['ldap/base'], start_tls=0)
         assert access.uri == 'ldap://ip6-localhost:7389'
 
     def testPort(self):
-        access = uldap.access(port=7389)
+        access = uldap.access(port=7389, base=ucr['ldap/base'])
         assert access.uri == 'ldap://localhost:7389'
 
     def testLdaps(self):
-        access = uldap.access(use_ldaps=True)
+        access = uldap.access(base=ucr['ldap/base'], use_ldaps=True)
         assert access.uri == 'ldaps://localhost:7636'
 
     def testUri(self):
-        access = uldap.access(uri='ldapi:///')
+        access = uldap.access(base=ucr['ldap/base'], uri='ldapi:///')
         assert access.uri == 'ldapi:///'
 
 
@@ -233,7 +233,7 @@ class TestAccess(TestCase):
 class TestAccessUsage(TestCase):
 
     def setUp(self):
-        self.uut = uldap.access()
+        self.uut = uldap.access(base=ucr['ldap/base'])
 
     def testGet(self):
         result = self.uut.get('cn=Subschema', ['entryDN'], required=True)
