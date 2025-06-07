@@ -1,3 +1,9 @@
+ucs-test (12.2.9) unstable; urgency=medium
+
+  * Bug #53538: fix passing LDAP base in `uldap.access()`
+
+ -- Florian Best <best@univention.de>  Tue, 24 Jun 2025 00:05:44 +0200
+
 ucs-test (12.2.8) unstable; urgency=medium
 
   * Issue #2295: ignore more tracebacks
