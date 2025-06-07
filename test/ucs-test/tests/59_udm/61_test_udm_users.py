@@ -467,7 +467,7 @@ def test_simpleauthaccount_authentication(udm, ucr):
     utils.verify_ldap_object(dn)
 
     print('created user %r with dn=%r' % (username, dn))
-    lo = univention.admin.uldap.access(binddn=dn, bindpw=password)
+    lo = univention.admin.uldap.access(binddn=dn, bindpw=password, base=ucr['ldap/base'])
     assert dn in lo.lo.lo.whoami_s()
     assert username == lo.get(dn)['uid'][0].decode('utf-8')
     print('successfully did LDAP bind.')
@@ -679,9 +679,9 @@ def test_udm_users_user_bcrypt_password(restart_slapd_after_test, udm, ucr):
         assert ldap_o[1]['pwhistory'][0].split()[0].startswith(b'{BCRYPT}'), ldap_o
 
         # authentication
-        univention.admin.uldap.access(binddn=dn, bindpw='univention')
+        univention.admin.uldap.access(binddn=dn, bindpw='univention', base=ucr['ldap/base'])
         with pytest.raises(univention.admin.uexceptions.authFail):
-            univention.admin.uldap.access(binddn=dn, bindpw='univention1')
+            univention.admin.uldap.access(binddn=dn, bindpw='univention1', base=ucr['ldap/base'])
 
         # password change
         udm.modify_object(module, dn=dn, password='univention1')
@@ -689,7 +689,7 @@ def test_udm_users_user_bcrypt_password(restart_slapd_after_test, udm, ucr):
         assert ldap_o[1]['userPassword'][0].startswith(b'{BCRYPT}'), ldap_o
         assert ldap_o[1]['pwhistory'][0].split()[0].startswith(b'{BCRYPT}'), ldap_o
         assert ldap_o[1]['pwhistory'][0].split()[1].startswith(b'{BCRYPT}'), ldap_o
-        univention.admin.uldap.access(binddn=dn, bindpw='univention1')
+        univention.admin.uldap.access(binddn=dn, bindpw='univention1', base=ucr['ldap/base'])
 
         # password history
         # TODO: how can we check univention.admin.uexceptions.pwalreadyused?
@@ -720,12 +720,12 @@ def test_udm_users_user_bcrypt_password(restart_slapd_after_test, udm, ucr):
         assert ldap_o[1]['userPassword'][0].startswith(b'{BCRYPT}'), ldap_o
 
         # disable
-        univention.admin.uldap.access(binddn=dn, bindpw='univention4')
+        univention.admin.uldap.access(binddn=dn, bindpw='univention4', base=ucr['ldap/base'])
         udm.modify_object(module, dn=dn, disabled='1')
         with pytest.raises(univention.admin.uexceptions.authFail):
-            univention.admin.uldap.access(binddn=dn, bindpw='univention4')
+            univention.admin.uldap.access(binddn=dn, bindpw='univention4', base=ucr['ldap/base'])
         udm.modify_object(module, dn=dn, disabled='0')
-        univention.admin.uldap.access(binddn=dn, bindpw='univention4')
+        univention.admin.uldap.access(binddn=dn, bindpw='univention4', base=ucr['ldap/base'])
 
         # 2a variant and cost factor
         ucr.handler_set(['password/hashing/bcrypt/prefix=2a'])
@@ -734,7 +734,7 @@ def test_udm_users_user_bcrypt_password(restart_slapd_after_test, udm, ucr):
         udm.modify_object(module, dn=dn, password='univention5')
         ldap_o = lo.search(f'uid={name}', attr=['userPassword', 'pwhistory'])[0]
         assert ldap_o[1]['userPassword'][0].startswith(b'{BCRYPT}$2a$07$'), ldap_o
-        univention.admin.uldap.access(binddn=dn, bindpw='univention5')
+        univention.admin.uldap.access(binddn=dn, bindpw='univention5', base=ucr['ldap/base'])
 
 
 @pytest.mark.tags('apptest')
