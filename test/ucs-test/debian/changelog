@@ -1,3 +1,9 @@
+ucs-test (12.2.4) unstable; urgency=medium
+
+  * Bug #58380: ignore tracebacks due to recursion error in UMC client
+
+ -- Florian Best <best@univention.de>  Tue, 10 Jun 2025 14:40:29 +0200
+
 ucs-test (12.2.3) unstable; urgency=medium
 
   * Bug #53862: ignore traceback during UCS 5.2-2 upgrade
