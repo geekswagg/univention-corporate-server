@@ -19,6 +19,7 @@ aptly () {
     "${0%/*}/ht" \
         --ignore-stdin \
         --pretty=all \
+        --timeout=60s \
         "$@"
 }
 
