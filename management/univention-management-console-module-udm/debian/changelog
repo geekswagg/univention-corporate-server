@@ -1,3 +1,9 @@
+univention-management-console-module-udm (12.2.2) unstable; urgency=medium
+
+  * Bug #58418: Scope search for 'All Containers' queries
+
+ -- Florian Best <best@univention.de>  Tue, 24 Jun 2025 17:03:38 +0200
+
 univention-management-console-module-udm (12.2.1) unstable; urgency=medium
 
   [ Ivan Barbecho Delgado ]
