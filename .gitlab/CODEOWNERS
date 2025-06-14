@@ -6,10 +6,10 @@
 /base/univention-archive-key/ @phahn
 /base/univention-base-files/ @phahn
 # /base/univention-bootsplash/
-/base/univention-config-registry/ @phahn @fbest
+/base/univention-config-registry/ @fbest
 /base/univention-debmirror/ @phahn
-/base/univention-debug/ @phahn @fbest
-/base/univention-debug-python/ @phahn @fbest
+/base/univention-debug/ @fbest
+/base/univention-debug-python/ @fbest
 /base/univention-dvd/ @phahn
 /base/univention-errata-level/ @phahn
 # /base/univention-firewall/
@@ -31,7 +31,7 @@
 /base/univention-policy/ @fbest
 # /base/univention-printclient/
 /base/univention-python/ @fbest
-/base/univention-python-heimdal/ @fbest @phahn @arequate
+/base/univention-python-heimdal/ @fbest @arequate
 /base/univention-quota/ @fbest
 # /base/univention-server/
 # /base/univention-skel/ @phahn
@@ -41,7 +41,7 @@
 # /base/univention-system-activation/
 /base/univention-system-setup/ @fbest
 /base/univention-updater/ @phahn
-/base/univention-updater/umc/ @phahn @fbest
+/base/univention-updater/umc/ @fbest
 
 /container/ @arequate
 
@@ -51,15 +51,15 @@
 /management/*/ @fbest
 # /management/univention-admingrp-user-passwordreset/
 /management/univention-appcenter/ @dwiesent @fbest
-/management/univention-directory-listener/ @phahn @dtroeder @arequate
+/management/univention-directory-listener/ @fbest @dtroeder @arequate
 /management/univention-directory-logger/ @fbest
 /management/univention-directory-manager-modules/ @fbest
 /management/univention-directory-manager-rest/ @fbest @dtroeder
-/management/univention-directory-notifier/ @phahn
+/management/univention-directory-notifier/ @arequate
 # /management/univention-directory-policy/
 # /management/univention-directory-replication/
 /management/univention-directory-reports/ @fbest
-/management/univention-dojo/ @jkeiser @fbest
+/management/univention-dojo/ @fbest
 /management/univention-join/ @fbest
 /management/univention-ldap/ @arequate
 /management/univention-ldap-overlay-memberof/ @arequate
@@ -70,16 +70,16 @@
 /management/univention-management-console-module-lib/ @fbest
 /management/univention-management-console-module-passwordchange/ @fbest
 /management/univention-management-console-module-reboot/ @fbest
-/management/univention-management-console-module-services/ @jkeiser @fbest
-/management/univention-management-console-module-top/ @jkeiser @fbest
-/management/univention-management-console-module-ucr/ @jkeiser @fbest
-/management/univention-management-console-module-udm/ @fbest @jkeiser
-/management/univention-management-console-module-welcome/ @jkeiser @fbest
-/management/univention-portal/ @dwiesent @jkeiser
-/management/univention-self-service/ @fbest @jkeiser
-/management/univention-server-overview/ @fbest @jkeiser
+/management/univention-management-console-module-services/ @fbest
+/management/univention-management-console-module-top/ @fbest
+/management/univention-management-console-module-ucr/ @fbest
+/management/univention-management-console-module-udm/ @fbest
+/management/univention-management-console-module-welcome/ @fbest
+/management/univention-portal/ @dwiesent
+/management/univention-self-service/ @fbest
+/management/univention-server-overview/ @fbest
 /management/univention-system-info/ @fbest
-/management/univention-web/ @jkeiser @fbest
+/management/univention-web/ @fbest
 
 # /monitoring/
 /monitoring/univention-monitoring-client/ @fbest
@@ -94,14 +94,14 @@
 /oidc/ @arequate @fbest @jbremer
 
 # /packaging/
-/packaging/ucslint/ @phahn @fbest @sschwardt
-/packaging/univention-debhelper/ @phahn @fbest
+/packaging/ucslint/ @fbest @sschwardt
+/packaging/univention-debhelper/ @fbest
 /packaging/univention-directory-manager-module-example/ @fbest
 /packaging/univention-l10n/ @fbest @jlohmer
 /packaging/univention-package-template/ @fbest
 /packaging/univention-package-template-python/ @fbest
 
-/saml/ @edamrose @fbest
+/saml/ @fbest
 
 # /services/
 /services/univention-ad-connector/ @arequate @jbremer @fbest
@@ -139,7 +139,7 @@
 # /test/ucs-test/
 # /test/ucs-test-tools/
 /test/univention-demo-configuration/ @fbest
-/test/utils/ @fbotner @phahn
+/test/utils/ @fbotner @fbest
 
 [GitLab]
 /.gitlab-ci.yml @univention/dist
@@ -149,16 +149,17 @@
 /PULL_REQUEST_TEMPLATE.md @univention/dist
 
 [Code style]
-/.isort.cfg @dtroeder @phahn @fbest
-/.pre-commit-config.yaml @dtroeder @phahn @fbest
+/pyproject.toml @fbest
+/.flake8 @fbest
+/.pre-commit-config.yaml @fbest @dtroeder
 # /CODE_OF_CONDUCT.md
 # /CONTRIBUTING.md
 
 ^[Documentation]
 /doc/ @ngulden
 /doc/app-center/ @ngulden @dwiesent
-/doc/changelog/ @phahn @edamrose
-/doc/developer-reference/ @fbest @phahn
+/doc/changelog/ @fbest @ngulden @arequate
+/doc/developer-reference/ @fbest
 /doc/errata/ @all
 /doc/errata/published/ @univention/dist
 # /README.md
@@ -175,7 +176,7 @@ py_*.c @phahn
 /base/univention-archive-key/ @phahn
 /base/univention-debmirror/ @phahn
 /base/univention-dvd/ @phahn
-/packaging/univention-debhelper/ @phahn
+/packaging/univention-debhelper/ @fbest
 /**/debian/* @phahn
 
 ^[Licence]
