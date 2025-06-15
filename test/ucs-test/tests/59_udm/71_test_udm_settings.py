@@ -432,7 +432,7 @@ def test_register_data(udm, ucr, remove_tmp_file):
     nums = kwargs['packageversion'].split('.')
     num0 = int(nums[0])
     num0 -= 1
-    older_packageversion = '.'.join([str(num0)] + nums[1:])
+    older_packageversion = '.'.join([str(num0), *nums[1:]])
     print('Registering with lower package version ({!r}) and changed "data_type"...'.format(kwargs['packageversion']))
     register_cmd = [
         'ucs_registerLDAPExtension',

@@ -796,7 +796,7 @@ class object(univention.admin.handlers.simpleLdap):
         new_parents = [*parents, dn]
         for childgrp in childs:
             if childgrp.lower() in new_parents:
-                dnCircle = new_parents[new_parents.index(childgrp.lower()):] + [childgrp.lower()]
+                dnCircle = [*new_parents[new_parents.index(childgrp.lower()):], childgrp.lower()]
                 cnCircle = []
                 # get missing cn's if required
                 grpdn2cn = {self.dn.lower(): self.info.get('name', 'UNKNOWN')}

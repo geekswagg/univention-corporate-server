@@ -1115,7 +1115,7 @@ class Component:
 
     @property
     def _parts(self) -> list[str]:
-        parts = ["maintained"] + ["unmaintained"][:self.updater.configRegistry.is_true(self.ucrv('unmaintained'))]
+        parts = ["maintained", *["unmaintained"][:self.updater.configRegistry.is_true(self.ucrv('unmaintained'))]]
         return ['%s/component' % (part,) for part in parts]
 
 

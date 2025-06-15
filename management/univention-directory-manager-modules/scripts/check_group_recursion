@@ -78,7 +78,7 @@ def checkChilds(grp_module, dn, parents, verbose=False, exception=False):
         if verbose:
             print('%s+--> %s' % ('|    ' * (len(parents) + 1), childgrp))
         if childgrp.lower() in new_parents:
-            recursionlist = new_parents[new_parents.index(childgrp.lower()):] + [childgrp]
+            recursionlist = [*new_parents[new_parents.index(childgrp.lower()):], childgrp]
             raise groupRecursionDetected(recursionlist)
 
         checkChilds(grp_module, childgrp, new_parents, verbose)

@@ -447,7 +447,7 @@ def simple_response(function=None, with_flavor=None, with_progress=False, with_r
     # the name is not important as it is removed from the list while
     # being processed. Even a variable named 'iterator' in the original
     # function does not break anything
-    _fake_func._original_argument_names = ['self', 'iterator'] + _fake_func._original_argument_names[1:]
+    _fake_func._original_argument_names = ['self', 'iterator', *_fake_func._original_argument_names[1:]]
 
     _multi_response = _eval_simple_decorated_function(_fake_func, with_flavor, with_request=with_request)
 

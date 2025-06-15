@@ -98,7 +98,7 @@ def verify_users(group_dn, users):
 
 
 def modify_username(user_dn, new_user_name, udm_instance):
-    newdn = ldap.dn.dn2str([[('uid', new_user_name, ldap.AVA_STRING)]] + ldap.dn.str2dn(user_dn)[1:])
+    newdn = ldap.dn.dn2str([[('uid', new_user_name, ldap.AVA_STRING)], *ldap.dn.str2dn(user_dn)[1:]])
     udm_instance._cleanup['users/user'].append(newdn)
     udm_instance.modify_object('users/user', dn=user_dn, username=new_user_name)
     return newdn

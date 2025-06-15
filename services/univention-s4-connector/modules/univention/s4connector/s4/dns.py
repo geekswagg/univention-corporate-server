@@ -204,7 +204,7 @@ def dns_dn_mapping(s4connector, given_object, dn_mapping_stored, isUCSobject):
                     if s4connector.configRegistry.get('connector/s4/mapping/dns/position') != 'legacy' and relativeDomainName.endswith('._msdcs'):
                         target_zone_name = '_msdcs.' + ol_zone_name
                         target_RR_val = relativeDomainName[:-7]
-                        target_zone_dn = ldap.dn.dn2str([[(s4_RR_attr.upper(), target_zone_name, ldap.AVA_STRING)]] + exploded_dn[2:])
+                        target_zone_dn = ldap.dn.dn2str([[(s4_RR_attr.upper(), target_zone_name, ldap.AVA_STRING)], *exploded_dn[2:]])
 
                     ud.debug(ud.LDAP, ud.INFO, "dns_dn_mapping: get dns_dn_mapping for target zone %s" % target_zone_dn)
                     fake_ol_zone_object = {
@@ -247,7 +247,7 @@ def dns_dn_mapping(s4connector, given_object, dn_mapping_stored, isUCSobject):
                         newdn = s4dn
                     else:
                         # Case: "moved" (?)
-                        raw_new_dn = ldap.dn.dn2str([str2dn(s4dn)[0]] + exploded_dn[1:])
+                        raw_new_dn = ldap.dn.dn2str([str2dn(s4dn)[0], *exploded_dn[1:]])
                         # The next line looks wrong to me: the source DN is a UCS dn here..
                         # But this is just like samaccountname_dn_mapping does it:
                         newdn = raw_new_dn.lower().replace(s4connector.lo_s4.base.lower(), s4connector.lo.base.lower())
@@ -318,7 +318,7 @@ def dns_dn_mapping(s4connector, given_object, dn_mapping_stored, isUCSobject):
                     if s4connector.configRegistry.get('connector/s4/mapping/dns/position') != 'legacy' and target_zone_name.startswith('_msdcs.'):
                         target_zone_name = target_zone_name[7:]
                         target_RR_val += '._msdcs'
-                        target_zone_dn = ldap.dn.dn2str([[(snd_rdn_attribute_utf8, target_zone_name, ldap.AVA_STRING)]] + exploded_dn[2:])
+                        target_zone_dn = ldap.dn.dn2str([[(snd_rdn_attribute_utf8, target_zone_name, ldap.AVA_STRING)], *exploded_dn[2:]])
 
                     fake_s4_zone_object = {
                         'dn': target_zone_dn,

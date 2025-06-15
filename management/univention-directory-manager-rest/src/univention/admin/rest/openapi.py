@@ -1034,7 +1034,7 @@ class _OpenAPIBase:
         url = list(urlparse(self.abspath('')))
         fqdn = '%(hostname)s.%(domainname)s' % ucr
         urls = [
-            urlunparse([_scheme, _host] + url[2:])
+            urlunparse([_scheme, _host, *url[2:]])
             for _host in (fqdn, url[1])
             for _scheme in ('https', 'http')
         ]

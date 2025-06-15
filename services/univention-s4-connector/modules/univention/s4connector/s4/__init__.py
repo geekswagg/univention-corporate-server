@@ -303,9 +303,9 @@ def samaccountname_dn_mapping(connector, given_object, dn_mapping_stored, ucsobj
                         # move
                         # return a kind of frankenstein DN here, sync_from_ucs replaces the UCS LDAP base
                         # with the AD LDAP base at a later stage, see Bug #48440
-                        newdn = ldap.dn.dn2str([str2dn(result[0][0])[0]] + exploded_dn[1:])
+                        newdn = ldap.dn.dn2str([str2dn(result[0][0])[0], *exploded_dn[1:]])
                 else:
-                    newdn = ldap.dn.dn2str([[('cn', fst_rdn_value_utf8, ldap.AVA_STRING)]] + exploded_dn[1:])  # new object, don't need to change
+                    newdn = ldap.dn.dn2str([[('cn', fst_rdn_value_utf8, ldap.AVA_STRING)], *exploded_dn[1:]])  # new object, don't need to change
                 ud.debug(ud.LDAP, ud.ALL, "samaccount_dn_mapping: newdn: %s" % newdn)
             else:
                 # get the object to read the sAMAccountName in AD and use it as name
@@ -354,7 +354,7 @@ def samaccountname_dn_mapping(connector, given_object, dn_mapping_stored, ucsobj
                     else:
                         newdn_rdn = [(ucsattrib, samaccountname, ldap.AVA_STRING)]
 
-                    newdn = ldap.dn.dn2str([newdn_rdn] + exploded_dn[1:])  # guess the old dn
+                    newdn = ldap.dn.dn2str([newdn_rdn, *exploded_dn[1:]])  # guess the old dn
 
             ud.debug(ud.LDAP, ud.INFO, "samaccount_dn_mapping: newdn for key %r: olddn=%r newdn=%r" % (dn_key, dn, newdn))
 

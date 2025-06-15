@@ -737,7 +737,7 @@ class access:
         new_rdn = ldap.dn.dn2str([new_rdn_unicode])
         rdn = ldap.dn.dn2str([rdn])
         if rdn != new_rdn:
-            return ldap.dn.dn2str([ldap.dn.str2dn(new_rdn)[0]] + ldap.dn.str2dn(dn)[1:]), new_rdn
+            return ldap.dn.dn2str([ldap.dn.str2dn(new_rdn)[0], *ldap.dn.str2dn(dn)[1:]]), new_rdn
         return dn, rdn
 
     @_fix_reconnect_handling
