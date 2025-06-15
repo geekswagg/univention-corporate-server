@@ -217,7 +217,7 @@ class Server:
         try:
             fd_limit = ucr.get_int('umc/http/max-open-file-descriptors', 65535)
             resource.setrlimit(resource.RLIMIT_NOFILE, (fd_limit, fd_limit))
-        except (ValueError, resource.error) as exc:
+        except (OSError, ValueError) as exc:
             CORE.error('Could not raise NOFILE resource limits: %s' % (exc,))
 
         # bind sockets
