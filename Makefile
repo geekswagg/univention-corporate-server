@@ -1,4 +1,4 @@
-.PHONY: help format format-all lint lint-all setup_devel_env ucr ruff isort autopep8
+.PHONY: help format format-all lint lint-all setup_devel_env ucr ruff isort autopep8 ruff-statistics
 .DEFAULT_GOAL := help
 
 define PRINT_HELP_PYSCRIPT
@@ -43,3 +43,6 @@ format-all: ## This formats all python files in the repository
 	-pre-commit run -a --hook-stage manual ruff-fix
 	-pre-commit run -a --hook-stage manual isort-fix
 	-pre-commit run -a --hook-stage manual autopep8-fix
+
+ruff-statistics:
+	pre-commit run -a --hook-stage manual ruff-statistics
