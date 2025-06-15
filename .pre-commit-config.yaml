@@ -6,23 +6,23 @@ exclude: "^packaging/ucslint/testframework/\
          "
 repos:
   - repo: https://git.knut.univention.de/univention/infrastructure/pre-commit-ucr
-    rev: '0.1.2'
+    rev: '0.1.4'
     hooks:
       - id: ucr-flake8
         additional_dependencies: ["flake8==7.2.0"]
       - id: ucr-ruff
-        additional_dependencies: ["ruff==0.11.2"]
+        additional_dependencies: ["ruff==0.11.13"]
       - id: ucr-autopep8
         additional_dependencies: ["autopep8==2.3.2"]
         stages: [ manual ]
       - id: ucr-ruff-fix
-        additional_dependencies: ["ruff==0.11.2"]
+        additional_dependencies: ["ruff==0.11.13"]
         stages: [ manual ]
       - id: ucr-ruff-format-check
-        additional_dependencies: ["ruff==0.11.2"]
+        additional_dependencies: ["ruff==0.11.13"]
         stages: [ manual ]
       - id: ucr-ruff-format
-        additional_dependencies: ["ruff==0.11.2"]
+        additional_dependencies: ["ruff==0.11.13"]
         stages: [ manual ]
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.5.0
@@ -96,14 +96,15 @@ repos:
         files: ^doc/errata/staging/[^0].*[.]yaml$
         args: ["--schemafile", "doc/errata/erratum.schema.json"]
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 'v0.11.2'
+    rev: 'v0.11.13'
     hooks:
-      - id: ruff
+      - id: ruff-check
+        alias: "ruff"
         exclude: "^services/univention-ldb-modules/buildtools/\
                   |^services/univention-ldb-modules/third_party/\
                   |^packaging/ucslint/testframework/\
                  "
-      - id: ruff
+      - id: ruff-check
         alias: "ruff-fix"
         stages: [ manual ]
         args: ["--fix", "--unsafe-fixes"]
@@ -111,14 +112,14 @@ repos:
                   |^services/univention-ldb-modules/third_party/\
                   |^packaging/ucslint/testframework/\
                  "
-      - id: ruff
+      - id: ruff-check
         alias: "ruff-statistics"
         stages: [ manual ]
         args: ["--statistics"]
         exclude: "^services/univention-ldb-modules/buildtools/\
                   |^packaging/ucslint/testframework/\
                  "
-      - id: ruff
+      - id: ruff-check
         alias: "ruff-select"
         stages: [ manual ]
         args: ["--select", "CPY001"]
