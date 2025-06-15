@@ -45,7 +45,7 @@ def _getBoolDefault(varGlobal: str, varLocal: str, settings: dict[str, str], con
     :param dict settings: A mapping, where the configuration is stored in.
     :param ConfigRegistry configRegistry: An |UCR| instance.
     """
-    configName = varGlobal.split("/")[-1]
+    configName = varGlobal.rsplit("/", 1)[-1]
     if configRegistry.is_true(varGlobal, True):
         settings[configName] = configName
     if configRegistry.is_false(varLocal) and settings.get(configName):

@@ -481,7 +481,7 @@ esac
 
 ucr set ucs/server/languages/%s?"%s"
 
-exit 0""" % (target_locale, target_locale.split('.')[0], language_name))
+exit 0""" % (target_locale, target_locale.split('.', 1)[0], language_name))
 
     # Move source files and installed .mo files to new package dir
     if os.path.exists(os.path.join(new_package_dir, 'usr')):

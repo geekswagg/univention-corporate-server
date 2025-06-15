@@ -59,7 +59,7 @@ modified_default_names = []
 
 
 def sidToName(sid: str) -> str | None:
-    rid = sid.split("-")[-1]
+    rid = sid.rsplit("-", 1)[-1]
     if univention.lib.s4.well_known_sids.get(sid):
         return univention.lib.s4.well_known_sids[sid]
     if univention.lib.s4.well_known_domain_rids.get(rid):
