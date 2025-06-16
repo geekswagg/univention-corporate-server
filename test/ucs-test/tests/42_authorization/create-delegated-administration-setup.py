@@ -136,10 +136,22 @@ for i in range(1, number_of_ous + 1):
     except CreateError:
         pass
 
+    # computer group for ou
+    computer_group = groups.new()
+    computer_group.position = f'cn=groups,ou=ou{i},{ldap_base}'
+    computer_group.props.name = f"ou{i}-computers"
+    computer_group.props.description = f"Default group for computers in ou{i}"
+    try:
+        computer_group.save()
+        print(f'create computer group ou{i}-computers')
+    except CreateError:
+        pass
+
     # ou container with primary group setting
     ou = ous.get(f'ou=ou{i},{ldap_base}')
     ou.options.append('group-settings')
     ou.props.defaultGroup = f'cn=ou{i}-users,cn=groups,ou=ou{i},{ldap_base}'
+    ou.props.defaultClientGroup = f'cn=ou{i}-computers,cn=groups,ou=ou{i},{ldap_base}'
     ou.save()
 
     # ou admin
@@ -162,6 +174,21 @@ for i in range(1, number_of_ous + 1):
     else:
         user.props.groups = [api_access_group.dn]
     user.save()
+
+    # linux client manager user
+    user = users.new()
+    name = f'ou{i}clientmanager'
+    position = f'cn=users,{ldap_base}'
+    try:
+        user = users.get(f'uid={name},{position}')
+    except NoObject:
+        user = users.new()
+    user.position = f'cn=users,{ldap_base}'
+    user.props.username = f'ou{i}clientmanager'
+    user.props.lastname = f'ou{i}clientmanager'
+    user.props.password = 'univention'
+    user.props.overridePWHistory = '1'
+    user.props.guardianRoles = [f'umc:udm:linux-client-manager&umc:udm:ou=ou{i}']
     user.policies['policies/umc'].append(policy.dn)
     if user.props.groups:
         user.props.groups.append(api_access_group.dn)
