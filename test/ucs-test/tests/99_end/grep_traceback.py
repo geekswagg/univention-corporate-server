@@ -242,6 +242,12 @@ COMMON_EXCEPTIONS = (
     E(r"...\[truncated \d+ chars\]...", ['univention-self-service-invitation'], 58380),
     E("KeyError: 'Cookie'", ['univention-self-service-invitation'], 58380),
 
+    # AutotestUpgrade
+    E(r'ConnectionRefusedError: \[Errno 111\] Connection refused', ['urllib3/connection.py'], 58390),
+    E(r'urllib3.exceptions.NewConnectionError: .*Failed to establish a new connection: \[Errno 111\] Connection refused', ['urllib3/connectionpool.py'], 58390),
+    E(r'urllib3.exceptions.MaxRetryError:.*Max retries exceeded with url: /metrics-prometheus/-/reload', ['requests/adapters.py'], 58390),
+    E(r'requests.exceptions.ConnectionError:.*Max retries exceeded with url: /metrics-prometheus/-/reload', ['system/monitoring-client.py'], 58390),
+
     # # updater test cases:
     E('EOFError: EOF when reading a line', ['scripts/upgrade.py']),
     E('urllib.error.URLError: .*', ['updater/tools.py.*in access']),
