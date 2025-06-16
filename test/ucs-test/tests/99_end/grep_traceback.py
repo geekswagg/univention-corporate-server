@@ -168,7 +168,7 @@ class E(collections.namedtuple('Exception', ['re_exception', 're_traceback', 'bu
 
 
 COMMON_EXCEPTIONS = (
-    # # Errors from UCS Jenkins runs:
+    # Errors from UCS Jenkins runs:
     E(r'^(ldap\.)?SERVER_DOWN: .*'),
     E(r'^(ldap\.)?NO_SUCH_OBJECT: .*'),
     E('^keycloak.exceptions.KeycloakAuthenticationError:.*invalid_grant', ['/usr/sbin/univention-keycloak'], 58369),
@@ -194,13 +194,15 @@ COMMON_EXCEPTIONS = (
     # E(r"ldap.NO_SUCH_OBJECT: .*matched\'\: \'cn\=users,dc\=.*", ['^  File "/usr/lib/python3/dist-packages/univention/admin/uldap.py", line .*, in search']),  # s4c
     E(r'^univention.admin.uexceptions.noObject: No such object.*', ['^  File "/usr/lib/python3/dist-packages/univention/admin/objects.py", line .*, in get', 'sync_from_ucs']),  # s4c
     # E(r'univention.admin.uexceptions.valueError: Invalid password.', ['add_in_ucs'], (53838,)),
-    # # during upgrade to UCS 5.0-2
+
+    # during upgrade to UCS 5.0-2
     # E("^AttributeError: 'PortalsPortalEntryObjectProperties' object has no attribute 'keywords'", ['reloader.py.*in refresh'], (54295,)),
     # E("ImportError: cannot import name '_ldap_cache' from 'univention.admin'", ['in update'], (54853,)),
     # E(r'ConnectionResetError: \[Errno 104\] Connection reset by peer', ['urllib3']),
     # E(r"urllib3.exceptions.ProtocolError: \('Connection aborted.', ConnectionResetError\(104, 'Connection reset by peer'\)\)", "urllib3"),
     # E(r"requests.exceptions.ConnectionError: \('Connection aborted.', ConnectionResetError\(104, 'Connection reset by peer'\)\)", ['univention-directory-listener/system/monitoring-client.py']),
-    # # during upgrade to UCS 5.0-0
+
+    # AutotestUpgrade
     E("^(apt.cache.FetchFailedException|apt_pkg.Error): E:The repository 'http://localhost/univention-repository.* Release' is not signed."),
     # E('ImportError: No module named client', [
     #     'univention-directory-listener/system/faillog.py',
@@ -229,7 +231,8 @@ COMMON_EXCEPTIONS = (
     E("FileNotFoundError: \\[Errno 2\\] No such file or directory: '/etc/machine.secret'", ['univention/lib/umc.py.*in authenticate_with_machine_account'], 53670),
     # E(r"TypeError: modify\(\) got an unexpected keyword argument 'rename_callback'", ['_register_app'], 54578),
     # E('sqlite3.OperationalError: no such table: S4 rejected', 'stdin', 54586),
-    # # during UCS 5.0-x-errata updates
+
+    # during UCS 5.0-x-errata updates
     # E(r"TypeError: __init__\(\) got an unexpected keyword argument 'cli_enabled'", ['_register_app'], 54584),
     # E(r"FileNotFoundError: \[Errno 2\] No such file or directory: '/usr/share/univention-management-console/oidc/oidc.json'", ['server.py'], 49006),
     E(r"FileNotFoundError: \[Errno 2\] No such file or directory: '/usr/share/univention-portal/portals.json'", ['/usr/sbin/univention-portal-server']),
@@ -242,13 +245,12 @@ COMMON_EXCEPTIONS = (
     E(r"...\[truncated \d+ chars\]...", ['univention-self-service-invitation'], 58380),
     E("KeyError: 'Cookie'", ['univention-self-service-invitation'], 58380),
 
-    # AutotestUpgrade
     E(r'ConnectionRefusedError: \[Errno 111\] Connection refused', ['urllib3/connection.py'], 58390),
     E(r'urllib3.exceptions.NewConnectionError: .*Failed to establish a new connection: \[Errno 111\] Connection refused', ['urllib3/connectionpool.py'], 58390),
     E(r'urllib3.exceptions.MaxRetryError:.*Max retries exceeded with url: /metrics-prometheus/-/reload', ['requests/adapters.py'], 58390),
     E(r'requests.exceptions.ConnectionError:.*Max retries exceeded with url: /metrics-prometheus/-/reload', ['system/monitoring-client.py'], 58390),
 
-    # # updater test cases:
+    # updater test cases:
     E('EOFError: EOF when reading a line', ['scripts/upgrade.py']),
     E('urllib.error.URLError: .*', ['updater/tools.py.*in access']),
     E('urllib.error.HTTPError: .*', ['updater/tools.py.*in access']),
@@ -263,10 +265,12 @@ COMMON_EXCEPTIONS = (
     E(r'socket.gaierror: \[Errno \-2\] Name or service not known'),
     E('ConfigurationError: Configuration error: Temporary failure in name resolution', ['in access']),
     E(r"socket.gaierror: \[Errno \-3\] Temporary failure in name resolution", ['urllib/request.py']),
-    # # 10_ldap/listener_module_testpy
+
+    # 10_ldap/listener_module_testpy
     E('MyTestException: .*'),
     E('univention.management.console.modules.ucstest.ThreadedError'),  # 60_umc/17_traceback_handling.py
-    # # various test cases:
+
+    # various test cases:
     E('psycopg2.OperationalError: connection to server at "localhost".* failed: Connection refused', ['passwordreset/tokendb.py']),  # 83_self_service/13_test_postgresql_connection_loss.py
     E('psycopg2.OperationalError: SSL connection has been closed unexpectedly', ['passwordreset/tokendb.py']),  # 83_self_service/13_test_postgresql_connection_loss.py
     E('psycopg2.OperationalError: SSL-Verbindung wurde unerwartet geschlossen', ['passwordreset/tokendb.py']),  # 83_self_service/13_test_postgresql_connection_loss.py
@@ -289,44 +293,8 @@ COMMON_EXCEPTIONS = (
     # E('univention.testing.utils.LDAPObjectNotFound: DN:', ['test_container_cn_rename_uppercase_rollback_with_special_characters'], 53776),
     # E('dns.resolver.NoAnswer: The DNS response does not contain an answer to the question:', ['test__dns_reverse_zone_check_resolve', 'test_dns_reverse_zone_check_resolve'], 53775),
     # E('^KeyError$', ['in find_rrset'], 53775),
-    # # UCS@school test cases:
-    # ("ucsschool.importer.exceptions.InitialisationError: Value of 'scheme:description' must be a string.", ['in prepare_import'], 53564),
-    E("ucsschool.importer.exceptions.ConfigurationError: Columns configured in csv:mapping missing:", ['in read_input'], 53564),
-    E("ValueError: time data '.*' does not match format '%Y-%m-%d'", ['import_user.py.* in validate'], 53564),
-    E("ucsschool.importer.exceptions.InitialisationError: Recursion detected when resolving formatting dependencies for 'email'.", ['user_import.py.* in read_input'], 53564),
-    E("ucsschool.importer.exceptions.InvalidBirthday: Birthday has invalid format: '.*' error: time data '.*' does not match format '%Y-%m-%d'.", ['user_import.py.* in create_and_modify_users'], 53564),
-    E("ucsschool.importer.exceptions.UcsSchoolImportSkipImportRecord: Skipping user '.*' with firstname starting with \".\"", ['user_import.py.* in create_and_modify_users'], 53564),
-    E("ucsschool.importer.exceptions.TooManyErrors: More than 0 errors.", ['cmdline.py.* in main', 'in import_users'], 53564),
-    E(
-        r"ucsschool.importer.exceptions.InitialisationError: Configuration value of username:max_length:default is .*, "
-        r"but must not be higher than UCR variable ucsschool/username/max_length \(20\).", ['in prepare_import'], 53564),
-    E("ucsschool.importer.exceptions.InitialisationError: The 'user_deletion' configuration key is deprecated. Please set 'deletion_grace_period'.", ['in prepare_import'], 53564),
-    E("ucsschool.importer.exceptions.InitialisationError: Thou shalt not import birthdays!", ['in prepare_import'], 53564),
-    E("ucsschool.importer.exceptions.InitialisationError: Deprecated configuration key 'scheme:username:allow_rename'.", ['in prepare_import'], 53564),
-    E("ucsschool.importer.exceptions.InitialisationError: Value of 'scheme:.*' must be a string.", ['in prepare_import'], 53564),
-    E("ucsschool.importer.exceptions.MoveError: Error moving.*from school 'NoSchool' to", ['in create_and_modify_users'], 53564),
-    E("ucsschool.importer.exceptions.UniqueIdError: Username '.*' is already in use by .*", ['in create_and_modify_users'], 53564),
-    E('ucsschool.importer.exceptions.UserValidationError: <unprintable UserValidationError object>', ['in create_and_modify_users'], 53564),
-    E(r"ucsschool.importer.exceptions.UserValidationError: .* ValidationError\({'school_classes': \[\"School '302_http_api_no_school' in 'school_classes' is missing in the users 'school\(s\)' attribute.\"\]}\)", ['in create_and_modify_users']),
-    E("ucsschool.importer.exceptions.UnknownSchoolName: School '.*' does not exist.", ['in create_and_modify_users'], 53564),
-    E("univention.admin.uexceptions.pwToShort: Password policy error: The password is too short, at least [0-9] characters needed!", ['ucsschool/importer/mass_import']),
-    E(".*WARNING/ForkPoolWorker.* in create_and_modify_users", [], 53564),
-    E(r"ucsschool.lib.models.attributes.ValidationError: .*is missing in the users 'school\(s\)' attributes", ['in create_and_modify_users'], 53564),
-    E(r"ucsschool.lib.models.attributes.ValidationError: {'school_classes': \[\"School '302_http_api_no_school' in 'school_classes' is missing in the users 'school\(s\)' attribute.\"\]}", ['in create_and_modify_users']),
-    E("Exception: Empty user.input_data.", ['test228_input_data_pyhook.py'], 53564),
-    E("ConnectionForced:.*broker forced connection closure with reason .*shutdown", ['celery'], 53564),
-    E(r"error: \[Errno 104\] Connection reset by peer", ['celery'], (53671, 53564)),
-    E(r"ConnectionResetError: \[Errno 104\] Connection reset by peer", ['celery'], (53671, 53564)),
-    E("gunicorn.errors.HaltServer:.*Worker failed to boot", ['gunicorn'], 53564),
-    E("univention.admin.uexceptions.noLock: .*The attribute 'uid' could not get locked.", ['users/user.py.*in _ldap_pre_ready'], 53749),
-    E("univention.admin.uexceptions.uidAlreadyUsed: .*", ['in sync_to_ucs'], 53749),
-    E(r"IOError: \[Errno 2\] No such file or directory: u'/etc/ucsschool-import/(postgres|django_key).secret'", ['gunicorn'], 53750),
-    E("ImportError: Error accessing LDAP via machine account: {'desc': 'Invalid credentials'}", ['univention-directory-listener/system/ucsschool-s4-branch-site.py']),
-    E("ldap.CONSTRAINT_VIOLATION: .*unique index violation on objectSid", ['in sync_from_ucs'], 43775),  # a test creates a user with the default Administrators SID, which creates a SID-Conflict
-    E("ucsschool.importer.exceptions.UnknownRole: Unknown role 'triggererror' found in 'Typ' column.", ['csv_reader.py']),
-    E("KeyError: 'triggererror'", ['csv_reader.py']),
-    E(r"ucsschool.importer.reader.csv_reader.UnsupportedEncodingError: Unsupported encoding 'binary' detected, please check the manual for supported encodings.", ['csv_reader.py'], 56846),  # ucs-test-ucsschool/90_ucsschool/252_import_works_with_encodings and 252a_csv_reader_correct_encodings expect this traceback
-    # # Tracebacks caused by specific UCS bugs:
+
+    # Tracebacks caused by specific UCS bugs:
     # E(r'^ldap\.NO_SUCH_OBJECT: .*', [r'quota\.py'], 52765),
     E(r'.*OperationalError.*FATAL:.*admindiary.*', [r'admindiary_backend_wrapper\.py', '_wrap_pool_connect'], 51671),
     E(r"(OSError|FileNotFoundError): \[Errno 2\] .*: '/var/lib/samba/sysvol/.*/Policies/'", [r'sysvol-cleanup\.py'], 51670),
@@ -399,11 +367,58 @@ COMMON_EXCEPTIONS = (
     E('^ldap.TYPE_OR_VALUE_EXISTS:.*modify/add: uniqueMember: value', ['univention/admin/uldap.py.*in modify']),
     E('^ldap.INSUFFICIENT_ACCESS:.*Insufficient access', ['univention/admin/uldap.py.*in modify']),
     E('^AssertionError: Authentisierung ist fehlgeschlagen. Bitte melden Sie sich erneut an. == Ungültiger Benutzername oder Passwort.'),
-    # # Tracebacks caused by specific UCS@school bugs:
+
+    # Tracebacks caused by specific UCS@school bugs:
     # E(r"_ldb.LdbError: \(1, 'LDAP client internal error: NT_STATUS_INVALID_PARAMETER'\)", ['univention-samba4-site-tool.py'], 54592),
     # E(r"AssertionError: Attribute \(username\) is parsed wrong as.*", ['103_ucsschool_smbstatus_parser.py'], 54591),
     # E(r"optparse.OptionConflictError: option.*authentication-file", ['univention-samba4-site-tool.py'], 55082),
     E(r"univention.office365.microsoft.exceptions.core_exceptions.MSGraphError"),  # office365 product tests deliberately creates these errors
+    E(r"ImportError: cannot import name '_debug' from 'univention' \(unknown location\)", ['ucsschool/http_api/app/wsgi.py']),
+    E(r"ModuleNotFoundError: No module named 'heimdal'", ['ucsschool/http_api/app/wsgi.py']),
+    E(r"ModuleNotFoundError: No module named 'univention.license'", ['ucsschool/http_api/app/wsgi.py']),
+    E(r"TypeError: __init__\(\) missing 1 required positional argument: 'on_delete'", ['ucsschool/http_api/app/wsgi.py']),
+    E('^StopIteration$', ['gunicorn/arbiter.py']),
+    E(r'ProcessLookupError: \[Errno 3\] No such process', ['gunicorn/arbiter.py']),
+    E(r"AttributeError: gunicorn: worker \[ucsschool.http_api.app.wsgi:application\]: undefined symbol: magic_open", ['ucsschool/http_api/app/wsgi.py']),
+
+    # UCS@school test cases:
+    # ("ucsschool.importer.exceptions.InitialisationError: Value of 'scheme:description' must be a string.", ['in prepare_import'], 53564),
+    E("ucsschool.importer.exceptions.ConfigurationError: Columns configured in csv:mapping missing:", ['in read_input'], 53564),
+    E("ValueError: time data '.*' does not match format '%Y-%m-%d'", ['import_user.py.* in validate'], 53564),
+    E("ucsschool.importer.exceptions.InitialisationError: Recursion detected when resolving formatting dependencies for 'email'.", ['user_import.py.* in read_input'], 53564),
+    E("ucsschool.importer.exceptions.InvalidBirthday: Birthday has invalid format: '.*' error: time data '.*' does not match format '%Y-%m-%d'.", ['user_import.py.* in create_and_modify_users'], 53564),
+    E("ucsschool.importer.exceptions.UcsSchoolImportSkipImportRecord: Skipping user '.*' with firstname starting with \".\"", ['user_import.py.* in create_and_modify_users'], 53564),
+    E("ucsschool.importer.exceptions.TooManyErrors: More than 0 errors.", ['cmdline.py.* in main', 'in import_users'], 53564),
+    E(
+        r"ucsschool.importer.exceptions.InitialisationError: Configuration value of username:max_length:default is .*, "
+        r"but must not be higher than UCR variable ucsschool/username/max_length \(20\).", ['in prepare_import'], 53564),
+    E("ucsschool.importer.exceptions.InitialisationError: The 'user_deletion' configuration key is deprecated. Please set 'deletion_grace_period'.", ['in prepare_import'], 53564),
+    E("ucsschool.importer.exceptions.InitialisationError: Thou shalt not import birthdays!", ['in prepare_import'], 53564),
+    E("ucsschool.importer.exceptions.InitialisationError: Deprecated configuration key 'scheme:username:allow_rename'.", ['in prepare_import'], 53564),
+    E("ucsschool.importer.exceptions.InitialisationError: Value of 'scheme:.*' must be a string.", ['in prepare_import'], 53564),
+    E("ucsschool.importer.exceptions.MoveError: Error moving.*from school 'NoSchool' to", ['in create_and_modify_users'], 53564),
+    E("ucsschool.importer.exceptions.UniqueIdError: Username '.*' is already in use by .*", ['in create_and_modify_users'], 53564),
+    E('ucsschool.importer.exceptions.UserValidationError: <unprintable UserValidationError object>', ['in create_and_modify_users'], 53564),
+    E(r"ucsschool.importer.exceptions.UserValidationError: .* ValidationError\({'school_classes': \[\"School '302_http_api_no_school' in 'school_classes' is missing in the users 'school\(s\)' attribute.\"\]}\)", ['in create_and_modify_users']),
+    E("ucsschool.importer.exceptions.UnknownSchoolName: School '.*' does not exist.", ['in create_and_modify_users'], 53564),
+    E("univention.admin.uexceptions.pwToShort: Password policy error: The password is too short, at least [0-9] characters needed!", ['ucsschool/importer/mass_import']),
+    E(".*WARNING/ForkPoolWorker.* in create_and_modify_users", [], 53564),
+    E(r"ucsschool.lib.models.attributes.ValidationError: .*is missing in the users 'school\(s\)' attributes", ['in create_and_modify_users'], 53564),
+    E(r"ucsschool.lib.models.attributes.ValidationError: {'school_classes': \[\"School '302_http_api_no_school' in 'school_classes' is missing in the users 'school\(s\)' attribute.\"\]}", ['in create_and_modify_users']),
+    E("Exception: Empty user.input_data.", ['test228_input_data_pyhook.py'], 53564),
+    E("ConnectionForced:.*broker forced connection closure with reason .*shutdown", ['celery'], 53564),
+    E(r"error: \[Errno 104\] Connection reset by peer", ['celery'], (53671, 53564)),
+    E(r"ConnectionResetError: \[Errno 104\] Connection reset by peer", ['celery'], (53671, 53564)),
+    E("gunicorn.errors.HaltServer:.*Worker failed to boot", ['gunicorn'], 53564),
+    E("univention.admin.uexceptions.noLock: .*The attribute 'uid' could not get locked.", ['users/user.py.*in _ldap_pre_ready'], 53749),
+    E("univention.admin.uexceptions.uidAlreadyUsed: .*", ['in sync_to_ucs'], 53749),
+    E(r"IOError: \[Errno 2\] No such file or directory: u'/etc/ucsschool-import/(postgres|django_key).secret'", ['gunicorn'], 53750),
+    E("ImportError: Error accessing LDAP via machine account: {'desc': 'Invalid credentials'}", ['univention-directory-listener/system/ucsschool-s4-branch-site.py']),
+    E("ldap.CONSTRAINT_VIOLATION: .*unique index violation on objectSid", ['in sync_from_ucs'], 43775),  # a test creates a user with the default Administrators SID, which creates a SID-Conflict
+    E("ucsschool.importer.exceptions.UnknownRole: Unknown role 'triggererror' found in 'Typ' column.", ['csv_reader.py']),
+    E("KeyError: 'triggererror'", ['csv_reader.py']),
+    E(r"ucsschool.importer.reader.csv_reader.UnsupportedEncodingError: Unsupported encoding 'binary' detected, please check the manual for supported encodings.", ['csv_reader.py'], 56846),  # ucs-test-ucsschool/90_ucsschool/252_import_works_with_encodings and 252a_csv_reader_correct_encodings expect this traceback
+
     # E(r'.*', ['File "/usr/share/ucs-test/']),
 )
 
