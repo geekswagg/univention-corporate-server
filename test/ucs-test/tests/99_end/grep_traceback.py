@@ -369,6 +369,7 @@ COMMON_EXCEPTIONS = (
     E('^ldap.TYPE_OR_VALUE_EXISTS:.*modify/add: uniqueMember: value', ['univention/admin/uldap.py.*in modify']),
     E('^ldap.INSUFFICIENT_ACCESS:.*Insufficient access', ['univention/admin/uldap.py.*in modify']),
     E('^AssertionError: Authentisierung ist fehlgeschlagen. Bitte melden Sie sich erneut an. == Ungültiger Benutzername oder Passwort.'),
+    E('modify/delete: uniqueMember: no such attribute.', ['__set_membership_attributes', 'ldap/ldapobject.py'], 58400),
 
     # Tracebacks caused by specific UCS@school bugs:
     # E(r"_ldb.LdbError: \(1, 'LDAP client internal error: NT_STATUS_INVALID_PARAMETER'\)", ['univention-samba4-site-tool.py'], 54592),
