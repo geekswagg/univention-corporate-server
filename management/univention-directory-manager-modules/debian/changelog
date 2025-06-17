@@ -1,3 +1,9 @@
+univention-directory-manager-modules (17.2.8) unstable; urgency=medium
+
+  * Bug #58356: don't depend on number of computer containers
+
+ -- Florian Best <best@univention.de>  Thu, 26 Jun 2025 00:38:30 +0200
+
 univention-directory-manager-modules (17.2.7) unstable; urgency=medium
 
   * Bug #58356: implement container specific default group settings with
