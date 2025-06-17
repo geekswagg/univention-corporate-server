@@ -118,6 +118,7 @@ def main(files, ignore_exceptions=[], out=sys.stdout, err=sys.stderr):
                     tb.filenames.add(filename)
 
     print('Found %d tracebacks:' % (len(tracebacks),), file=out)
+    ignored = 0
     found = False
     for traceback, exceptions in tracebacks.items():
         ignore = False
@@ -130,6 +131,7 @@ def main(files, ignore_exceptions=[], out=sys.stdout, err=sys.stderr):
                 print('Ignoring %s ' % (e.ignore_exception.pattern,), file=err)
                 break
         if ignore:
+            ignored += 1
             continue
         found = True
         print('', file=out)
@@ -142,6 +144,7 @@ def main(files, ignore_exceptions=[], out=sys.stdout, err=sys.stderr):
         for exc in exceptions:
             print(exc.strip(), file=out)
         print('', file=out)
+    print('Show %d tracebacks (%d ignored)' % (len(tracebacks) - ignored, ignored), file=out)
     return not found
 
 
