@@ -250,6 +250,10 @@ COMMON_EXCEPTIONS = (
     E(r'urllib3.exceptions.MaxRetryError:.*Max retries exceeded with url: /metrics-prometheus/-/reload', ['requests/adapters.py'], 58390),
     E(r'requests.exceptions.ConnectionError:.*Max retries exceeded with url: /metrics-prometheus/-/reload', ['system/monitoring-client.py'], 58390),
 
+    # unknown cause
+    E(r"FileNotFoundError: \[Errno 2\] No such file or directory: '/var/cache/univention-config/cache'", ['univention/config_registry/handler.py']),
+    E(r"FileNotFoundError: \[Errno 2\] No such file or directory: '/etc/univention/templates/info/univention-system-setup-boot.info'", ['system/cups-printers.py']),
+
     # updater test cases:
     E('EOFError: EOF when reading a line', ['scripts/upgrade.py']),
     E('urllib.error.URLError: .*', ['updater/tools.py.*in access']),
@@ -351,6 +355,8 @@ COMMON_EXCEPTIONS = (
     E('univention.admin.uexceptions.groupNameAlreadyUsed: The groupname is already in use as groupname or as username: Users.', ['in sync_to_ucs']),
     E('univention.admin.uexceptions.groupNameAlreadyUsed: The groupname is already in use as groupname or as username: Domain Controllers.', ['in sync_to_ucs']),
     E('univention.admin.uexceptions.groupNameAlreadyUsed: The groupname is already in use as groupname or as username: IIS_IUSRS.', ['in sync_to_ucs']),
+    E('univention.admin.uexceptions.groupNameAlreadyUsed: The groupname is already in use as groupname or as username: Windows Authorization Access Group.', ['in sync_to_ucs']),
+    E('univention.admin.uexceptions.groupNameAlreadyUsed: The groupname is already in use as groupname or as username: Denied RODC Password Replication Group.', ['in sync_to_ucs']),
     E("univention.admin.uexceptions.noLock: Could not acquire lock: The attribute 'groupName' could not get locked.", ['in _ldap_pre_ready']),
     # E(r"subprocess.CalledProcessError: Command '\('rndc', 'reconfig'\)' returned non-zero exit status 1", ['univention-fix-ucr-dns'], 53332),
     # E(r"ldap.NO_SUCH_OBJECT: .*objectclass: Cannot add cn=(user|machine),cn=\{[0-9a-f-]+\},cn=policies,cn=system,DC=.*parent does not exist", ['in sync_from_ucs'], 53334),
