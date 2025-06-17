@@ -1,3 +1,9 @@
+ucs-test (12.2.8) unstable; urgency=medium
+
+  * Issue #2295: ignore more tracebacks
+
+ -- Florian Best <best@univention.de>  Thu, 19 Jun 2025 20:40:45 +0200
+
 ucs-test (12.2.7) unstable; urgency=medium
 
   * Bug #58404: fix error messages for 502/503 HTTP errors for services
