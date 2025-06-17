@@ -1,6 +1,6 @@
 product: ucs
 release: "5.2"
-version: [0, 1, 2]
+version: [1, 2]
 scope: ucs_5.2-0-errata5.2-2
 src: linux-signed-amd64
 fix: 6.1.140+1
@@ -19,7 +19,7 @@ desc: |
    CVE-2024-35790, CVE-2024-26807)
  * CVSS score 4.7 (CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:N/I:N/A:H).
    (CVE-2024-36927)
-bug: [58294, 58395]
+bug: [58294]
 cve:
 - CVE-2025-23144
 - CVE-2025-37797
