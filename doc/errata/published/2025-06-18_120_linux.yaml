@@ -40,3 +40,6 @@ cve:
 - CVE-2025-37819
 - CVE-2024-28956
 note: This is the 1st of two parts.
+erratum: 120
+announced: 2025-06-18
+support: core
