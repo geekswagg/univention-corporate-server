@@ -32,6 +32,10 @@ Files: icons/univention-management-console.svg icons/univention.svg css/images/l
 Copyright: 2024-2025 Univention GmbH
 License: LicenseRef-Univention-Proprietary
 
+Files: css/images/progressBarAnim.gif css/images/checkmarkNoBorder.gif css/images/login_bg.gif css/images/info.gif css/images/loadingAnimation.gif css/form/images/loading.gif
+Copyright: 2005-2008, The Dojo Foundation
+License: BSD-3-Clause or AFL-2.1
+
 Files: Open_Sans.zip
 Copyright: Digitized data copyright (c) 2010-2011, Google Corporation.
 License: Apache-2.0

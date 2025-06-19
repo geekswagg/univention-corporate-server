@@ -421,6 +421,12 @@ SPDX-License-Identifier = "LicenseRef-Univention-Proprietary"
 SPDX-FileCopyrightText = "2024-2025 Univention GmbH"
 
 [[annotations]]
+path = [ "management/univention-web/css/images/progressBarAnim.gif", "management/univention-web/css/images/checkmarkNoBorder.gif", "management/univention-web/css/images/login_bg.gif", "management/univention-web/css/images/info.gif", "management/univention-web/css/images/loadingAnimation.gif", "management/univention-web/css/form/images/loading.gif",]
+precedence = "override"
+SPDX-License-Identifier = "BSD-3-Clause or AFL-2.1"
+SPDX-FileCopyrightText = "2005-2008, The Dojo Foundation"
+
+[[annotations]]
 path = "management/univention-web/Open_Sans.zip"
 precedence = "override"
 SPDX-License-Identifier = "Apache-2.0"
