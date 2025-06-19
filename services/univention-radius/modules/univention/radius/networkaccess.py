@@ -189,7 +189,7 @@ class NetworkAccess:
         else:
             result = self.ldapConnection.search(filter=filter_format('(|(uid=%s)(macAddress=%s))', (self.username, self.username)), attr=[pwd_attr, 'sambaAcctFlags'])
         try:
-            nt_password_hash = codecs.decode(result[0][1][pwd_attr][0], 'hex')
+            nt_password_hash: bytes = codecs.decode(result[0][1][pwd_attr][0], 'hex')
         except (IndexError, KeyError, TypeError):
             raise NoHashError('No valid NT-password-hash found. Check the "%s" attribute of the user.' % (pwd_attr,))
         sambaAccountFlags = frozenset(result[0][1]['sambaAcctFlags'][0].decode('UTF-8'))
