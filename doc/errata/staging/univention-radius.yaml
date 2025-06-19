@@ -1,0 +1,13 @@
+product: ucs
+release: "5.2"
+version: [2]
+scope: ucs_5.2-0-errata5.2-2
+src: univention-radius
+fix: 9.2.1
+desc: |
+ This update addresses the following issue:
+ * In some situations, univention-radius-ntlm-auth did not correctly report
+   errors to the RADIUS server and also did not log them. The program has
+   been improved and is now able to intercept these errors and log
+   them in /var/log/univention/radius_ntlm_auth.log (Bug #58132).
+bug: [58132]

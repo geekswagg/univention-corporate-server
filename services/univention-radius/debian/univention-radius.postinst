@@ -51,6 +51,10 @@ case "$1" in
 
 		[ -x "/etc/init.d/univention-firewall" ] && invoke-rc.d univention-firewall restart
 		systemctl try-restart univention-directory-listener
+
+		# Bug #58132: make sure that a freeradius.secret exists as early as possible
+		# The file will be updated by join script and server password change as well.
+		[ -f /etc/machine.secret ] && install -o freerad -g freerad -m 0440 /etc/machine.secret /etc/freeradius.secret
 		;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
