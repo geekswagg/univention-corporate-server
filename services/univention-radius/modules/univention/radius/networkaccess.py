@@ -34,13 +34,25 @@ def convert_ucs_debuglevel(ucs_debuglevel: int) -> int:
     return logging_debuglevel
 
 
-def get_ldapConnection() -> univention.uldap.access:
+def get_ldapConnection(logger: logging.Logger | None = None) -> univention.uldap.access:
+    secret_file = '/etc/freeradius.secret'
+    if logger is None:
+        logger = logging.getLogger('radius-ntlm')
+
+    # check if file is readable
+    try:
+        with open(secret_file) as fd:
+            fd.read()
+    except OSError as exc:
+        logger.critical('Unable to read %r: %s', secret_file, exc)
+        raise
+
     try:
         # try ldap/server/name, then each of ldap/server/addition
-        return univention.uldap.getMachineConnection(ldap_master=False, reconnect=False, secret_file='/etc/freeradius.secret')
+        return univention.uldap.getMachineConnection(ldap_master=False, reconnect=False, secret_file=secret_file)
     except SERVER_DOWN:
         # then primary directory node
-        return univention.uldap.getMachineConnection(secret_file='/etc/freeradius.secret')
+        return univention.uldap.getMachineConnection(secret_file=secret_file)
 
 
 class NetworkAccessError(Exception):
@@ -70,7 +82,6 @@ class NetworkAccess:
     def __init__(self, username: str, stationId: str, loglevel: int | None = None, logfile: str | None = None) -> None:
         self.username = parse_username(username)
         self.mac_address = decode_stationId(stationId)
-        self.ldapConnection = get_ldapConnection()
         self.configRegistry = univention.config_registry.ConfigRegistry()
         self.configRegistry.load()
         self.use_ssp = self.configRegistry.is_true('radius/use-service-specific-password')
@@ -78,6 +89,13 @@ class NetworkAccess:
         self._setup_logger(loglevel, logfile)
         self.logger.debug('Given username: %r', username)
         self.logger.debug('Given stationId: %r', stationId)
+        self._ldapConnection = None
+
+    @property
+    def ldapConnection(self):
+        if self._ldapConnection is None:
+            self._ldapConnection = get_ldapConnection(logger=self.logger)
+        return self._ldapConnection
 
     def _setup_logger(self, loglevel: int | None, logfile: str | None) -> None:
         if loglevel is not None:
