@@ -184,10 +184,11 @@ repos:
         name: "reuse annotate"
         args: ["annotate", "-c", "Univention GmbH", "-l", "AGPL-3.0-only", "--skip-unrecognised", "--skip-existing", "--template", "univention"]
         pass_filenames: true
-        description: "Make the changed files compliant with the REUSE Specification."
+        description: "Annotate all unlicensed files as AGPL-3.0-only with Univention GmbH copyright"
         stages: [ manual ]
         # we have to specify everything covered by REUSE.toml again due to https://github.com/fsfe/reuse-tool/issues/1190
         # ignoring __init__.py due to https://github.com/fsfe/reuse-tool/issues/1179
+        # MAKE SURE THIS IS IN SYNC WITH REUSE.toml / update-reuse-toml.py !
         <<: &common
           exclude: "^.*[.]1$\
                     |^.*[.]5$\
@@ -206,7 +207,12 @@ repos:
                     |^.*[.]cvd$\
                     |^.*/debian/.*$\
                     |^doc/errata/.*[.]yaml$\
+                    |^doc/developer-reference/.*/.*/debian/.*$\
+                    |^doc/.*/spelling_wordlist$\
+                    |^doc/developer-reference/umc/.*[.]xml$\
+                    |^doc/developer-reference/umc/.*[.]umc-modules$\
                     |^.*[.]gitignore$\
+                    |^[.]gitlab-ci/ht$\
                     |^.*[.]gpg$\
                     |^.*[.]gz$\
                     |^.*[.]html$\
@@ -244,6 +250,14 @@ repos:
                     |^.*[.]txt$\
                     |^.*/unittests/.*$\
                     |^.*[.]zip$\
+                    |^mail/univention-mail-postfix/dh.*$\
+                    |^management/univention-portal/frontend/public/fonts/OpenSans.*$\
+                    |^management/univention-portal/frontend/yarn[.]lock$\
+                    |^management/univention-ldap/dh_2048[.]pem$\
+                    |^management/univention-web/css/images/.*[.]gif$\
+                    |^management/univention-web/css/form/images/loading[.]gif$\
+                    |^management/univention-directory-manager-modules/doc/UDM_Python-API_UML-class-diagram_horizontal.pdf$\
+                    |^management/univention-web/docs/style_images/bgc-loading-circle.mp4$\
                     "
       - id: reuse
         alias: reuse-lint

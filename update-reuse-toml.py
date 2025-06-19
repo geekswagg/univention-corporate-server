@@ -13,70 +13,34 @@ from debian.copyright import Copyright, NotMachineReadableError  # 0.1.49
 REPO_ROOT = Path(".").resolve()
 REUSE_TOML_PATH = REPO_ROOT / "REUSE.toml"
 
+# MAKE SURE THIS IS IN SYNC WITH: .pre-commit-config.yaml: reuse-annotate
 DEFAULT_UCS_ANNOTATIONS = [{
+    # AGPL 3.0
     'path': sorted([
-        # "**.1",
-        # "**.5",
-        # "**.8",
-        # "**.acl",
-        # "**.ai",
-        # "base/univention-dvd/data/*/**",
-        # "base/univention-dvd/tasks/*/**",
-        # "base/univention-dvd/tools/boot/**/parse_isolinux",
-        # "base/univention-dvd/ucs**.conf",
         "test/**.cfg",
         "test/utils/id-broker/keycloak_ProxyPass.conf.example",
         "test/utils/id-broker/univention-test-app.conf",
         "test/utils/id-broker/univention-vhosts.conf.example",
-        # "**/conffiles/*/**",
-        # "**.css",
-        # "**.csv",
-        # "**.cvd",
-        # "**/debian/**",
         "doc/errata/**.yaml",
         "doc/errata/erratum.schema.json",
         "doc/extended-docs/ucr-deprecated.schema.json",
+        'doc/developer-reference/*/*/debian/*',
+        'doc/*/spelling_wordlist',
+        'doc/developer-reference/umc/*.xml',
+        'doc/developer-reference/umc/*.umc-modules',
         "**.gitignore",
         ".git-blame-ignore-revs",
-        ".gitlab/issue_templates/default.md",
-        ".gitlab/merge_request_templates/Default.md",
+        ".gitlab/issue_templates/*.md",
+        ".gitlab/merge_request_templates/*.md",
         "pyproject.toml",
         "CODE_OF_CONDUCT.md",
         "CONTRIBUTING.md",
         "PULL_REQUEST_TEMPLATE.md",
-        # "**.gpg",
-        # "**.gz",
-        # "**.html",
-        # "**.ico",
-        # "**.in",
-        # "**.ini",
-        # "**.jpg",
-        # "**.json",
-        # "**.ldif",
-        # "**.md",
-        # "**.mo",
-        # "packaging/ucslint/testframework/**",
-        # "**.patch",
-        # "**.png",
-        # "**.po",
-        # "**.pot",
-        # "**.rml",
-        # "**.schema",
-        # "**.short",
-        # "**.styl",
-        # "**.svg",
-        # "**.svgz",
-        # "**/tests/**",
-        # "**/test/**",
-        # "**.tmpl",
-        # "**.toml",
-        # "**.txt",
-        # "**/unittest/**",
-        # "**.zip",
     ]),
     'SPDX-FileCopyrightText': "2025 Univention GmbH",
     'SPDX-License-Identifier': "AGPL-3.0-only",
 }, {
+    # Univention Proprietary
     'path': sorted([
         'doc/**.ai',
         'doc/**.drawio',
@@ -90,6 +54,10 @@ DEFAULT_UCS_ANNOTATIONS = [{
     ]),
     'SPDX-FileCopyrightText': "2025 Univention GmbH",
     'SPDX-License-Identifier': "LicenseRef-Univention-Proprietary",
+}, {
+    "path": ['.gitlab-ci/ht'],  # Precompiled binary of HTTPie Go client (https://github.com/httpie/httpie-go)
+    'SPDX-FileCopyrightText': "Copyright (c) HTTPie",
+    'SPDX-License-Identifier': "MIT",
 }]
 
 
@@ -107,8 +75,8 @@ def main():
         "annotations": all_annotations,
     }
 
-    with open(REUSE_TOML_PATH, "w", encoding="utf-8") as f:
-        toml.dump(reuse_toml, f)
+    with open(REUSE_TOML_PATH, "w", encoding="utf-8") as fd:
+        toml.dump(reuse_toml, fd)
 
     print(f"Created: {REUSE_TOML_PATH} with {len(all_annotations)} annotations.")
 

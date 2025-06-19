@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+SPDX-FileCopyrightText: 2025 Univention GmbH
+SPDX-License-Identifier: AGPL-3.0-only
+-->
+
 <!--DOCTYPE umc SYSTEM "management/univention-management-console/data/umc-module.dtd"-->
 <umc version="2.0">
 	<module id="udm" icon="udm-MODULE" priority="50" version="1.0">
