@@ -43,10 +43,23 @@ You have influence on the time we take:
 
 ## Styleguide
 
+### Python Code
 For Python code we are aligning on [PEP8](https://www.python.org/dev/peps/pep-0008/) with the following exceptions:
 
-* Use four spaces for indentation.
 * The maximum line length is not specified, but we suggest to keep it below 120.
 * Code Cleanups should be within own commits so that the fix for the real problem is easy distinguishable.
 
 We don't have style conventions for other programming languages, but we advise to keep it simple, clean and readable.
+
+### pre-commit
+We use the `pre-commit <https://pre-commit.com/>`_ framework to ensure consistency
+in code formatting and to identify simple issues before submission to the code
+repository.
+
+### Commit Messages
+`Conventional commit message <https://www.conventionalcommits.org/en/v1.0.0/>`_
+is a specification for adding human and machine readable meaning to commit
+messages. Conventional commit messages make the kind of change and the component
+immediately visible and forces developers to separate the commits into logical
+units. When developers strictly apply conventional commit messages, they enable
+automatic semantic versioning.
