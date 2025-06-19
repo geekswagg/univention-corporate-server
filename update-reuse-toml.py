@@ -36,6 +36,7 @@ DEFAULT_UCS_ANNOTATIONS = [{
         "CODE_OF_CONDUCT.md",
         "CONTRIBUTING.md",
         "PULL_REQUEST_TEMPLATE.md",
+        "SECURITY.md",
     ]),
     'SPDX-FileCopyrightText': "2025 Univention GmbH",
     'SPDX-License-Identifier': "AGPL-3.0-only",
