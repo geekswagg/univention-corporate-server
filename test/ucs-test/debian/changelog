@@ -1,3 +1,9 @@
+ucs-test (12.2.11) unstable; urgency=low
+
+  * Bug #58132: test log file permissions after logrotate
+
+ -- Sönke Schwardt-Krummrich <schwardt@univention.de>  Thu, 26 Jun 2025 18:35:19 +0200
+
 ucs-test (12.2.10) unstable; urgency=medium
 
   * Bug #58356: implement container specific default group settings with
