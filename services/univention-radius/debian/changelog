@@ -1,6 +1,8 @@
-univention-radius (9.2.1) unstable; urgency=low
+univention-radius (9.2.1) unstable; urgency=medium
 
-  * Bug #58132: univention-radius-ntlm-auth not logs more errors into its logfile
+  * Bug #58132:
+    - univention-radius-ntlm-auth has become more resilient against errors.
+    - The log rotation for univention-radius-ntlm-auth has been fixed.
 
  -- Sönke Schwardt-Krummrich <schwardt@univention.de>  Thu, 19 Jun 2025 16:29:40 +0200
 
