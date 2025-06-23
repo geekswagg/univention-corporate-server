@@ -234,6 +234,7 @@ class TestAccessUsage(TestCase):
 
     def setUp(self):
         self.uut = uldap.access(base=ucr['ldap/base'])
+        self.uut.base = ''
 
     def testGet(self):
         result = self.uut.get('cn=Subschema', ['entryDN'], required=True)
