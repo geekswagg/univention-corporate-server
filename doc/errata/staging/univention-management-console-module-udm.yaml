@@ -8,11 +8,11 @@ desc: |
  This update addresses the following issues:
  * The primary groups for users and computers are now configurable at the
    parent container objects where an object is going to be created.
- * The default search container, which searches in "All containers" is now
-   deactivatable via the UCR variables
-   `directory/manager/web/modules/search/global-search`. Via
-   `directory/manager/web/modules/search/default-search` the search is
-   performed only in the configured default containers for the specific object
-   type. This enhances the search performance and number of results in large
-   environments.
+ * The default global search container (i.e., "All containers") can now be
+   disabled via the UCR variable
+   `directory/manager/web/modules/search/global-search`. When disabled, the
+   UCR variable `directory/manager/web/modules/search/default-search` can be
+   enabled to limit searches to module-specific default containers. This
+   improves search performance and result relevance, especially in large
+   environments with many objects.
 bug: [58356, 58418]
