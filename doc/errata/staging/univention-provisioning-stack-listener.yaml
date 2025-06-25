@@ -1,0 +1,12 @@
+product: ucs
+release: "5.2"
+version: [2]
+scope: ucs_5.2-0-errata5.2-2
+src: univention-provisioning-stack-listener
+fix: 1.0.0
+desc: |
+ This update addresses the following issues:
+ * New Debian package `univention-provisioning-stack-listener` has
+   been added to be installed in the upcoming App
+   `provisioning-stack-backend`.
+bug: [58423]
