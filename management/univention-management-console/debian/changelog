@@ -1,7 +1,7 @@
 univention-management-console (14.2.0) unstable; urgency=medium
 
   [ Ivan Barbecho Delgado ]
-  * Bug #58344 UCS 5.2-2 version bump
+  * Bug #58344: UCS 5.2-2 version bump
 
   [ Florian Best ]
   * Bug #58404: fix error messages for 502/503 HTTP errors for services

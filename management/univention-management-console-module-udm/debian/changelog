@@ -13,7 +13,7 @@ univention-management-console-module-udm (12.2.2) unstable; urgency=medium
 univention-management-console-module-udm (12.2.1) unstable; urgency=medium
 
   [ Ivan Barbecho Delgado ]
-  * Bug #58344 UCS 5.2-2 version bump
+  * Bug #58344: UCS 5.2-2 version bump
 
   [ Florian Best ]
   * Bug #58356: implement container specific default group settings with

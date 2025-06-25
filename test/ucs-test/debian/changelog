@@ -57,7 +57,7 @@ ucs-test (12.2.1) unstable; urgency=medium
 ucs-test (12.2.0) unstable; urgency=medium
 
   [ Ivan Barbecho Delgado ]
-  * Bug #58344 UCS 5.2-2 version bump
+  * Bug #58344: UCS 5.2-2 version bump
 
   [ Florian Best ]
   * Issue #2295: ignore tracebacks which occur in UCS 5.2 again
