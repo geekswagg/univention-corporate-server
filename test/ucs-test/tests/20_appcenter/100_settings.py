@@ -1,4 +1,4 @@
-#!/usr/share/ucs-test/runner pytest-3
+#!/usr/share/ucs-test/runner pytest-3 -s -l -vv
 ## desc: App Settings
 ## tags: [basic, coverage, skip_admember]
 ## packages:
@@ -66,6 +66,8 @@ def fresh_settings(content, app, num):
 
 def docker_shell(app, command):
     container = ucr_get(app.ucr_container_key)
+    assert container, (app, container, app.ucr_container_key, command)
+    assert command, (app, container, app.ucr_container_key, command)
     return subprocess.check_output(['docker', 'exec', container, '/bin/bash', '-c', command], stderr=subprocess.STDOUT, text=True)
 
 
