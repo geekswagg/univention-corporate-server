@@ -40,6 +40,7 @@ apt-transport-https
 apt-utils
 archdetect
 argon2
+asgi-correlation-id
 ash
 aspell
 aspell-de
@@ -3595,6 +3596,7 @@ nagios-nrpe-server
 nagios-plugins-contrib
 nano
 nano-tiny
+nats-py
 nbd-client
 nbd-server
 ncat
@@ -4792,6 +4794,7 @@ univention-postgrey
 univention-printclient
 univention-printserver
 univention-printserver-pdf
+univention-provisioning-stack-listener
 univention-quota
 univention-radius
 univention-role-common
