@@ -269,6 +269,7 @@ class Instance(Base, ProgressMixin, metaclass=UDMModuleMeta):
         self.finished(request.id, {'message': message})
 
     def license_info(self, request):
+        self.require_license(self.get_ldap_connection()[0])
         license_data = {}
         try:
             import univention.admin.license as udm_license

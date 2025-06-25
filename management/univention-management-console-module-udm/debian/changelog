@@ -1,3 +1,10 @@
+univention-management-console-module-udm (12.2.4) unstable; urgency=medium
+
+  * Bug #58418: always select latest license when fetching license
+    information
+
+ -- Florian Best <best@univention.de>  Wed, 25 Jun 2025 14:46:23 +0200
+
 univention-management-console-module-udm (12.2.3) unstable; urgency=medium
 
   * Bug #58418: disable 'default container' in create wizard
