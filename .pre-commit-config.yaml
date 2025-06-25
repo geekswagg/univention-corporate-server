@@ -264,3 +264,10 @@ repos:
         stages: [ manual ]
       - id: reuse-lint-file
         <<: *common
+  - repo: local
+    hooks:
+      - id: conventional-commit-message
+        name: Parse changelog/advisory files and transforms the content into a conventional commit message
+        entry: ./.pre-commit/prepare-commit-msg
+        language: script
+        stages: [prepare-commit-msg]
