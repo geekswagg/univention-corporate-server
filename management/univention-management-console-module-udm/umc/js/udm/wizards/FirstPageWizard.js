@@ -358,7 +358,7 @@ define([
 						return this.moduleCache.getContainers(this.getWidget('objectType').get('value') || undefined).then(function(result) {
 							result.sort(tools.cmpObjects('label'));
 							return array.filter(result, function(icontainer) {
-								return icontainer.id !== 'all';
+								return array.indexOf(['all', 'default'], icontainer.id) === -1;
 							});
 						});
 					}),
