@@ -9,3 +9,4 @@ desc: |
  * New Debian package `nats-py` has been added to be available for the
    upcoming App `provisioning-stack-backend`.
 bug: [58420]
+maintained: true
