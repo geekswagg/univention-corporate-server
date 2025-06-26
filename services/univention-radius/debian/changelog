@@ -1,3 +1,10 @@
+univention-radius (9.2.3) unstable; urgency=low
+
+  * Bug #58425: do not emtpy the logfile
+    /var/log/univention/radius_ntlm_auth.log during package update
+
+ -- Sönke Schwardt-Krummrich <schwardt@univention.de>  Thu, 26 Jun 2025 12:48:33 +0200
+
 univention-radius (9.2.2) unstable; urgency=low
 
   * Bug #58132: restrict permissions of
