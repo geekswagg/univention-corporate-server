@@ -11,3 +11,6 @@ desc: |
    `provisioning-stack-backend`.
 bug: [58423]
 maintained: true
+erratum: 126
+announced: 2025-06-26
+support: core
