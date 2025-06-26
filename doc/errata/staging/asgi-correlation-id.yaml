@@ -9,3 +9,4 @@ desc: |
  * New Debian package `asgi-correlation-id` has been added to be available for
    the upcoming App `provisioning-stack-backend`.
 bug: [58421]
+maintained: true
