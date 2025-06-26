@@ -219,9 +219,13 @@ class Support:
             self.nagiosModifyServiceList()
 
     def nagios_ldap_post_remove(self):
+        if 'nagios' not in self.options:
+            return
         self.nagiosRemoveHostFromServices()
         self.nagiosRemoveHostFromParent()
 
     def nagios_cleanup(self):
+        if 'nagios' not in self.options:
+            return
         self.nagiosRemoveHostFromServices()
         self.nagiosRemoveHostFromParent()
