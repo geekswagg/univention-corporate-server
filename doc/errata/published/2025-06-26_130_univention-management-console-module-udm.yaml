@@ -16,3 +16,6 @@ desc: |
    improves search performance and result relevance, especially in large
    environments with many objects.
 bug: [58356, 58418]
+erratum: 130
+announced: 2025-06-26
+support: core
