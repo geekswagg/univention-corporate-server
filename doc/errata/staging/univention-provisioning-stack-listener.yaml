@@ -10,3 +10,4 @@ desc: |
    been added to be installed in the upcoming App
    `provisioning-stack-backend`.
 bug: [58423]
+maintained: true
