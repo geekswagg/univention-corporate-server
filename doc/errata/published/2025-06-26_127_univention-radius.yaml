@@ -15,3 +15,6 @@ desc: |
    `univention-radius-ntlm-auth` to crash. This update automatically corrects
    the file permissions and the configuration of logrotate (Bug #58132).
 bug: [58132]
+erratum: 127
+announced: 2025-06-26
+support: core
