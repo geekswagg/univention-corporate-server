@@ -10,3 +10,6 @@ desc: |
    the upcoming App `provisioning-stack-backend`.
 bug: [58421]
 maintained: true
+erratum: 122
+announced: 2025-06-26
+support: core
