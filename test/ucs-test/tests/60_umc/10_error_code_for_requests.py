@@ -1,4 +1,4 @@
-#!/usr/share/ucs-test/runner python3
+#!/usr/share/ucs-test/runner pytest-3 -s -l -vvv
 ## desc: Check if requests are answered with an error code after killing ucstest module
 ## roles:
 ##  - domaincontroller_master
@@ -9,14 +9,15 @@
 ## exposure: dangerous
 
 import http.client as httplib
+import json
 import ssl
 import subprocess
 import time
 
 import psutil
+import pytest
 
 from univention.management.console.modules.ucstest import joinscript, unjoinscript
-from univention.testing import utils
 from univention.testing.umc import Client
 
 
@@ -56,7 +57,17 @@ class AsyncClient(Client):
         return connection
 
 
-def main():
+@pytest.fixture(autouse=True)
+def with_joinscript():
+    joinscript()
+    try:
+        yield
+    finally:
+        restart_web_server()
+        unjoinscript()
+
+
+def test_error_code_for_requests():
     print('Setting up the connections and sending requests...')
     connections = [
         AsyncClient.get_test_connection(timeout=10).async_request('ucstest/norespond')
@@ -69,25 +80,21 @@ def main():
     time.sleep(2)
 
     print('Verfying that requests are answered with an error code...')
-    success = True
+    i = 0
     for i_connection in connections:
         try:
             response = i_connection.getresponse()
-            print(f'*** RESPONSE Status={response.status} {response.reason}; body=\n{response.read()!r}\n***')
-            if response.status != 502 or response.reason != 'UMC-Server module process connection failed':
-                print(f'ERROR: Unexpected status of response {response.status} {response.reason} (expected 502)')
-                success = False
         except (TimeoutError, ssl.SSLError):
             print('ERROR: request timed out')
-
-    if not success:
-        utils.fail('ERROR: Requests are not answered with an error code')
-
-
-if __name__ == '__main__':
-    joinscript()
-    try:
-        main()
-    finally:
-        restart_web_server()
-        unjoinscript()
+        else:
+            body = response.read()
+            print(f'*** RESPONSE Status={response.status} {response.reason}; body=\n{body!r}\n***')
+            assert body, response
+            assert response.status == 502, response.status
+            assert response.reason in ('UMC-Server module process connection failed', 'Proxy Error'), response.reason
+            if response.reason == 'UMC-Server module process connection failed':
+                i += 1
+            elif response.reason == 'Proxy Error':
+                body = json.loads(body)
+                assert 'Univention Management Console Server could not be reached' in body.get('message', ''), body
+    assert i >= 1
