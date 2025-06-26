@@ -39,7 +39,7 @@ case "$1" in
 			freeradius/conf/private/key/file?/etc/freeradius/ssl/private.key \
 			freeradius/conf/certificate/file?/etc/freeradius/ssl/cert.pem \
 			freeradius/conf/ca/file?/etc/univention/ssl/ucsCA/CAcert.pem \
-			logrotate/radius_ntlm_auth/create?"644 freerad freerad" \
+			logrotate/radius_ntlm_auth/create?"660 freerad freerad" \
 			freeradius/auth/helper/ntlm/debug?2
 
 		# Bug #25935: create empty clients.univention.conf if still missing
@@ -90,10 +90,10 @@ deb-systemd-helper enable freeradius.service
 systemctl restart freeradius
 
 # Bug #58132: set correct owner and permissions of log file
-if [ "$1" = "configure" ] && dpkg --compare-versions "$2" lt-nl "9.2.1" && [ "$logrotate_radius_ntlm_auth_create" = "644 root freerad" ] ; then
-	ucr set logrotate/radius_ntlm_auth/create="644 freerad freerad"
+if [ "$1" = "configure" ] && dpkg --compare-versions "$2" lt-nl "9.2.2" && [ "$logrotate_radius_ntlm_auth_create" = "644 root freerad" ] ; then
+	ucr set logrotate/radius_ntlm_auth/create="660 freerad freerad"
 	chown freerad:freerad /var/log/univention/radius_ntlm_auth.log
-	chmod 644  /var/log/univention/radius_ntlm_auth.log
+	chmod 660  /var/log/univention/radius_ntlm_auth.log
 fi
 
 if [ "$1" = "configure" ] && dpkg --compare-versions "$2" lt-nl "7.0.1-7"; then

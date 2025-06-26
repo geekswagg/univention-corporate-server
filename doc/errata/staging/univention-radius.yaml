@@ -3,7 +3,7 @@ release: "5.2"
 version: [2]
 scope: ucs_5.2-0-errata5.2-2
 src: univention-radius
-fix: 9.2.1
+fix: 9.2.2
 desc: |
  This update addresses the following issue:
  * In some situations, `univention-radius-ntlm-auth` did not correctly report

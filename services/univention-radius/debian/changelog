@@ -1,3 +1,10 @@
+univention-radius (9.2.2) unstable; urgency=low
+
+  * Bug #58132: restrict permissions of
+    /var/log/univention/radius_ntlm_auth.log to 0660
+
+ -- Sönke Schwardt-Krummrich <schwardt@univention.de>  Thu, 26 Jun 2025 11:34:52 +0200
+
 univention-radius (9.2.1) unstable; urgency=medium
 
   * Bug #58132:
