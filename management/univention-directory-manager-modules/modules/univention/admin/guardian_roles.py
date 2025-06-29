@@ -101,7 +101,7 @@ def load_roles(lo: univention.admin.uldap.access, groups: list[str]) -> list[str
 
 class GuardianBase:
     def open_guardian(self) -> None:
-        if self.exists():
+        if self.exists() and self.has_property('guardianInheritedRoles'):
             groups = self.get('groups', [])
             if self.get('primaryGroup'):
                 groups = [*groups, self['primaryGroup']]
