@@ -494,6 +494,68 @@ class Resource(ResourceBase, RequestHandler):
         response.pop('_embedded', None)
         return response
 
+    def handle_udm_errors(self, action, *args, **kwargs):
+        try:
+            exists_msg = None
+            error = None
+            try:
+                try:
+                    return action(*args, **kwargs)
+                except UDM_Error as udm_exc:
+                    raise udm_exc.exc
+            except udm_errors.objectExists as exc:
+                exists_msg = f'dn: {exc.args[0]}'
+                error = exc
+            except udm_errors.uidAlreadyUsed as exc:
+                exists_msg = '(uid)'
+                error = exc
+            except udm_errors.groupNameAlreadyUsed as exc:
+                exists_msg = '(group)'
+                error = exc
+            except udm_errors.dhcpServerAlreadyUsed as exc:
+                exists_msg = '(dhcpserver)'
+                error = exc
+            except udm_errors.macAlreadyUsed as exc:
+                exists_msg = '(mac)'
+                error = exc
+            except udm_errors.noLock as exc:
+                exists_msg = '(nolock)'
+                error = exc
+            if exists_msg and error:
+                self.raise_sanitization_error('dn', _('Object exists: %s: %s') % (exists_msg, UDM_Error(error)))
+        except (udm_errors.pwQuality, udm_errors.pwToShort, udm_errors.pwalreadyused) as exc:
+            self.raise_sanitization_error(('properties', 'password'), str(exc))
+        except udm_errors.invalidOptions as exc:
+            self.raise_sanitization_error('options', str(exc))
+        except udm_errors.insufficientInformation as exc:
+            if exc.missing_properties:
+                self.raise_sanitization_errors([('properties', property_name), _('The property "%(name)s" is required.') % {'name': property_name}] for property_name in exc.missing_properties)
+            self.raise_sanitization_error('dn', str(exc))
+        except (udm_errors.invalidOperation, udm_errors.invalidChild) as exc:
+            self.raise_sanitization_error('dn', str(exc))  # TODO: invalidOperation and invalidChild should be 403 Forbidden
+        except udm_errors.alreadyUsedInSubtree as exc:
+            self.raise_sanitization_error('position', str(exc))
+        except udm_errors.invalidDhcpEntry as exc:
+            self.raise_sanitization_error(('properties', 'dhcpEntryZone'), str(exc))
+        except udm_errors.circularGroupDependency as exc:
+            self.raise_sanitization_error(('properties', 'memberOf'), str(exc))  # or "nestedGroup"
+        except (udm_errors.valueError) as exc:  # valueInvalidSyntax, valueRequired, etc.
+            self.raise_sanitization_error(('properties', getattr(exc, 'property', 'properties')), str(exc))
+        except udm_errors.prohibitedUsername as exc:
+            self.raise_sanitization_error(('properties', 'username'), str(exc))
+        except udm_errors.uidNumberAlreadyUsedAsGidNumber as exc:
+            self.raise_sanitization_error(('properties', 'uidNumber'), str(exc))
+        except udm_errors.gidNumberAlreadyUsedAsUidNumber as exc:
+            self.raise_sanitization_error(('properties', 'gidNumber'), str(exc))
+        except udm_errors.mailAddressUsed as exc:
+            self.raise_sanitization_error(('properties', 'mailPrimaryAddress'), str(exc))
+        except (udm_errors.adGroupTypeChangeLocalToAny, udm_errors.adGroupTypeChangeDomainLocalToUniversal, udm_errors.adGroupTypeChangeToLocal, udm_errors.adGroupTypeChangeUniversalToGlobal, udm_errors.adGroupTypeChangeGlobalToUniversal, udm_errors.adGroupTypeChangeDomainLocalToGlobal, udm_errors.adGroupTypeChangeGlobalToDomainLocal) as exc:
+            self.raise_sanitization_error(('properties', 'adGroupType'), str(exc))
+        except udm_errors.permissionDenied as exc:
+            raise HTTPError(403, str(exc))
+        except udm_errors.base as exc:
+            UDM_Error(exc).reraise()
+
 
 class Nothing(Resource):
     """404 error page"""
@@ -1685,7 +1747,7 @@ class ObjectsMove(Resource):
         try:
             for i, dn in enumerate(dns, 1):
                 module = get_module(object_type, dn, self.ldap_write_connection)
-                dn = await self.pool_submit(module.move, dn, position)
+                dn = await self.pool_submit(self.handle_udm_errors, module.move, dn, position)
                 status['moved'].append(dn)
                 status['description'] = _('Moved %d of %d objects. Last object was: %s.') % (i, len(dns), dn)
                 status['max'] = len(dns)
@@ -2050,68 +2112,6 @@ class Object(ConditionalResource, FormBase, _OpenAPIBase, Resource):
         await self.pool_submit(self.handle_udm_errors, obj.modify, **kwargs)
         return obj
 
-    def handle_udm_errors(self, action, *args, **kwargs):
-        try:
-            exists_msg = None
-            error = None
-            try:
-                try:
-                    return action(*args, **kwargs)
-                except UDM_Error as udm_exc:
-                    raise udm_exc.exc
-            except udm_errors.objectExists as exc:
-                exists_msg = f'dn: {exc.args[0]}'
-                error = exc
-            except udm_errors.uidAlreadyUsed as exc:
-                exists_msg = '(uid)'
-                error = exc
-            except udm_errors.groupNameAlreadyUsed as exc:
-                exists_msg = '(group)'
-                error = exc
-            except udm_errors.dhcpServerAlreadyUsed as exc:
-                exists_msg = '(dhcpserver)'
-                error = exc
-            except udm_errors.macAlreadyUsed as exc:
-                exists_msg = '(mac)'
-                error = exc
-            except udm_errors.noLock as exc:
-                exists_msg = '(nolock)'
-                error = exc
-            if exists_msg and error:
-                self.raise_sanitization_error('dn', _('Object exists: %s: %s') % (exists_msg, str(UDM_Error(error))))
-        except (udm_errors.pwQuality, udm_errors.pwToShort, udm_errors.pwalreadyused) as exc:
-            self.raise_sanitization_error(('properties', 'password'), str(UDM_Error(exc)))
-        except udm_errors.invalidOptions as exc:
-            self.raise_sanitization_error('options', str(UDM_Error(exc)))
-        except udm_errors.insufficientInformation as exc:
-            if exc.missing_properties:
-                self.raise_sanitization_errors([('properties', property_name), _('The property "%(name)s" is required.') % {'name': property_name}] for property_name in exc.missing_properties)
-            self.raise_sanitization_error('dn', str(UDM_Error(exc)))
-        except (udm_errors.invalidOperation, udm_errors.invalidChild) as exc:
-            self.raise_sanitization_error('dn', str(UDM_Error(exc)))  # TODO: invalidOperation and invalidChild should be 403 Forbidden
-        except udm_errors.alreadyUsedInSubtree as exc:
-            self.raise_sanitization_error('position', str(UDM_Error(exc)))
-        except udm_errors.invalidDhcpEntry as exc:
-            self.raise_sanitization_error(('properties', 'dhcpEntryZone'), str(UDM_Error(exc)))
-        except udm_errors.circularGroupDependency as exc:
-            self.raise_sanitization_error(('properties', 'memberOf'), str(UDM_Error(exc)))  # or "nestedGroup"
-        except (udm_errors.valueError) as exc:  # valueInvalidSyntax, valueRequired, etc.
-            self.raise_sanitization_error(('properties', getattr(exc, 'property', 'properties')), str(UDM_Error(exc)))
-        except udm_errors.prohibitedUsername as exc:
-            self.raise_sanitization_error(('properties', 'username'), str(UDM_Error(exc)))
-        except udm_errors.uidNumberAlreadyUsedAsGidNumber as exc:
-            self.raise_sanitization_error(('properties', 'uidNumber'), str(UDM_Error(exc)))
-        except udm_errors.gidNumberAlreadyUsedAsUidNumber as exc:
-            self.raise_sanitization_error(('properties', 'gidNumber'), str(UDM_Error(exc)))
-        except udm_errors.mailAddressUsed as exc:
-            self.raise_sanitization_error(('properties', 'mailPrimaryAddress'), str(UDM_Error(exc)))
-        except (udm_errors.adGroupTypeChangeLocalToAny, udm_errors.adGroupTypeChangeDomainLocalToUniversal, udm_errors.adGroupTypeChangeToLocal, udm_errors.adGroupTypeChangeUniversalToGlobal, udm_errors.adGroupTypeChangeGlobalToUniversal, udm_errors.adGroupTypeChangeDomainLocalToGlobal, udm_errors.adGroupTypeChangeGlobalToDomainLocal) as exc:
-            self.raise_sanitization_error(('properties', 'adGroupType'), str(UDM_Error(exc)))
-        except udm_errors.permissionDenied as exc:
-            raise HTTPError(403, str(exc))
-        except udm_errors.base as exc:
-            UDM_Error(exc).reraise()
-
     def set_properties(self, module, obj, representation, result):
         if isinstance(representation, list):
             self.set_patch_properties(module, obj, representation, result)
@@ -2283,7 +2283,7 @@ class Object(ConditionalResource, FormBase, _OpenAPIBase, Resource):
             await self._move_with_childs(module, dn, position)
             return
 
-        dn = await self.pool_submit(module.move, dn, position)
+        dn = await self.pool_submit(self.handle_udm_errors, module.move, dn, position)
         uri = self.urljoin(quote_dn(dn))
         self.add_header('Location', uri)
         result = {
@@ -2344,18 +2344,13 @@ class Object(ConditionalResource, FormBase, _OpenAPIBase, Resource):
 
         self.set_entity_tags(obj, remove_after_check=True)
 
-        try:
-            def remove():
-                try:
-                    log.info('Removing LDAP object %s', dn)
-                    obj.remove(remove_childs=recursive)
-                    if cleanup:
-                        udm_objects.performCleanup(obj)
-                except udm_errors.base as exc:
-                    UDM_Error(exc).reraise()
-            await self.pool_submit(remove)
-        except udm_errors.primaryGroupUsed:
-            raise
+        def remove():
+            log.info('Removing LDAP object %s', dn)
+            obj.remove(remove_childs=recursive)
+            if cleanup:  # and udm_objects.wantsCleanup(obj)
+                udm_objects.performCleanup(obj)
+
+        await self.pool_submit(self.handle_udm_errors, remove)
         self.add_caching(public=False, must_revalidate=True)
         self.set_status(204)
         raise Finish()
@@ -2435,7 +2430,7 @@ class ObjectAdd(FormBase, _OpenAPIBase, Resource):
         try:
             result.update(self.get_create_form(module, template=template, position=position, superordinate=superordinate))
         except udm_errors.insufficientInformation as exc:
-            self.raise_sanitization_error('superordinate', str(UDM_Error(exc)))
+            self.raise_sanitization_error('superordinate', str(exc))
 
         if module.template:
             template = UDM_Module(module.template, ldap_connection=self.ldap_connection, ldap_position=self.ldap_position)  # ldap_connection=self.ldap_write_connection ?
@@ -3112,11 +3107,9 @@ class ServiceSpecificPassword(Resource):
         obj = await self.pool_submit(module.get, dn)
         obj['serviceSpecificPassword'] = {'service': service, 'password': new_password}
 
-        try:
-            await self.pool_submit(obj.modify)
-        except udm_errors.valueError as exc:
-            # ValueError raised if Service is not supported
-            raise HTTPError(400, str(exc))
+        await self.pool_submit(self.handle_udm_errors, obj.modify)
+        # (handled) udm_errors.valueError raised if Service is not supported
+
         result = {'service': service, 'password': new_password}
         self.content_negotiation(result)
 
