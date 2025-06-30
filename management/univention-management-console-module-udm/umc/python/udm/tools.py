@@ -17,6 +17,7 @@ import ldap
 import ldap.modlist
 import ldif
 
+import univention.admin.modules
 import univention.admin.uexceptions as udm_errors
 import univention.admin.uldap
 from univention.lib.i18n import Translation
@@ -35,6 +36,7 @@ class LicenseImport(ldif.LDIFParser):
     mod_list = []
     dncount = 0
     base = None
+    entry = None
 
     def check(self, base):
         # call parse from ldif.LDIFParser
@@ -70,7 +72,6 @@ class LicenseImport(ldif.LDIFParser):
         if dn is None or dn == "":
             return
 
-        self.dn = dn
         self.dncount += 1
 
         if 'univentionLicenseBaseDN' in entry:
@@ -78,12 +79,21 @@ class LicenseImport(ldif.LDIFParser):
         else:
             return
 
+        self.dn = dn
+
         # create modification list
+        self.entry = entry
         self.addlist = ldap.modlist.addModlist(entry)
         # for atr in entry:
-        #     self.mod_list.insert( 0, ( ldap.MOD_REPLACE, atr, entry[ atr ] ) )
+        #     self.mod_list.insert(0, (ldap.MOD_REPLACE, atr, entry[atr]))
 
     def write(self, ldap_connection):
+        if ldap_connection.authz.enabled:
+            obj = univention.admin.modules.get('settings/license').object(None, ldap_connection, None, None, None, self.entry)
+            obj.position.setDn(ldap_connection.parendDn(self.dn))
+            obj._exists = False
+            ldap_connection.authz.is_create_allowed(obj)
+
         ldap_con = ldap_connection.authz_connection.lo.lo
         try:
             ldap_con.add_s(self.dn, self.addlist)
