@@ -1,0 +1,11 @@
+product: ucs
+release: "5.2"
+version: [2]
+scope: ucs_5.2-0-errata5.2-2
+src: univention-directory-manager-rest
+fix: 12.2.1
+desc: |
+ This update addresses the following issue:
+ * Experimental support for delegative administration has been added to the
+   UDM REST API.
+bug: [58432]
