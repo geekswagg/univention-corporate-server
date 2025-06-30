@@ -7,6 +7,7 @@
 
 import stat
 import subprocess
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -34,7 +35,9 @@ def get_log_file_permissions(log_directory: Path) -> dict[Path, FilePermissions]
             try:
                 file_stat = filepath.stat()
                 permissions[filepath] = FilePermissions(
-                    file_stat.st_uid, file_stat.st_gid, file_stat.st_mode,
+                    file_stat.st_uid,
+                    file_stat.st_gid,
+                    file_stat.st_mode,
                 )
 
                 if file_stat.st_size == 0:
@@ -56,7 +59,8 @@ def get_log_file_permissions(log_directory: Path) -> dict[Path, FilePermissions]
 
 
 def compare_file_permissions(
-    old_permissions: dict[Path, FilePermissions], new_permissions: dict[Path, FilePermissions],
+    old_permissions: dict[Path, FilePermissions],
+    new_permissions: dict[Path, FilePermissions],
 ) -> list[tuple[Path, FilePermissions, FilePermissions | None]]:
     "Compares two sets of file permissions and identifies differences."
     differences: list[tuple[Path, FilePermissions, FilePermissions | None]] = []
@@ -84,7 +88,7 @@ def test_log_permissions_after_logrotate():
     try:
         subprocess.check_call(["logrotate", "-f", "/etc/logrotate.conf"])
     except subprocess.CalledProcessError as e:
-        pytest.fail(f"logrotate failed with exit code {e.returncode}: {e.stderr.decode()}")
+        pytest.fail(f"logrotate failed with exit code {e.returncode}")
     except FileNotFoundError:
         pytest.fail("The logrotate command was not found.")
 
@@ -92,9 +96,10 @@ def test_log_permissions_after_logrotate():
     differences = compare_file_permissions(old_log_permissions, new_log_permissions)
 
     if differences:
-        print("\nERROR: Differences found:")
+        print("\nERROR: Differences found:", file=sys.stderr)
         for fn, old, new in differences:
             print(
                 f'- File: {fn}\n  Old permissions: {old}\n  New permissions: {new or "FILE MISSING"}',
+                file=sys.stderr,
             )
         pytest.fail(f"There were {len(differences)} differences found in the log file permissions.")
