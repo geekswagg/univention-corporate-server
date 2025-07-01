@@ -1,0 +1,17 @@
+#!/usr/bin/make -f
+#
+# Univention Directory Manager Modules
+#  rules file for creating the deb package
+#
+# Like what you see? Join us!
+# https://www.univention.com/about-us/careers/vacancies/
+#
+# SPDX-FileCopyrightText: 2025 Univention GmbH
+# SPDX-License-Identifier: AGPL-3.0-only
+
+override_dh_auto_test:
+	dh_auto_test
+	# PYTHONPATH=modules pytest-3
+
+%:
+	dh $@ --with python3

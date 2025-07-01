@@ -1,0 +1,5 @@
+univention-authorization (1.0.0) unstable; urgency=medium
+
+  * Bug #58432: initial release
+
+ -- Florian Best <best@univention.de>  Mon, 30 Jun 2025 12:48:16 +0200

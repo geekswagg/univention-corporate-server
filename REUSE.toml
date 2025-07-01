@@ -288,6 +288,12 @@ SPDX-License-Identifier = "AGPL-3.0-only"
 SPDX-FileCopyrightText = "2011-2025 Univention GmbH"
 
 [[annotations]]
+path = "management/univention-authorization/**"
+precedence = "override"
+SPDX-License-Identifier = "AGPL-3.0-only"
+SPDX-FileCopyrightText = "2025 Univention GmbH"
+
+[[annotations]]
 path = "management/univention-directory-manager-rest/**"
 precedence = "override"
 SPDX-License-Identifier = "AGPL-3.0-only"

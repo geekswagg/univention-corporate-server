@@ -26,6 +26,7 @@ mapping = {
     'univention-appcenter': 'appcenter',
     'univention-appliance-docker-container': 'appliance-docker-container',
     'univention-archive-key': 'archive-key',
+    'univention-authorization': 'authorization',
     'univention-base-files': 'base-files',
     'univention-bind': 'bind',
     'univention-bootsplash': 'bootsplash',
