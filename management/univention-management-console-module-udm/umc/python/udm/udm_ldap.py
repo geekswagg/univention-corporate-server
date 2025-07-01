@@ -681,12 +681,11 @@ class UDM_Module:
             raise SearchLimitReached()
         except (LDAPError, udm_errors.ldapError):
             raise
-        except udm_errors.noObject as e:
+        except udm_errors.noObject:
             if superordinate:  # and not ldap_connection.authz_connection.get(superordinate):  # TODO: information disclosure!
                 raise SuperordinateDoesNotExist(superordinate)
-            if container:  # and not ldap_connection.authz_connection.get(container):  # TODO: information disclosure!
-                raise ObjectDoesNotExist(container)
-            UDM_Error(e).reraise()
+            # if container and not ldap_connection.authz_connection.get(container):  # TODO: information disclosure!
+            raise ObjectDoesNotExist(container or ucr['ldap/base'])
         except udm_errors.base as e:
             UDM_Error(e).reraise()
 
