@@ -637,7 +637,7 @@ class Instance(Base, ProgressMixin, metaclass=UDMModuleMeta):
         fields = (set(request.options.get('fields', []) or []) | {objectProperty}) - {'name', 'None'}
         result = []
         for container in containers:
-            result.extend(module.search(container, objectProperty, objectPropertyValue, superordinate, scope=scope, hidden=hidden, allow_asterisks=USE_ASTERISKS))
+            result.extend(module.search(container, objectProperty, objectPropertyValue, superordinate, scope=scope, hidden=hidden, allow_asterisks=USE_ASTERISKS) or [])
 
         entries = []
         object_type = request.options.get('objectType', request.flavor)
