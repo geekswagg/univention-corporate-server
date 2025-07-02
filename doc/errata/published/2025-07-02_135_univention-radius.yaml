@@ -9,3 +9,6 @@ desc: |
  * The logfile `/var/log/univention/radius_ntlm_auth.log` is no longer emptied
    during package updates.
 bug: [58425]
+erratum: 135
+announced: 2025-07-02
+support: core
