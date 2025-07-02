@@ -1,3 +1,10 @@
+univention-ldap (18.2.5) unstable; urgency=medium
+
+  * Bug #58446: add dry-run in univention-update-univention-object-
+    identifier
+
+ -- Florian Best <best@univention.de>  Wed, 02 Jul 2025 15:20:22 +0200
+
 univention-ldap (18.2.4) unstable; urgency=medium
 
   * Bug #58356: implement container specific default group settings with
