@@ -281,6 +281,7 @@ COMMON_EXCEPTIONS = (
     # E('^KeyError$', ['in find_rrset'], 53775),
 
     # Tracebacks caused by specific UCS bugs:
+    E('ldap.OTHER:.*0000055B: SysErr: DSID-031A1262, problem 22', ['connector/ad/__init__.py.*in disable_user_from_ucs'], 56816),
     # E(r'^ldap\.NO_SUCH_OBJECT: .*', [r'quota\.py'], 52765),
     E(r'.*OperationalError.*FATAL:.*admindiary.*', [r'admindiary_backend_wrapper\.py', '_wrap_pool_connect'], 51671),
     E(r"(OSError|FileNotFoundError): \[Errno 2\] .*: '/var/lib/samba/sysvol/.*/Policies/'", [r'sysvol-cleanup\.py'], 51670),
