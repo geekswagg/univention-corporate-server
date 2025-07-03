@@ -34,12 +34,6 @@ _ = translation.translate
 BLOCKLIST_BASE = 'cn=blocklists,cn=internal'
 
 
-try:
-    unicode  # noqa: B018
-except NameError:
-    unicode = str
-
-
 def hash_blocklist_value(value):  # type: (bytes) -> str
     return 'sha256:%s' % hashlib.sha256(value.lower()).hexdigest()
 
@@ -96,9 +90,9 @@ def blocklist_enabled(udm_obj):
 
 def get_blocklist_values_from_udm_property(udm_property_value, udm_property_name):
     # type: (Any, str) -> list[Any]
-    if isinstance(udm_property_value, str | unicode):
+    if isinstance(udm_property_value, str):
         return [udm_property_value]
-    if not isinstance(udm_property_value, list) or not all(isinstance(mem, str | unicode) for mem in udm_property_value):
+    if not isinstance(udm_property_value, list) or not all(isinstance(mem, str) for mem in udm_property_value):
         raise RuntimeError('The property %r uses a complex syntax. This is not supported for blocklist objects.' % udm_property_name)
     return udm_property_value
 

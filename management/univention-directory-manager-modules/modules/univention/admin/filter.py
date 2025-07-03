@@ -76,10 +76,6 @@ class conjunction:
             return ''
         return '(%s%s)' % (self.type, ''.join(map(str, self.expressions)))
 
-    def __unicode__(self):  # noqa: PLW3201
-        # type: () -> str
-        return self.__str__()
-
     def __repr__(self):
         # type: () -> str
         """
@@ -172,10 +168,6 @@ class expression:
         self.__dict__.clear()
         self.__dict__.update(con.__dict__)
         self.__class__ = type(con)  # type: ignore
-
-    def __unicode__(self):  # noqa: PLW3201
-        # type: () -> str
-        return self.__str__()
 
     def __repr__(self):
         # type: () -> str
