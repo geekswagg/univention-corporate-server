@@ -45,9 +45,8 @@ def get_superordinate(module, co, lo, dn):
     if super_modules:
         while dn:
             attr = lo.authz_connection.get(dn)
-            modules = {univention.admin.modules.name(x) for x in univention.admin.modules.identify(dn, attr)} & super_modules
-            if modules:
-                super_module = univention.admin.modules._get(list(modules)[0])  # noqa: RUF015
+            for module in {univention.admin.modules.name(x) for x in univention.admin.modules.identify(dn, attr)} & super_modules:
+                super_module = univention.admin.modules._get(module)
                 return get(super_module, co, lo, None, dn, authz='settings/cn' != super_module)
             dn = lo.parentDn(dn)
 

@@ -1848,9 +1848,8 @@ class object(univention.admin.handlers.simpleLdap, PKIIntegration, GuardianBase)
         if configRegistry.is_true('directory/manager/user/activate_ldap_attribute_mailForwardCopyToSelf', False):
             return ml
 
-        try:
-            new = [x[2] if isinstance(x[2], list | tuple) else [x[2]] for x in ml if x[0] == 'mailForwardAddress' and x[2]][0]  # noqa: RUF015
-        except IndexError:  # mailForwardAddress was not changed, nevertheless we might need to change it
+        new = next((x[2] if isinstance(x[2], list | tuple) else [x[2]] for x in ml if x[0] == 'mailForwardAddress' and x[2]), None)
+        if new is None:
             new = self.mapping.mapValue('mailForwardAddress', self['mailForwardAddress']) or []  # FIXME: mapValue returns b'' instead of [b'']
 
         if self.hasChanged('mailPrimaryAddress') and self.oldattr.get('mailPrimaryAddress'):

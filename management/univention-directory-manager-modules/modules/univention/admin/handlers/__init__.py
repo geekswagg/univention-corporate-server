@@ -2012,7 +2012,7 @@ class simpleLdap:
                 con = univention.admin.filter.conjunction('&', [univention.admin.filter.expression('objectClass', oc, escape=True) for oc in ocs.objectClasses])
                 filter.transform_to_conjunction(con)
             elif ocs.objectClasses:
-                filter.value = list(ocs.objectClasses)[0]  # noqa: RUF015
+                filter.value = next(iter(ocs.objectClasses))
             return
 
         if not should_map:

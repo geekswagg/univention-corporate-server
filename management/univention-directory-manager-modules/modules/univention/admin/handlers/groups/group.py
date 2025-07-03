@@ -512,9 +512,10 @@ class object(univention.admin.handlers.simpleLdap):
                 result = []
                 for uniqueMember in uniqueMembers:
                     dn = uniqueMember._dn[0]
-                    try:
-                        result.append([x[1] for x in dn if x[0].lower() == 'uid'][0])  # noqa: RUF015
-                    except IndexError:
+                    member = next((x[1] for x in dn if x[0].lower() == 'uid'), None)
+                    if member is not None:
+                        result.append(member)
+                    else:
                         # UID is not stored in DN --> fetch UID by DN
                         uid_list = self.lo.authz_connection.getAttr(uniqueMember.dn, 'uid')
                         # a group have no uid attribute, see Bug #12644
@@ -742,7 +743,7 @@ class object(univention.admin.handlers.simpleLdap):
         set_memberOf = {x.lower() for x in self.info.get('memberOf', [])}
         set_intersection = set_nestedGroup & set_memberOf
         if set_intersection:
-            childdn = list(set_intersection)[0]  # noqa: RUF015
+            childdn = next(iter(set_intersection))
             # get cn for first detected object
             childobj = univention.admin.objects.get(grp_module, self.co, self.lo, position='', dn=childdn)
             childcn = childobj.info.get('name', 'UNKNOWN')
