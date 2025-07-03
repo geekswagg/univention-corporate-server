@@ -3,158 +3,152 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 """create setup for environment with delegated administration"""
 
-
+import argparse
 from subprocess import check_call
 
 from univention.config_registry import handler_set, ucr
 from univention.udm import UDM
-from univention.udm.exceptions import CreateError, NoObject
+from univention.udm.exceptions import MultipleObjects, NoObject
 
 
-# create permissions and privileges
-check_call(
-    ['bash', '-c', '''
-set -eux
-date
-/usr/share/univention-directory-manager-tools/univention-configure-udm-authorization --store-local prune
-/usr/share/univention-directory-manager-tools/univention-configure-udm-authorization --store-local create-permissions
-/usr/share/univention-directory-manager-tools/univention-configure-udm-authorization --store-local create-default-roles
-date
-'''])
-
-# activate autorization in UMC and UDM-REST
-handler_set(['directory/manager/web/delegative-administration/enabled=true', 'directory/manager/rest/delegative-administration/enabled=true'])
-# TODO: how long do we need this? Do we need documentation?
-# special LDAP ACL's to deny access for ouadmins
-aclfile = '/tmp/59-authz-udm-test-acl'
-with open(aclfile, 'w') as fh:
-    fh.write('''@!@
-ldap_base = configRegistry['ldap/base']
-
-print('access to *')
-for i in range(1, 11):
-    print('     by dn.base="uid=ou%dadmin,cn=users,%s" none stop' % (i, ldap_base))
-    print('     by dn.base="uid=ou%dhelpdesk-operator,cn=users,%s" none stop' % (i, ldap_base))
-    print('     by dn.base="uid=ou%dclientmanager,cn=users,%s" none stop' % (i, ldap_base))
-print('     by * +0 break')
-
-@!@''')
-
-cmd = [f'. /usr/share/univention-lib/ldap.sh && ucs_registerLDAPExtension --packagename ucs-test --packageversion 1 --ucsversionstart 5.2-2 --ucsversionend 5.99-0 --acl {aclfile}']
-check_call(cmd, shell=True)
-
-# TODO: add to documentation
-# enable UDM-REST for group used in tests
-handler_set(['directory/manager/rest/authorized-groups/test-api-access=cn=test-api-access,cn=groups,dc=ucs,dc=test'])
-
-check_call(['systemctl', 'restart', 'univention-management-console-server'])
-check_call(['systemctl', 'restart', 'univention-directory-manager-rest'])
-
-ldap_base = ucr["ldap/base"]
+USER_ROLE = 'udm:default-roles:domain-user'
+ADMIN_ROLE = 'udm:default-roles:domain-administrator'
+LDAP_BASE = ucr['ldap/base']
 
 udm = UDM.admin().version(3)
 ous = udm.get('container/ou')
 cns = udm.get('container/cn')
 users = udm.get('users/user')
 groups = udm.get('groups/group')
-policies = udm.get('policies/umc')
+umc_policies = udm.get('policies/umc')
 
-# enable umc udm for ouadmins (Domain Users)
-if list(policies.search('name=organizational-unit-amdins')) == []:
-    policy = policies.new()
-    policy.position = f'cn=UMC,cn=policies,{ldap_base}'
-    policy.props.name = 'organizational-unit-amdins'
-    policy.props.allow.extend([
-        # f'cn=udm-groups,cn=operations,cn=UMC,cn=univention,{ldap_base}',
-        # f'cn=udm-users,cn=operations,cn=UMC,cn=univention,{ldap_base}',
-        # f'cn=udm-syntax,cn=operations,cn=UMC,cn=univention,{ldap_base}',
-        # f'cn=udm-mail,cn=operations,cn=UMC,cn=univention,{ldap_base}',
-        f'cn=udm-all,cn=operations,cn=UMC,cn=univention,{ldap_base}',
+NUMBER_OF_OUS = 10
+NUMBER_OF_USERS = 10
+NUMBER_OF_GROUPS = 5
+
+ALL_ADMIN_USERS = []
+register_ldap_deny_user = ALL_ADMIN_USERS.append
+
+
+def main():
+    api_access_group = create_or_modify_obj(groups, name='test-api-access')
+    create_or_modify_obj(groups, name='Domain Admins', guardianMemberRoles=[ADMIN_ROLE])
+    create_or_modify_obj(groups, name='Domain Users', guardianMemberRoles=[USER_ROLE])
+    umc_policy = create_or_modify_obj(
+        umc_policies,
+        name='organizational-unit-amdins',
+        position=f'cn=UMC,cn=policies,{LDAP_BASE}',
+        allow=[f'cn=udm-all,cn=operations,cn=UMC,cn=univention,{LDAP_BASE}'],
+    )
+
+    kwargs = {'api_access_group': api_access_group, 'umc_policy': umc_policy}
+
+    # create flat OU structure
+    for i in range(1, NUMBER_OF_OUS + 1):
+        create_ou_structure(LDAP_BASE, f'ou{i}', **kwargs)
+
+    # create hierarchical OU structure
+    dn = create_ou_structure(LDAP_BASE, 'bremen', **kwargs)
+    dn = create_ou_structure(dn, 'steintor', **kwargs)
+    dn = create_ou_structure(dn, 'education', **kwargs)
+    create_ou_structure(dn, 'hr', **kwargs)
+
+    ldap_acls_to_deny_access(ALL_ADMIN_USERS)
+    create_permissions_and_privileges()
+    activate_autorization_in_umc_and_udm_rest(api_access_group.dn)
+    restart_services()
+
+
+def create_permissions_and_privileges():
+    check_call(
+        ['bash', '-c', '''
+time /usr/share/univention-directory-manager-tools/univention-configure-udm-authorization --store-local prune
+time /usr/share/univention-directory-manager-tools/univention-configure-udm-authorization --store-local create-permissions
+time /usr/share/univention-directory-manager-tools/univention-configure-udm-authorization --store-local create-default-roles
+'''])
+
+
+def activate_autorization_in_umc_and_udm_rest(api_access_dn):
+    handler_set([
+        'directory/manager/web/delegative-administration/enabled=true',
+        'directory/manager/rest/delegative-administration/enabled=true',
+        f'directory/manager/rest/authorized-groups/test-api-access={api_access_dn}',
     ])
-    policy.save()
-else:
-    policy = next(policies.search('name=organizational-unit-amdins'))
 
-# domain-user role for Domain Users group
-r = groups.search('name=Domain Users')
-group = next(iter(r))
-admin_role = 'udm:default-roles:domain-user'
-if admin_role not in group.props.guardianMemberRoles:
-    group.props.guardianMemberRoles.append(admin_role)
-    group.save()
 
-# domainadmins role for Domain Admins group
-r = groups.search('name=Domain Admins')
-group = next(iter(r))
-admin_role = 'udm:default-roles:domain-administrator'
-if admin_role not in group.props.guardianMemberRoles:
-    group.props.guardianMemberRoles.append(admin_role)
-    group.save()
+def ldap_acls_to_deny_access(user_dns):
+    aclfile = '/tmp/59-authz-udm-test-acl'
+    with open(aclfile, 'w') as fh:
+        fh.write(f'''@!@
+user_dns = {user_dns!r}
+print('# 59-authz-udm-test-acl')
+print('access to *')
+for dn in user_dns:
+    print('     by dn.base="%s" none stop' % (dn,))
+print('     by * +0 break')
+@!@''')
 
-# api access group
-if api_access_grouplist := list(groups.search('name=test-api-access')):
-    api_access_group = api_access_grouplist[0]
-else:
-    api_access_group = groups.new()
-    api_access_group.props.name = 'test-api-access'
-    api_access_group.save()
+    check_call([f'. /usr/share/univention-lib/ldap.sh && ucs_registerLDAPExtension --packagename ucs-test --packageversion 3 --ucsversionstart 5.2-2 --ucsversionend 5.99-0 --acl {aclfile}'], shell=True)
 
-# ou's and users
-number_of_ous = 10
-number_of_users = 10
-number_of_groups = 5
+
+def restart_services():
+    check_call([
+        'systemctl', 'restart',
+        'univention-management-console-server',
+        'univention-directory-manager-rest',
+        'slapd.service',
+    ])
+
+
+def create_or_modify_obj(module, identifying_property='name', position=None, **properties):
+    try:
+        try:
+            obj = module.get_by_id(properties[identifying_property])
+        except MultipleObjects:
+            objs = list(module.search('%s=%s' % (identifying_property, properties[identifying_property]), base=position or LDAP_BASE, scope='one'))
+            if not objs:
+                raise NoObject()
+            assert len(objs) == 1, (properties, position, objs)
+            obj = objs[0]
+    except NoObject:
+        obj = module.new()
+        if position is not None:
+            obj.position = position
+
+    for key, value in properties.items():
+        if isinstance(value, list):
+            getattr(obj.props, key).extend(value)
+        else:
+            setattr(obj.props, key, value)
+    return obj.save()
 
 
 def create_cn(name, position, **props):
-    cn = cns.new()
-    cn.position = position
-    cn.props.name = name
-    cn.props.__dict__.update(**props)
-    try:
-        cn.save()
-    except CreateError:
-        cn = cns.get(f'cn={name},{position}')
-    return cn
+    return create_or_modify_obj(cns, position=position, name=name, **props)
 
 
 def create_group(name, position, **props):
-    obj = groups.new()
-    obj.position = position
-    obj.props.name = name
-    obj.props.__dict__.update(**props)
-    try:
-        obj.save()
-    except CreateError:
-        obj = groups.get(f'cn={name},{position}')
-    return obj
+    return create_or_modify_obj(groups, position=position, name=name, **props)
 
 
 def create_user(name, position, policy=None, **props):
-    user = users.new()
-    try:
-        user = users.get(f'uid={name},{position}')
-    except NoObject:
-        user = users.new()
-    user.position = position
-    user.props.username = name
-    user.props.lastname = name
-    user.props.password = 'univention'
-    user.props.overridePWHistory = '1'
-    user.props.__dict__.update(**props)
+    user = create_or_modify_obj(
+        users, 'username', position,
+        username=name,
+        lastname=name,
+        password='univention',
+        overridePWHistory='1',
+        **props,
+    )
     if policy:
         user.policies['policies/umc'].append(policy.dn)
     user.save()
     return user
 
 
-def create_ou_structure(position, ouname):
-    ou = ous.new()
-    ou.position = position
-    ou.props.name = ouname
-    try:
-        ou.save()
-    except CreateError:
-        ou = ous.get(f'ou={ouname},{position}')
+def create_ou_structure(position, ouname, api_access_group, umc_policy):
+    ou = create_or_modify_obj(ous, position=position, name=ouname)
+
     # user container
     cn_users = create_cn('users', ou.dn, userPath='1')
     # groups conainer
@@ -172,46 +166,43 @@ def create_ou_structure(position, ouname):
     ou.save()
 
     # ou admin
-    create_user(
+    register_ldap_deny_user(create_user(
         f'{ouname}-admin',
-        f'cn=users,{ldap_base}',
-        policy=policy,
+        f'cn=users,{LDAP_BASE}',
+        policy=umc_policy,
         groups=[api_access_group.dn],
-        guardianRoles=[f'udm:default-roles:organizational-unit-admin&udm:contexts:position={ou.dn.rstrip(ldap_base)}'],
-    )
+        guardianRoles=[f'udm:default-roles:organizational-unit-admin&udm:contexts:position={ou.dn.rstrip(LDAP_BASE)}'],
+    ).dn)
     # Helpdesk Operator (helpdesk-operator)
-    create_user(
+    register_ldap_deny_user(create_user(
         f'{ouname}-helpdesk-operator',
-        f'cn=users,{ldap_base}',
-        policy=policy,
+        f'cn=users,{LDAP_BASE}',
+        policy=umc_policy,
         groups=[api_access_group.dn],
-        guardianRoles=[f'udm:default-roles:helpdesk-operator&udm:contexts:position={ou.dn.rstrip(ldap_base)}'],
-    )
+        guardianRoles=[f'udm:default-roles:helpdesk-operator&udm:contexts:position={ou.dn.rstrip(LDAP_BASE)}'],
+    ).dn)
     # linux client manager user
-    create_user(
+    register_ldap_deny_user(create_user(
         f'{ouname}-clientmanager',
-        f'cn=users,{ldap_base}',
-        policy=policy,
+        f'cn=users,{LDAP_BASE}',
+        policy=umc_policy,
         groups=[api_access_group.dn],
-        guardianRoles=[f'udm:default-roles:linux-ou-client-manager&udm:contexts:position={ou.dn.rstrip(ldap_base)}'],
-    )
+        guardianRoles=[f'udm:default-roles:linux-ou-client-manager&udm:contexts:position={ou.dn.rstrip(LDAP_BASE)}'],
+    ).dn)
 
     # user objects in ou
     user_dns = []
-    for i in range(1, number_of_users + 1):
+    for i in range(1, NUMBER_OF_USERS + 1):
         user = create_user(f'user{i}-{ouname}', cn_users.dn, guardianRoles=['umc:udm:dummyrole'])
         user_dns.append(user.dn)
     # group objects
-    for i in range(1, number_of_groups + 1):
+    for i in range(1, NUMBER_OF_GROUPS + 1):
         create_group(f'group{i}-{ouname}', cn_groups.dn, users=user_dns)
 
+    return ou.dn
 
-# create flat ou structure
-for i in range(1, number_of_ous + 1):
-    create_ou_structure(ldap_base, f'ou{i}')
 
-# create hierarchical ou structure
-create_ou_structure(ldap_base, 'bremen')
-create_ou_structure(f'ou=bremen,{ldap_base}', 'steintor')
-create_ou_structure(f'ou=steintor,ou=bremen,{ldap_base}', 'education')
-create_ou_structure(f'ou=education,ou=steintor,ou=bremen,{ldap_base}', 'hr')
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.parse_args()
+    main()

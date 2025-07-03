@@ -1,3 +1,10 @@
+ucs-test (12.2.15) unstable; urgency=medium
+
+  * Bug #58432: adjust create-delegated-administration-setup for
+    hierarchical structures
+
+ -- Florian Best <best@univention.de>  Thu, 03 Jul 2025 17:59:18 +0200
+
 ucs-test (12.2.14) unstable; urgency=medium
 
   * Bug #58432: move existing authorization tests into new test section
