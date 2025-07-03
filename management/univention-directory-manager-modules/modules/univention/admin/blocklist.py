@@ -12,7 +12,6 @@ import hashlib
 import re
 from collections.abc import Iterable  # noqa: F401
 from datetime import datetime
-from typing import TYPE_CHECKING
 
 import ldap
 from dateutil.relativedelta import relativedelta
@@ -21,11 +20,6 @@ import univention.admin.localization
 import univention.admin.uexceptions
 import univention.admin.uldap
 from univention.admin._ucr import configRegistry
-
-
-if TYPE_CHECKING:
-    import univention.admin.handlers
-    import univention.admin.handlers.blocklists.list  # noqa: TC004
 
 
 translation = univention.admin.localization.translation('univention.admin.handlers')
@@ -57,7 +51,7 @@ def get_blocklist_config(lo):
     # type: (univention.admin.uldap.access) -> dict
     config = {}
     try:
-        for blist in univention.admin.handlers.blocklists.list.lookup(None, lo, 'entryUUID=*', base=BLOCKLIST_BASE, scope='one', authz=False):
+        for blist in univention.admin.modules.get('blocklists/list').lookup(None, lo, 'entryUUID=*', base=BLOCKLIST_BASE, scope='one', authz=False):
             config[blist.dn] = blist.get('retentionTime', '30d')
             for mod, prop in blist.get('blockingProperties', []):
                 config.setdefault(mod, {})[prop] = blist.dn
@@ -106,7 +100,7 @@ def create_blocklistentry(udm_obj):
         if (not udm_obj.exists() and udm_obj.oldinfo.get(prop)) or (udm_obj.hasChanged(prop) and udm_obj.oldinfo.get(prop)):
             blocklist_position = univention.admin.uldap.position(bl_dn)
             for value in get_blocklist_values_from_udm_property(udm_obj.oldinfo[prop], prop):
-                blocklistentry = univention.admin.handlers.blocklists.entry.object(None, udm_obj.lo_machine_primary, blocklist_position)
+                blocklistentry = univention.admin.modules.get('blocklists/entry').object(None, udm_obj.lo_machine_primary, blocklist_position)
                 blocklistentry.open()
                 blocklistentry['value'] = value
                 blocklistentry['originUniventionObjectIdentifier'] = udm_obj.entry_uuid
