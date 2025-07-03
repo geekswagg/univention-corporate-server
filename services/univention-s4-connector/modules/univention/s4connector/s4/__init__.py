@@ -645,15 +645,23 @@ class s4(univention.s4connector.ucs):
         try:
             self.lo_s4 = univention.uldap.access(
                 host=self.s4_ldap_host, port=int(self.s4_ldap_port),
-                base='', binddn=None, bindpw=None, start_tls=tls_mode,
+                base=self.s4_ldap_base or 'DC=unknown', binddn=None,
+                bindpw=None, start_tls=tls_mode,
                 ca_certfile=self.s4_ldap_certificate,
                 uri=ldapuri, reconnect=False,
             )
+            self.lo_s4.base = ''
             self.s4_ldap_base = self.s4_search_ext_s('', ldap.SCOPE_BASE, 'objectclass=*', ['defaultNamingContext'])[0][1]['defaultNamingContext'][0].decode('UTF-8')
         except Exception:  # FIXME: which exception is to be caught
             self._debug_traceback(ud.ERROR, 'Failed to lookup AD LDAP base, using UCR value.')
 
-        self.lo_s4 = univention.uldap.access(host=self.s4_ldap_host, port=int(self.s4_ldap_port), base=self.s4_ldap_base, binddn=self.s4_ldap_binddn, bindpw=self.s4_ldap_bindpw, start_tls=tls_mode, ca_certfile=self.s4_ldap_certificate, uri=ldapuri, reconnect=False)
+        self.lo_s4 = univention.uldap.access(
+            host=self.s4_ldap_host, port=int(self.s4_ldap_port),
+            base=self.s4_ldap_base, binddn=self.s4_ldap_binddn,
+            bindpw=self.s4_ldap_bindpw, start_tls=tls_mode,
+            ca_certfile=self.s4_ldap_certificate,
+            uri=ldapuri, reconnect=False,
+        )
 
         self.lo_s4.lo.set_option(ldap.OPT_REFERRALS, 0)
 
