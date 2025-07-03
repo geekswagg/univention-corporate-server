@@ -7,7 +7,10 @@
 
 import sys
 
+import pytest
+
 from univention.config_registry import ucr
+from univention.lib.umc import BadRequest
 from univention.testing import utils
 from univention.testing.strings import random_username
 from univention.testing.udm import UCSTestUDM
@@ -41,9 +44,12 @@ class TestUMCUserAuthentication(UMCBase):
 
     def query_udm(self):
         """Queries UDM's users/ldap from UMC"""
-        response = self.request('udm/query', {'objectType': 'users/ldap', 'objectProperty': 'username', 'objectPropertyValue': self.test_username}, 'users/user')
         delegation_enabled = ucr.is_true('directory/manager/web/delegative-administration/enabled')
-        assert delegation_enabled != bool(response), "Unexpected udm/query result for self"
+        if delegation_enabled:
+            with pytest.raises(BadRequest):
+                self.request('udm/query', {'objectType': 'users/ldap', 'objectProperty': 'username', 'objectPropertyValue': self.test_username}, 'users/user')
+        else:
+            assert self.request('udm/query', {'objectType': 'users/ldap', 'objectProperty': 'username', 'objectPropertyValue': self.test_username}, 'users/user').result
 
     def authenticate_to_umc(self, username, password):
         """
