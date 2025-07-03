@@ -8,6 +8,8 @@
 
 """|UDM| module for |UMC| operation set objects"""
 
+from __future__ import annotations
+
 import univention.admin
 import univention.admin.mapping as udm_mapping
 import univention.admin.syntax as udm_syntax
@@ -87,13 +89,11 @@ layout = [
 ]
 
 
-def mapUMC_CommandPattern(udm_value, encoding=()):
-    # type: (list[list[str]], univention.admin.handlers._Encoding) -> list[bytes]
+def mapUMC_CommandPattern(udm_value: list[list[str]], encoding: univention.admin.handlers._Encoding = ()) -> list[bytes]:
     return [':'.join(x).encode(*encoding) for x in udm_value]
 
 
-def unmapUMC_CommandPattern(ldap_value, encoding=()):
-    # type: (list[bytes], univention.admin.handlers._Encoding) -> list[tuple[str, str]]
+def unmapUMC_CommandPattern(ldap_value: list[bytes], encoding: univention.admin.handlers._Encoding = ()) -> list[tuple[str, str]]:
     return [
         val.decode(*encoding).partition(":")[::2]
         for val in ldap_value

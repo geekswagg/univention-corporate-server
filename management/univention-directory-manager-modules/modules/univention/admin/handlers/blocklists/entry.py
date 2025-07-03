@@ -7,6 +7,8 @@
 
 """|UDM| module for blocklist settings"""
 
+from __future__ import annotations
+
 import univention.admin.blocklist
 import univention.admin.filter
 import univention.admin.handlers
@@ -81,19 +83,16 @@ class object(univention.admin.handlers.simpleLdap):
     ldap_base = univention.admin.blocklist.BLOCKLIST_BASE
 
     @classmethod
-    def rewrite_filter(cls, filter, mapping):
-        # type: (univention.admin.filter.expression, univention.admin.mapping.mapping) -> None
+    def rewrite_filter(cls, filter: univention.admin.filter.expression, mapping: univention.admin.mapping.mapping) -> None:
         super().rewrite_filter(filter, mapping)
         if filter.variable == 'cn':
             filter.value = univention.admin.blocklist.hash_blocklist_value(filter.value.encode('UTF-8'))
 
     @classmethod
-    def identify(cls, dn, attr, canonical=False):
-        # type: (str, univention.admin.handlers._Attributes, bool) -> bool
+    def identify(cls, dn: str, attr: univention.admin.handlers._Attributes, canonical: bool = False) -> bool:
         return b'univentionBlockingEntry' in attr.get('objectClass', [])
 
-    def _ldap_pre_create(self):
-        # type: () -> None
+    def _ldap_pre_create(self) -> None:
         self['value'] = univention.admin.blocklist.hash_blocklist_value(self['value'].encode('UTF-8'))
         super()._ldap_pre_create()
 

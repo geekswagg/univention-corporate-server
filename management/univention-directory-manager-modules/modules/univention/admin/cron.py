@@ -7,12 +7,16 @@
 
 """|UDM| functions for creating crontab entries."""
 
+from __future__ import annotations
 
-from collections.abc import Mapping, Sequence  # noqa: F401
+from typing import TYPE_CHECKING
 
 
-def month_map(month):
-    # type: (str) -> str | int | None
+if TYPE_CHECKING:
+    from collections.abc import Mapping, Sequence
+
+
+def month_map(month: str) -> str | int | None:
     """
     Map English month name to 1-based numeric month-in-year.
 
@@ -33,8 +37,7 @@ def month_map(month):
     return None  # FIXME:
 
 
-def weekday_map(weekday):
-    # type: (str) -> str | int | None
+def weekday_map(weekday: str) -> str | int | None:
     """
     Map English day-of-week name to numeric value 1-7.
 
@@ -54,8 +57,7 @@ def weekday_map(weekday):
     return None  # FIXME:
 
 
-def month_reverse_map(month):
-    # type: (str | int) -> str | None
+def month_reverse_map(month: str | int) -> str | None:
     """
     Map 1-based numeric month-in-year to English month name.
 
@@ -75,8 +77,7 @@ def month_reverse_map(month):
     return None  # FIXME:
 
 
-def weekday_reverse_map(weekday):
-    # type: (str | int) -> str | None
+def weekday_reverse_map(weekday: str | int) -> str | None:
     """
     Map numeric day-of-week value 1-7 to English name.
 
@@ -96,8 +97,7 @@ def weekday_reverse_map(weekday):
     return None  # FIXME:
 
 
-def cron_create(cronlist):
-    # type: (Mapping[str, Sequence[str]]) -> str
+def cron_create(cronlist: Mapping[str, Sequence[str]]) -> str:
     """
     Create a crontab time string.
 

@@ -11,13 +11,18 @@
 .. deprecated:: UCS 4.4
 """
 
+from __future__ import annotations
 
-from types import ModuleType  # noqa: F401
+from typing import TYPE_CHECKING
 
 import ldap
 
 import univention.admin.modules
 import univention.admin.uldap
+
+
+if TYPE_CHECKING:
+    from types import ModuleType
 
 
 class config:
@@ -28,8 +33,7 @@ class config:
             use `None` instead
     """
 
-    def __init__(self, host=''):
-        # type: (str) -> None
+    def __init__(self, host: str = '') -> None:
         base = univention.admin.uldap.getBaseDN(host)
         self.data = {
             'ldap/base': base,
@@ -50,8 +54,7 @@ class config:
         return self.data.items()
 
 
-def getDefaultContainer(lo, module):
-    # type: (univention.admin.uldap.access, ModuleType | str) -> str | None
+def getDefaultContainer(lo: univention.admin.uldap.access, module: ModuleType | str) -> str | None:
     """
     Return any random default container for a UDM module.
 
@@ -76,8 +79,7 @@ DEFAULT_ATTRIBUTE_MAP = {
 }
 
 
-def getDefaultValue(lo, name, position=None):
-    # type: (univention.admin.uldap.access, str, univention.admin.uldap.position | None) -> str | None
+def getDefaultValue(lo: univention.admin.uldap.access, name: str, position: univention.admin.uldap.position | None = None) -> str | None:
     """
     Return the default value for a specific property of an UDM module.
     The default value is stored in a `settings/default` UDM object or in any of the parent container of the objects position.

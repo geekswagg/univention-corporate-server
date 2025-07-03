@@ -7,6 +7,7 @@
 
 """|UDM| module for all |blocklist| objects"""
 
+from __future__ import annotations
 
 import univention.admin.blocklist
 import univention.admin.filter
@@ -86,8 +87,7 @@ class object(univention.admin.handlers.simpleLdap):
     ldap_base = univention.admin.blocklist.BLOCKLIST_BASE
 
     @classmethod
-    def identify(cls, dn, attr, canonical=False):
-        # type: (str, univention.admin.handlers._Attributes, bool) -> bool
+    def identify(cls, dn: str, attr: univention.admin.handlers._Attributes, canonical: bool = False) -> bool:
         return b'univentionBlocklist' in attr.get('objectClass', [])
 
     # do not set univentionObjectIdentifier on blocklist objects - they are saved in a different LDAP base

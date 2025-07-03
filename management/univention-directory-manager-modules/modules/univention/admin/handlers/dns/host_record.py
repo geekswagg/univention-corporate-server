@@ -7,8 +7,10 @@
 
 """|UDM| module for |DNS| host records"""
 
+from __future__ import annotations
+
 import ipaddress
-from typing import Any  # noqa: F401
+from typing import Any
 
 import univention.admin.filter
 import univention.admin.handlers
@@ -91,25 +93,22 @@ layout = [
 ]
 
 
-def unmapMX(old, encoding=()):
-    # type: (list[bytes], univention.admin.handlers._Encoding) -> list[list[str]]
+def unmapMX(old: list[bytes], encoding: univention.admin.handlers._Encoding = ()) -> list[list[str]]:
     return [
         i.decode(*encoding).split(' ', 1)
         for i in old
     ]
 
 
-def mapMX(old, encoding=()):
-    # type: (list[list[str]], univention.admin.handlers._Encoding) -> list[bytes]
+def mapMX(old: list[list[str]], encoding: univention.admin.handlers._Encoding = ()) -> list[bytes]:
     return [
         ' '.join(i).encode(*encoding)
         for i in old
     ]
 
 
-def unmapIPAddresses(values, encoding=()):
-    # type: (dict[str, list[bytes]], univention.admin.handlers._Encoding) -> list[str]
-    records = []  # type: list[str]
+def unmapIPAddresses(values: dict[str, list[bytes]], encoding: univention.admin.handlers._Encoding = ()) -> list[str]:
+    records: list[str] = []
     if 'aRecord' in values:
         records += (x.decode(*encoding) for x in values['aRecord'])
     if 'aAAARecord' in values:
@@ -128,8 +127,7 @@ mapping.registerUnmapping('a', unmapIPAddresses, encoding='ASCII')
 class object(DNSBase):
     module = module
 
-    def _ldap_modlist(self):  # IPv6
-        # type: () -> list[tuple[str, Any, Any]]
+    def _ldap_modlist(self) -> list[tuple[str, Any, Any]]:  # IPv6
         ml = univention.admin.handlers.simpleLdap._ldap_modlist(self)
         oldAddresses = self.oldinfo.get('a')
         newAddresses = self.info.get('a')
@@ -160,8 +158,7 @@ class object(DNSBase):
         return ml
 
     @classmethod
-    def unmapped_lookup_filter(cls):
-        # type: () -> univention.admin.filter.conjunction
+    def unmapped_lookup_filter(cls) -> univention.admin.filter.conjunction:
         return univention.admin.filter.conjunction('&', [
             univention.admin.filter.expression('objectClass', 'dNSZone'),
             univention.admin.filter.conjunction('!', [univention.admin.filter.expression('sOARecord', '*', escape=False)]),
@@ -174,8 +171,7 @@ class object(DNSBase):
         ])
 
     @classmethod
-    def rewrite_filter(cls, filter, mapping):
-        # type: (univention.admin.filter.expression, univention.admin.mapping.mapping) -> None
+    def rewrite_filter(cls, filter: univention.admin.filter.expression, mapping: univention.admin.mapping.mapping) -> None:
         if filter.variable == 'a':
             filter.transform_to_conjunction(univention.admin.filter.conjunction('|', [
                 univention.admin.filter.expression('aRecord', filter.value, escape=False),
@@ -189,8 +185,7 @@ lookup = object.lookup
 lookup_filter = object.lookup_filter
 
 
-def identify(dn, attr, canonical=False):
-    # type: (str, univention.admin.handlers._Attributes, bool) -> bool
+def identify(dn: str, attr: univention.admin.handlers._Attributes, canonical: bool = False) -> bool:
     return bool(
         is_dns(attr)
         and not is_zone(attr)

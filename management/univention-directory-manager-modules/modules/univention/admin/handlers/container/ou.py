@@ -7,6 +7,8 @@
 
 """|UDM| module for Organizational Unit containers"""
 
+from __future__ import annotations
+
 import univention.admin.filter
 import univention.admin.handlers
 import univention.admin.localization
@@ -235,8 +237,7 @@ class object(univention.admin.handlers.simpleLdap):
         'licensePath': 'univentionLicenseObject',
     }
 
-    def open(self):
-        # type: () -> None
+    def open(self) -> None:
         univention.admin.handlers.simpleLdap.open(self)
 
         pathResult, self.default_dn = default_container_for_objects(self.lo, self.position.getDomain())
@@ -251,8 +252,7 @@ class object(univention.admin.handlers.simpleLdap):
 
         self.save()
 
-    def _ldap_pre_create(self):
-        # type: () -> None
+    def _ldap_pre_create(self) -> None:
         super()._ldap_pre_create()
         if configRegistry.is_false('directory/manager/child/cn/ou', True) and not self.lo.compare_dn(self.position.getDn(), configRegistry.get('ldap/base')):
             # it is possible to have a basedn with cn=foo
@@ -261,8 +261,7 @@ class object(univention.admin.handlers.simpleLdap):
             if any(m and m.module == 'container/cn' for m in univention.admin.modules.identify(self.position.getDn(), self.lo.authz_connection.get(self.position.getDn()))):
                 raise univention.admin.uexceptions.invalidChild(_('It is not allowed to create a container/ou as child object of a container/cn.'))
 
-    def _ldap_post_create(self):
-        # type: () -> None
+    def _ldap_post_create(self) -> None:
         super()._ldap_post_create()
         changes = []
 
@@ -280,13 +279,11 @@ class object(univention.admin.handlers.simpleLdap):
         if changes:
             self.lo.authz_connection.modify(self.default_dn, changes)
 
-    def _ldap_pre_rename(self, newdn):
-        # type: (str) -> None
+    def _ldap_pre_rename(self, newdn: str) -> None:
         super()._ldap_pre_rename(newdn)
         self.move(newdn)
 
-    def _ldap_post_move(self, olddn):
-        # type: (str) -> None
+    def _ldap_post_move(self, olddn: str) -> None:
         super()._ldap_post_move(olddn)
         settings_module = univention.admin.modules._get('settings/directory')
         settings_object = univention.admin.objects.get(settings_module, None, self.lo, position='', dn=self.default_dn, authz=False)
@@ -297,8 +294,7 @@ class object(univention.admin.handlers.simpleLdap):
                 settings_object[attr].append(self.dn)
         settings_object.modify()
 
-    def _ldap_post_modify(self):
-        # type: () -> None
+    def _ldap_post_modify(self) -> None:
         super()._ldap_post_modify()
         changes = []
 
@@ -312,8 +308,7 @@ class object(univention.admin.handlers.simpleLdap):
         if changes:
             self.lo.authz_connection.modify(self.default_dn, changes)
 
-    def _ldap_pre_remove(self):
-        # type: () -> None
+    def _ldap_pre_remove(self) -> None:
         super()._ldap_pre_remove()
         changes = []
 
@@ -326,8 +321,7 @@ class object(univention.admin.handlers.simpleLdap):
         self.lo.authz_connection.modify(self.default_dn, changes)
 
     @classmethod
-    def unmapped_lookup_filter(cls):
-        # type: () -> univention.admin.filter.conjunction
+    def unmapped_lookup_filter(cls) -> univention.admin.filter.conjunction:
         return univention.admin.filter.conjunction('&', [
             univention.admin.filter.expression('objectClass', 'organizationalUnit'),
             univention.admin.filter.conjunction('!', [univention.admin.filter.expression('objectClass', 'univentionBase')]),
@@ -338,6 +332,5 @@ lookup = object.lookup
 lookup_filter = object.lookup_filter
 
 
-def identify(dn, attr, canonical=False):
-    # type: (str, univention.admin.handlers._Attributes, bool) -> bool
+def identify(dn: str, attr: univention.admin.handlers._Attributes, canonical: bool = False) -> bool:
     return b'organizationalUnit' in attr.get('objectClass', []) and b'univentionBase' not in attr.get('objectClass', [])

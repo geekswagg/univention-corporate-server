@@ -7,6 +7,8 @@
 
 """|UDM| module for |DHCP| subnets"""
 
+from __future__ import annotations
+
 import univention.admin.filter
 import univention.admin.handlers
 import univention.admin.localization
@@ -86,16 +88,14 @@ class object(DHCPBaseSubnet):
     module = module
 
     @staticmethod
-    def unmapped_lookup_filter():
-        # type: () -> univention.admin.filter.conjunction
+    def unmapped_lookup_filter() -> univention.admin.filter.conjunction:
         return univention.admin.filter.conjunction('&', [
             univention.admin.filter.expression('objectClass', 'univentionDhcpSubnet'),
             univention.admin.filter.conjunction('!', [univention.admin.filter.expression('objectClass', 'univentionDhcpSharedSubnet')]),
         ])
 
 
-def identify(dn, attr):
-    # type: (str, univention.admin.handlers._Attributes) -> bool
+def identify(dn: str, attr: univention.admin.handlers._Attributes) -> bool:
     return b'univentionDhcpSubnet' in attr.get('objectClass', []) and b'univentionDhcpSharedSubnet' not in attr.get('objectClass', [])
 
 

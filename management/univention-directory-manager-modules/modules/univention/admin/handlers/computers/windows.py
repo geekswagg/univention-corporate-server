@@ -7,7 +7,9 @@
 
 """|UDM| module for the windows hosts"""
 
-from typing import Any  # noqa: F401
+from __future__ import annotations
+
+from typing import Any
 
 import univention.admin.filter
 import univention.admin.handlers
@@ -271,20 +273,17 @@ class object(ComputerObject):
     SAMBA_ACCOUNT_FLAG = 'W'
     SERVER_ROLE = 'windows_client'
 
-    def _ldap_modlist(self):
-        # type: () -> list[tuple[str, Any, Any]]
+    def _ldap_modlist(self) -> list[tuple[str, Any, Any]]:
         if self.hasChanged('ntCompatibility') and self['ntCompatibility'] == '1':
             self['password'] = self['name'].replace('$', '').lower()
             self.modifypassword = 1
         return super()._ldap_modlist()
 
-    def link(self):
-        # type: () -> None
+    def link(self) -> None:
         pass
 
     @classmethod
-    def lookup_filter(cls, filter_s=None, lo=None):
-        # type: (str | None, univention.admin.uldap.access | None) -> univention.admin.filter.conjunction
+    def lookup_filter(cls, filter_s: str | None = None, lo: univention.admin.uldap.access | None = None) -> univention.admin.filter.conjunction:
         con = super().lookup_filter(filter_s, lo)
         con.expressions.append(univention.admin.filter.conjunction('!', [univention.admin.filter.expression('univentionServerRole', 'windows_domaincontroller')]))
         return con
@@ -294,6 +293,5 @@ lookup = object.lookup
 lookup_filter = object.lookup_filter
 
 
-def identify(dn, attr, canonical=False):
-    # type: (str, univention.admin.handlers._Attributes, bool) -> bool
+def identify(dn: str, attr: univention.admin.handlers._Attributes, canonical: bool = False) -> bool:
     return b'univentionHost' in attr.get('objectClass', []) and b'univentionWindows' in attr.get('objectClass', []) and b'windows_domaincontroller' not in attr.get('univentionServerRole', [])

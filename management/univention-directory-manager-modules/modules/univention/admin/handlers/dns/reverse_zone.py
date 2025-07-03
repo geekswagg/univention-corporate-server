@@ -7,7 +7,9 @@
 
 """|UDM| module for |DNS| reverse zones"""
 
-from typing import Any  # noqa: F401
+from __future__ import annotations
+
+from typing import Any
 
 import ldap.dn
 
@@ -182,19 +184,18 @@ class object(univention.admin.handlers.simpleLdap):
 
     def __init__(
         self,
-        co,  # type: None
-        lo,  # type: univention.admin.uldap.access
-        position,  # type: univention.admin.uldap.position | None
-        dn='',  # type: str
-        superordinate=None,  # type: univention.admin.handlers.simpleLdap | None
-        attributes=None,  # type: univention.admin.handlers._Attributes | None
-    ):  # type: (...) -> None
+        co: None,
+        lo: univention.admin.uldap.access,
+        position: univention.admin.uldap.position | None,
+        dn: str = '',
+        superordinate: univention.admin.handlers.simpleLdap | None = None,
+        attributes: univention.admin.handlers._Attributes | None = None,
+    ) -> None:
         univention.admin.handlers.simpleLdap.__init__(self, co, lo, position, dn, superordinate, attributes=attributes)
         if not self.dn and not self.position:
             raise univention.admin.uexceptions.insufficientInformation(_('Neither DN nor position given.'))
 
-    def open(self):
-        # type: () -> None
+    def open(self) -> None:
         univention.admin.handlers.simpleLdap.open(self)
 
         soa = self.oldattr.get('sOARecord', [b''])[0].split(b' ')
@@ -208,8 +209,7 @@ class object(univention.admin.handlers.simpleLdap):
 
         self.save()
 
-    def _ldap_modlist(self):
-        # type: () -> list[tuple[str, Any, Any]]
+    def _ldap_modlist(self) -> list[tuple[str, Any, Any]]:
         ml = univention.admin.handlers.simpleLdap._ldap_modlist(self)
         if self.hasChanged(['nameserver', 'contact', 'serial', 'refresh', 'retry', 'expire', 'ttl']):
             if self['contact'] and not self['contact'].endswith('.'):
@@ -225,29 +225,25 @@ class object(univention.admin.handlers.simpleLdap):
             ml.append(('sOARecord', self.oldattr.get('sOARecord', []), soa))
         return ml
 
-    def _ldap_pre_modify(self):
-        # type: () -> None
+    def _ldap_pre_modify(self) -> None:
         super()._ldap_pre_modify()
         # update SOA record
         if not self.hasChanged('serial'):
             self['serial'] = str(int(self['serial']) + 1)
 
-    def _ldap_addlist(self):
-        # type: () -> list[tuple[str, Any]]
+    def _ldap_addlist(self) -> list[tuple[str, Any]]:
         return [*super()._ldap_addlist(), ('relativeDomainName', [b'@'])]
 
     # FIXME: there should be general solution; subnet is just a naming
     # attribute (though calculated from rdn)
-    def description(self):
-        # type: () -> str
+    def description(self) -> str:
         if self.exists():
             rdn_value = ldap.dn.str2dn(self.dn)[0][0][1].encode('UTF-8')
             return unmapSubnet([rdn_value])
         return self['subnet']
 
     @classmethod
-    def unmapped_lookup_filter(cls):
-        # type: () -> univention.admin.filter.conjunction
+    def unmapped_lookup_filter(cls) -> univention.admin.filter.conjunction:
         return univention.admin.filter.conjunction('&', [
             univention.admin.filter.expression('objectClass', 'dNSZone'),
             univention.admin.filter.expression('sOARecord', '*', escape=False),
@@ -262,8 +258,7 @@ lookup = object.lookup
 lookup_filter = object.lookup_filter
 
 
-def identify(dn, attr):
-    # type: (str, univention.admin.handlers._Attributes) -> bool
+def identify(dn: str, attr: univention.admin.handlers._Attributes) -> bool:
     return bool(
         is_zone(attr)
         and is_dns(attr)

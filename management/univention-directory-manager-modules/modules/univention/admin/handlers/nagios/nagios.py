@@ -8,6 +8,7 @@
 
 """|UDM| module for all nagios settings"""
 
+from __future__ import annotations
 
 import univention.admin
 import univention.admin.filter
@@ -32,7 +33,7 @@ object_name_plural = _('Nagios objects')
 long_description = ''
 operations = ['search']
 virtual = True
-options = {}  # type: dict[str, univention.admin.option]
+options: dict[str, univention.admin.option] = {}
 
 property_descriptions = {
     'name': univention.admin.property(
@@ -54,15 +55,13 @@ class object(univention.admin.handlers.simpleLdap):
     module = module
 
 
-def lookup(co, lo, filter_s, base='', superordinate=None, scope='sub', unique=False, required=False, timeout=-1, sizelimit=0):
-    # type: (None, univention.admin.uldap.access, str, str, univention.admin.handlers.simpleLdap | None, str, bool, bool, int, int) -> list[univention.admin.handlers.simpleLdap]
-    res = []  # type: list[univention.admin.handlers.simpleLdap]
+def lookup(co: None, lo: univention.admin.uldap.access, filter_s: str, base: str = '', superordinate: univention.admin.handlers.simpleLdap | None = None, scope: str = 'sub', unique: bool = False, required: bool = False, timeout: int = -1, sizelimit: int = 0) -> list[univention.admin.handlers.simpleLdap]:
+    res: list[univention.admin.handlers.simpleLdap] = []
     for childmodule in childmodules:
         mod = univention.admin.modules._get(childmodule)
         res += mod.lookup(co, lo, filter_s, base, superordinate, scope, unique, required, timeout, sizelimit)
     return res
 
 
-def identify(dn, attr, canonical=False):
-    # type: (str, univention.admin.handlers._Attributes, bool) -> None
+def identify(dn: str, attr: univention.admin.handlers._Attributes, canonical: bool = False) -> None:
     pass

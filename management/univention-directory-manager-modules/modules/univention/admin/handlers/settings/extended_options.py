@@ -7,8 +7,10 @@
 
 """|UDM| module for extended options"""
 
+from __future__ import annotations
+
 from logging import getLogger
-from typing import Any  # noqa: F401
+from typing import Any
 
 import univention.admin.filter
 import univention.admin.handlers
@@ -132,8 +134,7 @@ mapping.register('isApp', 'univentionUDMOptionIsApp', None, univention.admin.map
 class object(univention.admin.handlers.simpleLdap):
     module = module
 
-    def open(self):
-        # type: () -> None
+    def open(self) -> None:
         """Load and parse translations."""
         univention.admin.handlers.simpleLdap.open(self)
 
@@ -149,8 +150,7 @@ class object(univention.admin.handlers.simpleLdap):
 
         self.save()
 
-    def _ldap_modlist(self):
-        # type: () -> list[tuple[str, Any, Any]]
+    def _ldap_modlist(self) -> list[tuple[str, Any, Any]]:
         """Save translations."""
         ml = univention.admin.handlers.simpleLdap._ldap_modlist(self)
 

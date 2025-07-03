@@ -7,6 +7,7 @@
 
 """|UDM| module for all |DNS| objects"""
 
+from __future__ import annotations
 
 import univention.admin
 import univention.admin.filter
@@ -30,7 +31,7 @@ long_description = _('Manage the Domain Name System.')
 operations = ['search']
 childmodules = ['dns/forward_zone', 'dns/reverse_zone']
 virtual = True
-options = {}  # type: dict[str, univention.admin.option]
+options: dict[str, univention.admin.option] = {}
 property_descriptions = {
     'name': univention.admin.property(
         short_description=_('Name'),
@@ -49,8 +50,7 @@ class object(univention.admin.handlers.simpleLdap):
     module = module
 
 
-def rewrite(filter_s, **args):
-    # type: (str, str) -> str
+def rewrite(filter_s: str, **args: str) -> str:
     if not filter_s:
         return filter_s
     filter_p = univention.admin.filter.parse(filter_s)
@@ -68,10 +68,9 @@ MAP_SEARCH = {
 }
 
 
-def lookup(co, lo, filter_s, base='', superordinate=None, scope='sub', unique=False, required=False, timeout=-1, sizelimit=0):
-    # type: (None, univention.admin.uldap.access, str, str, univention.admin.handlers.simpleLdap | None, str, bool, bool, int, int) -> list[univention.admin.handlers.simpleLdap]
+def lookup(co: None, lo: univention.admin.uldap.access, filter_s: str, base: str = '', superordinate: univention.admin.handlers.simpleLdap | None = None, scope: str = 'sub', unique: bool = False, required: bool = False, timeout: int = -1, sizelimit: int = 0) -> list[univention.admin.handlers.simpleLdap]:
     sup = univention.admin.modules._get(superordinate.module) if superordinate else None
-    res = []  # type: list[univention.admin.handlers.simpleLdap]
+    res: list[univention.admin.handlers.simpleLdap] = []
     for childmodule in (sup.childmodules if sup else childmodules):
         mod = univention.admin.modules._get(childmodule)
         try:
@@ -84,6 +83,5 @@ def lookup(co, lo, filter_s, base='', superordinate=None, scope='sub', unique=Fa
     return res
 
 
-def identify(dn, attr, canonical=False):
-    # type: (str, univention.admin.handlers._Attributes, bool) -> None
+def identify(dn: str, attr: univention.admin.handlers._Attributes, canonical: bool = False) -> None:
     pass

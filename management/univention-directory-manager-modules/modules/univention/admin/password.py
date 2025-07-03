@@ -7,6 +7,7 @@
 
 """|UDM| password encryption methods."""
 
+from __future__ import annotations
 
 import hashlib
 import re
@@ -24,8 +25,7 @@ log = getLogger('ADMIN')
 RE_PASSWORD_SCHEME = re.compile(r'^{(\w+)}(!?)(.*)', re.I)
 
 
-def crypt(password, method_id=None, salt=None):
-    # type: (str, str | None, str | None) -> str
+def crypt(password: str, method_id: str | None = None, salt: str | None = None) -> str:
     """
     Return crypt hash.
 
@@ -70,8 +70,7 @@ def crypt(password, method_id=None, salt=None):
         return passlib.hash.sha512_crypt.using(salt=salt, rounds=5000).hash(password)
 
 
-def bcrypt_hash(password):
-    # type: (str) -> str
+def bcrypt_hash(password: str) -> str:
     """
     Return bcrypt hash.
 
@@ -84,8 +83,7 @@ def bcrypt_hash(password):
     return bcrypt.hashpw(password.encode('utf-8'), salt).decode('ASCII')
 
 
-def ntlm(password):
-    # type: (str) -> tuple[str, str]
+def ntlm(password: str) -> tuple[str, str]:
     """
     Return tuple with NT and LanMan hash.
 
@@ -102,8 +100,7 @@ def ntlm(password):
     return (nt, lm)
 
 
-def krb5_asn1(principal, password, krb5_context=None):
-    # type: (str, str, heimdal.context | None) -> list[bytes]
+def krb5_asn1(principal: str, password: str, krb5_context: heimdal.context | None = None) -> list[bytes]:
     """
     Generate Kerberos password hashes.
 
@@ -125,8 +122,7 @@ def krb5_asn1(principal, password, krb5_context=None):
     return list
 
 
-def is_locked(password):
-    # type: (str) -> bool
+def is_locked(password: str) -> bool:
     """
     Check is the password (hash) is locked
 
@@ -148,8 +144,7 @@ def is_locked(password):
     return match is not None and match.group(2) == '!'
 
 
-def unlock_password(password):
-    # type: (str) -> str
+def unlock_password(password: str) -> str:
     """
     Remove prefix from password used for locking.
 
@@ -173,8 +168,7 @@ def unlock_password(password):
     return password
 
 
-def lock_password(password):
-    # type: (str) -> str
+def lock_password(password: str) -> str:
     """
     Add prefix to password used for locking.
 
@@ -206,8 +200,7 @@ def lock_password(password):
     return password
 
 
-def password_is_auth_saslpassthrough(password):
-    # type: (str) -> bool
+def password_is_auth_saslpassthrough(password: str) -> bool:
     """
     Check if the password hash indicates the use of |SASL|.
 
@@ -217,8 +210,7 @@ def password_is_auth_saslpassthrough(password):
     return password.startswith('{SASL}') and configRegistry.get('directory/manager/web/modules/users/user/auth/saslpassthrough', 'no').lower() == 'keep'
 
 
-def get_password_history(password, pwhistory, pwhlen):
-    # type: (str, str, int) -> str
+def get_password_history(password: str, pwhistory: str, pwhlen: int) -> str:
     """
     Append the given password as hash to the history of password hashes
 
@@ -257,8 +249,7 @@ def get_password_history(password, pwhistory, pwhlen):
     return pwhistory
 
 
-def password_already_used(password, pwhistory):
-    # type: (str, str) -> bool
+def password_already_used(password: str, pwhistory: str) -> bool:
     """
     Check if the password is already used in the password hash history.
 

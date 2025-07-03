@@ -7,6 +7,8 @@
 
 """|UDM| module for the configuration registry policies"""
 
+from __future__ import annotations
+
 import codecs
 import copy
 
@@ -97,8 +99,7 @@ class object(univention.admin.handlers.simplePolicy):
     UCR_HEX = "univentionRegistry;entry-hex-"
     module = module
 
-    def _post_unmap(self, info, oldattr):
-        # type: (univention.admin.handlers._Properties, univention.admin.handlers._Attributes) -> univention.admin.handlers._Properties
+    def _post_unmap(self, info: univention.admin.handlers._Properties, oldattr: univention.admin.handlers._Attributes) -> univention.admin.handlers._Properties:
         info['registry'] = sorted(
             [self._ucr_unhexlify(attr_name), ldap_value[0].decode('UTF-8').strip()]
             for attr_name, ldap_value in oldattr.items()
@@ -150,16 +151,13 @@ class object(univention.admin.handlers.simplePolicy):
         self.polinfo = univention.admin.mapping.mapDict(self.mapping, values)
         self.polinfo = self._post_unmap(self.polinfo, values)
 
-    def _ucr_hexlify(self, key_name):
-        # type: (str) -> str
+    def _ucr_hexlify(self, key_name: str) -> str:
         return '%s%s' % (self.UCR_HEX, codecs.encode(key_name.encode('utf-8'), 'hex').decode('ASCII'))
 
-    def _is_ucr_hex(self, attr_name):
-        # type: (str) -> bool
+    def _is_ucr_hex(self, attr_name: str) -> bool:
         return attr_name.startswith(self.UCR_HEX)
 
-    def _ucr_unhexlify(self, attr_name):
-        # type: (str) -> str
+    def _ucr_unhexlify(self, attr_name: str) -> str:
         return codecs.decode(attr_name[len(self.UCR_HEX):], 'hex').decode('UTF-8')
 
 

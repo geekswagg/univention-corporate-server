@@ -8,9 +8,11 @@
 
 """|UDM| module for nagios services"""
 
+from __future__ import annotations
+
 import re
 from logging import getLogger
-from typing import Any  # noqa: F401
+from typing import Any
 
 import ldap
 from ldap.filter import filter_format
@@ -118,12 +120,11 @@ mapping.register('useNRPE', 'univentionNagiosUseNRPE', None, univention.admin.ma
 class object(univention.admin.handlers.simpleLdap):
     module = module
 
-    def open(self):
-        # type: () -> None
+    def open(self) -> None:
         super().open()
         _re = re.compile(r'^([^.]+)\.(.+?)$')
         # convert host FQDN to host DN
-        hostlist = []  # type: list[str]
+        hostlist: list[str] = []
         hosts = self.oldattr.get('univentionNagiosHostname', [])
         for host in [x.decode('UTF-8') for x in hosts]:
             # split into relDomainName and zoneName
@@ -149,8 +150,7 @@ class object(univention.admin.handlers.simpleLdap):
 
         self.save()
 
-    def _ldap_modlist(self):
-        # type: () -> list[tuple[str, Any, Any]]
+    def _ldap_modlist(self) -> list[tuple[str, Any, Any]]:
         ml = univention.admin.handlers.simpleLdap._ldap_modlist(self)
 
         # save assigned hosts
@@ -159,13 +159,13 @@ class object(univention.admin.handlers.simpleLdap):
             for hostdn in self.info.get('assignedHosts', []):
                 try:
                     host = self.lo.authz_connection.get(hostdn, ['associatedDomain', 'cn'], required=True)
-                    cn = host['cn'][0]  # type: bytes
+                    cn: bytes = host['cn'][0]
                 except (univention.admin.uexceptions.noObject, ldap.NO_SUCH_OBJECT):
                     raise univention.admin.uexceptions.valueError(_('The host "%s" does not exists.') % (hostdn,), property='assignedHosts')
                 except KeyError:
                     raise univention.admin.uexceptions.valueError(_('The host "%s" is invalid, it has no "cn" attribute.') % (hostdn,), property='assignedHosts')
 
-                domain = host.get('associatedDomain', [configRegistry.get("domainname").encode('ASCII')])[0]  # type: bytes
+                domain: bytes = host.get('associatedDomain', [configRegistry.get("domainname").encode('ASCII')])[0]
                 hostlist.append(b"%s.%s" % (cn, domain))
 
             ml.insert(0, ('univentionNagiosHostname', self.oldattr.get('univentionNagiosHostname', []), hostlist))

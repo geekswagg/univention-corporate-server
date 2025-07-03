@@ -7,9 +7,10 @@
 
 """|UDM| module for the user contact objects"""
 
+from __future__ import annotations
 
 from logging import getLogger
-from typing import Any  # noqa: F401
+from typing import Any
 
 import univention.admin
 import univention.admin.filter
@@ -326,21 +327,18 @@ mapping.register('homePostalAddress', 'homePostalAddress', mapHomePostalAddress,
 class object(univention.admin.handlers.simpleLdap):
     module = module
 
-    def description(self):
-        # type: () -> str
+    def description(self) -> str:
         description = '%s %s' % (self['firstname'] or '', self['lastname'])
         return description.strip()
 
-    def get_candidate_dn(self):
-        # type: () -> str
+    def get_candidate_dn(self) -> str:
         dn = self._ldap_dn()
         if self.exists():
             rdn = self.lo.explodeDn(dn)[0]
             dn = '%s,%s' % (rdn, self.lo.parentDn(self.dn))
         return dn
 
-    def unique_dn(self):
-        # type: () -> bool
+    def unique_dn(self) -> bool:
         candidate_dn = self.get_candidate_dn()
         try:
             self.lo.authz_connection.searchDn(base=candidate_dn, scope='base')
@@ -349,8 +347,7 @@ class object(univention.admin.handlers.simpleLdap):
         else:
             return False
 
-    def acquire_unique_dn(self):
-        # type: () -> str
+    def acquire_unique_dn(self) -> str:
         nonce = 1
         cn = '%s %s %d' % (self['firstname'] or '', self['lastname'], nonce)
         self['cn'] = cn.strip()
@@ -360,22 +357,19 @@ class object(univention.admin.handlers.simpleLdap):
             self['cn'] = cn.strip()
         return self.get_candidate_dn()
 
-    def _ldap_pre_ready(self):
-        # type: () -> None
+    def _ldap_pre_ready(self) -> None:
         super()._ldap_pre_ready()
 
         if not self.exists() or self.hasChanged(('firstname', 'lastname')):
             self.acquire_unique_dn()
 
-    def _ldap_modlist(self):
-        # type: () -> list[tuple[str, Any, Any]]
+    def _ldap_modlist(self) -> list[tuple[str, Any, Any]]:
         ml = univention.admin.handlers.simpleLdap._ldap_modlist(self)
         ml = self._modlist_display_name(ml)
         ml = self._modlist_univention_person(ml)
         return ml
 
-    def _modlist_display_name(self, ml):
-        # type: (list[tuple[str, Any, Any]]) -> list[tuple[str, Any, Any]]
+    def _modlist_display_name(self, ml: list[tuple[str, Any, Any]]) -> list[tuple[str, Any, Any]]:
         # update displayName automatically if no custom value has been entered by the user and the name changed
         if self.info.get('displayName') == self.oldinfo.get('displayName') and (self.info.get('firstname') != self.oldinfo.get('firstname') or self.info.get('lastname') != self.oldinfo.get('lastname')):
             prop_displayName = self.descriptions['displayName']
@@ -387,8 +381,7 @@ class object(univention.admin.handlers.simpleLdap):
                 ml.append(('displayName', self.oldattr.get('displayName', [b''])[0], new_displayName.encode('UTF-8')))
         return ml
 
-    def _modlist_univention_person(self, ml):
-        # type: (list[tuple[str, Any, Any]]) -> list[tuple[str, Any, Any]]
+    def _modlist_univention_person(self, ml: list[tuple[str, Any, Any]]) -> list[tuple[str, Any, Any]]:
         univention_person_property_names = ('birthday', 'country')
         if any(self.hasChanged(ikey) for ikey in univention_person_property_names):
             if any(self[ikey] for ikey in univention_person_property_names):
@@ -398,8 +391,7 @@ class object(univention.admin.handlers.simpleLdap):
                 ml.append(('objectClass', b'univentionPerson', b''))
         return ml
 
-    def _move(self, newdn, modify_childs=True, ignore_license=False):
-        # type: (str, bool, bool) -> str
+    def _move(self, newdn: str, modify_childs: bool = True, ignore_license: bool = False) -> str:
         olddn = self.dn
 
         # acquire unique dn in new position
@@ -423,8 +415,7 @@ class object(univention.admin.handlers.simpleLdap):
         return self.dn
 
     @classmethod
-    def unmapped_lookup_filter(cls):
-        # type: () -> univention.admin.filter.conjunction
+    def unmapped_lookup_filter(cls) -> univention.admin.filter.conjunction:
         return univention.admin.filter.conjunction('&', [
             univention.admin.filter.expression('objectClass', 'person'),
             univention.admin.filter.expression('objectClass', 'inetOrgPerson'),
@@ -445,8 +436,7 @@ lookup = object.lookup
 lookup_filter = object.lookup_filter
 
 
-def identify(dn, attr, canonical=False):
-    # type: (str, univention.admin.handlers._Attributes, bool) -> bool
+def identify(dn: str, attr: univention.admin.handlers._Attributes, canonical: bool = False) -> bool:
     # FIXME: is this if block needed? copy pasted from users/user
     if b'0' in attr.get('uidNumber', []) or b'$' in attr.get('uid', [b''])[0] or b'univentionHost' in attr.get('objectClass', []) or b'functional' in attr.get('univentionObjectFlag', []):
         return False

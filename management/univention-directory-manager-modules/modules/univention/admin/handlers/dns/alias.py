@@ -7,8 +7,10 @@
 
 """|UDM| module for |DNS| aliases (CNAME)"""
 
+from __future__ import annotations
+
 import re
-from re import Match  # noqa: F401
+from re import Match
 
 from ldap.filter import filter_format
 
@@ -85,8 +87,7 @@ class object(DNSBase):
     module = module
 
     @classmethod
-    def unmapped_lookup_filter(cls):
-        # type: () -> univention.admin.filter.conjunction
+    def unmapped_lookup_filter(cls) -> univention.admin.filter.conjunction:
         return univention.admin.filter.conjunction('&', [
             univention.admin.filter.expression('objectClass', 'dNSZone'),
             univention.admin.filter.expression('cNAMERecord', '*', escape=False),
@@ -97,20 +98,17 @@ lookup = object.lookup
 lookup_filter = object.lookup_filter
 
 
-def identify(dn, attr, canonical=False):
-    # type: (str, univention.admin.handlers._Attributes, bool) -> bool
+def identify(dn: str, attr: univention.admin.handlers._Attributes, canonical: bool = False) -> bool:
     return bool(
         attr.get('cNAMERecord')
         and is_dns(attr),
     )
 
 
-def lookup_alias_filter(lo, filter_s):
-    # type: (univention.admin.uldap.access, str) -> str
+def lookup_alias_filter(lo: univention.admin.uldap.access, filter_s: str) -> str:
     alias_pattern = re.compile(r'(?:^|\()dnsAlias=([^)]+)($|\))', flags=re.I)
 
-    def _replace_alias_filter(match):
-        # type: (Match[str]) -> str
+    def _replace_alias_filter(match: Match[str]) -> str:
         alias_filter = object.lookup_filter('name=%s' % match.group(1), lo)
         alias_filter_s = str(alias_filter)
         alias_base = str(lo.base)  # standard dns container might be a better choice

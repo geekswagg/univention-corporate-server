@@ -7,6 +7,8 @@
 
 """|UDM| module for printer modules"""
 
+from __future__ import annotations
+
 import shlex
 
 import univention.admin.filter
@@ -63,15 +65,12 @@ layout = [
 ]
 
 
-def unmapDriverList(ldap_value, encoding=()):
-    # type: (list[bytes], univention.admin.handlers._Encoding) -> list[list[str]]
+def unmapDriverList(ldap_value: list[bytes], encoding: univention.admin.handlers._Encoding = ()) -> list[list[str]]:
     return [shlex.split(x.decode(*encoding)) for x in ldap_value]
 
 
-def mapDriverList(udm_value, encoding=()):
-    # type: (list[str], univention.admin.handlers._Encoding) -> list[bytes]
-    def q(s):
-        # type: (str) -> str
+def mapDriverList(udm_value: list[str], encoding: univention.admin.handlers._Encoding = ()) -> list[bytes]:
+    def q(s: str) -> str:
         return s.replace('"', '\\"')
     ldap_attr_list = []
     for x in udm_value:
@@ -89,8 +88,7 @@ class object(univention.admin.handlers.simpleLdap):
     module = module
 
     @classmethod
-    def rewrite_filter(cls, filter, mapping):
-        # type: (univention.admin.filter.expression, univention.admin.mapping.mapping) -> None
+    def rewrite_filter(cls, filter: univention.admin.filter.expression, mapping: univention.admin.mapping.mapping) -> None:
         if filter.variable == 'printmodel':
             filter.variable = 'printerModel'
         else:

@@ -6,13 +6,19 @@
 
 """|UDM| functions to parse, modify and create |LDAP| style search filters"""
 
+from __future__ import annotations
+
 import re
-from collections.abc import Callable, Iterator, Sequence  # noqa: F401
-from typing import TypeVar
+from typing import TYPE_CHECKING, TypeVar
 
 from ldap.filter import filter_format
 
 import univention.admin.uexceptions
+
+
+if TYPE_CHECKING:
+    from collections.abc import Callable, Iterator, Sequence
+    from re import Match
 
 
 T = TypeVar("T")
@@ -23,8 +29,7 @@ class conjunction:
 
     OPS = frozenset({'&', '|', '!'})
 
-    def __init__(self, type, expressions):
-        # type: (str, list[conjunction | expression]) -> None
+    def __init__(self, type: str, expressions: list[conjunction | expression]) -> None:
         """
         Create LDAP filter conjunction or disjunction.
 
@@ -36,15 +41,13 @@ class conjunction:
         self.expressions = expressions
 
     @classmethod
-    def _parse(cls, text):
-        # type: (str) -> conjunction
+    def _parse(cls, text: str) -> conjunction:
         op = text[0]
         expressions = [parse(s) for s in cls._split(text[1:])]
         return conjunction(op, expressions)
 
     @staticmethod
-    def _split(text):
-        # type: (str) -> Iterator[str]
+    def _split(text: str) -> Iterator[str]:
         depth = 0
         begin = -1
         for i, c in enumerate(text):
@@ -58,8 +61,7 @@ class conjunction:
                     yield text[begin:i + 1]
                     begin = -1
 
-    def __str__(self):
-        # type: () -> str
+    def __str__(self) -> str:
         """
         Return string representation.
 
@@ -76,8 +78,7 @@ class conjunction:
             return ''
         return '(%s%s)' % (self.type, ''.join(map(str, self.expressions)))
 
-    def __repr__(self):
-        # type: () -> str
+    def __repr__(self) -> str:
         """
         Return canonical representation.
 
@@ -88,8 +89,7 @@ class conjunction:
         """
         return '%s(%r, %r)' % (self.__class__.__name__, self.type, self.expressions)
 
-    def append_unmapped_filter_string(self, filter_s, rewrite_function, mapping):
-        # type: (str | None, Callable[[expression, T | None], None], T) -> None
+    def append_unmapped_filter_string(self, filter_s: str | None, rewrite_function: Callable[[expression, T | None], None], mapping: T) -> None:
         if filter_s:
             filter_p = parse(filter_s)
             walk(filter_p, rewrite_function, arg=mapping)
@@ -103,8 +103,7 @@ class expression:
     # LDAP RFC 4515 + UCS specific extensions
     RE_OP = re.compile(r'([<>]=?|[!~]=|=(?:[*]$)?)')
 
-    def __init__(self, variable='', value='', operator='=', escape=False):
-        # type: (str, str, str, bool) -> None
+    def __init__(self, variable: str = '', value: str = '', operator: str = '=', escape: bool = False) -> None:
         """
         Create LDAP filter expression.
 
@@ -123,13 +122,11 @@ class expression:
         self._escape = escape
 
     @classmethod
-    def _parse(cls, text):
-        # type: (str) -> expression
+    def _parse(cls, text: str) -> expression:
         var, op, val = cls.RE_OP.split(text, 1)
         return expression(var, val, operator=op)
 
-    def __str__(self):
-        # type: () -> str
+    def __str__(self) -> str:
         r"""
         Return string representation.
 
@@ -155,22 +152,19 @@ class expression:
         else:
             return self.escape('(%%s%s%%s)' % (self.operator,), (self.variable, self.value))
 
-    def escape(self, string, args):
-        # type: (str, Sequence[str]) -> str
+    def escape(self, string: str, args: Sequence[str]) -> str:
         if self._escape:
             return filter_format(string, args)
         return string % args
 
-    def transform_to_conjunction(self, con):
-        # type: (conjunction) -> None
+    def transform_to_conjunction(self, con: conjunction) -> None:
         if not isinstance(con, conjunction):
             raise TypeError('must be conjunction, got %s(%r)' % (type(con).__name__, con))
         self.__dict__.clear()
         self.__dict__.update(con.__dict__)
         self.__class__ = type(con)  # type: ignore
 
-    def __repr__(self):
-        # type: () -> str
+    def __repr__(self) -> str:
         """
         Return canonical representation.
 
@@ -186,8 +180,7 @@ class expression:
         return '%s(%r, %r, %r)' % (self.__class__.__name__, self.variable, self.value, self.operator)
 
 
-def parse(filter_s, begin=0, end=-1):
-    # type: (conjunction | expression | str, int, int) -> conjunction | expression
+def parse(filter_s: conjunction | expression | str, begin: int = 0, end: int = -1) -> conjunction | expression:
     r"""
     Parse LDAP filter string.
 
@@ -256,8 +249,7 @@ def parse(filter_s, begin=0, end=-1):
         raise univention.admin.uexceptions.valueInvalidSyntax(part)
 
 
-def walk(filter_p, expression_walk_function=None, conjunction_walk_function=None, arg=None):
-    # type: (conjunction | expression, Callable[[expression, T | None], None] | None, Callable[[conjunction, T | None], None] | None, T | None) -> None
+def walk(filter_p: conjunction | expression, expression_walk_function: Callable[[expression, T | None], None] | None = None, conjunction_walk_function: Callable[[conjunction, T | None], None] | None = None, arg: T | None = None) -> None:
     """
     Walk LDAP filter expression tree.
 
@@ -293,8 +285,7 @@ def walk(filter_p, expression_walk_function=None, conjunction_walk_function=None
 FQDN_REGEX = re.compile(r'(?:^|\()fqdn=([^)]+)(?:\)|$)')
 
 
-def replace_fqdn_filter(filter_s):
-    # type: (str) -> str
+def replace_fqdn_filter(filter_s: str) -> str:
     """
     Replaces a filter expression for the read-only attribute fqdn. If no
     such expression can be found the unmodified filter is returned.
@@ -313,8 +304,7 @@ def replace_fqdn_filter(filter_s):
     return FQDN_REGEX.sub(_replace_fqdn_filter, filter_s)
 
 
-def _replace_fqdn_filter(match):
-    # type: (Match[str]) -> str
+def _replace_fqdn_filter(match: Match[str]) -> str:
     value, = match.groups()
     try:
         host, domain = value.split('.', 1)

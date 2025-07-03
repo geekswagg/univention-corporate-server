@@ -7,6 +7,7 @@
 
 """|UDM| syntax definitions."""
 
+from __future__ import annotations
 
 import base64
 import bz2
@@ -22,7 +23,6 @@ import time
 import traceback
 import uuid
 import zlib
-from collections.abc import Callable, Iterator, Sequence  # noqa: F401
 from io import BytesIO
 from logging import getLogger
 from typing import TYPE_CHECKING
@@ -35,7 +35,6 @@ from dateutil.parser import parse as duparse
 from email_validator import SPECIAL_USE_DOMAIN_NAMES, EmailNotValidError, validate_email
 from ldap.filter import escape_filter_chars, filter_format
 from ldap.schema import AttributeType, ObjectClass
-from ldap.schema.subentry import SubSchema  # noqa: F401
 
 import univention.admin.modules
 import univention.admin.types
@@ -47,7 +46,13 @@ from univention.uldap import getMachineConnection
 
 
 if TYPE_CHECKING:
-    from univention.admin.uldap import access  # noqa: F401
+    from collections.abc import Callable, Iterator, Sequence
+    from re import Pattern
+    from typing import Any
+
+    from ldap.schema.subentry import SubSchema
+
+    from univention.admin.uldap import access
 
 SPECIAL_USE_DOMAIN_NAMES[:] = []
 
@@ -57,8 +62,7 @@ translation = localization.translation('univention/admin')
 _ = translation.translate
 
 
-def import_syntax_files():
-    # type: () -> None
+def import_syntax_files() -> None:
     """Load all additional syntax files from :file:`*/univention/admin/syntax.d/*.py`."""
     global _  # don't allow syntax to overwrite our global _ function.
     gettext = _
@@ -83,17 +87,15 @@ def _normalize_dn(dn: str) -> str:
     return ldap.dn.dn2str(ldap.dn.str2dn(dn))
 
 
-choice_update_functions = []  # type: list[Callable]
+choice_update_functions: list[Callable] = []
 
 
-def __register_choice_update_function(func):
-    # type: (Callable[[], None]) -> None
+def __register_choice_update_function(func: Callable[[], None]) -> None:
     """Register a function to be called when the syntax classes are to be re-loaded."""
     choice_update_functions.append(func)
 
 
-def update_choices():
-    # type: () -> None
+def update_choices() -> None:
     """
     Update choices which are defined in LDAP
 
@@ -126,8 +128,7 @@ def _check_legacy_username_format(text):
         raise univention.admin.uexceptions.valueError(_("Usernames must not consist only of numbers!"))
 
 
-def is_syntax(syntax_obj, syntax_type):
-    # type: (Any, Type) -> bool
+def is_syntax(syntax_obj: Any, syntax_type: type) -> bool:
     """
     Returns True if the syntax object/class matches the given type.
 
@@ -163,10 +164,10 @@ class ISyntax:
     'Hallo'
     """
 
-    size = 'One'  # type: str | Sequence[str]
+    size: str | Sequence[str] = 'One'
     """Widget size. See :py:data:`SIZES`."""
 
-    type_class = None  # type: Type[univention.admin.types.TypeHint] | None
+    type_class: type[univention.admin.types.TypeHint] | None = None
     type_class_multivalue = None
 
     @ClassProperty
@@ -178,8 +179,7 @@ class ISyntax:
         return cls.__name__
 
     @classmethod
-    def tostring(self, text):
-        # type: (Any) -> str
+    def tostring(self, text: Any) -> str:
         """
         Convert from internal representation to textual representation.
 
@@ -192,14 +192,12 @@ class ISyntax:
         return value
 
     @classmethod
-    def new(self):
-        # type: () -> str | list[str]
+    def new(self) -> str | list[str]:
         """Return the initial value."""
         return ''
 
     @classmethod
-    def any(self):
-        # type: () -> str | list[str]
+    def any(self) -> str | list[str]:
         """Return the default search filter."""
         return '*'
 
@@ -212,13 +210,13 @@ class ISyntax:
     def sort_choices(cls, choices):
         return sorted(choices, key=lambda choice: choice[1])
 
-    widget = None  # type: str | None
+    widget: str | None = None
     """The corresponding widget which is used in UMC"""
 
     search_widget = 'TextBox'
     """The corresponding widget which is used in UMC when searching for values of this property"""
 
-    widget_default_search_pattern = '*'  # type: bool | str | None
+    widget_default_search_pattern: bool | str | None = '*'
     """The default search pattern for this syntax. String render as TextBox, lists render as ComboBox with the possible choices, booleans render as CheckBox"""
 
     @classmethod
@@ -319,19 +317,18 @@ class simple(ISyntax):
     '*'
     """
 
-    regex = None  # type: Pattern | None
+    regex: Pattern | None = None
     """Regular expression to validate the value."""
     error_message = _('Invalid value')
     """Error message when an invalid item is selected."""
 
-    type_class = univention.admin.types.StringType  # type: Type[univention.admin.types.TypeHint] | None
+    type_class: type[univention.admin.types.TypeHint] | None = univention.admin.types.StringType
 
     widget = 'TextBox'
-    widget_default_search_pattern = '*'  # type: bool | str | None
+    widget_default_search_pattern: bool | str | None = '*'
 
     @classmethod
-    def parse(self, text):
-        # type: (Any) -> str
+    def parse(self, text: Any) -> str:
         """
         Validate the value by parsing it.
 
@@ -344,8 +341,7 @@ class simple(ISyntax):
             raise univention.admin.uexceptions.valueError(self.error_message)
 
     @classmethod
-    def checkLdap(self, lo, value, property=''):
-        # type: (access, Any, str | None) -> Any
+    def checkLdap(self, lo: access, value: Any, property: str | None = '') -> Any:
         """
         Check the given value against the current LDAP state by
         reading directly from LDAP directory. The function returns nothing
@@ -373,23 +369,22 @@ class select(ISyntax):
     empty_value = False
     """Allow the empty value."""
 
-    type_class = univention.admin.types.StringType  # type: Type[univention.admin.types.TypeHint] | None
+    type_class: type[univention.admin.types.TypeHint] | None = univention.admin.types.StringType
 
     widget = 'ComboBox'
     search_widget = 'ComboBox'
 
-    depends = None  # type: str | None
+    depends: str | None = None
     """The name of another |UDM| property this syntax depends on."""
 
-    javascript_dependency = False  # type: bool
+    javascript_dependency: bool = False
     """Whether dependencies should be resolved via Javascript (instead via a further request)"""
 
     if TYPE_CHECKING:
-        choices = []  # type: Sequence[Any]
+        choices: Sequence[Any] = []
 
     @classmethod
-    def parse(self, text):
-        # type: (Any) -> str | None
+    def parse(self, text: Any) -> str | None:
         # for the UDM CLI
         try:
             choices = self.choices
@@ -454,7 +449,7 @@ class combobox(select):
 class MultiSelect(ISyntax):
     """Select multiple items from a list of choices."""
 
-    choices = []  # type: Sequence[tuple[Any, str]]
+    choices: Sequence[tuple[Any, str]] = []
     """The list of choices."""
     empty_value = True
     """Allow the empty value."""
@@ -467,8 +462,7 @@ class MultiSelect(ISyntax):
     search_widget = 'ComboBox'
 
     @classmethod
-    def parse(self, value):
-        # type: (Any) -> list[str]
+    def parse(self, value: Any) -> list[str]:
         # required for UDM CLI
         if isinstance(value, str):
             value = list(map(lambda x: x, shlex.split(value)))
@@ -486,20 +480,20 @@ class MultiSelect(ISyntax):
 class complex(ISyntax):
     """Base class for complex syntax classes consisting of multiple sub-items."""
 
-    delimiter = ' '  # type: str
+    delimiter: str = ' '
     """
     Delimiter to separate the sub-items. Two possibilities:
 
     1.  Either a single string like `=`, which is used to concatenate all subitems.
     2.  A sequence of `n+1` strings like `['', ': ', '=', '']` to concatenate `n` sub-items. The first and last value is used as a prefix/suffix.
     """
-    min_elements = None  # type: int | None
+    min_elements: int | None = None
     """Minimum number of required values."""
     all_required = True
     """All sub-values must contain a value."""
 
-    subsyntaxes = []  # type: Sequence[tuple[str, Type[ISyntax]]]
-    subsyntax_names = ()  # type: tuple[str, ...]
+    subsyntaxes: Sequence[tuple[str, type[ISyntax]]] = []
+    subsyntax_names: tuple[str, ...] = ()
     subsyntax_key_value = False
 
     @classmethod
@@ -510,8 +504,7 @@ class complex(ISyntax):
     widget_default_search_pattern = None
 
     @classmethod
-    def parse(self, texts, minn=None):
-        # type: (Sequence[Any], int | None) -> list[str]
+    def parse(self, texts: Sequence[Any], minn: int | None = None) -> list[str]:
         if minn is None:
             minn = self.min_elements
         if minn is None:
@@ -526,7 +519,7 @@ class complex(ISyntax):
             log.debug('syntax.py: subsyntax[%s]=%s, texts=%s', i, syn, text)
             if text is None and i + 1 < minn:
                 raise univention.admin.uexceptions.valueInvalidSyntax(_("Missing argument: %s > %s") % (self.name, desc))
-            s = syn() if inspect.isclass(syn) else syn  # type: simple # type: ignore
+            s: simple = syn() if inspect.isclass(syn) else syn  # type: ignore
             p = s.parse(text)
             parsed.append(p)
         return parsed
@@ -589,24 +582,21 @@ class complex(ISyntax):
             return cls.type_class
 
     @classmethod
-    def tostring(self, texts):
-        # type: (Any) -> str
+    def tostring(self, texts: Any) -> str:
         if self.all_required and (len(self.subsyntaxes) != len(texts) or not all(texts)):
             return ''
 
         return self.delimiter.join(texts)
 
     @classmethod
-    def new(self):
-        # type: () -> str | list[str]
+    def new(self) -> str | list[str]:
         return [
             (syntax() if inspect.isclass(syntax) else syntax).new()  # type: ignore
             for desc, syntax in self.subsyntaxes
         ]
 
     @classmethod
-    def any(self):
-        # type: () -> str | list[str]
+    def any(self) -> str | list[str]:
         return [
             (syntax() if inspect.isclass(syntax) else syntax).any()  # type: ignore
             for desc, syntax in self.subsyntaxes
@@ -703,21 +693,21 @@ class UDM_Objects(ISyntax, _UDMObjectOrAttribute):
     valueError:
     """
 
-    udm_modules = ()  # type: Sequence[str]
+    udm_modules: Sequence[str] = ()
     """Sequence of |UDM| module names to search for."""
     udm_filter = ''
     """A |LDAP| filter string to further restrict the matching |LDAP| objects."""
     key = 'dn'
     """Either 'dn' or the |UDM| property name enclosed in %()s to use as the value for this syntax class."""
-    label = None  # type: str | None
+    label: str | None = None
     """The |UDM| property name enclosed in %()s, which is used as the displayed value."""
-    regex = None  # type: Pattern | None
+    regex: Pattern | None = None
     """Regular expression for validating the values."""
-    static_values = None  # type: Sequence[tuple[str, str]] | None
+    static_values: Sequence[tuple[str, str]] | None = None
     """Sequence of additional static items."""
     empty_value = False
     """Allow to select no entry."""
-    depends = None  # type: str | None
+    depends: str | None = None
     """The name of another |UDM| property this syntax depends on."""
     error_message = _("Not a valid LDAP DN")
     """Error message when an invalid item is selected."""
@@ -726,7 +716,7 @@ class UDM_Objects(ISyntax, _UDMObjectOrAttribute):
     use_objects = True
     """By default with `True` create Python UDM instance for each LDAP entry. With `False` only work with the LDAP attribute data."""
 
-    widget_default_search_pattern = ''  # type: bool | str | None
+    widget_default_search_pattern: bool | str | None = ''
     widget = 'umc/modules/udm/ComboBox'
     widget_advanced_multivalue = 'umc/modules/udm/MultiObjectSelect'
 
@@ -905,11 +895,11 @@ class UDM_Attribute(ISyntax, _UDMObjectOrAttribute):
     See :py:class:`UDM_Objects` for an alternative to use multiple |LDAP| entries.
     """
 
-    udm_module = None  # type: str | None
+    udm_module: str | None = None
     """|UDM| module name to search for."""
     udm_filter = ''
     """A |LDAP| filter string to further restrict the matching |LDAP| objects."""
-    attribute = None  # type: str | None
+    attribute: str | None = None
     """The |UDM| property name to use as the value for this syntax class."""
     is_complex = False
     """True for a complex item consisting of multiple sub-items."""
@@ -917,15 +907,15 @@ class UDM_Attribute(ISyntax, _UDMObjectOrAttribute):
     """When the UDM property is complex: The number of the sub-item, which is used as the value for this syntax class."""
     label_index = 0
     """When the UDM property is complex: The number of the sub-item, which is used as the display value."""
-    label_format = None  # type: str | None
+    label_format: str | None = None
     """Python format string used to convert the |UDM| properties to the displayed value."""
-    regex = None  # type: Pattern | None
+    regex: Pattern | None = None
     """Regular expression for validating the values."""
-    static_values = None  # type: Sequence | None
+    static_values: Sequence | None = None
     """Sequence of additional static items."""
     empty_value = False
     """Allow to select no entry."""
-    depends = None  # type: str | None
+    depends: str | None = None
     """The name of another |UDM| property this syntax depends on."""
     error_message = _('Invalid value')
     """Error message when an invalid item is selected."""
@@ -1241,7 +1231,7 @@ class Upload(ISyntax):
     'hallo'
     """
 
-    type_class = univention.admin.types.BinaryType  # type: Type[univention.admin.types.TypeHint] | None
+    type_class: type[univention.admin.types.TypeHint] | None = univention.admin.types.BinaryType
 
     @classmethod
     def parse(self, value):
@@ -1408,8 +1398,7 @@ class jpegPhoto(Upload):
     widget_default_search_pattern = ''
 
     @classmethod
-    def tostring(self, value):
-        # type: (Any) -> str
+    def tostring(self, value: Any) -> str:
         if value:
             return value
         else:
@@ -1998,8 +1987,7 @@ class IA5string(string):
     """
 
     @classmethod
-    def parse(self, text):
-        # type: (Any) -> str
+    def parse(self, text: Any) -> str:
         try:
             if isinstance(text, bytes):
                 text = text.decode('UTF-8')
@@ -2208,8 +2196,7 @@ class sharePath(simple):
     error_message = _('Path may not contain double quotes (")!')
 
     @classmethod
-    def parse(self, text):
-        # type: (str) -> str
+    def parse(self, text: str) -> str:
         if not text.startswith('/'):
             raise univention.admin.uexceptions.valueInvalidSyntax(_('Path must begin with "/"!'))
         first, _sep, _tail = text.lstrip("/").partition("/")
@@ -2514,10 +2501,10 @@ class IP_AddressRange(complex):
     'ComplexMultiValueDictType'
     """
 
-    subsyntaxes = (
+    subsyntaxes: Sequence[tuple[str, type[ISyntax]]] = (
         (_('First address'), ipAddress),
         (_('Last address'), ipAddress),
-    )  # type: Sequence[tuple[str, Type[ISyntax]]]
+    )
     subsyntax_names = ('first', 'last')
 
     @classmethod
@@ -3120,7 +3107,7 @@ class dnsName(simple):
         return ".".join(cls._escape(label) for label in labels)
 
     @classmethod
-    def _split(cls, text):  # type: (str) -> Iterator[str]
+    def _split(cls, text: str) -> Iterator[str]:
         label = ""
         for i, t in enumerate(cls._RE_UNESCAPE.split(text)):
             if i % 2:
@@ -3141,7 +3128,7 @@ class dnsName(simple):
 
     # https://gitlab.isc.org/isc-projects/bind9/-/blob/main/lib/dns/name.c /dns_name_totext/
     @classmethod
-    def _escape(cls, label):  # type: (str) -> str
+    def _escape(cls, label: str) -> str:
         return "".join(
             "\\" + c if c in cls._ESCAPED else c if "\x20" < c < "\x7f" else "\\%03d" % ord(c)
             for c in label
@@ -3656,8 +3643,7 @@ class ldapDn(simple):
         ])
 
     @classmethod
-    def parse(self, text):
-        # type: (Any) -> str
+    def parse(self, text: Any) -> str:
         if text == '':
             raise univention.admin.uexceptions.valueError(self.error_message)
         try:
@@ -3838,7 +3824,7 @@ class _CachedLdap(combobox, metaclass=_ClassChoices):
     """Meta-class to lazily fetch |LDAP| schema information on first access."""
 
     empty_value = True
-    _cached_choices = []  # type: list[tuple[str, str]]
+    _cached_choices: list[tuple[str, str]] = []
     _class = None
 
     @property
@@ -3846,8 +3832,7 @@ class _CachedLdap(combobox, metaclass=_ClassChoices):
         return self._auto_choices()
 
     @classmethod
-    def _auto_choices(cls):
-        # type: () -> list[tuple[str, str]]
+    def _auto_choices(cls) -> list[tuple[str, str]]:
         if not cls._cached_choices:
             try:
                 conn = getMachineConnection()
@@ -3862,9 +3847,8 @@ class _CachedLdap(combobox, metaclass=_ClassChoices):
         return cls._cached_choices
 
     @classmethod
-    def _update_schema(cls, subschema):
-        # type: (SubSchema) -> None
-        names = set()  # type: set[str]
+    def _update_schema(cls, subschema: SubSchema) -> None:
+        names: set[str] = set()
         for oid in subschema.listall(cls._class):
             obj = subschema.get_obj(cls._class, oid)
             if obj:
@@ -4448,7 +4432,7 @@ class IComputer_FQDN(UDM_Objects):
     valueError:
     """
 
-    udm_modules = ()  # type: Sequence[str]
+    udm_modules: Sequence[str] = ()
     key = '%(name)s.%(domain)s'  # '%(fqdn)s' optimized for LDAP lookup. Has to be in sync with the computer handlers' info['fqdn']
     label = '%(name)s.%(domain)s'  # '%(fqdn)s'
     regex = re.compile(
@@ -4555,7 +4539,7 @@ class network(UDM_Objects):
 class IP_AddressList(ipAddress, select):
     """Syntax to select an IP address from the lists of addresses stored with the machine account."""
 
-    choices = []  # type: Sequence[tuple[str, str]]
+    choices: Sequence[tuple[str, str]] = []
     depends = 'ip'
     javascript_dependency = True
     widget = select.widget
@@ -4575,7 +4559,7 @@ class IP_AddressListEmpty(IP_AddressList):
 class MAC_AddressList(MAC_Address, select):
     """Syntax to select a MAC address from the lists of addresses stored with the machine account."""
 
-    choices = []  # type: Sequence[tuple[str, str]]
+    choices: Sequence[tuple[str, str]] = []
     depends = 'mac'
     javascript_dependency = True
     widget = select.widget
@@ -4772,7 +4756,7 @@ class AllowDenyIgnore(select):
 class IStates(select):
     """Base syntax to select item from list of choices with a mapping between Python and LDAP values."""
 
-    values = []  # type: Sequence[tuple[Any, tuple[str, str]]]
+    values: Sequence[tuple[Any, tuple[str, str]]] = []
     """Map Python type to 2-tuple (LDAP-value, translated-text)."""
 
     @ClassProperty
@@ -5559,8 +5543,7 @@ class SambaLogonHours(MultiSelect):
         return super().parse(value)
 
     @classmethod
-    def tostring(self, value):
-        # type: (list[int]) -> str
+    def tostring(self, value: list[int]) -> str:
         if not value:
             return ""
         # better show the bit string. See Bug #33703
@@ -6640,7 +6623,7 @@ class Country(select):
 
     empty_value = True
 
-    choices = []  # type: list[tuple[str, str]]
+    choices: list[tuple[str, str]] = []
 
     @classmethod
     def update_choices(cls):
@@ -6973,7 +6956,7 @@ class ActivationDateTimeTimezone(DateTimeTimezone):
 class UDM_Syntax(combobox):
     """Syntax class for Extended Attributes."""
 
-    choices = []  # type: list[tuple[str, str]]
+    choices: list[tuple[str, str]] = []
     empty_value = True
 
     @classmethod

@@ -7,6 +7,7 @@
 
 """|UDM| module for password part of the user"""
 
+from __future__ import annotations
 
 import univention.admin
 import univention.admin.filter
@@ -29,7 +30,7 @@ short_description = _('User: Password')
 object_name = _('Password')
 object_name_plural = _('Passwords')
 long_description = ''
-options = {}  # type: dict[str, univention.admin.option]
+options: dict[str, univention.admin.option] = {}
 property_descriptions = {
     'username': univention.admin.property(
         short_description=_('User name'),
@@ -57,7 +58,6 @@ layout = [
 object = univention.admin.handlers.users.user.object
 
 
-def lookup(co, lo, filter_s, base='', superordinate=None, scope='sub', unique=False, required=False, timeout=-1, sizelimit=0):
-    # type: (None, univention.admin.uldap.access,str, str, univention.admin.handlers.simpleLdap | None, str, bool, bool, int, int) -> list[univention.admin.handlers.simpleLdap]
+def lookup(co: None, lo: univention.admin.uldap.access, filter_s: str, base: str = '', superordinate: univention.admin.handlers.simpleLdap | None = None, scope: str = 'sub', unique: bool = False, required: bool = False, timeout: int = -1, sizelimit: int = 0) -> list[univention.admin.handlers.simpleLdap]:
     dn = lo.whoami()
     return [user for user in univention.admin.handlers.users.user.lookup(co, lo, filter_s, base, superordinate, scope=scope, unique=unique, required=required, timeout=timeout, sizelimit=sizelimit) if lo.compare_dn(dn, user.dn)]

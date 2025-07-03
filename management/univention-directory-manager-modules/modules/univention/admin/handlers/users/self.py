@@ -7,6 +7,7 @@
 
 """|UDM| module for the user himself"""
 
+from __future__ import annotations
 
 from ldap.filter import filter_format
 
@@ -41,20 +42,19 @@ class object(univention.admin.handlers.users.user.object):
 
     def __init__(
         self,
-        co,  # type: None
-        lo,  # type: univention.admin.uldap.access
-        position,  # type: univention.admin.uldap.position | None
-        dn='',  # type: str
-        superordinate=None,  # type: univention.admin.handlers.simpleLdap | None
-        attributes=None,  # type: univention.admin.handlers._Attributes | None
-    ):  # type: (...) -> None
+        co: None,
+        lo: univention.admin.uldap.access,
+        position: univention.admin.uldap.position | None,
+        dn: str = '',
+        superordinate: univention.admin.handlers.simpleLdap | None = None,
+        attributes: univention.admin.handlers._Attributes | None = None,
+    ) -> None:
         super().__init__(co, lo, position, dn=dn, superordinate=superordinate, attributes=attributes)
         if self._exists and (not self.lo.compare_dn(self.dn, self.lo.whoami()) or not univention.admin.modules.recognize('users/user', self.dn, self.oldattr)):
             raise univention.admin.uexceptions.wrongObjectType('%s is not recognized as %s.' % (self.dn, self.module))
 
     @classmethod
-    def lookup_filter(cls, filter_s=None, lo=None):
-        # type: (str | None, univention.admin.uldap.access | None) -> univention.admin.filter.conjunction
+    def lookup_filter(cls, filter_s: str | None = None, lo: univention.admin.uldap.access | None = None) -> univention.admin.filter.conjunction:
         if lo:
             dn = lo.whoami()
             filter_p = univention.admin.filter.parse(filter_format('(&(entryDN=%s))', [dn]))
@@ -66,25 +66,24 @@ class object(univention.admin.handlers.users.user.object):
     @classmethod
     def lookup(
         cls,
-        co,  # type: None
-        lo,  # type: univention.admin.uldap.access
-        filter_s,  # type: str
-        base='',  # type: str
-        superordinate=None,  # type: univention.admin.handlers.simpleLdap | None
-        scope='sub',  # type: str
-        unique=False,  # type: bool
-        required=False,  # type: bool
-        timeout=-1,  # type: int
-        sizelimit=0,  # type: int
-        serverctrls=None,  # type: list | None
-        response=None,  # type: dict | None
-    ):  # type: (...) -> list[univention.admin.handlers.simpleLdap]
+        co: None,
+        lo: univention.admin.uldap.access,
+        filter_s: str,
+        base: str = '',
+        superordinate: univention.admin.handlers.simpleLdap | None = None,
+        scope: str = 'sub',
+        unique: bool = False,
+        required: bool = False,
+        timeout: int = -1,
+        sizelimit: int = 0,
+        serverctrls: list | None = None,
+        response: dict | None = None,
+    ) -> list[univention.admin.handlers.simpleLdap]:
         dn = lo.whoami()
         return [user for user in udm_user.lookup(co, lo, filter_s, base, superordinate, scope=scope, unique=unique, required=required, timeout=timeout, sizelimit=sizelimit, serverctrls=serverctrls, response=response) if lo.compare_dn(dn, user.dn)]
 
     @classmethod
-    def identify(cls, dn, attr, canonical=False):
-        # type: (str, univention.admin.handlers._Attributes, bool) -> bool
+    def identify(cls, dn: str, attr: univention.admin.handlers._Attributes, canonical: bool = False) -> bool:
         return False
 
 

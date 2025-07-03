@@ -7,8 +7,10 @@
 
 """|UDM| module for |UDM| properties"""
 
+from __future__ import annotations
+
 from logging import getLogger
-from typing import Any  # noqa: F401
+from typing import Any
 
 import univention.admin.filter
 import univention.admin.handlers
@@ -324,15 +326,13 @@ mapping.register('preventUmcDefaultPopup', 'univentionUDMPropertyPreventUmcDefau
 class object(univention.admin.handlers.simpleLdap):
     module = module
 
-    def _ldap_pre_create(self):
-        # type: () -> None
+    def _ldap_pre_create(self) -> None:
         super()._ldap_pre_create()
 
         if 'users/user' in self['module'] and self['valueRequired'] == '1' and not self.info.get('default'):
             raise univention.admin.uexceptions.valueRequired(_('Extending the users module is only possible if a default value for a required value is given.'), property='default')
 
-    def open(self):
-        # type: () -> None
+    def open(self) -> None:
         # univentionUDMPropertyTranslation;entry-de-de: Meine Kurzbeschreibung 9
         # univentionUDMPropertyTranslation;entry-en-gb: This is my short description9
 
@@ -350,8 +350,7 @@ class object(univention.admin.handlers.simpleLdap):
 
         self.save()
 
-    def _ldap_modlist(self):
-        # type: () -> list[tuple[str, Any, Any]]
+    def _ldap_modlist(self) -> list[tuple[str, Any, Any]]:
         # univentionUDMPropertyShortTranslation;entry-de-de: Meine Kurzbeschreibung 9
         # univentionUDMPropertyShortTranslation;entry-en-gb: This is my short description9
 
@@ -383,8 +382,7 @@ class object(univention.admin.handlers.simpleLdap):
         return ml
 
     @classmethod
-    def unmapped_lookup_filter(cls):
-        # type: () -> univention.admin.filter.conjunction
+    def unmapped_lookup_filter(cls) -> univention.admin.filter.conjunction:
         return univention.admin.filter.conjunction('&', [
             univention.admin.filter.expression('objectClass', 'univentionUDMProperty'),
             univention.admin.filter.expression('univentionUDMPropertyVersion', '2'),
@@ -395,6 +393,5 @@ lookup = object.lookup
 lookup_filter = object.lookup_filter
 
 
-def identify(dn, attr, canonical=False):
-    # type: (str, univention.admin.handlers._Attributes, bool) -> bool
+def identify(dn: str, attr: univention.admin.handlers._Attributes, canonical: bool = False) -> bool:
     return b'univentionUDMProperty' in attr.get('objectClass', []) and attr.get('univentionUDMPropertyVersion', [b'0'])[0] == b'2'

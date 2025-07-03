@@ -7,6 +7,8 @@
 
 """|UDM| module for samba domain configuration"""
 
+from __future__ import annotations
+
 import univention.admin.filter
 import univention.admin.handlers
 import univention.admin.localization
@@ -20,8 +22,7 @@ _ = translation.translate
 # see also container/dc.py
 
 
-def logonToChangePWMap(val):
-    # type: (str) -> bytes
+def logonToChangePWMap(val: str) -> bytes:
     """
     'User must logon to change PW' behaves like an integer (at least
     to us), but must be stored as either 0 (allow) or 2 (disallow)
@@ -34,8 +35,7 @@ def logonToChangePWMap(val):
 # see also container/dc.py
 
 
-def logonToChangePWUnmap(val):
-    # type: (list[bytes]) -> str
+def logonToChangePWUnmap(val: list[bytes]) -> str:
     if (val[0] == b"2"):
         return "1"
     else:
@@ -210,8 +210,7 @@ DOMAIN_REFUSE_PASSWORD_CHANGE = 32
 class object(univention.admin.handlers.simpleLdap):
     module = module
 
-    def open(self):
-        # type: () -> None
+    def open(self) -> None:
         univention.admin.handlers.simpleLdap.open(self)
         if self.dn:
             # map domain domainPwdProperties bitfield to individual password attributes
@@ -223,18 +222,15 @@ class object(univention.admin.handlers.simpleLdap):
             if (props | DOMAIN_PASSWORD_STORE_CLEARTEXT) == props:
                 self['domainPasswordStoreCleartext'] = '1'
 
-    def _ldap_pre_create(self):
-        # type: () -> None
+    def _ldap_pre_create(self) -> None:
         super()._ldap_pre_create()
         self.__update_password_properties()
 
-    def _ldap_pre_modify(self):
-        # type: () -> None
+    def _ldap_pre_modify(self) -> None:
         super()._ldap_pre_modify()
         self.__update_password_properties()
 
-    def __update_password_properties(self):
-        # type: () -> None
+    def __update_password_properties(self) -> None:
         # DOMAIN_PASSWORD_COMPLEX 1 domainPasswordComplex -> univentionSamba4pwdProperties
         # DOMAIN_PASSWORD_NO_ANON_CHANGE 2 -> logonToChangePW -> sambaLogonToChgPwd
         # DOMAIN_PASSWORD_NO_CLEAR_CHANGE 4
@@ -266,8 +262,7 @@ class object(univention.admin.handlers.simpleLdap):
             self['domainPwdProperties'] = str(props)
 
     @classmethod
-    def unmapped_lookup_filter(cls):
-        # type: () -> univention.admin.filter.conjunction
+    def unmapped_lookup_filter(cls) -> univention.admin.filter.conjunction:
         return univention.admin.filter.conjunction('&', [
             univention.admin.filter.expression('objectClass', 'sambaDomain'),
             univention.admin.filter.conjunction('!', [univention.admin.filter.expression('objectClass', 'univentionDomain')]),
@@ -278,6 +273,5 @@ lookup = object.lookup
 lookup_filter = object.lookup_filter
 
 
-def identify(dn, attr, canonical=False):
-    # type: (str, univention.admin.handlers._Attributes, bool) -> bool
+def identify(dn: str, attr: univention.admin.handlers._Attributes, canonical: bool = False) -> bool:
     return b'sambaDomain' in attr.get('objectClass', []) and b'univentionDomain' not in attr.get('objectClass', [])

@@ -7,6 +7,8 @@
 
 """|UDM| module for |DNS| service records (SRV)"""
 
+from __future__ import annotations
+
 import univention.admin.filter
 import univention.admin.handlers
 import univention.admin.handlers.dns.forward_zone
@@ -69,16 +71,14 @@ layout = [
 ]
 
 
-def unmapName(old, encoding=()):
-    # type: (list[bytes], univention.admin.handlers._Encoding) -> list[str]
+def unmapName(old: list[bytes], encoding: univention.admin.handlers._Encoding = ()) -> list[str]:
     items = old[0].decode(*encoding).split('.', 2)
     items[0] = items[0][1:]
     items[1] = items[1][1:]
     return items
 
 
-def mapName(old, encoding=()):
-    # type: (list[str], univention.admin.handlers._Encoding) -> bytes
+def mapName(old: list[str], encoding: univention.admin.handlers._Encoding = ()) -> bytes:
     if len(old) == 1:
         return old[0].encode(*encoding)
     if len(old) == 3 and old[2]:
@@ -86,16 +86,14 @@ def mapName(old, encoding=()):
     return '_{}._{}'.format(*old[:2]).encode(*encoding)
 
 
-def unmapLocation(old, encoding=()):
-    # type: (list[bytes], univention.admin.handlers._Encoding) -> list[list[str]]
+def unmapLocation(old: list[bytes], encoding: univention.admin.handlers._Encoding = ()) -> list[list[str]]:
     return [
         i.decode(*encoding).split(' ', 3)
         for i in old
     ]
 
 
-def mapLocation(old, encoding=()):
-    # type: (list[list[str]], univention.admin.handlers._Encoding) -> list[bytes]
+def mapLocation(old: list[list[str]], encoding: univention.admin.handlers._Encoding = ()) -> list[bytes]:
     return [
         ' '.join(i).encode(*encoding)
         for i in old
@@ -112,8 +110,7 @@ class object(DNSBase):
     module = module
 
     @classmethod
-    def unmapped_lookup_filter(cls):
-        # type: () -> univention.admin.filter.conjunction
+    def unmapped_lookup_filter(cls) -> univention.admin.filter.conjunction:
         return univention.admin.filter.conjunction('&', [
             univention.admin.filter.expression('objectClass', 'dNSZone'),
             univention.admin.filter.expression('sRVRecord', '*', escape=False),
@@ -124,8 +121,7 @@ lookup = object.lookup
 lookup_filter = object.lookup_filter
 
 
-def identify(dn, attr, canonical=False):
-    # type: (str, univention.admin.handlers._Attributes, bool) -> bool
+def identify(dn: str, attr: univention.admin.handlers._Attributes, canonical: bool = False) -> bool:
     return bool(
         attr.get('sRVRecord')
         and is_dns(attr),

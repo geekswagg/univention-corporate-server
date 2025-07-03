@@ -7,6 +7,8 @@
 
 """|UDM| module for a cn=univention singleton object representiong a container for various settings."""
 
+from __future__ import annotations
+
 import univention.admin.filter
 import univention.admin.handlers
 import univention.admin.localization
@@ -56,8 +58,7 @@ class object(univention.admin.handlers.simpleLdap):
     module = module
 
     @classmethod
-    def unmapped_lookup_filter(cls):
-        # type: () -> univention.admin.filter.conjunction
+    def unmapped_lookup_filter(cls) -> univention.admin.filter.conjunction:
         return univention.admin.filter.conjunction('&', [
             univention.admin.filter.expression('objectClass', 'organizationalRole'),
             univention.admin.filter.expression('cn', 'univention'),
@@ -68,6 +69,5 @@ lookup = object.lookup
 lookup_filter = object.lookup_filter
 
 
-def identify(dn, attr, canonical=False):
-    # type: (str, univention.admin.handlers._Attributes, bool) -> bool
+def identify(dn: str, attr: univention.admin.handlers._Attributes, canonical: bool = False) -> bool:
     return b'organizationalRole' in attr.get('objectClass', []) and attr.get('cn', []) == [b'univention']

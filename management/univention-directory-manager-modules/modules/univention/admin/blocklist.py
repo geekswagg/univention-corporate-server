@@ -10,8 +10,8 @@ from __future__ import annotations
 
 import hashlib
 import re
-from collections.abc import Iterable  # noqa: F401
 from datetime import datetime
+from typing import TYPE_CHECKING
 
 import ldap
 from dateutil.relativedelta import relativedelta
@@ -22,18 +22,22 @@ import univention.admin.uldap
 from univention.admin._ucr import configRegistry
 
 
+if TYPE_CHECKING:
+    from collections.abc import Iterable
+    from typing import Any
+
+
 translation = univention.admin.localization.translation('univention.admin.handlers')
 _ = translation.translate
 
 BLOCKLIST_BASE = 'cn=blocklists,cn=internal'
 
 
-def hash_blocklist_value(value):  # type: (bytes) -> str
+def hash_blocklist_value(value: bytes) -> str:
     return 'sha256:%s' % hashlib.sha256(value.lower()).hexdigest()
 
 
-def parse_timedelta(timedelta_string):
-    # type: (str) -> relativedelta | None
+def parse_timedelta(timedelta_string: str) -> relativedelta | None:
     """
     Parse time delta.
 
@@ -47,8 +51,7 @@ def parse_timedelta(timedelta_string):
 
 
 @univention.admin._ldap_cache(ttl=120)
-def get_blocklist_config(lo):
-    # type: (univention.admin.uldap.access) -> dict
+def get_blocklist_config(lo: univention.admin.uldap.access) -> dict:
     config = {}
     try:
         for blist in univention.admin.modules.get('blocklists/list').lookup(None, lo, 'entryUUID=*', base=BLOCKLIST_BASE, scope='one', authz=False):
@@ -62,14 +65,12 @@ def get_blocklist_config(lo):
     return config
 
 
-def get_blocking_udm_properties(udm_obj):
-    # type: (univention.admin.handlers.simpleLdap) -> dict
+def get_blocking_udm_properties(udm_obj: univention.admin.handlers.simpleLdap) -> dict:
     config = get_blocklist_config(udm_obj.lo_machine_primary)
     return config.get(udm_obj.module, {})
 
 
-def get_blockeduntil(dn, lo):
-    # type: (str, univention.admin.uldap.access) -> str
+def get_blockeduntil(dn: str, lo: univention.admin.uldap.access) -> str:
     config = get_blocklist_config(lo)
     retention = config.get(dn, '30d')
     blocking_duration = parse_timedelta(retention)
@@ -77,13 +78,11 @@ def get_blockeduntil(dn, lo):
     return datetime.strftime(blocked_until, '%Y%m%d%H%M%SZ')
 
 
-def blocklist_enabled(udm_obj):
-    # type: (univention.admin.handlers.simpleLdap) -> bool
+def blocklist_enabled(udm_obj: univention.admin.handlers.simpleLdap) -> bool:
     return not udm_obj.module.startswith('blocklists/') and configRegistry.is_true('directory/manager/blocklist/enabled', False)
 
 
-def get_blocklist_values_from_udm_property(udm_property_value, udm_property_name):
-    # type: (Any, str) -> list[Any]
+def get_blocklist_values_from_udm_property(udm_property_value: Any, udm_property_name: str) -> list[Any]:
     if isinstance(udm_property_value, str):
         return [udm_property_value]
     if not isinstance(udm_property_value, list) or not all(isinstance(mem, str) for mem in udm_property_value):
@@ -91,8 +90,7 @@ def get_blocklist_values_from_udm_property(udm_property_value, udm_property_name
     return udm_property_value
 
 
-def create_blocklistentry(udm_obj):
-    # type: (univention.admin.handlers.simpleLdap) -> list
+def create_blocklistentry(udm_obj: univention.admin.handlers.simpleLdap) -> list:
     if not blocklist_enabled(udm_obj):
         return []
     blocklist_entries = []
@@ -114,8 +112,7 @@ def create_blocklistentry(udm_obj):
     return blocklist_entries
 
 
-def check_blocklistentry(udm_obj):
-    # type: (univention.admin.handlers.simpleLdap) -> None
+def check_blocklistentry(udm_obj: univention.admin.handlers.simpleLdap) -> None:
     if not blocklist_enabled(udm_obj):
         return
     for prop, bl_dn in get_blocking_udm_properties(udm_obj).items():
@@ -128,8 +125,7 @@ def check_blocklistentry(udm_obj):
                     raise univention.admin.uexceptions.valueError(_('The value "%(value)s" is blocked for the property "%(prop)s".') % {'value': value, 'prop': prop}, property=prop)
 
 
-def cleanup_blocklistentry(blocklist_entries, udm_obj):
-    # type: (Iterable, univention.admin.handlers.simpleLdap) -> None
+def cleanup_blocklistentry(blocklist_entries: Iterable, udm_obj: univention.admin.handlers.simpleLdap) -> None:
     for entry in blocklist_entries:
         try:
             udm_obj.lo_machine_primary.delete(entry)

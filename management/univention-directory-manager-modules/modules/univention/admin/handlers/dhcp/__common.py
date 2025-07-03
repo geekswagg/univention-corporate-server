@@ -7,14 +7,20 @@
 
 """|UDM| module for the |DHCP| subnet"""
 
+from __future__ import annotations
+
 import sys
-from collections.abc import Iterable, Sequence  # noqa: F401
 from ipaddress import IPv4Address, IPv4Network
+from typing import TYPE_CHECKING
 
 import univention.admin.localization
 import univention.admin.uexceptions as uex
 from univention.admin.handlers import simpleLdap
 from univention.admin.layout import Tab
+
+
+if TYPE_CHECKING:
+    from collections.abc import Iterable, Sequence
 
 
 Range = tuple[IPv4Address, IPv4Address]
@@ -53,18 +59,15 @@ _mappings = (
 )
 
 
-def rangeMap(value, encoding=()):
-    # type: (Iterable[list[str]], tuple[str, ...]) -> list[bytes]
+def rangeMap(value: Iterable[list[str]], encoding: tuple[str, ...] = ()) -> list[bytes]:
     return [' '.join(x).encode(*encoding) for x in value]
 
 
-def rangeUnmap(value, encoding=()):
-    # type: (Iterable[bytes], tuple[str, ...]) -> list[list[str]]
+def rangeUnmap(value: Iterable[bytes], encoding: tuple[str, ...] = ()) -> list[list[str]]:
     return [x.decode(*encoding).split() for x in value]
 
 
-def add_dhcp_options(module_name):
-    # type: (str) -> None
+def add_dhcp_options(module_name: str) -> None:
     module = sys.modules[module_name]
 
     options = module.options
@@ -86,7 +89,7 @@ def add_dhcp_options(module_name):
     ))
 
 
-def check_range_overlap(ranges):  # type: (Sequence[Range]) -> None
+def check_range_overlap(ranges: Sequence[Range]) -> None:
     """
     Check IPv4 address ranges for overlapping
 
@@ -104,7 +107,7 @@ def check_range_overlap(ranges):  # type: (Sequence[Range]) -> None
     ...
     rangesOverlapping: 192.0.2.0-192.0.2.127; 192.0.2.0-192.0.2.255
     """
-    prev = []  # type: list[Range]
+    prev: list[Range] = []
     for r1 in ranges:
         (s1, e1) = r1
         assert s1 <= e1  # already checked by syntax.IPv4_AddressRange
@@ -123,7 +126,7 @@ def check_range_overlap(ranges):  # type: (Sequence[Range]) -> None
         prev.append(r1)
 
 
-def check_range_subnet(subnet, ranges):  # type: (IPv4Network, Sequence[Range]) -> None
+def check_range_subnet(subnet: IPv4Network, ranges: Sequence[Range]) -> None:
     """
     Check IPv4 address ranges are inside the given network.
 
@@ -168,8 +171,7 @@ class DHCPBase(simpleLdap):
 
 
 class DHCPBaseSubnet(DHCPBase):
-    def ready(self):
-        # type: () -> None
+    def ready(self) -> None:
         super().ready()
 
         try:

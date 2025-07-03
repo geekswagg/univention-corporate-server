@@ -7,7 +7,9 @@
 
 """|UDM| module for |DHCP| servers"""
 
-from typing import Any  # noqa: F401
+from __future__ import annotations
+
+from typing import Any
 
 from ldap.filter import filter_format
 
@@ -65,8 +67,7 @@ mapping.register('server', 'cn', None, univention.admin.mapping.ListToString)
 class object(DHCPBase):
     module = module
 
-    def _ldap_addlist(self):
-        # type: () -> list[tuple[str, Any]]
+    def _ldap_addlist(self) -> list[tuple[str, Any]]:
         searchBase = self.position.getDomain()
         if self.lo.authz_connection.searchDn(base=searchBase, filter=filter_format('(&(objectClass=dhcpServer)(cn=%s))', [self.info['server']])):
             raise univention.admin.uexceptions.dhcpServerAlreadyUsed(self.info['server'])
@@ -74,8 +75,7 @@ class object(DHCPBase):
         al = super()._ldap_addlist()
         return [*al, ('dhcpServiceDN', self.superordinate.dn.encode('UTF-8'))]
 
-    def _ldap_post_move(self, olddn):
-        # type: (str) -> None
+    def _ldap_post_move(self, olddn: str) -> None:
         """edit dhcpServiceDN"""
         super()._ldap_post_move(olddn)
         oldServiceDN = self.lo.authz_connection.getAttr(self.dn, 'dhcpServiceDN')
@@ -85,8 +85,7 @@ class object(DHCPBase):
         self.lo.authz_connection.modify(self.dn, [('dhcpServiceDN', oldServiceDN[0], shadow_object.dn.encode('UTF-8'))])
 
     @classmethod
-    def lookup_filter_superordinate(cls, filter, superordinate):
-        # type: (univention.admin.filter.conjunction, univention.admin.handlers.simpleLdap) -> univention.admin.filter.conjunction
+    def lookup_filter_superordinate(cls, filter: univention.admin.filter.conjunction, superordinate: univention.admin.handlers.simpleLdap) -> univention.admin.filter.conjunction:
         filter.expressions.append(univention.admin.filter.expression('dhcpServiceDN', superordinate.dn, escape=True))
         return filter
 

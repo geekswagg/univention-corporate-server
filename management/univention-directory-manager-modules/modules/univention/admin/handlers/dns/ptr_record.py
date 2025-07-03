@@ -7,6 +7,8 @@
 
 """|UDM| module for |DNS| reverse pointer records (PTR)"""
 
+from __future__ import annotations
+
 import ipaddress
 from logging import getLogger
 
@@ -77,8 +79,7 @@ mapping.register('address', 'relativeDomainName', None, univention.admin.mapping
 mapping.register('ptr_record', 'pTRRecord', encoding='ASCII')
 
 
-def ipv6(string):
-    # type: (str) -> str
+def ipv6(string: str) -> str:
     """
     >>> ipv6('0123456789abcdef0123456789abcdef')
     '0123:4567:89ab:cdef:0123:4567:89ab:cdef'
@@ -87,8 +88,7 @@ def ipv6(string):
     return ':'.join(string[i:i + 4] for i in range(0, 32, 4))
 
 
-def calc_ip(rev, subnet):
-    # type: (str, str) -> ipaddress.IPv4Address | ipaddress.IPv6Address
+def calc_ip(rev: str, subnet: str) -> ipaddress.IPv4Address | ipaddress.IPv6Address:
     """
     >>> calc_ip(rev='8.0.0.0.7.0.0.0.6.0.0.0.5.0.0.0.4.0.0', subnet='0001:0002:0003:0').exploded
     '0001:0002:0003:0004:0005:0006:0007:0008'
@@ -107,8 +107,7 @@ def calc_ip(rev, subnet):
         return ipaddress.IPv4Address('%s' % (addr,))
 
 
-def calc_rev(ip, subnet):
-    # type: (str, str) -> str
+def calc_rev(ip: str, subnet: str) -> str:
     """
     >>> calc_rev(ip='1.2.3.4', subnet='1.2')
     '4.3'
@@ -144,8 +143,7 @@ def calc_rev(ip, subnet):
 class object(DNSBase):
     module = module
 
-    def description(self):
-        # type: () -> str
+    def description(self) -> str:
         try:
             if self.superordinate:
                 return calc_ip(self.info['address'] or '', self.superordinate.info['subnet'] or '').compressed
@@ -153,8 +151,7 @@ class object(DNSBase):
             log.warning('Failed to parse dn=%s: (%s)', self.dn, ex)
         return super().description()
 
-    def open(self):
-        # type: () -> None
+    def open(self) -> None:
         super().open()
         try:
             self.info['ip'] = calc_ip(self.info['address'], self.superordinate.info['subnet']).compressed
@@ -162,8 +159,7 @@ class object(DNSBase):
         except (LookupError, ValueError, AssertionError) as ex:
             log.warning('Failed to parse dn=%s: (%s)', self.dn, ex)
 
-    def ready(self):
-        # type: () -> None
+    def ready(self) -> None:
         old_ip = self.oldinfo.get('ip')
         new_ip = self.info.get('ip')
         if old_ip != new_ip:
@@ -191,23 +187,20 @@ class object(DNSBase):
             super().rewrite_filter(filter, mapping)
 
     @classmethod
-    def lookup_filter_superordinate(cls, filter, superordinate):
-        # type: (univention.admin.filter.conjunction, univention.admin.handlers.simpleLdap) -> univention.admin.filter.conjunction
+    def lookup_filter_superordinate(cls, filter: univention.admin.filter.conjunction, superordinate: univention.admin.handlers.simpleLdap) -> univention.admin.filter.conjunction:
         super().lookup_filter_superordinate(filter, superordinate)
         filter = rewrite_rev(filter, superordinate.info['subnet'])
         return filter
 
     @classmethod
-    def unmapped_lookup_filter(cls):
-        # type: () -> univention.admin.filter.conjunction
+    def unmapped_lookup_filter(cls) -> univention.admin.filter.conjunction:
         return univention.admin.filter.conjunction('&', [
             univention.admin.filter.expression('objectClass', 'dNSZone'),
             univention.admin.filter.expression('pTRRecord', '*', escape=False),
         ])
 
 
-def rewrite_rev(filter, subnet):
-    # type: (conjunction | expression, str) -> conjunction | expression
+def rewrite_rev(filter: conjunction | expression, subnet: str) -> conjunction | expression:
     """
     Rewrite LDAP filter expression and convert (ip) -> (zone,reversed)
 
@@ -260,8 +253,7 @@ lookup = object.lookup
 lookup_filter = object.lookup_filter
 
 
-def identify(dn, attr):
-    # type: (str, univention.admin.handlers._Attributes) -> bool
+def identify(dn: str, attr: univention.admin.handlers._Attributes) -> bool:
     return bool(
         attr.get('pTRRecord')
         and is_dns(attr),

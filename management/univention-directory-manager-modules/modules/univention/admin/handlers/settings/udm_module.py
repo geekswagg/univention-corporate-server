@@ -7,6 +7,8 @@
 
 """|UDM| module for |UDM| modules"""
 
+from __future__ import annotations
+
 import apt
 
 import univention.admin.filter
@@ -173,8 +175,7 @@ class object(univention.admin.handlers.simpleLdap):
             if not apt.apt_pkg.version_compare(self['packageversion'], old_version) > -1:
                 raise univention.admin.uexceptions.valueInvalidSyntax(_('packageversion: Version must not be lower than the current one.'), property='packageversion')
 
-    def _post_unmap(self, info, values):
-        # type: (univention.admin.handlers._Properties, univention.admin.handlers._Attributes) -> univention.admin.handlers._Properties
+    def _post_unmap(self, info: univention.admin.handlers._Properties, values: univention.admin.handlers._Attributes) -> univention.admin.handlers._Properties:
         info['messagecatalog'] = []
         info['umcmessagecatalog'] = []
         for udm_attr, ldap_attr in messagecatalog_mappings.items():

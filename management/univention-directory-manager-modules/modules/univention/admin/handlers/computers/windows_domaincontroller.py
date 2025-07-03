@@ -7,6 +7,8 @@
 
 """|UDM| module for Windows servers"""
 
+from __future__ import annotations
+
 import univention.admin.filter
 import univention.admin.handlers
 import univention.admin.localization
@@ -276,8 +278,7 @@ class object(ComputerObject):
     default_containers_attribute_name = 'domaincontroller'
 
     @classmethod
-    def lookup_filter(cls, filter_s=None, lo=None):
-        # type: (str | None, univention.admin.uldap.access | None) -> univention.admin.filter.conjunction
+    def lookup_filter(cls, filter_s: str | None = None, lo: univention.admin.uldap.access | None = None) -> univention.admin.filter.conjunction:
         con = super().lookup_filter(filter_s, lo)
         con.expressions.append(univention.admin.filter.expression('univentionServerRole', 'windows_domaincontroller'))
         return con

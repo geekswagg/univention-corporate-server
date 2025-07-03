@@ -102,8 +102,7 @@ mapping.register('allowedEmailGroups', 'univentionAllowedEmailGroups')
 class object(univention.admin.handlers.simpleLdap):
     module = module
 
-    def _ldap_pre_ready(self):
-        # type: () -> None
+    def _ldap_pre_ready(self) -> None:
         super()._ldap_pre_ready()
         if not self.exists() or self.hasChanged('mailAddress'):
             try:
@@ -112,8 +111,7 @@ class object(univention.admin.handlers.simpleLdap):
             except univention.admin.uexceptions.noLock:
                 raise univention.admin.uexceptions.mailAddressUsed(self['mailAddress'])
 
-    def _ldap_pre_remove(self):
-        # type: () -> None
+    def _ldap_pre_remove(self) -> None:
         super()._ldap_pre_remove()
         if self.oldattr.get('mailPrimaryAddress'):
             self.alloc.append(('mailPrimaryAddress', self.oldattr['mailPrimaryAddress'][0].decode('UTF-8')))

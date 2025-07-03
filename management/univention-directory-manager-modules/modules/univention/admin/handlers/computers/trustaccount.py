@@ -7,7 +7,9 @@
 
 """|UDM| module for the trust accounts"""
 
-from typing import Any  # noqa: F401
+from __future__ import annotations
+
+from typing import Any
 
 import univention.admin.filter
 import univention.admin.handlers
@@ -85,8 +87,7 @@ register_role_mapping(mapping)
 class object(univention.admin.handlers.simpleLdap, PKIIntegration):
     module = module
 
-    def open(self):
-        # type: () -> None
+    def open(self) -> None:
         super().open()
         self.pki_open()
 
@@ -98,8 +99,7 @@ class object(univention.admin.handlers.simpleLdap, PKIIntegration):
 
         self.save()
 
-    def getMachineSid(self, lo, position, uidNum, rid=None):
-        # type: (univention.admin.uldap.access, univention.admin.uldap.position, str, str | None) -> str
+    def getMachineSid(self, lo: univention.admin.uldap.access, position: univention.admin.uldap.position, uidNum: str, rid: str | None = None) -> str:
         # if rid is given, use it regardless of s4 connector
         if rid:
             searchResult = self.lo.authz_connection.search(filter='objectClass=sambaDomain', attr=['sambaSID'])
@@ -118,8 +118,7 @@ class object(univention.admin.handlers.simpleLdap, PKIIntegration):
                     except univention.admin.uexceptions.noLock:
                         num = str(int(num) + 1)
 
-    def _ldap_addlist(self):
-        # type: () -> list[tuple[str, Any]]
+    def _ldap_addlist(self) -> list[tuple[str, Any]]:
         acctFlags = univention.admin.samba.acctFlags(flags={'I': 1})
 
         al = super()._ldap_addlist()
@@ -133,8 +132,7 @@ class object(univention.admin.handlers.simpleLdap, PKIIntegration):
 
         return al
 
-    def _ldap_pre_modify(self):
-        # type: () -> None
+    def _ldap_pre_modify(self) -> None:
         super()._ldap_pre_modify()
         if self.hasChanged('password'):
             if not self['password']:
@@ -144,8 +142,7 @@ class object(univention.admin.handlers.simpleLdap, PKIIntegration):
             else:
                 self.modifypassword = 1
 
-    def _ldap_modlist(self):
-        # type: () -> list[tuple[str, Any, Any]]
+    def _ldap_modlist(self) -> list[tuple[str, Any, Any]]:
         ml = super()._ldap_modlist()
 
         if self.hasChanged('name') and self['name']:
@@ -162,8 +159,7 @@ class object(univention.admin.handlers.simpleLdap, PKIIntegration):
 
         return ml
 
-    def _ldap_pre_remove(self):
-        # type: () -> None
+    def _ldap_pre_remove(self) -> None:
         super()._ldap_pre_remove()
         if self.oldattr.get('uid'):
             self.alloc.append(('uid', self.oldattr['uid'][0].decode('UTF-8')))
@@ -182,13 +178,12 @@ def lookup(co, lo, filter_s, base='', superordinate=None, scope='sub', unique=Fa
         univention.admin.filter.walk(filter_p, univention.admin.mapping.mapRewrite, arg=mapping)
         filter.expressions.append(filter_p)
 
-    res = [
+    res: list[univention.admin.handlers.simpleLdap] = [
         object(co, lo, None, dn, attributes=attrs)
         for dn, attrs in lo.authz_connection.search(str(filter), base, scope, [], unique, required, timeout, sizelimit, serverctrls, response)
-    ]  # type: list[univention.admin.handlers.simpleLdap]
+    ]
     return res
 
 
-def identify(dn, attr, canonical=False):
-    # type: (str, univention.admin.handlers._Attributes, bool) -> bool
+def identify(dn: str, attr: univention.admin.handlers._Attributes, canonical: bool = False) -> bool:
     return b'sambaSamAccount' in attr.get('objectClass', []) and b'[I          ]' in attr.get('sambaAcctFlags', [])

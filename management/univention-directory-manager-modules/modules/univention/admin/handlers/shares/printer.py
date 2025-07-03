@@ -7,6 +7,8 @@
 
 """|UDM| module for printers"""
 
+from __future__ import annotations
+
 import re
 from logging import getLogger
 
@@ -147,11 +149,10 @@ layout = [
 ]
 
 
-_AVAILABLE_PRINTER_SCHEMAS = []  # type: list[str]
+_AVAILABLE_PRINTER_SCHEMAS: list[str] = []
 
 
-def unmapPrinterURI(value, encoding=()):
-    # type: (list[bytes], tuple[str, ...]) -> tuple[str, str]
+def unmapPrinterURI(value: list[bytes], encoding: tuple[str, ...] = ()) -> tuple[str, str]:
     if not value:
         return ('', '')
     schema = ''
@@ -166,8 +167,7 @@ def unmapPrinterURI(value, encoding=()):
     return (schema, dest)
 
 
-def mapPrinterURI(value, encoding=()):
-    # type: (list[str], tuple[str, ...]) -> bytes
+def mapPrinterURI(value: list[str], encoding: tuple[str, ...] = ()) -> bytes:
     return ''.join(value).encode(*encoding)
 
 
@@ -190,13 +190,13 @@ class object(univention.admin.handlers.simpleLdap):
 
     def __init__(
         self,
-        co,  # type: None
-        lo,  # type: univention.admin.uldap.access
-        position,  # type: univention.admin.uldap.position
-        dn='',  # type: str
-        superordinate=None,  # type: univention.admin.handlers.simpleLdap | None
-        attributes=None,  # type: univention.admin.handlers._Attributes | None
-    ):  # type: (...) -> None
+        co: None,
+        lo: univention.admin.uldap.access,
+        position: univention.admin.uldap.position,
+        dn: str = '',
+        superordinate: univention.admin.handlers.simpleLdap | None = None,
+        attributes: univention.admin.handlers._Attributes | None = None,
+    ) -> None:
         # find the printer uris
         if not _AVAILABLE_PRINTER_SCHEMAS:
             printer_uris = univention.admin.modules._get('settings/printeruri').lookup(co, lo, '')
@@ -205,8 +205,7 @@ class object(univention.admin.handlers.simpleLdap):
 
         univention.admin.handlers.simpleLdap.__init__(self, co, lo, position, dn, superordinate, attributes=attributes)
 
-    def open(self):
-        # type: () -> None
+    def open(self) -> None:
         # find the producer
         univention.admin.handlers.simpleLdap.open(self)
         if self['model']:
@@ -219,14 +218,12 @@ class object(univention.admin.handlers.simpleLdap):
 
         self.save()
 
-    def _ldap_pre_ready(self):
-        # type: () -> None
+    def _ldap_pre_ready(self) -> None:
         super()._ldap_pre_ready()
         if (not self.exists() or self.hasChanged('uri')) and self['uri']:
             self._sanitize_uri()
 
-    def _sanitize_uri(self):
-        # type: () -> None
+    def _sanitize_uri(self) -> None:
         protocol, host = self['uri']
 
         for schema in _AVAILABLE_PRINTER_SCHEMAS:
@@ -244,8 +241,7 @@ class object(univention.admin.handlers.simpleLdap):
         if protocol == 'file:/' and host.startswith('/'):
             self['uri'][1] = re.sub(r'^/+', '', self['uri'][1])
 
-    def _ldap_pre_remove(self):  # check for last member in printerclass
-        # type: () -> None
+    def _ldap_pre_remove(self) -> None:  # check for last member in printerclass
         super()._ldap_pre_remove()
         printergroups_filter = '(&(objectClass=univentionPrinterGroup)(|%s))' % (''.join(filter_format('(univentionPrinterSpoolHost=%s)', [x]) for x in self.info['spoolHost']))
         rm_attrib = []

@@ -7,6 +7,8 @@
 
 """|UDM| module for Linux hosts"""
 
+from __future__ import annotations
+
 import univention.admin.filter
 import univention.admin.handlers
 import univention.admin.localization
@@ -255,8 +257,7 @@ class object(ComputerObject):
     CONFIG_NAME = 'univentionDefaultClientGroup'
     SAMBA_ACCOUNT_FLAG = 'W'
 
-    def check_required_options(self):
-        # type: () -> None
+    def check_required_options(self) -> None:
         if not set(self.options) & {'posix', 'kerberos'}:
             raise univention.admin.uexceptions.invalidOptions(_('At least posix or kerberos is required.'))
 
@@ -264,8 +265,7 @@ class object(ComputerObject):
         pass
 
     @classmethod
-    def lookup_filter(cls, filter_s=None, lo=None):
-        # type: (str | None, univention.admin.uldap.access | None) -> univention.admin.filter.conjunction
+    def lookup_filter(cls, filter_s: str | None = None, lo: univention.admin.uldap.access | None = None) -> univention.admin.filter.conjunction:
         con = super().lookup_filter(filter_s, lo)
         con.expressions.append(
             univention.admin.filter.conjunction('|', [
@@ -283,6 +283,5 @@ lookup = object.lookup
 lookup_filter = object.lookup_filter
 
 
-def identify(dn, attr, canonical=False):
-    # type: (str, univention.admin.handlers._Attributes, bool) -> bool
+def identify(dn: str, attr: univention.admin.handlers._Attributes, canonical: bool = False) -> bool:
     return b'univentionHost' in attr.get('objectClass', []) and b'univentionLinuxClient' in attr.get('objectClass', []) and (b'posixAccount' in attr.get('objectClass', []) or (b'krb5KDCEntry' in attr.get('objectClass', []) and b'krb5Principal' in attr.get('objectClass', [])))

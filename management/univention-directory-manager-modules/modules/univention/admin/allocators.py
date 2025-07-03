@@ -7,9 +7,10 @@
 
 """|UDM| allocators to allocate and lock resources for |LDAP| object creation."""
 
-from collections.abc import Sequence  # noqa: F401
+from __future__ import annotations
+
 from logging import getLogger
-from typing import overload
+from typing import TYPE_CHECKING, overload
 
 import ldap
 from ldap.filter import filter_format
@@ -18,6 +19,10 @@ import univention.admin.localization
 import univention.admin.locking
 import univention.admin.uexceptions
 from univention.admin._ucr import configRegistry
+
+
+if TYPE_CHECKING:
+    from collections.abc import Sequence
 
 
 try:
@@ -33,7 +38,7 @@ log = getLogger('ADMIN')
 translation = univention.admin.localization.translation('univention/admin')
 _ = translation.translate
 
-_type2attr = {
+_type2attr: dict[_Types, str] = {
     'uidNumber': 'uidNumber',
     'gidNumber': 'gidNumber',
     'uid': 'uid',
@@ -47,8 +52,8 @@ _type2attr = {
     'groupName': 'cn',
     'cn-uid-position': 'cn',  # ['cn', 'uid', 'ou'],
     'univentionObjectIdentifier': 'univentionObjectIdentifier',
-}  # type: dict[_Types, str]
-_type2scope = {
+}
+_type2scope: dict[_Types, _Scopes] = {
     'uidNumber': 'base',
     'gidNumber': 'base',
     'uid': 'domain',
@@ -62,14 +67,14 @@ _type2scope = {
     'groupName': 'domain',
     'cn-uid-position': 'one',
     'univentionObjectIdentifier': 'domain',
-}  # type: dict[_Types, _Scopes]
+}
 
 
 def requestUserSid(
-    lo,  # type: univention.admin.uldap.access
-    position,  # type: univention.admin.uldap.position
-    uid_s,  # type: str
-):  # type: (...) -> str
+    lo: univention.admin.uldap.access,
+    position: univention.admin.uldap.position,
+    uid_s: str,
+) -> str:
     uid = int(uid_s)
     algorithmical_rid_base = 1000
     rid = str(uid * 2 + algorithmical_rid_base)
@@ -84,11 +89,11 @@ def requestUserSid(
 
 
 def requestGroupSid(
-    lo,  # type: univention.admin.uldap.access
-    position,  # type: univention.admin.uldap.position
-    gid_s,  # type: str
-    generateDomainLocalSid=False,  # type: bool
-):  # type: (...) -> str
+    lo: univention.admin.uldap.access,
+    position: univention.admin.uldap.position,
+    gid_s: str,
+    generateDomainLocalSid: bool = False,
+) -> str:
     gid = int(gid_s)
     algorithmical_rid_base = 1000
     rid = str(gid * 2 + algorithmical_rid_base + 1)
@@ -104,13 +109,13 @@ def requestGroupSid(
 
 
 def acquireRange(
-    lo,  # type: univention.admin.uldap.access
-    position,  # type: univention.admin.uldap.position
-    atype,  # type: _Types
-    attr,  # type: str
-    ranges,  # type: Sequence[dict[str, int]]
-    scope='base',  # type: _Scopes
-):  # type: (...) -> str
+    lo: univention.admin.uldap.access,
+    position: univention.admin.uldap.position,
+    atype: _Types,
+    attr: str,
+    ranges: Sequence[dict[str, int]],
+    scope: _Scopes = 'base',
+) -> str:
     log.debug('ALLOCATE: Start allocation for type = %r', atype)
     start_id = lo.authz_connection.getAttr('cn=%s,cn=temporary,cn=univention,%s' % (ldap.dn.escape_dn_chars(atype), position.getBase()), 'univentionLastUsedValue')
 
@@ -172,13 +177,13 @@ def acquireRange(
 
 
 def acquireUnique(
-    lo,  # type: univention.admin.uldap.access
-    position,  # type: univention.admin.uldap.position
-    type,  # type: _Types
-    value,  # type: str
-    attr,  # type: str
-    scope='base',  # type: _Scopes
-):  # type: (...) -> str
+    lo: univention.admin.uldap.access,
+    position: univention.admin.uldap.position,
+    type: _Types,
+    value: str,
+    attr: str,
+    scope: _Scopes = 'base',
+) -> str:
     log.debug('LOCK acquireUnique scope = %s', scope)
     searchBase = position.getDomain() if scope == "domain" else position.getBase()
 
@@ -229,30 +234,30 @@ def acquireUnique(
 
 @overload
 def request(
-    lo,  # type: univention.admin.uldap.access
-    position,  # type: univention.admin.uldap.position
-    type,  # type: _TypesUidGid
-    value=None,  # type: str | None
-):  # type: (...) -> str
+    lo: univention.admin.uldap.access,
+    position: univention.admin.uldap.position,
+    type: _TypesUidGid,
+    value: str | None = None,
+) -> str:
     pass
 
 
 @overload
 def request(
-    lo,  # type: univention.admin.uldap.access
-    position,  # type: univention.admin.uldap.position
-    type,  # type: _Types
-    value,  # type: str
-):  # type: (...) -> str
+    lo: univention.admin.uldap.access,
+    position: univention.admin.uldap.position,
+    type: _Types,
+    value: str,
+) -> str:
     pass
 
 
 def request(
-    lo,  # type: univention.admin.uldap.access
-    position,  # type: univention.admin.uldap.position
-    type,  # type: _Types
-    value=None,  # type: str | None
-):  # type: (...) -> str
+    lo: univention.admin.uldap.access,
+    position: univention.admin.uldap.position,
+    type: _Types,
+    value: str | None = None,
+) -> str:
     if type in ('uidNumber', 'gidNumber'):
         return acquireRange(lo, position, type, _type2attr[type], [{'first': 1000, 'last': 55000}, {'first': 65536, 'last': 1000000}], scope=_type2scope[type])
     assert value is not None
@@ -260,12 +265,12 @@ def request(
 
 
 def confirm(
-    lo,  # type: univention.admin.uldap.access
-    position,  # type: univention.admin.uldap.position
-    type,  # type: _Types
-    value,  # type: str
-    updateLastUsedValue=True,  # type: bool
-):  # type: (...) -> None
+    lo: univention.admin.uldap.access,
+    position: univention.admin.uldap.position,
+    type: _Types,
+    value: str,
+    updateLastUsedValue: bool = True,
+) -> None:
     if type in ('uidNumber', 'gidNumber') and updateLastUsedValue:
         lo.authz_connection.modify('cn=%s,cn=temporary,cn=univention,%s' % (ldap.dn.escape_dn_chars(type), position.getBase()), [('univentionLastUsedValue', b'1', value.encode('utf-8'))])
     elif type == 'cn-uid-position':
@@ -274,9 +279,9 @@ def confirm(
 
 
 def release(
-    lo,  # type: univention.admin.uldap.access
-    position,  # type: univention.admin.uldap.position
-    type,  # type: _Types
-    value,  # type: str
-):  # type: (...) -> None
+    lo: univention.admin.uldap.access,
+    position: univention.admin.uldap.position,
+    type: _Types,
+    value: str,
+) -> None:
     univention.admin.locking.unlock(lo, position, type, value.encode('utf-8'), _type2scope[type])
