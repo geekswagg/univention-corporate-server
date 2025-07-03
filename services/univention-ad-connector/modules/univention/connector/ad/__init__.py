@@ -658,10 +658,12 @@ class ad(univention.connector.ucs):
         try:
             self.lo_ad = univention.uldap.access(
                 host=self.ad_ldap_host, port=int(self.ad_ldap_port),
-                base='', binddn=None, bindpw=None, start_tls=tls_mode,
+                base=self.ad_ldap_base or 'DC=unknown', binddn=None,
+                bindpw=None, start_tls=tls_mode,
                 use_ldaps=ldaps, ca_certfile=self.ad_ldap_certificate,
                 # uri=ldapuri,
             )
+            self.lo_ad.base = ''
             self.ad_ldap_base = self.ad_search_ext_s('', ldap.SCOPE_BASE, 'objectclass=*', ['defaultNamingContext'])[0][1]['defaultNamingContext'][0].decode('UTF-8')
         except Exception:  # FIXME: which exception is to be caught
             self._debug_traceback(ud.ERROR, 'Failed to lookup AD LDAP base, using UCR value.')
@@ -670,11 +672,22 @@ class ad(univention.connector.ucs):
             os.environ['KRB5CCNAME'] = '/var/cache/univention-ad-connector/krb5.cc'
             self.get_kerberos_ticket()
             auth = ldap.sasl.gssapi("")
-            self.lo_ad = univention.uldap.access(host=self.ad_ldap_host, port=int(self.ad_ldap_port), base=self.ad_ldap_base, binddn=None, bindpw=self.ad_ldap_bindpw, start_tls=tls_mode, use_ldaps=ldaps, ca_certfile=self.ad_ldap_certificate)
+            self.lo_ad = univention.uldap.access(
+                host=self.ad_ldap_host, port=int(self.ad_ldap_port),
+                base=self.ad_ldap_base, binddn=None,
+                bindpw=self.ad_ldap_bindpw,
+                start_tls=tls_mode, use_ldaps=ldaps,
+                ca_certfile=self.ad_ldap_certificate,
+            )
             self.get_kerberos_ticket()
             self.lo_ad.lo.sasl_interactive_bind_s("", auth)
         else:
-            self.lo_ad = univention.uldap.access(host=self.ad_ldap_host, port=int(self.ad_ldap_port), base=self.ad_ldap_base, binddn=self.ad_ldap_binddn, bindpw=self.ad_ldap_bindpw, start_tls=tls_mode, use_ldaps=ldaps, ca_certfile=self.ad_ldap_certificate)
+            self.lo_ad = univention.uldap.access(
+                host=self.ad_ldap_host, port=int(self.ad_ldap_port),
+                base=self.ad_ldap_base, binddn=self.ad_ldap_binddn,
+                bindpw=self.ad_ldap_bindpw, start_tls=tls_mode,
+                use_ldaps=ldaps, ca_certfile=self.ad_ldap_certificate,
+            )
 
         self.lo_ad.lo.set_option(ldap.OPT_REFERRALS, 0)
 
