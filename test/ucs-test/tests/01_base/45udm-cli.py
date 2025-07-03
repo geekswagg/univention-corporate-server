@@ -1,5 +1,5 @@
-#!/usr/share/ucs-test/runner python3
-## desc: Create a user via udm cli and authenticate via ldap and samba
+#!/usr/share/ucs-test/runner pytest-3 -s -l -vvv
+## desc: Create a user via udm cli and authenticate via LDAP and Samba
 ## roles:
 ##  - domaincontroller_master
 ##  - domaincontroller_backup
@@ -17,80 +17,60 @@
 
 import subprocess
 import time
+from dataclasses import dataclass
 
-import univention.config_registry as configRegistry
-import univention.testing.udm as udm_test
+import pytest
+
 from univention import uldap
 from univention.testing import utils
 
 
-class cmd:
-    def __init__(self, *args):
-        self.args = args
-        self.input = None
-
-    def with_stdin(self, input):
-        self.input = input
-        return self
-
-    def check(self):
-        cmd = subprocess.Popen(self.args, stdin=subprocess.PIPE)
-
-        if self.input:
-            cmd.communicate(self.input.encode('UTF-8'))
-        else:
-            cmd.wait()
-
-        return cmd.returncode == 0
+@dataclass
+class User:
+    user_dn: str
+    username: str
+    password: str
 
 
-def test_ldap_connection(ucr, user_dn, password):
+@pytest.fixture
+def user(udm):
+    return User(*udm.create_user(wait_for=True), 'univention')
+
+
+def test_ldap_connection(ucr, user):
     print("Testing ldap connection")
     if ucr.get('server/role').startswith('domaincontroller_'):
-        access = uldap.access(binddn=user_dn, bindpw=password)
+        access = uldap.access(binddn=user.user_dn, bindpw=user.password, base=ucr['ldap/base'])
     else:
-        access = uldap.access(ucr.get('ldap/master'), base=ucr.get('ldap/base'), binddn=user_dn, bindpw=password)
-    for (key, value) in access.get(user_dn, required=True).items():
+        access = uldap.access(ucr['ldap/master'], base=ucr['ldap/base'], binddn=user.user_dn, bindpw=user.password)
+    data = access.get(user.user_dn, required=True)
+    for (key, value) in data.items():
         print(f"{key} = {value}")
+    assert data, data
 
 
-def test_samba_connection(ucr, username, password):
+def test_samba_connection(ucr, user):
     # In case of a memberserver in a S4 environment, we have to
     # wait until the user has been synchronized to Samba 4. Otherwise
     # we can't get a kerberos ticket
-    if ucr.get("server/role") == "memberserver":
-        time.sleep(16)
-
-    print("Try to get a kerberos ticket for the new user", username)
-    kinit = cmd("kinit", "--password-file=STDIN", username).with_stdin(password)
-
-    if not kinit.check():
-        utils.fail("Failed to acquire kerberos ticket.")
+    print("Try to get a kerberos ticket for the new user", user.username)
+    for _ in range(4 if ucr.get("server/role") == "memberserver" else 1):
+        if not subprocess.run(["kinit", "--password-file=STDIN", user.username], input=user.password, text=True, check=False).returncode:
+            break
+        print("kinit failed. Retry in 4 seconds ...")
+        time.sleep(4)
+    else:
+        pytest.fail("kinit failed after 16 seconds")
 
     s4_installed = utils.package_installed("univention-samba4")
-    if utils.package_installed("univention-samba") or s4_installed:
+    if s4_installed or utils.package_installed("univention-samba"):
         host = 'localhost' if s4_installed else ucr.get('ldap/master')
         print(f"Samba Logon with this new user against {host}")
 
-        smbclient = cmd("smbclient", "-L", host, "-U", f"{username}%{password}")
-
-        if not smbclient.check():
-            print("First Samba login failed. Wait for 30 seconds and try again ...")
-            time.sleep(30)
-            if not smbclient.check():
-                utils.fail(f"Samba login failed for {username} with {password}")
-
-
-def test(password="univention"):  # noqa: PT028
-    ucr = configRegistry.ConfigRegistry()
-    ucr.load()
-
-    with udm_test.UCSTestUDM() as udm:
-        (user_dn, username) = udm.create_user(wait_for=True)
-
-        test_ldap_connection(ucr, user_dn, password)
-        test_samba_connection(ucr, username, password)
-
-
-if __name__ == '__main__':
-    test()
+        for _ in range(6):
+            if not subprocess.run(("smbclient", "-L", host, "-U", f"{user.username}%{user.password}"), check=False).returncode:
+                break
+            print("First Samba login failed. Retry in 5 seconds ...")
+            time.sleep(5)
+        else:
+            pytest.fail("Samba login failed after 30 seconds")
