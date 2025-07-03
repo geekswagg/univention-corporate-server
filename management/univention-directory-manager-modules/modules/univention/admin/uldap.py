@@ -18,8 +18,10 @@ import univention.admin.license
 import univention.uldap
 from univention.admin import localization
 from univention.admin._ucr import configRegistry
-from univention.dn import DN  # noqa: F401
+from univention.dn import DN
 
+
+__all__ = ('DN', 'access', 'domain', 'explodeDn', 'getAdminConnection', 'getBaseDN', 'getMachineConnection', 'position')
 
 udm_log = getLogger('ADMIN')
 log = getLogger('LDAP')
