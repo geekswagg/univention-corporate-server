@@ -95,7 +95,7 @@ def ucr_overwrite_properties(module: Any, lo: univention.admin.uldap.access) -> 
             continue
 
 
-def pattern_replace(pattern: str, object: Any) -> str:
+def pattern_replace(pattern: str, obj: dict | simpleLdap) -> str:
     """
     Replaces patterns like `<attribute:command,...>[range]` with values
     of the specified UDM attribute.
@@ -148,8 +148,8 @@ def pattern_replace(pattern: str, object: Any) -> str:
                 return ''
 
         # make sure the key value exists
-        if key in object and object[key]:  # noqa: RUF019
-            val = modify_text(object[key], strCommands)
+        if key in obj and obj[key]:  # noqa: RUF019
+            val = modify_text(obj[key], strCommands)
             # try to apply the indexing instructions, indicated through '[...]'
             if ext:
                 try:
@@ -158,8 +158,8 @@ def pattern_replace(pattern: str, object: Any) -> str:
                     return val
             return val
 
-        elif key == 'dn' and object.dn:
-            return object.dn
+        elif key == 'dn' and obj.dn:
+            return obj.dn
         return ''
 
     regex = re.compile(r'<(?P<key>[^>]+)>(?P<ext>\[[\d:]+\])?')
@@ -282,19 +282,19 @@ class property:
     def new(self) -> list[str] | None:
         return [] if self.multivalue else None
 
-    def _replace(self, res, object):
-        return pattern_replace(copy.copy(res), object)
+    def _replace(self, res, obj):
+        return pattern_replace(copy.copy(res), obj)
 
-    def default(self, object: simpleLdap) -> Any:
+    def default(self, obj: simpleLdap) -> Any:
         base_default: bool | int | str | list[str] | tuple[Any, list[str]] | tuple[Callable, list[str], Any] | None = copy.copy(self.base_default)
-        if not object.set_defaults:
+        if not obj.set_defaults:
             return [] if self.multivalue else ''
 
         if not base_default:
             return self.new()
 
         if isinstance(base_default, str):
-            return self._replace(base_default, object)
+            return self._replace(base_default, obj)
 
         bd0 = base_default[0]
 
@@ -305,14 +305,14 @@ class property:
         if isinstance(bd0, str):
             # multivalue defaults will only be a part of templates, so not multivalue is the common way for modules
             if not self.multivalue:  # default=(template-str, [list-of-required-properties])
-                if all(object[p] for p in base_default[1]):
+                if all(obj[p] for p in base_default[1]):
                     for p in base_default[1]:
-                        bd0 = bd0.replace('<%s>' % (p,), object[p])
+                        bd0 = bd0.replace('<%s>' % (p,), obj[p])
                     return bd0
                 return self.new()
             else:  # multivalue
                 if all(isinstance(bd, str) for bd in base_default):
-                    return [self._replace(bd, object) for bd in base_default]
+                    return [self._replace(bd, obj) for bd in base_default]
                 # must be a list of loaded extended attributes then, so we return it if it has content
                 # return the first element, this is only related to empty extended attributes which are loaded wrong, needs to be fixed elsewhere
                 if bd0:
@@ -320,13 +320,13 @@ class property:
                 return self.new()
 
         if callable(bd0):  # default=(func_obj_extra, [list-of-required-properties], extra-arg)
-            if all(object[p] for p in base_default[1]):
-                return bd0(object, base_default[2])
+            if all(obj[p] for p in base_default[1]):
+                return bd0(obj, base_default[2])
             return self.new()
 
         return self.new()
 
-    def safe_default(self, object):
+    def safe_default(self, obj: simpleLdap) -> Any:
         def safe_parse(default):
             if not default:
                 return False
@@ -335,15 +335,15 @@ class property:
                 return True
             except Exception:
                 return False
-        defaults = self.default(object)
+        defaults = self.default(obj)
         if isinstance(defaults, list):
             return [self.syntax.parse(d) for d in defaults if safe_parse(d)]
         elif safe_parse(defaults):
             return self.syntax.parse(defaults)
         return defaults
 
-    def check_default(self, object: Any) -> None:
-        defaults = self.default(object)
+    def check_default(self, obj: simpleLdap) -> None:
+        defaults = self.default(obj)
         try:
             if isinstance(defaults, list):
                 for d in defaults:

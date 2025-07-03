@@ -5976,34 +5976,34 @@ class LDAP_Search(select):
         syntax name is given the object is expected to be created with
         the required settings programmatically.
         """
-        self = type(self)  # noqa: PLW0642
+        cls = type(self)
 
-        if not self.syntax:
+        if not cls.syntax:
             # programmatically
-            if self.viewonly:
-                self.value = 'dn'
+            if cls.viewonly:
+                cls.value = 'dn'
             return
 
         # get values from UDM settings/syntax
         try:
-            filter = filter_format(LDAP_Search.FILTER_PATTERN, [self.syntax])
+            filter = filter_format(LDAP_Search.FILTER_PATTERN, [cls.syntax])
             dn, attrs = lo.authz_connection.search(filter=filter)[0]
         except Exception:
             return
 
         if dn:
-            self.filter = attrs['univentionSyntaxLDAPFilter'][0].decode('utf-8')
-            self.attributes = [x.decode('UTF-8') for x in attrs['univentionSyntaxLDAPAttribute']]
+            cls.filter = attrs['univentionSyntaxLDAPFilter'][0].decode('utf-8')
+            cls.attributes = [x.decode('UTF-8') for x in attrs['univentionSyntaxLDAPAttribute']]
             if 'univentionSyntaxLDAPBase' in attrs:
-                self.base = attrs['univentionSyntaxLDAPBase'][0].decode('utf-8')
+                cls.base = attrs['univentionSyntaxLDAPBase'][0].decode('utf-8')
             else:
-                self.base = ''
-            self.value = attrs.get('univentionSyntaxLDAPValue', [b'dn'])[0].decode('utf-8')
+                cls.base = ''
+            cls.value = attrs.get('univentionSyntaxLDAPValue', [b'dn'])[0].decode('utf-8')
             if attrs.get('univentionSyntaxViewOnly', [b'FALSE'])[0] == b'TRUE':
-                self.viewonly = True
-                self.value = 'dn'
-            self.addEmptyValue = (attrs.get('univentionSyntaxAddEmptyValue', [b'0'])[0].upper() in [b'TRUE', b'1'])
-            self.appendEmptyValue = (attrs.get('univentionSyntaxAppendEmptyValue', [b'0'])[0].upper() in [b'TRUE', b'1'])
+                cls.viewonly = True
+                cls.value = 'dn'
+            cls.addEmptyValue = (attrs.get('univentionSyntaxAddEmptyValue', [b'0'])[0].upper() in [b'TRUE', b'1'])
+            cls.appendEmptyValue = (attrs.get('univentionSyntaxAppendEmptyValue', [b'0'])[0].upper() in [b'TRUE', b'1'])
 
     @classmethod
     def get_choices(cls, lo, options):

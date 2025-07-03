@@ -1118,7 +1118,7 @@ class object(univention.admin.handlers.simpleLdap, PKIIntegration, GuardianBase)
 
     def open(self, loadGroups=_sentinel):  # type: (builtins.object) -> None
         if loadGroups is not _sentinel:
-            warnings.warn('UDM users/user:open() called with deprecated loadGroups!', DeprecationWarning)  # noqa: B028
+            warnings.warn('UDM users/user:open() called with deprecated loadGroups!', DeprecationWarning, stacklevel=4)
         univention.admin.handlers.simpleLdap.open(self)
         self.pki_open()
         if self.exists():
@@ -1199,7 +1199,7 @@ class object(univention.admin.handlers.simpleLdap, PKIIntegration, GuardianBase)
         if 'automountInformation' not in self.oldattr:
             return
         try:
-            _flags, unc = re.split(b' +', self.oldattr['automountInformation'][0], 1)  # noqa: B034
+            _flags, unc = re.split(b' +', self.oldattr['automountInformation'][0], maxsplit=1)
             host, path = unc.split(b':', 1)
         except ValueError:
             return
