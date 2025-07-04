@@ -91,6 +91,10 @@ basic_setup () {
 	# ssh setting to migitiate ssh connection failures during test runs
 	ucr set sshd/ClientAliveCountMax=10
 	service sshd restart
+
+	# set strict mode for UDM so that the tests detect broken occurrences
+	# but customers / PS scripts aren't affected immediately
+	ucr set 'directory/mananger/type-checking/strict=true'
 }
 
 stop_uss_and_restore_profile () {
