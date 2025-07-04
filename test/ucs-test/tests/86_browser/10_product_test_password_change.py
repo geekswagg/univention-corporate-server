@@ -304,7 +304,7 @@ def set_samba_settings(settings):
 def _get_samba_obj():
     ucr = ucr_test.UCSTestConfigRegistry()
     ucr.load()
-    lo = get_ldap_connection()
+    lo = get_ldap_connection(admin_uldap=True)
     udm_modules.update()
     samba_module = udm_modules.get('settings/sambadomain')
     obj = samba_module.object(None, lo, None, 'sambaDomainName=%s,cn=samba,%s' % (ucr.get('windows/domain'), ucr.get('ldap/base')))

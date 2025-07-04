@@ -32,7 +32,7 @@ UniventionLDAPExtension.wait_for_activation = mock_is_local_active
 
 
 def get_acl_extension(ucr):
-    lo = get_ldap_connection(primary=True)
+    lo = get_ldap_connection(admin_uldap=True, primary=True)
     res = lo.get(f"cn=66univention-appcenter_app,cn=ldapacl,cn=univention,{ucr['ldap/base']}")
     return SimpleNamespace(
         packagename=res["univentionOwnedByPackage"][0].decode("utf-8"),

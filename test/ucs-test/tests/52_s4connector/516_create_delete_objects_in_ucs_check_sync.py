@@ -37,7 +37,7 @@ class Users:
 
     def __init__(self):
         configRegistry.load()  # why is this necessary? shouldn't modules.update or init be enough
-        self.lo = get_ldap_connection()
+        self.lo = get_ldap_connection(admin_uldap=True)
         self.pos = position(self.lo.base)
         modules.update()
         self.udm_users = modules.get('users/user')

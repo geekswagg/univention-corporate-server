@@ -43,6 +43,7 @@ import psutil
 
 import univention.admin.modules
 import univention.admin.objects
+import univention.admin.uexceptions
 import univention.admin.uldap
 import univention.testing.strings as uts
 import univention.testing.ucr
@@ -175,7 +176,7 @@ class UCSTestUDM:
         if match_filter:
             try:
                 res = self._primary_lo.search(base=dn, filter=match_filter, scope='base', attr=[])
-            except ldap.NO_SUCH_OBJECT:
+            except (ldap.NO_SUCH_OBJECT, univention.admin.uexceptions.noObject):
                 print(f"OpenLDAP object to check against S4-Connector match_filter doesn't exist: {dn}")
                 res = None  # TODO: This happens during delete. By setting res=None here, we will not wait for DRS replication for deletes!
             except Exception as ex:
@@ -197,7 +198,7 @@ class UCSTestUDM:
     @property
     def _lo(self) -> univention.admin.uldap.access:
         if self.__lo is None:
-            self.__lo = utils.get_ldap_connection()
+            self.__lo = utils.get_ldap_connection(admin_uldap=True)
         return self.__lo
 
     @property
@@ -1065,7 +1066,7 @@ class UCSTestUDM:
                 lockDN = f'cn={value},cn={lock_type},{self.UNIVENTION_TEMPORARY_CONTAINER}'
                 try:
                     self._lo.delete(lockDN)
-                except ldap.NO_SUCH_OBJECT:
+                except (ldap.NO_SUCH_OBJECT, univention.admin.uexceptions.noObject):
                     pass
                 except Exception as ex:
                     print(f'Failed to remove locking object "{lockDN}" during cleanup: {ex!r}')

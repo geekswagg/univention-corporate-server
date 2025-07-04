@@ -125,7 +125,7 @@ def Client() -> type[umc.Client]:
 @pytest.fixture(scope="module")
 def lo() -> univention.admin.uldap.access:
     """Module scoped LDAP connection."""
-    return utils.get_ldap_connection()
+    return utils.get_ldap_connection(admin_uldap=True)
 
 
 @pytest.fixture(scope='session')

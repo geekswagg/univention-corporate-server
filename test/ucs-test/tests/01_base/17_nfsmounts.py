@@ -31,7 +31,7 @@ def backup_fstab():
         shutil.move(tmp, FSTAB)
 
 
-def test_nfsmount(udm, ucr, lo, backup_fstab):
+def test_nfsmount(udm, ucr, backup_fstab):
     # create tempdir for mount point
     with tempfile.TemporaryDirectory(prefix="source_", dir="/home/") as shared_path, \
             tempfile.TemporaryDirectory(prefix="dest_", dir="/mnt/") as shared_dest:
