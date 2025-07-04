@@ -13,6 +13,12 @@ import univention.admin.syntax
 from univention.admin.layout import Tab
 
 
+try:
+    from univention.admin.syntax import GuardianRole
+except ImportError:  # just during errata updates. Can be removed in UCS 5.2-3
+    GuardianRole = univention.admin.syntax.simple
+
+
 log = getLogger('ADMIN')
 
 translation = univention.admin.localization.translation('univention.admin')
@@ -24,7 +30,7 @@ def member_role_properties():
         'guardianMemberRoles': univention.admin.property(
             short_description=_('Roles used by Guardian for access permissions, these roles are passed to the members of this group'),
             long_description=_("Lowercase ASCII alphanumeric string with underscores or dashes, in the format 'app:namespace:role' or 'app:namespace:role&app:namespace:context'"),
-            syntax=univention.admin.syntax.GuardianRole,
+            syntax=GuardianRole,
             size='Two',
             multivalue=True,
         ),
@@ -36,7 +42,7 @@ def role_properties():
         'guardianRoles': univention.admin.property(
             short_description=_('Roles used by Guardian for access permissions'),
             long_description=_("Lowercase ASCII alphanumeric string with underscores or dashes, in the format 'app:namespace:role' or 'app:namespace:role&app:namespace:context'"),
-            syntax=univention.admin.syntax.GuardianRole,
+            syntax=GuardianRole,
             size='Two',
             multivalue=True,
         ),
@@ -44,7 +50,7 @@ def role_properties():
             short_description=_('Roles used by Guardian for access permissions. Inherited by group membership'),
             long_description=_('Roles used by Guardian for access permissions. Inherited by group membership'),
             prevent_umc_default_popup=True,
-            syntax=univention.admin.syntax.GuardianRole,
+            syntax=GuardianRole,
             size='Two',
             may_change=False,
             multivalue=True,
