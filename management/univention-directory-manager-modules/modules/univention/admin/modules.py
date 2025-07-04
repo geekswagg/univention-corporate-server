@@ -14,6 +14,8 @@ import copy
 import importlib
 import locale
 import os
+import traceback
+import warnings
 from importlib import reload as reload_module
 from logging import getLogger
 from typing import TYPE_CHECKING, Any, Protocol, overload
@@ -185,6 +187,12 @@ def init(lo: univention.admin.uldap.access, position: univention.admin.uldap.pos
     :param template_object: Reference to a instance, from which the default values are used.
     :param force_reload: With `True` force Python to reload the module from the file system.
     """
+    if isinstance(lo, univention.uldap.access):
+        log.error('Wrong access class in use! Use univention.admin.uldap instead of univention.uldap! %s', ''.join(traceback.format_stack()))
+        warnings.warn('Wrong access class in use! Use univention.admin.uldap instead of univention.uldap!', DeprecationWarning, stacklevel=3)
+        if configRegistry.is_true('directory/mananger/type-checking/strict'):
+            raise TypeError('Expect univention.admin.uldap.access!')
+
     # you better do a reload if init is called a second time
     # especially because update_extended_attributes
     # called twice will have side-effects
