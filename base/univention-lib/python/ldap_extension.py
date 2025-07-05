@@ -128,7 +128,8 @@ def get_handler_message(name: str, binddn: str, bindpw: str) -> dict:
         lo = udm_uldap.access(
             host=listener.configRegistry.get('ldap/master'),
             base=listener.configRegistry.get('ldap/base'),
-            binddn=binddn, bindpw=bindpw)
+            binddn=binddn, bindpw=bindpw,
+        )
         position = udm_uldap.position(lo.base)
         position_dn = 'cn=handler_messages,cn=univention,{}'.format(listener.configRegistry.get('ldap/base'))
         udm_modules.update()
@@ -235,6 +236,7 @@ class UniventionLDAPExtension(metaclass=ABCMeta):
             lo = udm_uldap.access(
                 host=self.ucr["ldap/master"],
                 port=self.ucr["ldap/master/port"],
+                base=self.ucr['ldap/base'],
                 binddn=self.options.binddn,
                 bindpw=password,
             )

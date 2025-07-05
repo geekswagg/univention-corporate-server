@@ -1,8 +1,12 @@
-univention-lib (11.2.0) UNRELEASED; urgency=medium
+univention-lib (11.2.0) unstable; urgency=medium
 
+  [ Ivan Barbecho Delgado ]
   * Bug #58344: UCS 5.2-2 version bump
 
- -- Ivan Barbecho Delgado <ivan.delgado@univention.de>  Wed, 28 May 2025 16:49:56 +0200
+  [ Florian Best ]
+  * Bug #58432: set base in uldap.access()
+
+ -- Florian Best <best@univention.de>  Sat, 05 Jul 2025 09:54:44 +0200
 
 univention-lib (11.0.12-1) UNRELEASED; urgency=medium
 
