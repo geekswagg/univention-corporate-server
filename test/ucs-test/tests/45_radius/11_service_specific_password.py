@@ -70,6 +70,6 @@ def test_radius_auth_no_ssp(rad_user, ssp):
 
 def test_radius_auth_ssp(rad_user, lo, ssp):
     dn, name, _password = rad_user
-    lo.modify_ext_s(dn, ((ldap.MOD_REPLACE, 'univentionRadiusPassword', ssp[1]),))
+    lo.lo.modify_ext_s(dn, ((ldap.MOD_REPLACE, 'univentionRadiusPassword', ssp[1]),))
     ucr_set(['radius/use-service-specific-password=true'])
     radius_auth(name, ssp[0])
