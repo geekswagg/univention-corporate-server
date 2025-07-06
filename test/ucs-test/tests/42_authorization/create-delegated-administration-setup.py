@@ -8,12 +8,13 @@ from subprocess import check_call
 
 from univention.config_registry import handler_set, ucr
 from univention.udm import UDM
-from univention.udm.exceptions import MultipleObjects, NoObject
+from univention.udm.exceptions import NoObject
 
 
 USER_ROLE = 'udm:default-roles:domain-user'
 ADMIN_ROLE = 'udm:default-roles:domain-administrator'
 LDAP_BASE = ucr['ldap/base']
+GLOBAL_GROUPS = f'cn=groups,{LDAP_BASE}'
 
 udm = UDM.admin().version(3)
 ous = udm.get('container/ou')
@@ -31,9 +32,9 @@ register_ldap_deny_user = ALL_ADMIN_USERS.append
 
 
 def main():
-    api_access_group = create_or_modify_obj(groups, name='test-api-access')
-    create_or_modify_obj(groups, name='Domain Admins', guardianMemberRoles=[ADMIN_ROLE])
-    create_or_modify_obj(groups, name='Domain Users', guardianMemberRoles=[USER_ROLE])
+    api_access_group = create_or_modify_obj(groups, name='test-api-access', position=GLOBAL_GROUPS)
+    create_or_modify_obj(groups, name='Domain Admins', position=GLOBAL_GROUPS, guardianMemberRoles=[ADMIN_ROLE])
+    create_or_modify_obj(groups, name='Domain Users', position=GLOBAL_GROUPS, guardianMemberRoles=[USER_ROLE])
     umc_policy = create_or_modify_obj(
         umc_policies,
         name='organizational-unit-amdins',
@@ -102,14 +103,11 @@ def restart_services():
 
 def create_or_modify_obj(module, identifying_property='name', position=None, **properties):
     try:
-        try:
-            obj = module.get_by_id(properties[identifying_property])
-        except MultipleObjects:
-            objs = list(module.search('%s=%s' % (identifying_property, properties[identifying_property]), base=position or LDAP_BASE, scope='one'))
-            if not objs:
-                raise NoObject()
-            assert len(objs) == 1, (properties, position, objs)
-            obj = objs[0]
+        objs = list(module.search('%s=%s' % (identifying_property, properties[identifying_property]), base=position or LDAP_BASE, scope='one'))
+        if not objs:
+            raise NoObject()
+        assert len(objs) == 1, (properties, position, objs)
+        obj = objs[0]
     except NoObject:
         obj = module.new()
         if position is not None:

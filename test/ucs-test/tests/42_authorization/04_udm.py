@@ -19,7 +19,7 @@ from univention.config_registry import ucr as _ucr
 
 
 check_delegation = pytest.mark.skipif(not _ucr.is_true('directory/manager/web/delegative-administration/enabled'), reason='directory/manager/web/delegative-administration/enabled not activated')
-LDAP_BASE = _ucr.get('ldap/base')
+LDAP_BASE = _ucr['ldap/base']
 DEFAULT_USERS_CN_DN = f"cn=users,{LDAP_BASE}"
 TEST_PASSWORD = "univention"
 
@@ -67,8 +67,8 @@ def ou_admin_connection(authorization_enabled):
     """Create an OU admin connection."""
     def _create_connection(admin_dn: str, admin_password: str):
         lo = access(
-            host=_ucr.get('ldap/master'),
-            port=int(_ucr.get('ldap/master/port', '7389')),
+            host=_ucr['ldap/master'],
+            port=_ucr.get_int('ldap/master/port', 7389),
             base=LDAP_BASE,
             binddn=admin_dn,
             bindpw=admin_password,
