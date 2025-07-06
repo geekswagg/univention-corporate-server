@@ -193,7 +193,7 @@ def create_ou_structure(position, ouname, api_access_group, umc_policy):
     # user objects in ou
     user_dns = []
     for i in range(1, NUMBER_OF_USERS + 1):
-        user = create_user(f'user{i}-{ouname}', cn_users.dn, guardianRoles=['umc:udm:dummyrole'])
+        user = create_user(f'user{i}-{ouname}', cn_users.dn, guardianRoles=['udm:default-roles:dummyrole'])
         user_dns.append(user.dn)
     # group objects
     for i in range(1, NUMBER_OF_GROUPS + 1):

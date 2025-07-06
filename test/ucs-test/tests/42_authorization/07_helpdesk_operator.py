@@ -130,7 +130,7 @@ def test_helpdesk_operator_can_reset_password(ldap_base, ou, position, expected,
 
 @check_delegation
 @pytest.mark.parametrize('user, changes, expected', [
-    ('{normal_user}', {"guardianRoles": ["umc:udm:helpdesk-operator&umc:udm:ou=bremen"]}, False),
+    ('{normal_user}', {"guardianRoles": ["udm:default-roles:helpdesk-operator&udm:contexts:position=ou=bremen"]}, False),
     ('{normal_user}', {'description': 'dsfdsf'}, False),
     ('uid=Administrator,cn=users,{ldap_base}', {'description': 'dsfdsf'}, False),
 ])

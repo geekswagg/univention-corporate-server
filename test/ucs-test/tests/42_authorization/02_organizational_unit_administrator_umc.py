@@ -230,7 +230,7 @@ def test_user_read(ldap_base, ou, user_dn, attribute, expected, ouadmin_umc_clie
 
 
 @pytest.mark.parametrize('position, changes, expected', [
-    ('cn=users,{ou_dn}', {'guardianRoles': ['umc:udm:ouadmin&umc:udm:ou=bremen']}, False),
+    ('cn=users,{ou_dn}', {'guardianRoles': ['udm:default-roles:organizational-unit-admin&udm:contexts:position=ou=bremen']}, False),
     ('cn=users,{ou_dn}', {'description': 'dsfdsf'}, True),
     ('cn=users,{ldap_base}', {'description': 'dsfdsf'}, False),
 ])

@@ -84,7 +84,7 @@ def test_move(position, target_position, expected, ouadmin_rest_client, udm, ou,
 
 
 @pytest.mark.parametrize('position, changes, expected', [
-    ('cn=users,{ou_dn}', {'guardianRoles': ['umc:udm:ouadmin&umc:udm:ou=bremen']}, False),
+    ('cn=users,{ou_dn}', {'guardianRoles': ['udm:default-roles:organizational-unit-admin&udm:contexts:position=ou=bremen']}, False),
     ('cn=users,{ou_dn}', {'description': 'dsfdsf'}, True),
     ('cn=users,{ldap_base}', {'description': 'dsfdsf'}, False),
 ])
@@ -116,7 +116,7 @@ def test_mail_domain_delete(random_string, udm, ldap_base, ouadmin_rest_client):
 
 
 @pytest.mark.parametrize('position, changes, expected', [
-    ('cn=groups,{ou_dn}', {'guardianMemberRoles': ['umc:udm:ouadmin&umc:udm:ou=bremen']}, False),
+    ('cn=groups,{ou_dn}', {'guardianMemberRoles': ['udm:default-roles:organizational-unit-admin&udm:contexts:position=ou=bremen']}, False),
     ('cn=groups,{ou_dn}', {'description': 'abc'}, True),
     ('{ou_dn}', {'description': 'dsfdsf'}, True),
     ('cn=groups,{ldap_base}', {'description': 'dsfdsf'}, False),

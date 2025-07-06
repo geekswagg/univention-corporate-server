@@ -393,7 +393,7 @@ def test_ou_admin_cannot_set_guardian_roles_on_users(
 ):
     """Tests that OU admins cannot set guardianRoles on users."""
     username = f"grdtest_{operation}_{random_username()[:6]}"
-    privileged_role = ["umc:udm:domainadmin"]
+    privileged_role = ["udm:default-roles:domain-administrator"]
 
     ou_admin_conn = ou_admin_connection(admin_dn, admin_password)
 
@@ -450,7 +450,7 @@ def test_ou_admin_cannot_set_guardian_member_roles_on_groups(
 ):
     """Tests that OU admins cannot set guardianMemberRoles on groups."""
     group_name = f"grdgrp_{operation}_{random_username()[:6]}"
-    privileged_role = ["umc:udm:domainadmin"]
+    privileged_role = ["udm:default-roles:domain-administrator"]
 
     ou_admin_conn = ou_admin_connection(admin_dn, admin_password)
 
