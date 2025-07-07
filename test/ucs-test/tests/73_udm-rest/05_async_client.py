@@ -15,6 +15,7 @@ import pytest
 from univention.admin.rest.async_client import (
     UDM, NotFound, PatchDocument, ServiceUnavailable, UnprocessableEntity, _NoRelation,
 )
+from univention.lib.misc import custom_groupname, custom_username
 from univention.testing import strings as uts
 from univention.testing.utils import verify_ldap_object
 
@@ -22,7 +23,7 @@ from univention.testing.utils import verify_ldap_object
 @pytest.mark.asyncio
 async def test_create_modify_move_remove(random_string, ucr):
     uri = 'http://localhost/univention/udm/'
-    username = ucr.get('tests/domainadmin/username', 'Administrator')
+    username = ucr.get('tests/domainadmin/username', custom_username('Administrator', ucr))
     pwd = ucr.get('tests/domainadmin/pwd', 'univention')
     async with UDM.http(uri, username, pwd) as udm:
         module = await udm.get("users/user")
@@ -66,7 +67,7 @@ async def test_create_modify_move_remove(random_string, ucr):
         with pytest.raises(AssertionError):
             for group in obj.objects.groups:
                 grp = await group.open()
-                assert grp.properties['name'] != 'Domain Users'
+                assert grp.properties['name'] != custom_groupname('Domain Users', ucr)
 
         # TODO: test move and rename
         container = await cn.new()
@@ -104,7 +105,7 @@ async def test_create_modify_move_remove(random_string, ucr):
 async def test_json_patch(random_string, ucr):
     uri = 'http://localhost/univention/udm/'
     pwd = ucr.get('tests/domainadmin/pwd', 'univention')
-    username = ucr.get('tests/domainadmin/username', 'Administrator')
+    username = ucr.get('tests/domainadmin/username', custom_username('Administrator', ucr))
     async with UDM.http(uri, username, pwd) as udm:
         module = await udm.get("users/user")
         obj = await module.new()
@@ -143,7 +144,7 @@ async def test_json_patch(random_string, ucr):
 async def test_various_api_methods(random_string, ucr):
     uri = 'http://localhost/univention/udm/'
     dn = ucr.get('tests/domainadmin/account', 'Administrator')
-    username = ucr.get('tests/domainadmin/username', 'Administrator')
+    username = ucr.get('tests/domainadmin/username', custom_username('Administrator', ucr))
     pwd = ucr.get('tests/domainadmin/pwd', 'univention')
     async with UDM.http(uri, username, pwd) as udm:
         assert (await udm.get_ldap_base()) == ucr['ldap/base']
@@ -204,7 +205,7 @@ async def test_various_api_methods(random_string, ucr):
 async def test_service_unavailable(ucr):
     uri = 'http://localhost/univention/udm/'
     pwd = ucr.get('tests/domainadmin/pwd', 'univention')
-    username = ucr.get('tests/domainadmin/username', 'Administrator')
+    username = ucr.get('tests/domainadmin/username', custom_username('Administrator', ucr))
     async with UDM.http(uri, username, pwd) as udm:
         subprocess.call(['systemctl', 'stop', 'univention-directory-manager-rest'])  # noqa: ASYNC221
         try:
