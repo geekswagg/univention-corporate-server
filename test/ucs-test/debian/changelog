@@ -1,3 +1,9 @@
+ucs-test (12.2.20) unstable; urgency=medium
+
+  * Issue univention/dev/internal/team-nubus#2954: switch to new app version & change pw key
+
+ -- Yannik Schmidt <yannik.schmidt.extern@univention.de> Mon Jul 7 11:01:54 2025 +0200
+
 ucs-test (12.2.19) unstable; urgency=medium
 
   * Bug #58432: fix hardcoded use of "Domain Admins"
