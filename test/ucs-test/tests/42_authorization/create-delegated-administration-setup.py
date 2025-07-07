@@ -7,6 +7,7 @@ import argparse
 from subprocess import check_call
 
 from univention.config_registry import handler_set, ucr
+from univention.lib.misc import custom_groupname
 from univention.udm import UDM
 from univention.udm.exceptions import NoObject
 
@@ -33,8 +34,8 @@ register_ldap_deny_user = ALL_ADMIN_USERS.append
 
 def main():
     api_access_group = create_or_modify_obj(groups, name='test-api-access', position=GLOBAL_GROUPS)
-    create_or_modify_obj(groups, name='Domain Admins', position=GLOBAL_GROUPS, guardianMemberRoles=[ADMIN_ROLE])
-    create_or_modify_obj(groups, name='Domain Users', position=GLOBAL_GROUPS, guardianMemberRoles=[USER_ROLE])
+    create_or_modify_obj(groups, name=custom_groupname('Domain Admins', ucr), position=GLOBAL_GROUPS, guardianMemberRoles=[ADMIN_ROLE])
+    create_or_modify_obj(groups, name=custom_groupname('Domain Users', ucr), position=GLOBAL_GROUPS, guardianMemberRoles=[USER_ROLE])
     umc_policy = create_or_modify_obj(
         umc_policies,
         name='organizational-unit-amdins',

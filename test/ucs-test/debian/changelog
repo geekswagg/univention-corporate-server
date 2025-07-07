@@ -1,3 +1,9 @@
+ucs-test (12.2.19) unstable; urgency=medium
+
+  * Bug #58432: fix hardcoded use of "Domain Admins"
+
+ -- Florian Best <best@univention.de>  Mon, 07 Jul 2025 11:23:33 +0200
+
 ucs-test (12.2.18) unstable; urgency=medium
 
   * Bug #58432: fix role names

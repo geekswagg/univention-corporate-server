@@ -13,6 +13,7 @@ import pytest
 
 import univention.admin.modules as udm_modules
 from univention.admin.uldap import position
+from univention.lib.misc import custom_groupname
 from univention.testing import utils
 from univention.testing.strings import random_string
 from univention.testing.umc import Client
@@ -353,7 +354,8 @@ def test_manual_primary_group(udm, primary_group_setup, ldap_base, create_user):
     _, user_attr = udm.list_objects('users/user', filter=f'username={username}')[0]
     assert user_attr['primaryGroup'] == [primary_group_setup.ou_primary_group_dn]
     # manually set primary group
-    group_dn = f'cn=Domain Admins,cn=groups,{ldap_base}'
+    domain_admins = custom_groupname('Domain Admins')
+    group_dn = f'cn={domain_admins},cn=groups,{ldap_base}'
     username = create_user(position_dn=primary_group_setup.ou_dn, primary_group_dn=group_dn)
     _, user_attr = udm.list_objects('users/user', filter=f'username={username}')[0]
     assert user_attr['primaryGroup'] == [group_dn]
@@ -377,7 +379,8 @@ def test_umc_properties_and_user_create(udm, primary_group_setup, ldap_base, cre
 
     # manually set primary group
     username = random_username()
-    primary_group = f'cn=Domain Admins,cn=groups,{ldap_base}'
+    domain_admins = custom_groupname('Domain Admins')
+    primary_group = f'cn={domain_admins},cn=groups,{ldap_base}'
     options = [{
         'object': {
             'lastname': username,

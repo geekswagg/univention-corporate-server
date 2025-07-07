@@ -17,6 +17,7 @@ from playwright.sync_api import expect
 
 import univention.testing.strings as uts
 from univention.lib.i18n import Translation
+from univention.lib.misc import custom_groupname
 from univention.testing.browser.generic_udm_module import UserModule
 from univention.testing.browser.udm_users import User, create_test_user
 
@@ -79,11 +80,13 @@ def test_user_templates_description(user_module: UserModule, udm):
 
 def test_user_templates_group(user_module: UserModule, udm):
     secondary_group_template = uts.random_string()
+    domain_admins = custom_groupname('Domain Admins')
+    _('Domain Admins')
     udm.create_object(
         'settings/usertemplate',
         position=f'cn=templates,cn=univention,{user_module.tester.ldap_base}',
         name=secondary_group_template,
-        groups=f'cn=Domain Admins,cn=groups,{user_module.tester.ldap_base}',
+        groups=f'cn={domain_admins},cn=groups,{user_module.tester.ldap_base}',
     )
 
     user_module.navigate()
@@ -91,7 +94,7 @@ def test_user_templates_group(user_module: UserModule, udm):
     details_view = user_module.open_details(created_item.identifying_name)
     details_view.open_tab(_('Groups'))
     try:
-        loc = user_module.page.get_by_text(_('Domain Admins'))
+        loc = user_module.page.get_by_text(_(domain_admins))
         expect(loc).to_be_visible()
     finally:
         details_view.save()

@@ -23,6 +23,7 @@ from ldap.filter import filter_format
 
 import univention.config_registry
 import univention.testing.strings as uts
+from univention.lib.misc import custom_groupname
 from univention.testing import utils
 from univention.testing.ucr import UCSTestConfigRegistry
 from univention.testing.ucs_samba import wait_for_drs_replication
@@ -82,7 +83,7 @@ def wait_for_ucr(iterations, group_name, ucr_test):
     success = False
     for i in range(iterations):
         ucr_test.load()
-        ucr_group = ucr_test.get('groups/default/domainadmins', 'Domain Admins')
+        ucr_group = custom_groupname('Domain Admins', ucr_test)
         if group_name != ucr_group:
             if i == iterations - 1:
                 break
@@ -100,7 +101,7 @@ def test_rename_domain_users():
 
         server_role = ucr_test.get('server/role')
         ldap_base = ucr_test.get('ldap/base')
-        old_group_name = ucr_test.get('groups/default/domainadmins', 'Domain Admins')
+        old_group_name = custom_groupname('Domain Admins', ucr_test)
         old_group_dn = f"cn={escape_dn_chars(old_group_name)},cn=groups,{ldap_base}"
 
         new_group_name = uts.random_name()
