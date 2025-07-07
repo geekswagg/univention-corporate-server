@@ -6,9 +6,9 @@
     }
   ],
   "dependencies": {
-    "dijit": "~1.12.4",
-    "dojo": "~1.12.4",
-    "dojox": "~1.12.4"
+    "dijit": "~1.17.3",
+    "dojo": "~1.17.3",
+    "dojox": "~1.17.3"
   },
   "description": "Univention Javascript Library.",
   "dojoBuild": "umc.profile.js",
